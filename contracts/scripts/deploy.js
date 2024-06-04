@@ -1,23 +1,18 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-    const [deployer] = await ethers.getSigners();
-    console.log("Deploying contracts with the account:", deployer.address);
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying contracts with account:", deployer.address);
 
-    const Lock = await ethers.getContractFactory("Lock");
+  const MyToken = await ethers.getContractFactory("StakingToken");
+  const myToken = await MyToken.deploy(deployer.address); 
 
-    // Assuming the Lock contract constructor takes one argument: unlockTime
-    const unlockTime = Math.floor(Date.now() / 1000) + 60 * 60; // 1 hour from now
-    const lock = await Lock.deploy(unlockTime);
-    
-    // Wait for the contract to be deployed
-    const deploymentReceipt = await lock.deploymentTransaction().wait(2);
-    console.log("Lock deployed to:", deploymentReceipt.contractAddress);
+  console.log("MyToken deployed to:", myToken.target);
 }
 
 main()
-    .then(() => process.exit(0))
-    .catch(error => {
-        console.error(error);
-        process.exit(1);
-    });
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
