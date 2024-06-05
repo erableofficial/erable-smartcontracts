@@ -35,8 +35,8 @@ export interface StakingInterface extends Interface {
       | "stakingToken"
       | "totalSupply"
       | "transferOwnership"
+      | "unstake"
       | "userStakes"
-      | "withdraw"
   ): FunctionFragment;
 
   getEvent(
@@ -77,11 +77,11 @@ export interface StakingInterface extends Interface {
     functionFragment: "transferOwnership",
     values: [AddressLike]
   ): string;
+  encodeFunctionData(functionFragment: "unstake", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "userStakes",
     values: [AddressLike]
   ): string;
-  encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "YIELD_CONSTANT",
@@ -113,8 +113,8 @@ export interface StakingInterface extends Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "unstake", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "userStakes", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 }
 
 export namespace OwnershipTransferredEvent {
@@ -238,13 +238,13 @@ export interface Staking extends BaseContract {
     "nonpayable"
   >;
 
+  unstake: TypedContractMethod<[], [void], "nonpayable">;
+
   userStakes: TypedContractMethod<
     [arg0: AddressLike],
     [[bigint, bigint] & { amount: bigint; startTime: bigint }],
     "view"
   >;
-
-  withdraw: TypedContractMethod<[], [void], "nonpayable">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -282,15 +282,15 @@ export interface Staking extends BaseContract {
     nameOrSignature: "transferOwnership"
   ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "unstake"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "userStakes"
   ): TypedContractMethod<
     [arg0: AddressLike],
     [[bigint, bigint] & { amount: bigint; startTime: bigint }],
     "view"
   >;
-  getFunction(
-    nameOrSignature: "withdraw"
-  ): TypedContractMethod<[], [void], "nonpayable">;
 
   getEvent(
     key: "OwnershipTransferred"

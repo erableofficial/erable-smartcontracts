@@ -3,8 +3,9 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract Staking is Ownable {
+contract Staking is Ownable, ReentrancyGuard {
     IERC20 public stakingToken;
     //uint256 public penaltyRate; // Penalty rate for early withdrawal (in basis points, e.g., 1000 = 10%)
     uint256 public stakingDuration; // Minimum staking duration in seconds
@@ -30,75 +31,50 @@ contract Staking is Ownable {
         stakingDuration = _stakingDuration;
     }
 
-    function stake(uint256 _amount) external {
+    function stake(uint256 _amount) external nonReentrant{
         require(_amount > 0, "Cannot stake 0");
-        stakingToken.transferFrom(msg.sender, address(this), _amount);
         userStakes[msg.sender] = Stake(_amount, block.timestamp);
         _totalSupply += _amount;
+        stakingToken.transferFrom(msg.sender, address(this), _amount);
         emit Staked(msg.sender, _amount);
     }
 
-    function withdraw() public {
+    function unstake() public nonReentrant{
         Stake storage stakeInfo = userStakes[msg.sender];
         require(stakeInfo.amount > 0, "No staked amount to withdraw");
         uint256 _amount = stakeInfo.amount;
         uint256 totalAmount = calculateTotalWithdraw(_amount, stakeInfo.startTime);
 
-        stakingToken.transfer(msg.sender, totalAmount);
         stakeInfo.amount = 0;
         _totalSupply -= _amount;
+        stakingToken.transfer(msg.sender, totalAmount);
         emit Withdrawn(msg.sender, totalAmount);
     }
 
     function calculateTotalWithdraw(uint256 _amount, uint256 startTime)
-        public
-        view
-        returns (uint256)
-    {
-        uint256 daysStaked = (block.timestamp - startTime) / 1 days;
-        uint256 X = (12 * daysStaked * 1e18) / 365;
-        uint256 Y;
-        uint256 T;
+    public
+    view
+    returns (uint256)
+{
+    uint256 timeStaked = block.timestamp - startTime;
+    uint256 X = (12 * timeStaked * 1e18) / stakingDuration;
+    uint256 Y;
+    uint256 T;
 
-        if (daysStaked >= 365) {
-            Y = 144 * YIELD_CONSTANT;
-            T = 0;
-        } else {
-            Y = (YIELD_CONSTANT * X * X) / (1e18 * 1e18);
-            T = (0.6 * 1e18) - (0.48 * 1e18 * daysStaked) / 365;
-        }
-
-        uint256 reward = (_amount * Y) / 1e18;
-        uint256 slashingTax = (reward * T) / 1e18;
-        uint256 totalWithdrawAmount = _amount + reward - slashingTax;
-
-        return totalWithdrawAmount;
+    if (timeStaked >= stakingDuration) {
+        Y = 144 * YIELD_CONSTANT;
+        T = 0;
+    } else {
+        Y = (YIELD_CONSTANT * X * X) / (1e18 * 1e18);
+        T = (0.6 * 1e18) - (0.48 * 1e18 * timeStaked) / stakingDuration;
     }
 
-    function calculateTotalWithdrawal(uint256 _amount, uint256 period)
-        public
-        pure
-        returns (uint256)
-    {
-        //uint256 daysStaked = (block.timestamp - startTime) / 1 days;
-        uint256 X = (12 * period * 1e18) / 365;
-        uint256 Y;
-        uint256 T;
+    uint256 reward = (_amount * Y) / 1e18;
+    uint256 slashingTax = (reward * T) / 1e18;
+    uint256 totalWithdrawAmount = _amount + reward - slashingTax;
 
-        if (period >= 365) {
-            Y = 144 * YIELD_CONSTANT;
-            T = 0;
-        } else {
-            Y = (YIELD_CONSTANT * X * X) / (1e18 * 1e18);
-            T = (0.6 * 1e18) - (0.48 * 1e18 * period) / 365;
-        }
-
-        uint256 reward = (_amount * Y) / 1e18;
-        uint256 slashingTax = (reward * T) / 1e18;
-        uint256 totalWithdrawAmount = _amount + reward - slashingTax;
-
-        return totalWithdrawAmount;
-    }
+    return totalWithdrawAmount;
+}
 
     function totalSupply() external view returns (uint256) {
         return _totalSupply;
