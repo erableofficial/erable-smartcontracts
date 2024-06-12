@@ -55,7 +55,7 @@ const OurLiveUtil: React.FC = () => (
       <div className="flex gap-5 max-md:flex-col max-md:gap-0">
         <section className="flex flex-col w-[31%] max-md:ml-0 max-md:w-full">
           <div className="flex flex-col grow justify-between self-stretch max-md:mt-10">
-            <h2 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-yellow-200 rounded-xl max-md:text-4xl">
+            <h2 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
               Our Live Utilities
             </h2>
             <p className="mt-10 text-lg font-medium text-black">
@@ -76,7 +76,7 @@ const OurLiveUtil: React.FC = () => (
                 <IconButton
                   src="https://cdn.builder.io/api/v1/image/assets/TEMP/0ca04a4a9feacce3f8fd2b86d923d8b97dd6f0a1265abc843025238cc147f918?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"
                   alt="Utility 2"
-                  bgClass="bg-yellow-200"
+                  bgClass="bg-surface-500"
                 />
               </div>
             </div>
@@ -88,7 +88,7 @@ const OurLiveUtil: React.FC = () => (
               title="Staking"
               description="Earn rewards by locking $ERA tokens in a secure contract, showing your commitment to the ecosystem."
               imageUrl="https://cdn.builder.io/api/v1/image/assets/TEMP/54d6d76fa6832b644844ba43cb463ba4476a05831b8c2f0fb7293187d95f519d?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"
-              bgColor="bg-yellow-200"
+              bgColor="bg-surface-500"
             />
             <UtilityCard
               title="LP Farming"

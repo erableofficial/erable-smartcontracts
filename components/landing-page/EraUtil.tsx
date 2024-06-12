@@ -9,7 +9,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
   <article className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
     <div className="flex flex-col grow p-6 w-full bg-white rounded-3xl border border-solid border-zinc-300 max-md:px-5 max-md:mt-10">
-      <div className="flex justify-center items-center px-3 bg-yellow-200 h-[45px] rounded-[37.5px] w-[45px]">
+      <div className="flex justify-center items-center px-3 bg-surface-500 h-[45px] rounded-[37.5px] w-[45px]">
         <img
           loading="lazy"
           src={imageSrc}
@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
 const EraUtil: React.FC = () => (
   <div className="flex flex-col justify-center py-20 bg-stone-50">
     <section className="flex flex-col justify-center items-center px-20 mt-2.5 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
-      <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-yellow-200 rounded-lg max-md:text-4xl">
+      <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-lg max-md:text-4xl">
         $ERA utilities
       </h1>
       <p className="mt-10 text-lg font-medium text-center text-black w-[1013px] max-md:max-w-full">

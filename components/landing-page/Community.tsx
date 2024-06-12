@@ -30,17 +30,17 @@ const iconPlaceholder = (
   <div className="shrink-0 rounded-full border border-solid bg-zinc-300 border-neutral-500 h-[39px] stroke-[1px] w-[39px]" />
 );
 
-export default function Community() {
+const Community: React.FC = () => {
   return (
     <main className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
       <div className="flex flex-col mt-2.5 w-full max-w-[1038px] max-md:max-w-full">
-        <header className="flex justify-center self-center px-2.5 text-5xl font-extrabold text-black bg-yellow-200 rounded-xl max-md:max-w-full max-md:text-4xl">
+        <header className="flex justify-center self-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:max-w-full max-md:text-4xl">
           Join Our Community
         </header>
         <section className="mt-14 flex flex-col max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0 w-full">
             <section className="flex flex-col w-full  max-md:ml-0 max-md:w-full">
-              <p className="justify-center items-center px-6 w-full text-lg font-semibold text-black bg-yellow-200 rounded-xl border border-solid aspect-square border-zinc-300 max-md:px-5 max-md:mt-6">
+              <p className="justify-center items-center px-6 w-full text-lg font-semibold text-black bg-surface-500 rounded-xl border border-solid aspect-square border-zinc-300 max-md:px-5 max-md:mt-6">
                 erable° is redefining sustainability and impact investing by
                 leveraging blockchain technology to build a comprehensive
                 ecosystem of contributors and investors aimed at systemic
@@ -91,4 +91,6 @@ export default function Community() {
       </div>
     </main>
   );
-}
+};
+
+export default Community;

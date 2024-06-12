@@ -36,7 +36,7 @@ const steps: Step[] = [
 const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   <>
     <div className="flex items-start gap-4 mt-8 max-md:flex-wrap">
-      <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-black whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[43px] rounded-[50px] w-[43px]">
+      <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-black whitespace-nowrap bg-surface-500 border border-solid border-stone-300 h-[43px] rounded-[50px] w-[43px]">
         {stepNumber}
       </div>
       <div className="flex flex-col flex-1 justify-center text-black max-md:max-w-full">
@@ -50,13 +50,13 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   </>
 );
 
-const HowItWorks = () => (
+const HowItWorks: React.FC = () => (
   <div className="self-stretch p-20 bg-stone-50 max-md:px-5">
     <section className="flex gap-5 max-md:flex-col max-md:gap-0">
       <aside className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
         <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
           <header className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-            <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-yellow-200 rounded-xl max-md:text-4xl">
+            <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
               How it works
             </h1>
             <nav className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-stone-900">

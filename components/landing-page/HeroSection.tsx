@@ -43,7 +43,7 @@ const HeroSection: React.FC = () => (
       <span className="leading-[111px]">Onchain</span>
       <span className="font-bold leading-[111px]">&gt;</span>
     </header>
-    <h1 className="justify-center px-5 mt-5 text-8xl font-extrabold tracking-tighter text-center text-black bg-yellow-200 rounded-2xl leading-[108px] max-md:max-w-full max-md:text-4xl">
+    <h1 className="justify-center px-5 mt-5 text-8xl font-extrabold tracking-tighter text-center text-black bg-surface-500 rounded-2xl leading-[108px] max-md:max-w-full max-md:text-4xl">
       Impact Investing
     </h1>
     <p className="self-stretch mt-10 mr-2.5 ml-3 text-lg font-medium text-center text-black max-md:max-w-full">
@@ -57,7 +57,7 @@ const HeroSection: React.FC = () => (
         <Card text="Bridge $CLAP" subtext="*only for CLAP investors" />
       </div>
     </section>
-    <figure className="flex flex-col justify-center px-6 pt-6 mt-10 max-w-full bg-yellow-200 rounded-3xl w-[894px] max-md:px-5">
+    <figure className="flex flex-col justify-center px-6 pt-6 mt-10 max-w-full bg-surface-500 rounded-3xl w-[894px] max-md:px-5">
       <img
         loading="lazy"
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/326b5d26ec4bb2842ed397e0f919d43ff42e519aaa23f26192025af6fabbb469?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"

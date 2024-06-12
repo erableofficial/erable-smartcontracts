@@ -40,7 +40,7 @@ interface ActionButtonProps {
 }
 
 const ActionButton: React.FC<ActionButtonProps> = ({ text, src }) => (
-  <div className="flex flex-col justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+  <div className="flex flex-col justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
     <div className="flex gap-0.5 justify-center">
       <span>{text}</span>
       <img

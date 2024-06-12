@@ -11,7 +11,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, iconSrc }) => (
       <div className="my-auto text-xl font-bold text-stone-900 max-md:max-w-full">
         {question}
       </div>
-      <div className="flex justify-center items-center p-3 bg-yellow-200 border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]">
+      <div className="flex justify-center items-center p-3 bg-surface-500 border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]">
         <img
           loading="lazy"
           src={iconSrc}
@@ -54,7 +54,7 @@ const Faq: React.FC = () => {
           <div className="flex flex-col px-5 text-5xl font-extrabold text-black leading-[52.8px] max-md:mt-10 max-md:text-4xl">
             <h1 className="max-md:text-4xl">
               Frequently
-              <div className="justify-center px-2.5 py-2 mt-3 bg-yellow-200 rounded-xl max-md:text-4xl">
+              <div className="justify-center px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-md:text-4xl">
                 Asked Questions:
               </div>
             </h1>
