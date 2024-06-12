@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import * as React from "react";
 
 type Step = {
@@ -36,7 +38,7 @@ const steps: Step[] = [
 const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   <>
     <div className="flex items-start gap-4 mt-8 max-md:flex-wrap">
-      <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-black whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[43px] rounded-[50px] w-[43px]">
+      <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-black whitespace-nowrap bg-surface-500 border border-solid border-stone-300 h-[43px] rounded-[50px] w-[43px]">
         {stepNumber}
       </div>
       <div className="flex flex-col flex-1 justify-center text-black max-md:max-w-full">
@@ -51,20 +53,23 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
 );
 
 const HowItWorks = () => (
-  <div className="self-stretch p-20 bg-stone-50 max-md:px-5">
-    <section className="flex gap-5 max-md:flex-col max-md:gap-0">
-      <aside className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
+  <section className="self-stretch p-20 bg-stone-50 max-md:px-5">
+    <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+      <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
         <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
-          <header className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-            <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-yellow-200 rounded-xl max-md:text-4xl">
+          <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+            <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
               How it works
             </h1>
-            <nav className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-stone-900">
-              <div className="justify-center py-1 border-b-2 border-solid border-stone-900">
+            <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-stone-900">
+              <Link
+                href={"/"}
+                className="justify-center py-1 border-b-2 border-solid border-stone-900"
+              >
                 I’m a CLAP investor
-              </div>
-            </nav>
-          </header>
+              </Link>
+            </div>
+          </div>
           {steps.map((step) => (
             <StepItem
               key={step.stepNumber}
@@ -76,29 +81,31 @@ const HowItWorks = () => (
           <div className="flex justify-center self-start gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
             <button
               tabIndex={0}
-              className="px-7 py-4 bg-emerald-200 rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5"
+              className="px-7 py-4 bg-primary rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5"
             >
               Buy $ERA
             </button>
-            <button
+            <Link
+              href={"/dashboard"}
               tabIndex={0}
-              className="px-7 py-4 rounded-xl border-solid bg-emerald-200 bg-opacity-0 border-[3px] border-stone-900 max-md:px-5"
+              className="px-7 py-4 rounded-xl border-solid bg-primary bg-opacity-0 border-[3px] border-stone-900 max-md:px-5"
             >
               Open dashboard
-            </button>
+            </Link>
           </div>
         </div>
-      </aside>
-      <section className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/742ccca73b82b57c68d4942d74a0a41667536b7a7adbc1d191a6302babfc2fe8?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"
+      </div>
+      <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
+        <Image
+          src="/images/placeholder.png"
           alt=""
           className="self-stretch mt-2.5 w-full aspect-[0.84] max-md:mt-10 max-md:max-w-full"
+          width={300}
+          height={253}
         />
-      </section>
-    </section>
-  </div>
+      </div>
+    </div>
+  </section>
 );
 
 export default HowItWorks;
