@@ -26,38 +26,153 @@ import type {
 export interface StakingInterface extends Interface {
   getFunction(
     nameOrSignature:
-      | "YIELD_CONSTANT"
+      | "_rewardPool"
+      | "_totalStaked"
+      | "addToWhitelist"
+      | "calculateTax"
       | "calculateTotalWithdraw"
+      | "calculateYield"
+      | "claim"
+      | "cooldownPeriod"
+      | "depositRewardTokens"
+      | "disableWhitelist"
+      | "enableWhitelist"
+      | "initialize"
+      | "maxCap"
+      | "minCap"
+      | "monthlyIncreasePercentage"
+      | "monthsInStakingPeriod"
       | "owner"
+      | "pauseStaking"
+      | "pauseStakingFunction"
+      | "pauseUnstake"
+      | "paused"
+      | "removeFromWhitelist"
       | "renounceOwnership"
+      | "rewardPool"
       | "stake"
       | "stakingDuration"
       | "stakingToken"
-      | "totalSupply"
+      | "startingSlashingPoint"
+      | "totalStaked"
       | "transferOwnership"
+      | "unpauseStaking"
       | "unstake"
+      | "updateCooldownPeriod"
+      | "updateMaxCap"
+      | "updateMinCap"
+      | "updateMonthlyIncreasePercentage"
+      | "updateStakingDuration"
+      | "updateStartingSlashingPoint"
+      | "updateYieldConstant"
       | "userStakes"
+      | "whitelistEnabled"
+      | "whitelistedAddresses"
+      | "withdrawRewardTokens"
+      | "yieldConstant"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
+      | "Deposit"
+      | "Initialized"
       | "OwnershipTransferred"
+      | "Paused"
       | "RewardPaid"
       | "Staked"
+      | "Unpaused"
+      | "UnstakeRequested"
+      | "WhitelistStatusChanged"
+      | "Withdraw"
       | "Withdrawn"
   ): EventFragment;
 
   encodeFunctionData(
-    functionFragment: "YIELD_CONSTANT",
+    functionFragment: "_rewardPool",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "_totalStaked",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "addToWhitelist",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "calculateTax",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "calculateTotalWithdraw",
     values: [BigNumberish, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "calculateYield",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(functionFragment: "claim", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "cooldownPeriod",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "depositRewardTokens",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "disableWhitelist",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "enableWhitelist",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "initialize",
+    values: [
+      AddressLike,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ]
+  ): string;
+  encodeFunctionData(functionFragment: "maxCap", values?: undefined): string;
+  encodeFunctionData(functionFragment: "minCap", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "monthlyIncreasePercentage",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "monthsInStakingPeriod",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "pauseStaking",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "pauseStakingFunction",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "pauseUnstake",
+    values?: undefined
+  ): string;
+  encodeFunctionData(functionFragment: "paused", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "removeFromWhitelist",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "renounceOwnership",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "rewardPool",
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "stake", values: [BigNumberish]): string;
@@ -70,32 +185,146 @@ export interface StakingInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "totalSupply",
+    functionFragment: "startingSlashingPoint",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalStaked",
     values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
     values: [AddressLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "unpauseStaking",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "unstake", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "updateCooldownPeriod",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateMaxCap",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateMinCap",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateMonthlyIncreasePercentage",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateStakingDuration",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateStartingSlashingPoint",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "updateYieldConstant",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "userStakes",
     values: [AddressLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "whitelistEnabled",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "whitelistedAddresses",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawRewardTokens",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "yieldConstant",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(
-    functionFragment: "YIELD_CONSTANT",
+    functionFragment: "_rewardPool",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "_totalStaked",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "addToWhitelist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "calculateTax",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "calculateTotalWithdraw",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "calculateYield",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "cooldownPeriod",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "depositRewardTokens",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "disableWhitelist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "enableWhitelist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "maxCap", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "minCap", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "monthlyIncreasePercentage",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "monthsInStakingPeriod",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "pauseStaking",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "pauseStakingFunction",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "pauseUnstake",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "removeFromWhitelist",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "rewardPool", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "stake", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "stakingDuration",
@@ -106,15 +335,92 @@ export interface StakingInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "totalSupply",
+    functionFragment: "startingSlashingPoint",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalStaked",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "unpauseStaking",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "unstake", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "updateCooldownPeriod",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateMaxCap",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateMinCap",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateMonthlyIncreasePercentage",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateStakingDuration",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateStartingSlashingPoint",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "updateYieldConstant",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "userStakes", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "whitelistEnabled",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "whitelistedAddresses",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawRewardTokens",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "yieldConstant",
+    data: BytesLike
+  ): Result;
+}
+
+export namespace DepositEvent {
+  export type InputTuple = [owner: AddressLike, amount: BigNumberish];
+  export type OutputTuple = [owner: string, amount: bigint];
+  export interface OutputObject {
+    owner: string;
+    amount: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace InitializedEvent {
+  export type InputTuple = [version: BigNumberish];
+  export type OutputTuple = [version: bigint];
+  export interface OutputObject {
+    version: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export namespace OwnershipTransferredEvent {
@@ -123,6 +429,18 @@ export namespace OwnershipTransferredEvent {
   export interface OutputObject {
     previousOwner: string;
     newOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace PausedEvent {
+  export type InputTuple = [account: AddressLike];
+  export type OutputTuple = [account: string];
+  export interface OutputObject {
+    account: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -148,6 +466,57 @@ export namespace StakedEvent {
   export type OutputTuple = [user: string, amount: bigint];
   export interface OutputObject {
     user: string;
+    amount: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace UnpausedEvent {
+  export type InputTuple = [account: AddressLike];
+  export type OutputTuple = [account: string];
+  export interface OutputObject {
+    account: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace UnstakeRequestedEvent {
+  export type InputTuple = [user: AddressLike, amount: BigNumberish];
+  export type OutputTuple = [user: string, amount: bigint];
+  export interface OutputObject {
+    user: string;
+    amount: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace WhitelistStatusChangedEvent {
+  export type InputTuple = [user: AddressLike, status: boolean];
+  export type OutputTuple = [user: string, status: boolean];
+  export interface OutputObject {
+    user: string;
+    status: boolean;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace WithdrawEvent {
+  export type InputTuple = [owner: AddressLike, amount: BigNumberish];
+  export type OutputTuple = [owner: string, amount: bigint];
+  export interface OutputObject {
+    owner: string;
     amount: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
@@ -212,7 +581,21 @@ export interface Staking extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  YIELD_CONSTANT: TypedContractMethod<[], [bigint], "view">;
+  _rewardPool: TypedContractMethod<[], [bigint], "view">;
+
+  _totalStaked: TypedContractMethod<[], [bigint], "view">;
+
+  addToWhitelist: TypedContractMethod<
+    [_address: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  calculateTax: TypedContractMethod<
+    [timeStaked: BigNumberish],
+    [bigint],
+    "view"
+  >;
 
   calculateTotalWithdraw: TypedContractMethod<
     [_amount: BigNumberish, startTime: BigNumberish],
@@ -220,9 +603,66 @@ export interface Staking extends BaseContract {
     "view"
   >;
 
+  calculateYield: TypedContractMethod<
+    [timeStaked: BigNumberish],
+    [bigint],
+    "view"
+  >;
+
+  claim: TypedContractMethod<[], [void], "nonpayable">;
+
+  cooldownPeriod: TypedContractMethod<[], [bigint], "view">;
+
+  depositRewardTokens: TypedContractMethod<
+    [_amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  disableWhitelist: TypedContractMethod<[], [void], "nonpayable">;
+
+  enableWhitelist: TypedContractMethod<[], [void], "nonpayable">;
+
+  initialize: TypedContractMethod<
+    [
+      _stakingToken: AddressLike,
+      _stakingDuration: BigNumberish,
+      _yieldConstant: BigNumberish,
+      _cooldownPeriod: BigNumberish,
+      _startingSlashingPoint: BigNumberish,
+      _monthlyIncreasePercentage: BigNumberish
+    ],
+    [void],
+    "nonpayable"
+  >;
+
+  maxCap: TypedContractMethod<[], [bigint], "view">;
+
+  minCap: TypedContractMethod<[], [bigint], "view">;
+
+  monthlyIncreasePercentage: TypedContractMethod<[], [bigint], "view">;
+
+  monthsInStakingPeriod: TypedContractMethod<[], [bigint], "view">;
+
   owner: TypedContractMethod<[], [string], "view">;
 
+  pauseStaking: TypedContractMethod<[], [boolean], "view">;
+
+  pauseStakingFunction: TypedContractMethod<[], [void], "nonpayable">;
+
+  pauseUnstake: TypedContractMethod<[], [boolean], "view">;
+
+  paused: TypedContractMethod<[], [boolean], "view">;
+
+  removeFromWhitelist: TypedContractMethod<
+    [_address: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
   renounceOwnership: TypedContractMethod<[], [void], "nonpayable">;
+
+  rewardPool: TypedContractMethod<[], [bigint], "view">;
 
   stake: TypedContractMethod<[_amount: BigNumberish], [void], "nonpayable">;
 
@@ -230,7 +670,9 @@ export interface Staking extends BaseContract {
 
   stakingToken: TypedContractMethod<[], [string], "view">;
 
-  totalSupply: TypedContractMethod<[], [bigint], "view">;
+  startingSlashingPoint: TypedContractMethod<[], [bigint], "view">;
+
+  totalStaked: TypedContractMethod<[], [bigint], "view">;
 
   transferOwnership: TypedContractMethod<
     [newOwner: AddressLike],
@@ -238,21 +680,97 @@ export interface Staking extends BaseContract {
     "nonpayable"
   >;
 
+  unpauseStaking: TypedContractMethod<[], [void], "nonpayable">;
+
   unstake: TypedContractMethod<[], [void], "nonpayable">;
+
+  updateCooldownPeriod: TypedContractMethod<
+    [_cooldownPeriod: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  updateMaxCap: TypedContractMethod<
+    [_maxCap: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  updateMinCap: TypedContractMethod<
+    [_minCap: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  updateMonthlyIncreasePercentage: TypedContractMethod<
+    [_monthlyIncreasePercentage: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  updateStakingDuration: TypedContractMethod<
+    [_stakingDuration: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  updateStartingSlashingPoint: TypedContractMethod<
+    [_startingSlashingPoint: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  updateYieldConstant: TypedContractMethod<
+    [_yieldConstant: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
 
   userStakes: TypedContractMethod<
     [arg0: AddressLike],
-    [[bigint, bigint] & { amount: bigint; startTime: bigint }],
+    [
+      [bigint, bigint, bigint, boolean] & {
+        amount: bigint;
+        startTime: bigint;
+        requestUnstakeTime: bigint;
+        unstakeRequested: boolean;
+      }
+    ],
     "view"
   >;
+
+  whitelistEnabled: TypedContractMethod<[], [boolean], "view">;
+
+  whitelistedAddresses: TypedContractMethod<
+    [arg0: AddressLike],
+    [boolean],
+    "view"
+  >;
+
+  withdrawRewardTokens: TypedContractMethod<
+    [_amount: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
+  yieldConstant: TypedContractMethod<[], [bigint], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
 
   getFunction(
-    nameOrSignature: "YIELD_CONSTANT"
+    nameOrSignature: "_rewardPool"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "_totalStaked"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "addToWhitelist"
+  ): TypedContractMethod<[_address: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "calculateTax"
+  ): TypedContractMethod<[timeStaked: BigNumberish], [bigint], "view">;
   getFunction(
     nameOrSignature: "calculateTotalWithdraw"
   ): TypedContractMethod<
@@ -261,11 +779,73 @@ export interface Staking extends BaseContract {
     "view"
   >;
   getFunction(
+    nameOrSignature: "calculateYield"
+  ): TypedContractMethod<[timeStaked: BigNumberish], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "claim"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "cooldownPeriod"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "depositRewardTokens"
+  ): TypedContractMethod<[_amount: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "disableWhitelist"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "enableWhitelist"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "initialize"
+  ): TypedContractMethod<
+    [
+      _stakingToken: AddressLike,
+      _stakingDuration: BigNumberish,
+      _yieldConstant: BigNumberish,
+      _cooldownPeriod: BigNumberish,
+      _startingSlashingPoint: BigNumberish,
+      _monthlyIncreasePercentage: BigNumberish
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "maxCap"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "minCap"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "monthlyIncreasePercentage"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "monthsInStakingPeriod"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
     nameOrSignature: "owner"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "pauseStaking"
+  ): TypedContractMethod<[], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "pauseStakingFunction"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "pauseUnstake"
+  ): TypedContractMethod<[], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "paused"
+  ): TypedContractMethod<[], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "removeFromWhitelist"
+  ): TypedContractMethod<[_address: AddressLike], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "renounceOwnership"
   ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "rewardPool"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "stake"
   ): TypedContractMethod<[_amount: BigNumberish], [void], "nonpayable">;
@@ -276,28 +856,107 @@ export interface Staking extends BaseContract {
     nameOrSignature: "stakingToken"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
-    nameOrSignature: "totalSupply"
+    nameOrSignature: "startingSlashingPoint"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "totalStaked"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "transferOwnership"
   ): TypedContractMethod<[newOwner: AddressLike], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "unpauseStaking"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "unstake"
   ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "updateCooldownPeriod"
+  ): TypedContractMethod<[_cooldownPeriod: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "updateMaxCap"
+  ): TypedContractMethod<[_maxCap: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "updateMinCap"
+  ): TypedContractMethod<[_minCap: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "updateMonthlyIncreasePercentage"
+  ): TypedContractMethod<
+    [_monthlyIncreasePercentage: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "updateStakingDuration"
+  ): TypedContractMethod<
+    [_stakingDuration: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "updateStartingSlashingPoint"
+  ): TypedContractMethod<
+    [_startingSlashingPoint: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "updateYieldConstant"
+  ): TypedContractMethod<[_yieldConstant: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "userStakes"
   ): TypedContractMethod<
     [arg0: AddressLike],
-    [[bigint, bigint] & { amount: bigint; startTime: bigint }],
+    [
+      [bigint, bigint, bigint, boolean] & {
+        amount: bigint;
+        startTime: bigint;
+        requestUnstakeTime: bigint;
+        unstakeRequested: boolean;
+      }
+    ],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "whitelistEnabled"
+  ): TypedContractMethod<[], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "whitelistedAddresses"
+  ): TypedContractMethod<[arg0: AddressLike], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "withdrawRewardTokens"
+  ): TypedContractMethod<[_amount: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "yieldConstant"
+  ): TypedContractMethod<[], [bigint], "view">;
 
+  getEvent(
+    key: "Deposit"
+  ): TypedContractEvent<
+    DepositEvent.InputTuple,
+    DepositEvent.OutputTuple,
+    DepositEvent.OutputObject
+  >;
+  getEvent(
+    key: "Initialized"
+  ): TypedContractEvent<
+    InitializedEvent.InputTuple,
+    InitializedEvent.OutputTuple,
+    InitializedEvent.OutputObject
+  >;
   getEvent(
     key: "OwnershipTransferred"
   ): TypedContractEvent<
     OwnershipTransferredEvent.InputTuple,
     OwnershipTransferredEvent.OutputTuple,
     OwnershipTransferredEvent.OutputObject
+  >;
+  getEvent(
+    key: "Paused"
+  ): TypedContractEvent<
+    PausedEvent.InputTuple,
+    PausedEvent.OutputTuple,
+    PausedEvent.OutputObject
   >;
   getEvent(
     key: "RewardPaid"
@@ -314,6 +973,34 @@ export interface Staking extends BaseContract {
     StakedEvent.OutputObject
   >;
   getEvent(
+    key: "Unpaused"
+  ): TypedContractEvent<
+    UnpausedEvent.InputTuple,
+    UnpausedEvent.OutputTuple,
+    UnpausedEvent.OutputObject
+  >;
+  getEvent(
+    key: "UnstakeRequested"
+  ): TypedContractEvent<
+    UnstakeRequestedEvent.InputTuple,
+    UnstakeRequestedEvent.OutputTuple,
+    UnstakeRequestedEvent.OutputObject
+  >;
+  getEvent(
+    key: "WhitelistStatusChanged"
+  ): TypedContractEvent<
+    WhitelistStatusChangedEvent.InputTuple,
+    WhitelistStatusChangedEvent.OutputTuple,
+    WhitelistStatusChangedEvent.OutputObject
+  >;
+  getEvent(
+    key: "Withdraw"
+  ): TypedContractEvent<
+    WithdrawEvent.InputTuple,
+    WithdrawEvent.OutputTuple,
+    WithdrawEvent.OutputObject
+  >;
+  getEvent(
     key: "Withdrawn"
   ): TypedContractEvent<
     WithdrawnEvent.InputTuple,
@@ -322,6 +1009,28 @@ export interface Staking extends BaseContract {
   >;
 
   filters: {
+    "Deposit(address,uint256)": TypedContractEvent<
+      DepositEvent.InputTuple,
+      DepositEvent.OutputTuple,
+      DepositEvent.OutputObject
+    >;
+    Deposit: TypedContractEvent<
+      DepositEvent.InputTuple,
+      DepositEvent.OutputTuple,
+      DepositEvent.OutputObject
+    >;
+
+    "Initialized(uint64)": TypedContractEvent<
+      InitializedEvent.InputTuple,
+      InitializedEvent.OutputTuple,
+      InitializedEvent.OutputObject
+    >;
+    Initialized: TypedContractEvent<
+      InitializedEvent.InputTuple,
+      InitializedEvent.OutputTuple,
+      InitializedEvent.OutputObject
+    >;
+
     "OwnershipTransferred(address,address)": TypedContractEvent<
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,
@@ -331,6 +1040,17 @@ export interface Staking extends BaseContract {
       OwnershipTransferredEvent.InputTuple,
       OwnershipTransferredEvent.OutputTuple,
       OwnershipTransferredEvent.OutputObject
+    >;
+
+    "Paused(address)": TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
+    >;
+    Paused: TypedContractEvent<
+      PausedEvent.InputTuple,
+      PausedEvent.OutputTuple,
+      PausedEvent.OutputObject
     >;
 
     "RewardPaid(address,uint256)": TypedContractEvent<
@@ -353,6 +1073,50 @@ export interface Staking extends BaseContract {
       StakedEvent.InputTuple,
       StakedEvent.OutputTuple,
       StakedEvent.OutputObject
+    >;
+
+    "Unpaused(address)": TypedContractEvent<
+      UnpausedEvent.InputTuple,
+      UnpausedEvent.OutputTuple,
+      UnpausedEvent.OutputObject
+    >;
+    Unpaused: TypedContractEvent<
+      UnpausedEvent.InputTuple,
+      UnpausedEvent.OutputTuple,
+      UnpausedEvent.OutputObject
+    >;
+
+    "UnstakeRequested(address,uint256)": TypedContractEvent<
+      UnstakeRequestedEvent.InputTuple,
+      UnstakeRequestedEvent.OutputTuple,
+      UnstakeRequestedEvent.OutputObject
+    >;
+    UnstakeRequested: TypedContractEvent<
+      UnstakeRequestedEvent.InputTuple,
+      UnstakeRequestedEvent.OutputTuple,
+      UnstakeRequestedEvent.OutputObject
+    >;
+
+    "WhitelistStatusChanged(address,bool)": TypedContractEvent<
+      WhitelistStatusChangedEvent.InputTuple,
+      WhitelistStatusChangedEvent.OutputTuple,
+      WhitelistStatusChangedEvent.OutputObject
+    >;
+    WhitelistStatusChanged: TypedContractEvent<
+      WhitelistStatusChangedEvent.InputTuple,
+      WhitelistStatusChangedEvent.OutputTuple,
+      WhitelistStatusChangedEvent.OutputObject
+    >;
+
+    "Withdraw(address,uint256)": TypedContractEvent<
+      WithdrawEvent.InputTuple,
+      WithdrawEvent.OutputTuple,
+      WithdrawEvent.OutputObject
+    >;
+    Withdraw: TypedContractEvent<
+      WithdrawEvent.InputTuple,
+      WithdrawEvent.OutputTuple,
+      WithdrawEvent.OutputObject
     >;
 
     "Withdrawn(address,uint256)": TypedContractEvent<

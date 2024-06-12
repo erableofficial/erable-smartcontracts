@@ -6,13 +6,11 @@ async function main() {
 
   const MyToken = await ethers.getContractFactory("StakingToken");
   const myToken = await MyToken.deploy(ethers.parseEther("1000")); 
-  //await myToken.deployed();
 
   console.log("MyToken deployed to:", myToken.target);
 
   const Staking = await ethers.getContractFactory("Staking");
   const staking = await Staking.deploy(myToken.target, 365 * 24 * 60 * 60);
-  //await staking.deployed();
 
   console.log("Staking contract deployed to: ", staking.target);
 }
