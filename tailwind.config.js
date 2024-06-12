@@ -19,6 +19,10 @@ module.exports = {
           500: "#FFFBA0",
         }
         
+      }, 
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
       }
     },
   },
