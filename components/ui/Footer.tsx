@@ -75,7 +75,7 @@ const SolutionList: React.FC<{ solution: SolutionItem }> = ({ solution }) => (
 const Footer: React.FC = () => (
   <footer className="flex flex-col pt-16 pl-2.5 bg-surface-500 rounded-3xl">
     <div className="flex gap-5 justify-between self-center w-full max-w-[87%] max-md:flex-wrap max-md:max-w-full">
-      <div className="flex flex-col py-0.5 max-w-[20%]">
+      <div className="flex flex-col py-0.5 max-w-[20%]  max-sm:max-w-[99%]">
         <Image
           src="/images/erable footer.svg"
           alt=""
