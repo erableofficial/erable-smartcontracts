@@ -19,12 +19,12 @@ module.exports = {
           500: "#FFFBA0",
         },
         primary: "#1F1F1F",
-
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
-        NeueHaas: ["NeueHaas", "sans-serif"],
+        NeueHaas: ["NeueHaasGroteskDisplayPro", "sans-serif"],
+        friends: ["Friends", "sans-serif"],
       },
     },
   },
