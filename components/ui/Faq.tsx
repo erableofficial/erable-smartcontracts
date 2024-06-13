@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 
@@ -9,18 +9,12 @@ type FAQItemProps = {
 
 const FAQItem: React.FC<FAQItemProps> = ({ question, iconSrc }) => (
   <div className="flex flex-col justify-center px-6 py-4 mt-6 bg-white rounded-2xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
-    <div className="flex gap-5 justify-between max-md:flex-wrap">
+    <div className="flex gap-5 justify-between">
       <div className="my-auto text-xl font-bold text-primary max-md:max-w-full">
         {question}
       </div>
       <button className="flex justify-center items-center p-3 bg-surface-500 border border-solid border-zinc-300 h-[2.813rem] rounded-[2.344rem] w-[2.813rem]">
-        <Image
-          src={iconSrc}
-          alt=""
-          className="w-6 aspect-square"
-          width={24}
-          height={24}
-        />
+        <Plus />
       </button>
     </div>
   </div>
@@ -47,7 +41,7 @@ const Faq: React.FC = () => {
   ];
 
   return (
-    <section className="self-stretch p-[90px]">
+    <section className="self-stretch p-[90px] max-md:p-2 ">
       <div className="flex gap-5 max-md:flex-col max-md:gap-0">
         <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
           <div className="flex flex-col px-5 text-5xl font-extrabold text-black leading-[3.3rem] max-md:mt-10 max-md:text-4xl">
