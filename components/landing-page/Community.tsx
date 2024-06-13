@@ -3,32 +3,43 @@ import * as React from "react";
 interface SectionContentProps {
   title: string;
   description: string;
-  icon: React.ReactNode;
+  profilePics: string[];
 }
+
+const profilePics = [
+  "/images/avatars/1.png",
+  "/images/avatars/2.png",
+  "/images/avatars/3.png",
+];
 
 const SectionContent: React.FC<SectionContentProps> = ({
   title,
   description,
-  icon,
+  profilePics,
 }) => {
   return (
-    <section className="flex flex-col w-full justify-between p-6 mx-auto bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-xl border border-solid border-stone-300">
       <div className="flex gap-0 justify-between">
         <h2 className="flex-1 text-3xl font-semibold text-black">{title}</h2>
-        <div className="flex flex-col justify-center items-center px-5 rounded-full border border-solid bg-zinc-300 border-neutral-500 h-[39px] w-[39px]">
-          {icon}
+        <div className="flex flex-row justify-center items-center">
+          {profilePics.map((pic, index) => (
+            <div
+              key={index}
+              className={`rounded-full h-[39px] w-[39px] flex justify-center items-center border border-solid border-neutral-500 ${
+                index > 0 ? "-ml-4" : ""
+              } z-${30 - index * 10}`}
+              style={{
+                backgroundImage: `url(${pic})`,
+                backgroundSize: "cover",
+              }}
+            ></div>
+          ))}
         </div>
       </div>
-      <p className="mt-9 text-lg font-medium text-black max-md:mt-10">
-        {description}
-      </p>
+      <p className="mt-9 text-lg font-medium text-black">{description}</p>
     </section>
   );
 };
-
-const iconPlaceholder = (
-  <div className="shrink-0 rounded-full border border-solid bg-zinc-300 border-neutral-500 h-[39px] stroke-[1px] w-[39px]" />
-);
 
 const Community: React.FC = () => {
   return (
@@ -38,50 +49,53 @@ const Community: React.FC = () => {
           Join Our Community
         </header>
         <section className="mt-14 flex flex-col max-md:mt-10 max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col max-md:gap-0 w-full">
-            <section className="flex flex-col w-full  max-md:ml-0 max-md:w-full">
-              <p className="justify-center items-center px-6 w-full text-lg font-semibold text-black bg-surface-500 rounded-xl border border-solid aspect-square border-zinc-300 max-md:px-5 max-md:mt-6">
-                erable° is redefining sustainability and impact investing by
-                leveraging blockchain technology to build a comprehensive
-                ecosystem of contributors and investors aimed at systemic
-                change. We are committed to creating a participatory investment
-                landscape where all contributions are valued and governance is
-                shared, supported by our DAO and token mechanism.
-              </p>
-            </section>
+          <div className="grid grid-cols-12 gap-5 w-full">
+            <div className="col-span-12 sm:col-span-6 lg:col-span-4">
+              <section className="p-6 bg-surface-500 rounded-xl border border-solid border-zinc-300">
+                <p className="text-lg font-semibold text-black">
+                  erable° is redefining sustainability and impact investing by
+                  leveraging blockchain technology to build a comprehensive
+                  ecosystem of contributors and investors aimed at systemic
+                  change. We are committed to creating a participatory
+                  investment landscape where all contributions are valued and
+                  governance is shared, supported by our DAO and token
+                  mechanism.
+                </p>
+              </section>
+            </div>
             <SectionContent
               title="Impact Investors"
               description="Join a community of like-minded impact investors committed to driving systemic change through sustainable investments. Collaborate and contribute to projects that align with your values and investment goals."
-              icon={iconPlaceholder}
+              profilePics={profilePics}
             />
             <SectionContent
               title="Impact Entrepreneurs"
               description="Become part of a network of impact entrepreneurs who are creating innovative solutions to global challenges. Share your vision, gain support, and leverage our ecosystem to scale your impact-driven projects."
-              icon={iconPlaceholder}
+              profilePics={profilePics}
             />
           </div>
         </section>
         <section className="mt-6 bg-stone-50 flex flex-col max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col max-md:gap-0 w-full">
+          <div className="grid grid-cols-12 gap-5 w-full">
             <SectionContent
               title="Impact Support Partnership"
               description="Partner with us to support impactful initiatives and contribute to a sustainable future. Whether you're an organization or individual, your partnership helps drive meaningful change and supports our mission."
-              icon={iconPlaceholder}
+              profilePics={profilePics}
             />
             <SectionContent
               title="Community Supporters"
               description="Engage with our community as a supporter or member of the general public. Participate in discussions, provide feedback, and help shape the future of sustainable impact investing."
-              icon={iconPlaceholder}
+              profilePics={profilePics}
             />
             <SectionContent
               title="Financial Product Providers"
               description="Collaborate with us as a provider of impact financial products. Offer your expertise and products to our community, and help create a diverse and inclusive financial ecosystem that prioritizes sustainability and impact."
-              icon={iconPlaceholder}
+              profilePics={profilePics}
             />
           </div>
         </section>
         <section className="flex gap-5 justify-center self-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
-          <button className="justify-center px-7 py-4 bg-emerald-200 rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5">
+          <button className="justify-center px-7 py-4 bg-emerald-200 rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5 font-NeueHaas">
             Join now
           </button>
           <button className="justify-center px-7 py-4 rounded-xl border-solid bg-emerald-200 bg-opacity-0 border-[3px] border-stone-900 max-md:px-5 font-NeueHaas">

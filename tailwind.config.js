@@ -22,6 +22,9 @@ module.exports = {
       fontFamily: {
         NeueHaas: ["NeueHaas", "sans-serif"],
       },
+      screens: {
+        custom: "1135px",
+      },
     },
   },
   plugins: [],
