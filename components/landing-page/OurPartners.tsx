@@ -29,68 +29,68 @@ const PartnerLogosRow: React.FC<{ logos: PartnerLogoProps[] }> = ({
 const OurPartners: React.FC = () => {
   const logos1 = [
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/e61746cf41b06eb3206992d1352aa585a56c1de2fd82b9d2139666d2674801d4?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 1",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/e61746cf41b06eb3206992d1352aa585a56c1de2fd82b9d2139666d2674801d4?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 2",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/e61746cf41b06eb3206992d1352aa585a56c1de2fd82b9d2139666d2674801d4?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 3",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/e61746cf41b06eb3206992d1352aa585a56c1de2fd82b9d2139666d2674801d4?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 4",
     },
   ];
 
   const logos2 = [
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/53318760f437b50fefbe75b0e1046d2ec1f17e07ed8cfc775b10161eab7c3cf8?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 5",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/53318760f437b50fefbe75b0e1046d2ec1f17e07ed8cfc775b10161eab7c3cf8?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 6",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/53318760f437b50fefbe75b0e1046d2ec1f17e07ed8cfc775b10161eab7c3cf8?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 7",
     },
   ];
 
   const logos3 = [
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/38174f3f175195b96992335aff3cc077d6ddf5001da6c125e6086e285895df23?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 8",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/38174f3f175195b96992335aff3cc077d6ddf5001da6c125e6086e285895df23?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 9",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/38174f3f175195b96992335aff3cc077d6ddf5001da6c125e6086e285895df23?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 10",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/38174f3f175195b96992335aff3cc077d6ddf5001da6c125e6086e285895df23?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 11",
     },
   ];
 
   const logos4 = [
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/b06d1161935d2f7cb55596fac7fbb12b2e22427e25a929bb88719a988feb79be?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 12",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/b06d1161935d2f7cb55596fac7fbb12b2e22427e25a929bb88719a988feb79be?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 13",
     },
     {
-      src: "https://cdn.builder.io/api/v1/image/assets/TEMP/b06d1161935d2f7cb55596fac7fbb12b2e22427e25a929bb88719a988feb79be?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+      src: "/images/stim logo.png",
       alt: "Partner Logo 14",
     },
   ];

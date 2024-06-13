@@ -22,7 +22,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
       loading="lazy"
       src={imgSrc}
       alt={imgAlt}
-      className="w-full border border-solid aspect-[1.1] border-neutral-400"
+      className="w-full border border-solid rounded-2xl aspect-[1.1] border-neutral-400"
     />
     <div className="flex gap-2 justify-between mt-6 text-black whitespace-nowrap">
       <div className="text-2xl font-semibold">{title}</div>
