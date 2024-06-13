@@ -59,7 +59,7 @@ const HeroSection: React.FC = () => (
         <Card text="Bridge $CLAP" subtext="*only for CLAP investors" />
       </div>
     </div>
-    <figure className="flex flex-col justify-center px-6 pt-6 mt-10 max-w-full bg-surface-500 rounded-3xl w-[68.5%] max-md:px-5">
+    <figure className="flex flex-col justify-center px-6 pt-6 mt-10 max-w-full bg-surface-500 rounded-tl-3xl rounded-tr-3xl w-[68.5%] max-md:px-5">
       <Image
         src="/images/card-img.svg"
         className="w-full aspect-[4.55] max-md:max-w-full"
