@@ -16,7 +16,7 @@ const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
       <div className="flex gap-2.5 text-xl font-bold">
         <img
           loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/d29a4cd431ff1d6a341bc5e473b71b892a56e00ba7ce8c08fe2b71633ce821f6?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"
+          src="/images/mail.svg"
           alt=""
           className="shrink-0 w-6 aspect-square"
         />
