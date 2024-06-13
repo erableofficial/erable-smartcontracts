@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { ChevronDown } from "lucide-react";
+import ConnectWalletButton from "./connectWalletButton";
 
 export default function Header() {
   return (
@@ -48,9 +49,10 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <button className="font-semibold text-lg text-[#1F1F1F] tracking-[2%] border-[2.5px] border-black border-solid px-4 py-2 rounded-xl max-md:px-5">
+              <ConnectWalletButton />
+              {/* <button className="font-semibold text-lg text-[#1F1F1F] tracking-[2%] border-[2.5px] border-black border-solid px-4 py-2 rounded-xl max-md:px-5">
                 Connect wallet
-              </button>
+              </button> */}
             </li>
           </ul>
         </nav>
