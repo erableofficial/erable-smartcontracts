@@ -88,7 +88,7 @@ const OurLiveUtil: React.FC = () => {
       imageUrl: "/images/placeholder.png",
     },
     {
-      title: "Earn",
+      title: "LP Farming 2",
       description:
         "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
       imageUrl: "/images/placeholder.png",
@@ -135,11 +135,11 @@ const OurLiveUtil: React.FC = () => {
 
   return (
     <section className="overflow-hidden flex justify-center items-center px-16 py-20 bg-white max-md:pl-5">
-      <div className="mt-2.5 w-full max-w-[1350px] max-md:max-w-full">
+      <div className="mt-2.5 w-full max-w-[98%] max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-between self-stretch max-md:mt-10">
-              <h2 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
+              <h2 className="justify-center px-2.5 text-5xl leading-[4.641rem] font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
                 Our Live Utilities
               </h2>
               <p className="mt-10 text-lg font-medium text-black">
@@ -148,7 +148,7 @@ const OurLiveUtil: React.FC = () => {
               </p>
               <Link
                 href={"/dashboard"}
-                className="justify-center self-start px-7 py-4 mt-10 text-lg font-semibold tracking-wide leading-5 bg-primary rounded-xl border-solid border-[3px] border-stone-900 text-stone-900 max-md:px-5"
+                className="justify-center self-start px-7 py-4 mt-10 text-lg font-semibold tracking-wide leading-5 bg-surface-primary rounded-xl border-solid border-[3px] border-primary text-primary max-md:px-5"
               >
                 Open dashboard
               </Link>

@@ -11,13 +11,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#98F9CF",
+        "surface-primary": "#98F9CF",
         surface: {
           100: "#FFFFFF",
           200: "#FFFFF8",
           300: "#FFFEE9",
           500: "#FFFBA0",
         },
+        primary: "#1F1F1F",
+
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],

@@ -38,7 +38,7 @@ const steps: Step[] = [
 const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   <>
     <div className="flex items-start gap-4 mt-8 max-md:flex-wrap">
-      <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-black whitespace-nowrap bg-surface-500 border border-solid border-stone-300 h-[43px] rounded-[50px] w-[43px]">
+      <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-black whitespace-nowrap bg-surface-500 border border-solid border-neutral-300 h-[2.688rem] rounded-full w-[2.688rem]">
         {stepNumber}
       </div>
       <div className="flex flex-col flex-1 justify-center text-black max-md:max-w-full">
@@ -61,10 +61,10 @@ const HowItWorks = () => (
             <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
               How it works
             </h1>
-            <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-stone-900">
+            <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary">
               <Link
                 href={"/"}
-                className="justify-center py-1 border-b-2 border-solid border-stone-900"
+                className="justify-center py-1 border-b-2 border-solid border-primary"
               >
                 I’m a CLAP investor
               </Link>
@@ -78,17 +78,17 @@ const HowItWorks = () => (
               description={step.description}
             />
           ))}
-          <div className="flex justify-center self-start gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
+          <div className="flex justify-center self-start gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:mt-10">
             <button
               tabIndex={0}
-              className="px-7 py-4 bg-primary rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5"
+              className="px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5"
             >
               Buy $ERA
             </button>
             <Link
               href={"/dashboard"}
               tabIndex={0}
-              className="px-7 py-4 rounded-xl border-solid bg-primary bg-opacity-0 border-[3px] border-stone-900 max-md:px-5"
+              className="px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5"
             >
               Open dashboard
             </Link>

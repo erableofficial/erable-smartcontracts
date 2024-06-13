@@ -8,9 +8,9 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
-  <article className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
+  <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
     <div className="flex flex-col grow p-6 w-full bg-white rounded-3xl border border-solid border-zinc-300 max-md:px-5 max-md:mt-10">
-      <div className="flex justify-center items-center px-3 bg-surface-500 h-[45px] rounded-[37.5px] w-[45px]">
+      <div className="flex justify-center items-center px-3 bg-surface-500 h-[2.813rem] rounded-[2rem] w-[2.813rem]">
         <Image
           src={imageSrc}
           alt=""
@@ -22,16 +22,16 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
       <h3 className="mt-3.5 text-2xl font-semibold text-black">{title}</h3>
       <p className="mt-8 text-lg font-medium text-black">{description}</p>
     </div>
-  </article>
+  </div>
 );
 
 const EraUtil: React.FC = () => (
-  <div className="flex flex-col justify-center py-20 bg-stone-50">
-    <section className="flex flex-col justify-center items-center px-20 mt-2.5 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
+  <section className="flex flex-col justify-center py-20 bg-stone-50">
+    <div className="flex flex-col justify-center items-center px-20 mt-2.5 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
       <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-lg max-md:text-4xl">
         $ERA utilities
       </h1>
-      <p className="mt-10 text-lg font-medium text-center text-black w-[1013px] max-md:max-w-full">
+      <p className="mt-10 text-lg font-medium text-center text-black max-w-[79%] max-md:max-w-full">
         $ERA embodies our commitment to fair value redistribution across Erable°
         and its brands. By holding and using $ERA, you are directly
         participating in and benefiting from the value we create together,
@@ -56,16 +56,16 @@ const EraUtil: React.FC = () => (
           />
         </div>
       </div>
-      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold tracking-wide leading-5 text-stone-900">
-        <button className="justify-center px-7 py-4 bg-primary rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5">
+      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold tracking-wide leading-5 text-primary">
+        <button className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5">
           Buy $ERA
         </button>
-        <button className="justify-center px-7 py-4 rounded-xl border-solid bg-primary bg-opacity-0 border-[3px] border-stone-900 max-md:px-5">
+        <button className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5">
           Read the Whitepaper
         </button>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 );
 
 export default EraUtil;
