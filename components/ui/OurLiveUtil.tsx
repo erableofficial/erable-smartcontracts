@@ -139,9 +139,9 @@ const OurLiveUtil: React.FC = () => {
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-between self-stretch max-md:mt-10">
-              <h2 className="justify-center px-2.5 text-5xl leading-[4.641rem] font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
+              <h1 className="justify-center px-2.5 text-5xl leading-[4.641rem] font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
                 Our Live Utilities
-              </h2>
+              </h1>
               <p className="mt-10 text-lg font-medium text-black">
                 Explore our live utilities and engage with our token to unlock
                 the full experience.
