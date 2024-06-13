@@ -148,7 +148,7 @@ const OurLiveUtil: React.FC = () => {
               </p>
               <Link
                 href={"/dashboard"}
-                className="justify-center self-start px-7 py-4 mt-10 text-lg font-semibold tracking-wide leading-5 bg-surface-primary rounded-xl border-solid border-[3px] border-primary text-primary max-md:px-5"
+                className="justify-center self-start px-7 py-4 mt-10 text-lg font-semibold tracking-wide leading-5 bg-surface-primary rounded-xl border-solid border-[3px] border-primary text-primary max-md:px-5 primary-button"
               >
                 Open dashboard
               </Link>

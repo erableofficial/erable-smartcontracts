@@ -81,14 +81,14 @@ const HowItWorks = () => (
           <div className="flex justify-center self-start gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:mt-10">
             <button
               tabIndex={0}
-              className="px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5"
+              className="px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
             >
               Buy $ERA
             </button>
             <Link
               href={"/dashboard"}
               tabIndex={0}
-              className="px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5"
+              className="px-7 py-4 rounded-xl border-solid  border-[3px] border-primary max-md:px-5 secondary-button "
             >
               Open dashboard
             </Link>

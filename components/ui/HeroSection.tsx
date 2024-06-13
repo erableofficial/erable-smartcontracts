@@ -10,7 +10,7 @@ const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="justify-center self-start px-7 py-4 text-lg font-semibold text-black bg-surface-primary rounded-xl border-black border-solid border-[3px] max-md:px-5"
+      className="justify-center self-start px-7 py-4 text-lg font-semibold text-black bg-surface-primary rounded-xl border-black border-solid border-[3px] max-md:px-5 primary-button"
     >
       {children}
     </button>
@@ -25,8 +25,8 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ text, subtext }) => {
   return (
     <div className="flex flex-col">
-      <button className="flex flex-col justify-center text-lg font-semibold text-black bg-white">
-        <span className="justify-center px-7 py-4 bg-white rounded-xl border-black border-solid border-[3px] max-md:px-5">
+      <button className="flex flex-col justify-center text-lg font-semibold text-black ">
+        <span className="secondary-button justify-center px-7 py-4 bg-white rounded-xl border-black border-solid border-[3px] max-md:px-5">
           {text}
         </span>
       </button>
