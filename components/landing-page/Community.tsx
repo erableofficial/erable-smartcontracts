@@ -95,12 +95,8 @@ const Community: React.FC = () => {
           </div>
         </section>
         <section className="flex gap-5 justify-center self-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
-          <button className="justify-center px-7 py-4 bg-emerald-200 rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5 font-NeueHaas">
-            Join now
-          </button>
-          <button className="justify-center px-7 py-4 rounded-xl border-solid bg-emerald-200 bg-opacity-0 border-[3px] border-stone-900 max-md:px-5 font-NeueHaas">
-            Our Community Manifesto
-          </button>
+          <button className="primary-button ">Join now</button>
+          <button className="secondary-button">Our Community Manifesto</button>
         </section>
       </div>
     </main>

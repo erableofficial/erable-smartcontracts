@@ -11,19 +11,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#98F9CF",
+        "surface-primary": "#98F9CF",
         surface: {
           100: "#FFFFFF",
           200: "#FFFFF8",
           300: "#FFFEE9",
           500: "#FFFBA0",
         },
+        primary: "#1F1F1F",
       },
       fontFamily: {
         NeueHaas: ["NeueHaas", "sans-serif"],
       },
       screens: {
         custom: "1135px",
+      },
+      boxShadow: {
+        custom: "0px 0px 0px 3px #000000", // Custom drop shadow for border
+      },
+      borderWidth: {
+        3: "3px", // Custom border width
       },
     },
   },

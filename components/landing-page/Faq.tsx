@@ -59,16 +59,10 @@ const Faq: React.FC = () => {
               </div>
             </h1>
             <nav className="flex gap-5 justify-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
-              <a
-                href="#"
-                className="justify-center px-7 py-4 bg-emerald-200 rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5"
-              >
+              <a href="#" className="primary-button">
                 Read Whitepaper
               </a>
-              <a
-                href="#"
-                className="justify-center px-7 py-4 rounded-xl border-solid bg-emerald-200 bg-opacity-0 border-[3px] border-stone-900 max-md:px-5"
-              >
+              <a href="#" className="secondary-button">
                 Get help
               </a>
             </nav>
