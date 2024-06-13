@@ -45,7 +45,7 @@ const Community: React.FC = () => {
   return (
     <section className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
       <div className="flex flex-col mt-2.5 w-full max-w-[1038px] max-md:max-w-full">
-        <h1 className="flex justify-center self-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:max-w-full max-md:text-4xl">
+        <h1 className="flex justify-center self-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:max-w-full max-md:text-4xl leading-[4.641rem]">
           Join Our Community
         </h1>
         <div className="mt-14 flex flex-col max-md:mt-10 max-md:max-w-full">
