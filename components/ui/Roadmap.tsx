@@ -1,3 +1,4 @@
+import Image from "next/image";
 import * as React from "react";
 
 type FeatureBlockProps = {
@@ -14,15 +15,16 @@ const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
   <div className="flex flex-col p-6 mt-5 w-full bg-white rounded-2xl border border-solid border-zinc-300 max-md:px-5">
     <div className="flex gap-5 justify-between w-full">
       <div className="flex gap-2.5 text-xl font-bold">
-        <img
-          loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/d29a4cd431ff1d6a341bc5e473b71b892a56e00ba7ce8c08fe2b71633ce821f6?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"
+        <Image
+          src="/images/mail.svg"
           alt=""
           className="shrink-0 w-6 aspect-square"
+          width={24}
+          height={24}
         />
         <div>{title}</div>
       </div>
-      <div className="justify-center self-start px-2.5 py-1 text-xs font-medium whitespace-nowrap bg-surface-500 border border-black border-solid rounded-[38px]">
+      <div className="justify-center self-start px-2.5 py-1 text-xs font-medium whitespace-nowrap bg-surface-500 border border-black border-solid rounded-[2.375rem]">
         tech
       </div>
     </div>
@@ -34,16 +36,16 @@ const RoadmapSection: React.FC<RoadmapSectionProps> = ({
   period,
   features,
 }) => (
-  <section className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
-    <header className="flex flex-col grow text-black max-md:mt-6">
+  <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
+    <div className="flex flex-col grow text-black max-md:mt-6">
       <h2 className="justify-center px-5 py-1.5 text-2xl font-semibold text-black bg-surface-500 rounded-lg">
         {period}
       </h2>
       {features.map((feature, index) => (
         <FeatureBlock key={index} title={feature.title} text={feature.text} />
       ))}
-    </header>
-  </section>
+    </div>
+  </div>
 );
 
 const Roadmap: React.FC = () => {
@@ -103,12 +105,12 @@ const Roadmap: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col self-stretch p-20 bg-stone-50 max-md:px-5">
-      <header className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
+    <section className="flex flex-col self-stretch p-20 bg-stone-50 max-md:px-5">
+      <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
-      </header>
-      <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[1263px]" />
-      <main className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full">
+      </div>
+      <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[96%]" />
+      <div className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           {roadmapData.map((section, index) => (
             <RoadmapSection
@@ -118,18 +120,18 @@ const Roadmap: React.FC = () => {
             />
           ))}
         </div>
-      </main>
-      <nav className="flex justify-center items-center px-16 mx-2.5 mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:px-5 max-md:mt-10 max-md:max-w-full">
+      </div>
+      <div className="flex justify-center items-center px-16 mx-2.5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:px-5 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-wrap">
-          <button className="justify-center px-7 py-4 bg-emerald-200 rounded-xl border-solid border-[3px] border-stone-900 max-md:px-5">
+          <button className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5">
             Read Whitepaper
           </button>
-          <button className="justify-center px-7 py-4 rounded-xl border-solid bg-emerald-200 bg-opacity-0 border-[3px] border-stone-900 max-md:px-5">
+          <button className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5">
             Our Community Manifesto
           </button>
         </div>
-      </nav>
-    </div>
+      </div>
+    </section>
   );
 };
 
