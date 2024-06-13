@@ -18,14 +18,14 @@ const SectionContent: React.FC<SectionContentProps> = ({
   profilePics,
 }) => {
   return (
-    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-xl border border-solid border-stone-300">
+    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-xl border border-solid border-primary">
       <div className="flex gap-0 justify-between">
         <h2 className="flex-1 text-3xl font-semibold text-black">{title}</h2>
         <div className="flex flex-row justify-center items-center">
           {profilePics.map((pic, index) => (
             <div
               key={index}
-              className={`rounded-full h-[39px] w-[39px] flex justify-center items-center border border-solid border-neutral-500 ${
+              className={`rounded-full h-[2.438rem] w-[2.438rem] flex justify-center items-center border border-solid border-neutral-500 ${
                 index > 0 ? "-ml-4" : ""
               } z-${30 - index * 10}`}
               style={{
@@ -43,15 +43,15 @@ const SectionContent: React.FC<SectionContentProps> = ({
 
 const Community: React.FC = () => {
   return (
-    <main className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
+    <section className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
       <div className="flex flex-col mt-2.5 w-full max-w-[1038px] max-md:max-w-full">
-        <header className="flex justify-center self-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:max-w-full max-md:text-4xl">
+        <h1 className="flex justify-center self-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:max-w-full max-md:text-4xl leading-[4.641rem]">
           Join Our Community
-        </header>
-        <section className="mt-14 flex flex-col max-md:mt-10 max-md:max-w-full">
+        </h1>
+        <div className="mt-14 flex flex-col max-md:mt-10 max-md:max-w-full">
           <div className="grid grid-cols-12 gap-5 w-full">
             <div className="col-span-12 sm:col-span-6 lg:col-span-4">
-              <section className="p-6 bg-surface-500 rounded-xl border border-solid border-zinc-300">
+              <div className="p-6 bg-surface-500 rounded-xl border border-solid border-zinc-300">
                 <p className="text-lg font-semibold text-black">
                   erable° is redefining sustainability and impact investing by
                   leveraging blockchain technology to build a comprehensive
@@ -61,7 +61,7 @@ const Community: React.FC = () => {
                   governance is shared, supported by our DAO and token
                   mechanism.
                 </p>
-              </section>
+              </div>
             </div>
             <SectionContent
               title="Impact Investors"
@@ -74,8 +74,8 @@ const Community: React.FC = () => {
               profilePics={profilePics}
             />
           </div>
-        </section>
-        <section className="mt-6 bg-stone-50 flex flex-col max-md:max-w-full">
+        </div>
+        <div className="mt-6 bg-stone-50 flex flex-col max-md:max-w-full">
           <div className="grid grid-cols-12 gap-5 w-full">
             <SectionContent
               title="Impact Support Partnership"
@@ -93,13 +93,13 @@ const Community: React.FC = () => {
               profilePics={profilePics}
             />
           </div>
-        </section>
-        <section className="flex gap-5 justify-center self-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
+        </div>
+        <div className="flex gap-5 justify-center self-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
           <button className="primary-button ">Join now</button>
           <button className="secondary-button">Our Community Manifesto</button>
-        </section>
+        </div>
       </div>
-    </main>
+    </section>
   );
 };
 

@@ -58,7 +58,7 @@ const HowItWorks = () => (
       <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
         <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
           <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-            <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
+            <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem]">
               How it works
             </h1>
             <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary">
@@ -79,13 +79,16 @@ const HowItWorks = () => (
             />
           ))}
           <div className="flex justify-center self-start gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:mt-10">
-            <button tabIndex={0} className="primary-button">
+            <button
+              tabIndex={0}
+              className="px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
+            >
               Buy $ERA
             </button>
             <Link
               href={"/dashboard"}
               tabIndex={0}
-              className="secondary-button px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5"
+              className="px-7 py-4 rounded-xl border-solid  border-[3px] border-primary max-md:px-5 secondary-button "
             >
               Open dashboard
             </Link>

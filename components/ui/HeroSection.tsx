@@ -10,7 +10,7 @@ const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className=" primary-button justify-center self-start px-7 py-4 text-lg font-semibold text-black bg-surface-primary rounded-xl border-black border-solid border-[3px] max-md:px-5"
+      className="justify-center self-start px-7 py-4 text-lg font-semibold text-black bg-surface-primary rounded-xl border-black border-solid border-[3px] max-md:px-5 primary-button"
     >
       {children}
     </button>
@@ -25,8 +25,8 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ text, subtext }) => {
   return (
     <div className="flex flex-col">
-      <button className="  flex flex-col justify-center text-lg font-semibold text-black bg-white">
-        <span className=" secondary-button justify-center px-7 py-4 bg-white rounded-xl border-black border-solid border-[3px] max-md:px-5">
+      <button className="flex flex-col justify-center text-lg font-semibold text-black ">
+        <span className="secondary-button justify-center px-7 py-4 bg-white rounded-xl border-black border-solid border-[3px] max-md:px-5">
           {text}
         </span>
       </button>
@@ -44,16 +44,16 @@ const HeroSection: React.FC = () => (
       <span className="leading-[6.938rem]">Onchain</span>
       <span className="font-bold leading-[6.938rem]">&gt;</span>
     </div>
-    <h1 className="justify-center px-5 mt-5 text-[5.625rem] font-extrabold tracking-tighter text-center text-black bg-surface-500 rounded-2xl leading-[6.75rem] max-md:max-w-full max-md:text-4xl">
+    <h1 className="justify-center px-5 mt-5 text-[5.625rem] font-extrabold tracking-tighter text-center text-black bg-surface-500 rounded-2xl leading-[6.75rem] max-md:max-w-full max-md:text-4xl font-friends ">
       Impact Investing
     </h1>
-    <p className="self-stretch mt-10 mr-2.5 ml-3 text-lg font-medium font-NeueHaas text-center text-black max-md:max-w-full">
+    <p className="self-stretch mt-10 mr-2.5 ml-3 text-lg font-medium font-friends text-center text-black max-md:max-w-full">
       erable° is a powerhouse for next-gen investment products! <br /> <br />
       Our mission? Transforming finance for positive impact in both Web2 and
       Web3. <br />
       Supported by a community and its utility token $ERA.
     </p>
-    <div className="flex justify-center items-center self-stretch px-16 mt-10 mr-2.5 ml-3 max-md:px-5 max-md:max-w-full">
+    <div className="flex justify-center items-center self-stretch px-16 mt-10 mr-2.5 ml-3 max-md:px-5 max-md:max-w-full font-friends">
       <div className="flex gap-5">
         <Button>Buy $ERA</Button>
         <Card text="Bridge $CLAP" subtext="*only for CLAP investors" />

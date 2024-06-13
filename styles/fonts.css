@@ -1,14 +1,37 @@
 /* styles/fonts.css */
 @font-face {
-  font-family: "MyCustomFont";
-  src: url("/fonts/NeueHaasDisplayBold.ttf") format("truetype");
-  font-weight: bold;
+  font-family: "Friends";
+  src: url("/fonts/Friends/Friends-Regular.ttf") format("truetype");
+  font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "MyCustomFont";
-  src: url("/fonts/NeueHaasDisplayMediu.ttf") format("truetype");
-  font-weight: normal;
+  font-family: "Friends";
+  src: url("/fonts/Friends/Friends-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Friends";
+  src: url("/fonts/Friends/Friends-UltraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasGroteskDisplayPro";
+  src: url("/fonts/neue-haas-grotesk-display-pro/NeueHaasDisplayMediu.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasGroteskDisplayPro";
+  src: url("/fonts/neue-haas-grotesk-display-pro/NeueHaasDisplayBold.ttf")
+    format("truetype");
+  font-weight: bold;
   font-style: normal;
 }

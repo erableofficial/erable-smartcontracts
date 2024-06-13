@@ -21,16 +21,11 @@ module.exports = {
         primary: "#1F1F1F",
       },
       fontFamily: {
-        NeueHaas: ["NeueHaas", "sans-serif"],
-      },
-      screens: {
-        custom: "1135px",
+        NeueHaas: ["NeueHaasGroteskDisplayPro", "sans-serif"],
+        friends: ["Friends", "sans-serif"],
       },
       boxShadow: {
         custom: "0px 0px 0px 3px #000000", // Custom drop shadow for border
-      },
-      borderWidth: {
-        3: "3px", // Custom border width
       },
     },
   },

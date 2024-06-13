@@ -146,10 +146,11 @@ const OurLiveUtil: React.FC = () => {
                 Explore our live utilities and engage with our token to unlock
                 the full experience.
               </p>
-              <Link href={"/dashboard"}>
-                <button className="primary-button justify-center self-start px-7 py-4 mt-10 text-lg font-semibold tracking-wide leading-5 bg-surface-primary rounded-xl border-solid border-[3px] border-primary text-primary max-md:px-5">
-                  Open dashboard
-                </button>
+              <Link
+                href={"/dashboard"}
+                className="justify-center self-start px-7 py-4 mt-10 text-lg font-semibold tracking-wide leading-5 bg-surface-primary rounded-xl border-solid border-[3px] border-primary text-primary max-md:px-5 primary-button"
+              >
+                Open dashboard
               </Link>
               <div className="flex gap-5 justify-between mt-52 w-full max-md:mt-10">
                 <span className="my-auto text-2xl leading-6 text-black">

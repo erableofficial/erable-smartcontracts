@@ -57,8 +57,12 @@ const EraUtil: React.FC = () => (
         </div>
       </div>
       <div className="flex gap-5 justify-center mt-10 text-lg font-semibold tracking-wide leading-5 text-primary">
-        <button className="primary-button">Buy $ERA</button>
-        <button className="secondary-button">Read the Whitepaper</button>
+        <button className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button">
+          Buy $ERA
+        </button>
+        <button className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button">
+          Read the Whitepaper
+        </button>
       </div>
     </div>
   </section>

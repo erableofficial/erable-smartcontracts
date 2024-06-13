@@ -1,10 +1,10 @@
 import "../styles/globals.css";
-import "../styles/fonts.css";
 import "@rainbow-me/rainbowkit/styles.css";
+import "../styles/fonts.css";
 import type { AppProps } from "next/app";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { WagmiProvider } from "wagmi";
+import { WagmiProvider, http } from "wagmi";
 import {
   arbitrum,
   base,
@@ -14,10 +14,41 @@ import {
   sepolia,
 } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
+import {
+  rainbowWallet,
+  walletConnectWallet,
+  braveWallet,
+  metaMaskWallet,
+  trustWallet,
+  coinbaseWallet,
+  ledgerWallet,
+} from "@rainbow-me/rainbowkit/wallets";
+import { createConfig } from "wagmi";
 
-const config = getDefaultConfig({
-  appName: "RainbowKit App",
-  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "",
+const connectors = connectorsForWallets(
+  [
+    {
+      groupName: "Recommended",
+      wallets: [
+        rainbowWallet,
+        walletConnectWallet,
+        braveWallet,
+        metaMaskWallet,
+        trustWallet,
+        coinbaseWallet,
+        ledgerWallet,
+      ],
+    },
+  ],
+  {
+    appName: "RainbowKit App",
+    projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || "",
+  }
+);
+
+const config = createConfig({
+  connectors,
   chains: [
     mainnet,
     polygon,
@@ -26,6 +57,14 @@ const config = getDefaultConfig({
     base,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
   ],
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+    137: http(),
+    10: http(),
+    42161: http(),
+    8453: http(),
+  },
   ssr: true,
 });
 
