@@ -6,6 +6,28 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  /* .drop-shadow-custom {
+    @apply drop-shadow-[2px_3px_0px_#000000];
+  } */
+  .primary-button {
+    @apply justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px]   border-stone-900 max-md:px-5;
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 2px 3px 0px #000000;
+    }
+  }
+  .secondary-button {
+    @apply justify-center px-7 py-4 rounded-xl border-solid  border-primary border-[3px] max-md:px-5;
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 2px 3px 0px #000000;
+    }
+  }
+}
+
 html,
 body {
   padding: 0;
