@@ -62,7 +62,7 @@ const HeroSection: React.FC = () => (
     <figure className="flex flex-col justify-center px-6 pt-6 mt-10 max-w-full bg-surface-500 rounded-3xl w-[68.5%] max-md:px-5">
       <Image
         src="/images/card-img.svg"
-        className="w-full border-t-2 border-black border-solid aspect-[4.55] border-x-2 max-md:max-w-full"
+        className="w-full aspect-[4.55] max-md:max-w-full"
         alt="Descriptive text about the image"
         width={894}
         height={196}
