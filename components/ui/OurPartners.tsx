@@ -97,7 +97,7 @@ const OurPartners: React.FC = () => {
 
   return (
     <section className="flex gap-5 justify-between pr-20 bg-stone-50 max-md:flex-wrap max-md:pr-5">
-      <div className="flex flex-col justify-center px-20 py-20 bg-yellow-200 max-md:px-5 max-md:max-w-full">
+      <div className="flex flex-col justify-center px-20 py-20 bg-surface-500 max-md:px-5 max-md:max-w-full">
         <div className="mx-2.5 max-md:max-w-full">
           <PartnerLogosRow logos={logos1} />
         </div>
@@ -116,7 +116,7 @@ const OurPartners: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col my-auto text-black">
-        <div className="justify-center self-end px-2.5 text-5xl font-extrabold bg-yellow-200 rounded-xl max-md:text-4xl">
+        <div className="justify-center self-end px-2.5 text-5xl font-extrabold bg-surface-500 rounded-xl max-md:text-4xl">
           Our partners
         </div>
         <p className="mt-6 text-lg font-medium">

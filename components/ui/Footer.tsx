@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import * as React from "react";
 
 interface SolutionItem {
@@ -29,11 +30,11 @@ const solutions: SolutionItem[] = [
     items: [
       {
         text: "Discord",
-        icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/3ff6a6d030ca971d8b06034e245e502f800ded283d362d27fd227b2952e37117?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+        icon: "arrow up right",
       },
       {
         text: "Twitter",
-        icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/3ff6a6d030ca971d8b06034e245e502f800ded283d362d27fd227b2952e37117?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&",
+        icon: "arrow up right",
       },
     ],
   },
@@ -50,14 +51,7 @@ const SolutionList: React.FC<{ solution: SolutionItem }> = ({ solution }) => (
           <span className="text-base tracking-tight leading-5 text-stone-900">
             {item.text}
           </span>
-          {item.icon && (
-            <img
-              loading="lazy"
-              src={item.icon}
-              alt=""
-              className="w-6 aspect-square"
-            />
-          )}
+          {item.icon && <ArrowUpRight />}
 
           {item.note && (
             <span className="justify-center px-2.5 py-1 text-xs text-black bg-white border border-black border-solid rounded-[38px]">
@@ -77,12 +71,12 @@ const SolutionList: React.FC<{ solution: SolutionItem }> = ({ solution }) => (
 );
 
 const Footer: React.FC = () => (
-  <div className="flex flex-col pt-16 pl-2.5 bg-yellow-200 rounded-3xl">
+  <div className="flex flex-col pt-16 pl-2.5 bg-surface-500 rounded-3xl">
     <div className="flex gap-5 justify-between self-center w-full max-w-[1290px] max-md:flex-wrap max-md:max-w-full">
       <header className="flex flex-col py-0.5">
         <img
           loading="lazy"
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/0e4fb0cb77e1a95ab4b8acb09af484421bced8a5929b7c24dc1c1e4f1bfb1221?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"
+          src="/images/erable footer.svg"
           alt=""
           className="aspect-[4] w-[76px]"
         />
@@ -103,8 +97,8 @@ const Footer: React.FC = () => (
     </div>
     <img
       loading="lazy"
-      src="https://cdn.builder.io/api/v1/image/assets/TEMP/8aa76a3665d09e63dc68874b671175506e0c9acec52d5211fc77f8ff1ae4d35e?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"
-      alt=""
+      src="/images/big erable footer.svg"
+      alt="erable"
       className="mt-7 w-full aspect-[5] max-md:max-w-full"
     />
   </div>

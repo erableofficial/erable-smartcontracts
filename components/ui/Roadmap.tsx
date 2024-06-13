@@ -22,7 +22,7 @@ const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
         />
         <div>{title}</div>
       </div>
-      <div className="justify-center self-start px-2.5 py-1 text-xs font-medium whitespace-nowrap bg-yellow-200 border border-black border-solid rounded-[38px]">
+      <div className="justify-center self-start px-2.5 py-1 text-xs font-medium whitespace-nowrap bg-surface-500 border border-black border-solid rounded-[38px]">
         tech
       </div>
     </div>
@@ -36,7 +36,7 @@ const RoadmapSection: React.FC<RoadmapSectionProps> = ({
 }) => (
   <section className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
     <header className="flex flex-col grow text-black max-md:mt-6">
-      <h2 className="justify-center px-5 py-1.5 text-2xl font-semibold text-black bg-yellow-200 rounded-lg">
+      <h2 className="justify-center px-5 py-1.5 text-2xl font-semibold text-black bg-surface-500 rounded-lg">
         {period}
       </h2>
       {features.map((feature, index) => (
@@ -104,7 +104,7 @@ const Roadmap: React.FC = () => {
 
   return (
     <div className="flex flex-col self-stretch p-20 bg-stone-50 max-md:px-5">
-      <header className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-yellow-200 rounded-xl max-md:text-4xl">
+      <header className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
       </header>
       <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[1263px]" />
