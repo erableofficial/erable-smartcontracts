@@ -47,7 +47,7 @@ const HeroSection: React.FC = () => (
     <h1 className="justify-center px-5 mt-5 text-8xl font-extrabold tracking-tighter text-center text-black bg-surface-500 rounded-2xl leading-[108px] max-md:max-w-full max-md:text-4xl">
       Impact Investing
     </h1>
-    <p className="self-stretch mt-10 mr-2.5 ml-3 text-lg font-medium text-center text-black max-md:max-w-full">
+    <p className="self-stretch mt-10 mr-2.5 ml-3 text-lg font-medium font-NeueHaas text-center text-black max-md:max-w-full">
       erable° is a powerhouse for next-gen investment products! <br /> <br />{" "}
       Our mission? Transforming finance for positive impact in both Web2 and
       Web3. <br />
