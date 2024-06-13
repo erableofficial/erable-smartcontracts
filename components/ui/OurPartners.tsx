@@ -21,7 +21,7 @@ const PartnerLogo: React.FC<PartnerLogoProps> = ({ src, alt }) => (
 const PartnerLogosRow: React.FC<{ logos: PartnerLogoProps[] }> = ({
   logos,
 }) => (
-  <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+  <div className="flex gap-5 flex-row flex-wrap max-md:gap-0">
     {logos.map((logo, index) => (
       <PartnerLogo key={index} {...logo} />
     ))}
@@ -98,8 +98,8 @@ const OurPartners: React.FC = () => {
   ];
 
   return (
-    <section className="flex gap-5 justify-between pr-20 bg-stone-50 max-md:flex-wrap max-md:pr-5">
-      <div className="flex flex-col justify-center px-20 py-20 bg-surface-500 max-md:px-5 max-md:max-w-full">
+    <section className="flex gap-5 justify-between pr-20 bg-stone-50 max-md:flex-wrap max-md:pr-0">
+      <div className="flex flex-col justify-center px-20 py-20 bg-surface-500 max-md:px-5 max-md:w-full">
         <div className="mx-2.5 max-md:max-w-full">
           <PartnerLogosRow logos={logos1} />
         </div>
