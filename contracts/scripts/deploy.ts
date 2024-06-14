@@ -5,12 +5,12 @@ async function main() {
   console.log("Deploying contracts with account:", deployer.address);
 
   const MyToken = await ethers.getContractFactory("StakingToken");
-  const myToken = await MyToken.deploy(ethers.parseEther("1000")); 
+  const myToken = await MyToken.deploy(ethers.parseEther("1000"));
 
   console.log("MyToken deployed to:", myToken.target);
 
   const Staking = await ethers.getContractFactory("Staking");
-  const staking = await Staking.deploy(myToken.target, 365 * 24 * 60 * 60);
+  const staking = await Staking.deploy();
 
   console.log("Staking contract deployed to: ", staking.target);
 }
