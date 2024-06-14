@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface DashboardProps {}
 
@@ -13,6 +13,20 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
 );
 
 const Dashboard: React.FC<DashboardProps> = () => {
+  const [selected, setSelected] = useState<string>("All");
+
+  const buttons: string[] = ["All", "Staking", "Your Farming", "Your airdrop"];
+
+  const handleTabClick = (label: string) => {
+    setSelected(label);
+  };
+
+  const getButtonClass = (label: string): string => {
+    return label === selected
+      ? "justify-center self-stretch px-4 py-2 font-semibold whitespace-nowrap bg-yellow-200 border-2 border-black border-solid rounded-[38px]"
+      : "self-stretch my-auto";
+  };
+
   return (
     <div className="flex flex-col items-center">
       <div className="justify-between self-stretch px-20 w-full max-md:px-5 max-md:max-w-full">
@@ -135,14 +149,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <div className="flex flex-col justify-center pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">
           <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
             <nav className="flex gap-5 justify-between items-center my-auto text-lg font-medium text-black">
-              <button className="justify-center self-stretch px-4 py-2 font-semibold whitespace-nowrap bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
-                All
-              </button>
-              <button className="self-stretch my-auto text-black">
-                Staking
-              </button>
-              <button className="self-stretch my-auto">Your Farming</button>
-              <button className="self-stretch my-auto">Your airdrop</button>
+              {buttons.map((label) => (
+                <button
+                  key={label}
+                  className={getButtonClass(label)}
+                  onClick={() => handleTabClick(label)}
+                >
+                  {label}
+                </button>
+              ))}
             </nav>
             <button className="justify-center px-6 py-3 text-base font-semibold text-black bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5">
               New to $ERA
@@ -150,47 +165,62 @@ const Dashboard: React.FC<DashboardProps> = () => {
           </div>
         </div>
 
-        <div className="flex gap-5 justify-between mt-6 w-full font-medium max-md:flex-wrap max-md:max-w-full">
-          <div className="flex gap-1.5 px-2.5 py-1 my-auto text-lg text-black bg-yellow-200 rounded">
-            <img
-              loading="lazy"
-              src="/images/info.svg"
-              alt="Utilities Icon"
-              className="shrink-0 my-auto aspect-square w-[17px]"
-            />
-            <p>You don’t have any utilities yet</p>
-          </div>
-          <div className="justify-center px-4 py-2 text-base text-black bg-white border-2 border-black border-solid rounded-[38px]">
-            APY : xx / Program duration : 1 an
-          </div>
-        </div>
+        {selected === "All" && (
+          <>
+            <div className="flex gap-5 justify-between mt-6 w-full font-medium max-md:flex-wrap max-md:max-w-full">
+              <div className="flex gap-1.5 px-2.5 py-1 my-auto text-lg text-black bg-yellow-200 rounded">
+                <img
+                  loading="lazy"
+                  src="/images/info.svg"
+                  alt="Utilities Icon"
+                  className="shrink-0 my-auto aspect-square w-[17px]"
+                />
+                <p>You don’t have any utilities yet</p>
+              </div>
+              <div className="justify-center px-4 py-2 text-base text-black bg-white border-2 border-black border-solid rounded-[38px]">
+                APY : xx / Program duration : 1 an
+              </div>
+            </div>
 
-        <div className="flex justify-center items-center px-16 mt-6 text-lg text-black max-md:px-5 max-md:max-w-full">
-          <div className="flex gap-5 justify-between max-md:flex-wrap">
-            <div className="flex gap-2.5 justify-center">
-              <div className="justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
-                1
+            <div className="flex justify-center items-center px-16 mt-6 text-lg text-black max-md:px-5 max-md:max-w-full">
+              <div className="flex gap-5 justify-between max-md:flex-wrap">
+                <div className="flex gap-2.5 justify-center">
+                  <div className="justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
+                    1
+                  </div>
+                  <p className="my-auto font-medium">Buy $ERA on uniswap.org</p>
+                </div>
+                <div className="flex gap-2.5 justify-center">
+                  <div className="justify-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 rounded-[38.095px]">
+                    2
+                  </div>
+                  <p className="my-auto font-medium">Choose an utility</p>
+                </div>
+                <div className="flex gap-2.5 justify-center">
+                  <div className="justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
+                    3
+                  </div>
+                  <p className="my-auto font-medium">Get rewards</p>
+                </div>
               </div>
-              <p className="my-auto font-medium">Buy $ERA on uniswap.org</p>
             </div>
-            <div className="flex gap-2.5 justify-center">
-              <div className="justify-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 rounded-[38.095px]">
-                2
-              </div>
-              <p className="my-auto font-medium">Choose an utility</p>
-            </div>
-            <div className="flex gap-2.5 justify-center">
-              <div className="justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
-                3
-              </div>
-              <p className="my-auto font-medium">Get rewards</p>
-            </div>
-          </div>
-        </div>
 
-        <button className="justify-center self-center px-7 py-4 mt-6 text-lg font-semibold text-black bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5">
-          Discover our staking opportunity
-        </button>
+            <button className="justify-center self-center px-7 py-4 mt-6 text-lg font-semibold text-black bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5">
+              Discover our staking opportunity
+            </button>
+          </>
+        )}
+        {selected === "Staking" && (
+          <h2 className="text-center mt-6">Staking</h2>
+        )}
+
+        {selected === "Your Farming" && (
+          <h2 className="text-center mt-6">Your Farming</h2>
+        )}
+
+        {selected === "Your airdrop" && (
+          <h2 className="text-center mt-6">Your airdrop</h2>
+        )}
       </section>
     </div>
   );
