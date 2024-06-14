@@ -185,19 +185,19 @@ const Dashboard: React.FC<DashboardProps> = () => {
             <div className="flex justify-center items-center px-16 mt-6 text-lg text-black max-md:px-5 max-md:max-w-full">
               <div className="flex gap-5 justify-between max-md:flex-wrap">
                 <div className="flex gap-2.5 justify-center">
-                  <div className="justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
+                  <div className=" flex justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
                     1
                   </div>
                   <p className="my-auto font-medium">Buy $ERA on uniswap.org</p>
                 </div>
                 <div className="flex gap-2.5 justify-center">
-                  <div className="justify-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 rounded-[38.095px]">
+                  <div className=" flex justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
                     2
                   </div>
                   <p className="my-auto font-medium">Choose an utility</p>
                 </div>
                 <div className="flex gap-2.5 justify-center">
-                  <div className="justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
+                  <div className="flex justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
                     3
                   </div>
                   <p className="my-auto font-medium">Get rewards</p>
