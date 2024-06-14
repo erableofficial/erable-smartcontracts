@@ -7,7 +7,7 @@ import ConnectWalletButton from "./connectWalletButton";
 export default function Header() {
   return (
     <header className="container pt-8 mx-auto pb-20">
-      <div className="flex justify-between max-w-[80%] mx-auto items-center text-black border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3">
+      <div className="flex justify-between max-w-[85%] mx-auto items-center text-black border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3">
         <div className="flex items-center justify-around gap-4">
           <Image
             className="w-[40%] h-auto"
