@@ -10,7 +10,7 @@ const RewardOption: React.FC<RewardOptionProps> = ({ title, description }) => (
     <h2 className="flex gap-3.5 text-2xl text-black">
       {title}
       <a
-        href="#en-savoir-plus"
+        href="#"
         className="self-start pb-1.5 mt-1 text-base text-black border-b-2 border-black border-solid"
       >
         En savoir plus
@@ -18,7 +18,7 @@ const RewardOption: React.FC<RewardOptionProps> = ({ title, description }) => (
     </h2>
     <p className="mt-8 text-lg font-medium text-black">{description}</p>
     <a
-      href="#en-savoir-plus"
+      href="#"
       className="justify-center self-start px-6 py-3 mt-8 text-base text-black bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5"
     >
       En savoir plus
@@ -47,14 +47,13 @@ const RewardSystem: React.FC = () => {
 
   return (
     <div className="flex flex-col items-start self-stretch p-20 bg-white max-md:px-5">
-      <header>
-        <h1 className="mt-2.5 ml-2.5 text-5xl font-semibold text-black max-md:max-w-full max-md:text-4xl">
-          Discover Our Reward Systems
-        </h1>
-        <h2 className="mt-2.5 ml-2.5 text-lg font-medium text-black max-md:max-w-full">
-          Choose one option and get rewards
-        </h2>
-      </header>
+      <h1 className="mt-2.5 ml-2.5 text-5xl font-semibold text-black max-md:max-w-full max-md:text-4xl">
+        Discover Our Reward Systems
+      </h1>
+      <h2 className="mt-2.5 ml-2.5 text-lg font-medium text-black max-md:max-w-full">
+        Choose one option and get rewards
+      </h2>
+
       <main className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           {rewardOptions.map((option) => (
