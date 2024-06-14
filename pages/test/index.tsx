@@ -1,4 +1,9 @@
-import { useReadContract, useSendTransaction, useWriteContract } from "wagmi";
+import {
+  useReadContract,
+  useSendTransaction,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 import Header from "../../components/ui/Header";
 import {
   contractABI,
@@ -14,9 +19,9 @@ export default function TestPage() {
   const account = useAccount();
   const {
     writeContract,
-    data: writeData,
+    data: hash,
     error: writeError,
-    isSuccess: isWriteSucess,
+    isPending,
   } = useWriteContract();
 
   const { data: owner, error } = useReadContract({
@@ -39,10 +44,12 @@ export default function TestPage() {
     args: [account.address],
   });
 
-  const handleTransferTokenToContract = async (
-    amount: number,
-    toAddr: string
-  ) => {
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
+  const handleTransferTokenToAddr = async (amount: number, toAddr: string) => {
     // called only by the owner
     if (account.address !== owner) {
       alert("You are not the owner");
@@ -50,22 +57,12 @@ export default function TestPage() {
     }
     console.log("Transfering tokens to contract...");
     // transfer tokens to contract
-    const tx = writeContract({
+    writeContract({
       abi: stakingTokenABI,
       address: stakingTokenAddress,
       functionName: "transfer",
       args: [toAddr, parseEther(amount.toString())],
     });
-
-    console.log("Transaction sent: ", tx);
-
-    // check for transaction success
-    if (isWriteSucess) {
-      console.log("Transaction successful");
-      console.log("Transaction data: ", writeData);
-    } else {
-      console.log("Transaction failed: ", writeError);
-    }
   };
 
   return (
@@ -95,17 +92,24 @@ export default function TestPage() {
         )}
 
         <div className="mt-10 flex justify-center items-center gap-2">
-          <button
-            onClick={() => {
-              handleTransferTokenToContract(
-                10,
-                "0x3f1c319e566b30e1d4ea31f7ad0a75a331e4ed9a"
-              );
-            }}
-            className="primary-button"
-          >
-            Transfer 10 tokens to addr2
-          </button>
+          <div>
+            <button
+              disabled={isPending}
+              onClick={() => {
+                handleTransferTokenToAddr(
+                  10,
+                  "0x3f1c319e566b30e1d4ea31f7ad0a75a331e4ed9a"
+                );
+              }}
+              className="primary-button"
+            >
+              {isPending ? "Confirming..." : "Transfer 10 tokens to addr2"}
+            </button>
+            {writeError && <p>Error: {writeError.message}</p>}
+            {hash && <p>Hash: {hash}</p>}
+            {isConfirming && <div>Waiting for confirmation...</div>}
+            {isConfirmed && <div>Transaction confirmed.</div>}
+          </div>
         </div>
       </div>
     </>
