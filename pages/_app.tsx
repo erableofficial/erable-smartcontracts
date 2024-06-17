@@ -12,6 +12,7 @@ import {
   optimism,
   polygon,
   sepolia,
+  polygonAmoy,
 } from "wagmi/chains";
 import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
@@ -50,6 +51,7 @@ const connectors = connectorsForWallets(
 const config = createConfig({
   connectors,
   chains: [
+    polygonAmoy,
     mainnet,
     polygon,
     optimism,
@@ -58,6 +60,7 @@ const config = createConfig({
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
   ],
   transports: {
+    [polygonAmoy.id]: http(),
     [mainnet.id]: http(),
     [sepolia.id]: http(),
     137: http(),
