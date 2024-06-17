@@ -49,7 +49,10 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <ConnectWalletButton />
+              <ConnectWalletButton
+                text="Connect Wallet"
+                className="font-semibold text-lg text-primary tracking-[2%] border-[2.5px] border-black border-solid px-4 py-2 rounded-xl max-md:px-5"
+              />
             </li>
           </ul>
         </nav>

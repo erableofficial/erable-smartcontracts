@@ -1,6 +1,11 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-export default function ConnectWalletButton() {
+type ButtonProps = {
+  text: string;
+  className: string;
+};
+
+const ConnectWalletButton: React.FC<ButtonProps> = ({ text, className }) => {
   return (
     <ConnectButton.Custom>
       {({
@@ -34,11 +39,11 @@ export default function ConnectWalletButton() {
               if (!connected) {
                 return (
                   <button
-                    className="font-semibold text-lg text-primary tracking-[2%] border-[2.5px] border-black border-solid px-4 py-2 rounded-xl max-md:px-5"
+                    className={className}
                     onClick={openConnectModal}
                     type="button"
                   >
-                    Connect Wallet
+                    {text}
                   </button>
                 );
               }
@@ -95,4 +100,6 @@ export default function ConnectWalletButton() {
       }}
     </ConnectButton.Custom>
   );
-}
+};
+
+export default ConnectWalletButton;
