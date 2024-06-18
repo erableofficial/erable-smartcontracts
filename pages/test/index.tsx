@@ -3,6 +3,7 @@ import {
   useSendTransaction,
   useWriteContract,
   useWaitForTransactionReceipt,
+  useAccount,
 } from "wagmi";
 import Header from "../../components/ui/Header";
 import {
@@ -11,8 +12,8 @@ import {
   stakingTokenABI,
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
-import { useAccount } from "wagmi";
-import { parseEther } from "viem";
+import { formatEther, parseEther } from "viem";
+import StakeButton from "../../components/test/stakeButton";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -74,31 +75,47 @@ export default function TestPage() {
         {error && <p>Error: {error.message}</p>}
 
         <div>
-          <h1>Owner Balance : {ownerBalance?.toString()}</h1>
+          <h1>
+            Owner Balance :
+            {ownerBalance
+              ? formatEther(BigInt(ownerBalance.toString())) + " ST"
+              : "0 ST"}
+          </h1>
           {ownerBalanceError && <p>Error: {ownerBalanceError.message}</p>}
         </div>
 
         {account.address !== owner ? (
           <div>
-            <h1>My Balance : {myBalance?.toString()}</h1>
+            <h1>
+              My Balance :{" "}
+              {myBalance
+                ? formatEther(BigInt(myBalance.toString())) + " ST"
+                : "0 ST"}
+            </h1>
             {myBalanceError && <p>Error: {myBalanceError.message}</p>}
           </div>
         ) : (
           <div>
-            <h1 className="font-medium text-3xl uppercase text-primary text-center">
+            <h1 className="text-3xl font-medium text-center uppercase text-primary">
               You are the owner
             </h1>
           </div>
         )}
 
-        <div className="mt-10 flex justify-center items-center gap-2">
+        <div>
+          <h1>
+            Staked Tokens : {}
+          </h1>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 mt-10">
           <div>
             <button
               disabled={isPending}
               onClick={() => {
                 handleTransferTokenToAddr(
-                  10,
-                  "0x3f1c319e566b30e1d4ea31f7ad0a75a331e4ed9a"
+                  50,
+                  "0x1556A67c507840c20BD981105B8C461C618aC3CA"
                 );
               }}
               className="primary-button"
@@ -110,6 +127,8 @@ export default function TestPage() {
             {isConfirming && <div>Waiting for confirmation...</div>}
             {isConfirmed && <div>Transaction confirmed.</div>}
           </div>
+
+          <StakeButton />
         </div>
       </div>
     </>
