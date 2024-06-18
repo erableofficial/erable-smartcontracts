@@ -101,7 +101,7 @@ const Footer: React.FC = () => (
     <Image
       src="/images/big erable footer.svg"
       alt="erable"
-      className="mt-7 w-full aspect-[5] max-md:max-w-full"
+      className="mt-7 w-full max-md:max-w-full"
       width={1290}
       height={258}
     />
