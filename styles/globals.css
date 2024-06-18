@@ -29,7 +29,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Friends", sans-serif;
+  /* font-family: "Friends", sans-serif; */
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
 }
@@ -40,15 +40,20 @@ a {
 }
 
 p {
-  font-family: "NeueHaas";
+  font-family: "NeueHaasGroteskDisplayPro", "sans-serif";
   line-height: normal !important ;
+}
+
+h1,
+h2 {
+  font-family: "Friends", sans-serif;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: "Friends", sans-serif;
+  font-family: "NeueHaasGroteskDisplayPro", "sans-serif";
 }
 
 .hide-scrollbar::-webkit-scrollbar {
