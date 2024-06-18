@@ -67,6 +67,13 @@ export default function TestPage() {
       args: [account.address],
     });
 
+  const { data: stakedDuration, error: stakedDurationError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "stakingDuration",
+    args: [],
+  });
+
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
       hash,
@@ -131,6 +138,13 @@ export default function TestPage() {
               ? formatEther(BigInt(stakedTokens.toString())) + " ST"
               : "0 ST"}
           </h1>
+        </div>
+
+        <div className="flex gap-3">
+          <h1>Staked Duration : </h1>
+
+          {stakedDuration ? stakedDuration.toString() + "  secondes" : "0 secondes"}
+          {stakedDurationError && <p>Error: {stakedDurationError.message}</p>}
         </div>
 
         <div>
