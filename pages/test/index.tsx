@@ -20,6 +20,7 @@ import DisableWhiteListButton from "../../components/test/disableWhiteListButton
 import UpdateStakeDurationForm from "../../components/test/updateStakeDurationForm";
 import UnstackButton from "../../components/test/unstackButton";
 import DepositRewardPoolButton from "../../components/test/depositRewardPoolButton";
+import StakeInfo from "../../components/test/stakeInfo";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -56,6 +57,21 @@ export default function TestPage() {
     address: contractAddress,
     functionName: "getTotalStakedForUser",
     args: [account.address],
+  });
+
+  const { data: userStakesCounter, error: userStakesCounterError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "userStakeCounter",
+      args: [account.address],
+    });
+
+  const { data: stakedDuration, error: stakedDurationError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "stakingDuration",
+    args: [],
   });
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
@@ -124,6 +140,25 @@ export default function TestPage() {
           </h1>
         </div>
 
+        <div className="flex gap-3">
+          <h1>Staked Duration : </h1>
+
+          {stakedDuration
+            ? stakedDuration.toString() + "  secondes"
+            : "0 secondes"}
+          {stakedDurationError && <p>Error: {stakedDurationError.message}</p>}
+        </div>
+
+        <div>
+          <h1>
+            Last User Stake ID :
+            {userStakesCounter ? userStakesCounter.toString() : "0"}
+          </h1>
+          {userStakesCounterError && (
+            <p>Error: {userStakesCounterError.message}</p>
+          )}
+        </div>
+
         {account.address === owner && (
           <>
             <h2 className="text-3xl text-center"> Owner Actions </h2>
@@ -162,7 +197,19 @@ export default function TestPage() {
         <div className="flex items-center justify-center gap-2 mt-10">
           <ApproveAddressButton />
           <StakeButton />
-          <UnstackButton />
+          <UnstackButton stakeId={0} />
+        </div>
+
+        <h2 className="mt-8 text-3xl text-center">User Stakes </h2>
+
+        <div className="flex items-center justify-center gap-5 mt-8">
+          {Number(userStakesCounter?.toString()) > 0 &&
+            Array.from(
+              { length: Number(userStakesCounter?.toString()) },
+              (_, i) => i
+            ).map((i) => {
+              return <StakeInfo stakeId={i} key={i.toString()} />;
+            })}
         </div>
       </div>
     </>

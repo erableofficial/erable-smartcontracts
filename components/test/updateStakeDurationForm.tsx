@@ -41,7 +41,7 @@ export default function UpdateStakeDurationForm() {
       address: contractAddress,
       abi: contractABI,
       functionName: "updateStakingDuration",
-      args: [parseEther(stakeDuration.toString())],
+      args: [stakeDuration.toString()],
     });
     console.log("Stake duration updated:", stakeDuration);
   };
