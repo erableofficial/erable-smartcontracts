@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className="container  py-4 mx-auto pb-20 mt-12 max-sm:mt-1 sticky top-0 z-50">
       <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-black border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3">
-        <div className="flex items-center justify-around gap-4">
+        <div className="flex items-center justify-around gap-4 max-sm:hidden">
           <Image
             className="w-[40%] h-auto"
             src="/images/logo.svg"

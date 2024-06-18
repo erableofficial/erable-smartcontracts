@@ -44,10 +44,29 @@ export default function TestPage() {
     args: [account.address],
   });
 
+  // total stacked tokens
+  const { data: totalStackedTokens, error: totalStackedTokensError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "totalStaked",
+    });
+
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
       hash,
     });
+
+  const handleStakeTokens = async (amount: number) => {
+    console.log("Stacking tokens...");
+    // stack tokens
+    writeContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "stake",
+      args: [parseEther(amount.toString())],
+    });
+  };
 
   const handleTransferTokenToAddr = async (amount: number, toAddr: string) => {
     // called only by the owner
@@ -90,6 +109,32 @@ export default function TestPage() {
             </h1>
           </div>
         )}
+
+        <div>
+          <h1>Total Stacked Tokens : {totalStackedTokens?.toString()}</h1>
+          {totalStackedTokensError && (
+            <p>Error: {totalStackedTokensError.message}</p>
+          )}
+        </div>
+        <div>
+          <div className="mt-10 flex justify-center items-center gap-2">
+            <div>
+              <button
+                disabled={isPending}
+                onClick={() => {
+                  handleStakeTokens(1);
+                }}
+                className="primary-button"
+              >
+                {isPending ? "Confirming..." : "Stake 1 token"}
+              </button>
+              {writeError && <p>Error: {writeError.message}</p>}
+              {hash && <p>Hash: {hash}</p>}
+              {isConfirming && <div>Waiting for confirmation...</div>}
+              {isConfirmed && <div>Transaction confirmed.</div>}
+            </div>
+          </div>
+        </div>
 
         <div className="mt-10 flex justify-center items-center gap-2">
           <div>
