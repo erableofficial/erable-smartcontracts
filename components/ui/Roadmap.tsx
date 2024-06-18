@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 
 type FeatureBlockProps = {
   title: string;
@@ -14,10 +15,11 @@ const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
   <div className="flex flex-col p-6 mt-5 w-full bg-white rounded-2xl border border-solid border-zinc-300 max-md:px-5">
     <div className="flex gap-5 justify-between w-full">
       <div className="flex gap-2.5 text-xl font-bold">
-        <img
-          loading="lazy"
+        <Image
           src="/images/mail.svg"
           alt=""
+          width={24}
+          height={24}
           className="shrink-0 w-6 aspect-square"
         />
         <div>{title}</div>
@@ -104,9 +106,9 @@ const Roadmap: React.FC = () => {
 
   return (
     <div className="flex flex-col self-stretch p-20 bg-stone-50 max-md:px-5">
-      <header className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
+      <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
-      </header>
+      </div>
       <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[1263px]" />
       <main className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full">
         <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1">

@@ -1,4 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
 
 type ButtonProps = {
   text: string;
@@ -75,10 +76,12 @@ const ConnectWalletButton: React.FC<ButtonProps> = ({ text, className }) => {
                         }}
                       >
                         {chain.iconUrl && (
-                          <img
+                          <Image
                             alt={chain.name ?? "Chain icon"}
                             src={chain.iconUrl}
                             style={{ width: 12, height: 12 }}
+                            width={12}
+                            height={12}
                           />
                         )}
                       </div>

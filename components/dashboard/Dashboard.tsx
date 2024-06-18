@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
+import Image from "next/image";
 
 interface DashboardProps {}
 
@@ -145,10 +146,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
               Official link
             </h2>
             <div className="flex justify-center items-center p-3 bg-yellow-200 border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]">
-              <img
+              <Image
                 loading="lazy"
                 src="/images/arrow down.svg"
                 alt="Official Link Icon"
+                width={24}
+                height={24}
                 className="w-6 aspect-square"
               />
             </div>
@@ -179,10 +182,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
             <>
               <div className="flex gap-5 justify-between mt-6 w-full font-medium max-md:flex-wrap max-md:max-w-full">
                 <div className="flex gap-1.5 px-2.5 py-1 my-auto text-lg text-black bg-yellow-200 rounded">
-                  <img
+                  <Image
                     loading="lazy"
                     src="/images/info.svg"
                     alt="Utilities Icon"
+                    width={24}
+                    height={24}
                     className="shrink-0 my-auto aspect-square w-[17px]"
                   />
                   <p>You don’t have any utilities yet</p>
