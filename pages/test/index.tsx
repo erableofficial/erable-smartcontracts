@@ -18,6 +18,8 @@ import ApproveAddressButton from "../../components/test/approveAddressButton";
 import AddToWaitlistButton from "../../components/test/addToWaitlistButton";
 import DisableWhiteListButton from "../../components/test/disableWhiteListButton";
 import UpdateStakeDurationForm from "../../components/test/updateStakeDurationForm";
+import UnstackButton from "../../components/test/unstackButton";
+import DepositRewardPoolButton from "../../components/test/depositRewardPoolButton";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -144,6 +146,7 @@ export default function TestPage() {
                 {isConfirming && <div>Waiting for confirmation...</div>}
                 {isConfirmed && <div>Transaction confirmed.</div>}
               </div>
+              <DepositRewardPoolButton />
               <AddToWaitlistButton />
               <DisableWhiteListButton />
             </div>
@@ -159,6 +162,7 @@ export default function TestPage() {
         <div className="flex items-center justify-center gap-2 mt-10">
           <ApproveAddressButton />
           <StakeButton />
+          <UnstackButton />
         </div>
       </div>
     </>
