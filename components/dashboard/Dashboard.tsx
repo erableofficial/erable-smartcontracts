@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
+import Image from "next/image";
 
 interface DashboardProps {}
 
@@ -8,7 +9,7 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
   title,
   value,
 }) => (
-  <div className="flex gap-4 justify-between mt-2 text-black max-md:mr-1">
+  <div className="flex justify-between gap-4 mt-2 text-black max-md:mr-1">
     <div className="text-lg font-medium">{title}</div>
     <div className="text-xl font-bold">{value}</div>
   </div>
@@ -39,15 +40,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
           isConnected ? "" : "blur-lg"
         }  `}
       >
-        <div className="justify-between self-stretch px-20 w-full max-md:px-5 max-md:max-w-full">
+        <div className="self-stretch justify-between w-full px-20 max-md:px-5 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
-                <div className="flex gap-2 justify-between font-semibold">
+              <div className="flex flex-col self-stretch justify-between w-full p-6 mx-auto bg-white border border-solid grow rounded-3xl border-stone-300 max-md:px-5 max-md:mt-6">
+                <div className="flex justify-between gap-2 font-semibold">
                   <div className="my-auto text-2xl text-black">
                     $Era available :
                   </div>
-                  <button className="justify-center px-6 py-3 text-base text-black bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5">
+                  <button className="justify-center px-6 py-3 text-base text-black border-2 border-black border-solid rounded-lg bg-emerald-200 max-md:px-5">
                     Buy $ERA
                   </button>
                 </div>
@@ -61,7 +62,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-black bg-yellow-200 border border-black border-solid rounded-[38px]">
                   1 $ERA = price
                 </div>
-                <div className="flex gap-2 justify-between mt-9 text-base">
+                <div className="flex justify-between gap-2 text-base mt-9">
                   <div className="my-auto font-medium text-black">
                     *If you are a clap investor
                   </div>
@@ -75,16 +76,16 @@ const Dashboard: React.FC<DashboardProps> = () => {
               </div>
             </section>
             <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
-                <div className="flex gap-5 justify-between font-semibold">
+              <div className="flex flex-col self-stretch justify-between w-full p-6 mx-auto bg-white border border-solid grow rounded-3xl border-stone-300 max-md:px-5 max-md:mt-6">
+                <div className="flex justify-between gap-5 font-semibold">
                   <div className="my-auto text-2xl text-black">
                     Your rewards :
                   </div>
-                  <button className="justify-center px-6 py-3 text-base text-black bg-white rounded-lg border-2 border-black border-solid max-md:px-5">
+                  <button className="justify-center px-6 py-3 text-base text-black bg-white border-2 border-black border-solid rounded-lg max-md:px-5">
                     View history
                   </button>
                 </div>
-                <div className="flex gap-1 justify-between mt-8">
+                <div className="flex justify-between gap-1 mt-8">
                   <div className="text-lg font-medium text-black">
                     Total LP: xx
                   </div>
@@ -120,12 +121,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
               </div>
             </section>
             <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
-                <div className="flex gap-5 justify-between font-semibold">
+              <div className="flex flex-col w-full p-6 mx-auto bg-white border border-solid grow rounded-3xl border-stone-300 max-md:px-5 max-md:mt-6">
+                <div className="flex justify-between gap-5 font-semibold">
                   <div className="my-auto text-2xl text-black">
                     $ERA statistiques
                   </div>
-                  <button className="justify-center px-6 py-3 text-base text-black whitespace-nowrap bg-white rounded-lg border-2 border-black border-solid max-md:px-5">
+                  <button className="justify-center px-6 py-3 text-base text-black bg-white border-2 border-black border-solid rounded-lg whitespace-nowrap max-md:px-5">
                     Whitepaper
                   </button>
                 </div>
@@ -140,15 +141,17 @@ const Dashboard: React.FC<DashboardProps> = () => {
         </div>
 
         <section className="flex flex-col justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full">
-          <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+          <div className="flex justify-between gap-5 max-md:flex-wrap max-md:max-w-full">
             <h2 className="my-auto text-2xl font-semibold text-black max-md:max-w-full">
               Official link
             </h2>
             <div className="flex justify-center items-center p-3 bg-yellow-200 border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]">
-              <img
+              <Image
                 loading="lazy"
                 src="/images/arrow down.svg"
                 alt="Official Link Icon"
+                width={24}
+                height={24}
                 className="w-6 aspect-square"
               />
             </div>
@@ -157,8 +160,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
         <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full">
           <div className="flex flex-col justify-center pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">
-            <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-              <nav className="flex gap-5 justify-between items-center my-auto text-lg font-medium text-black">
+            <div className="flex justify-between w-full gap-5 max-md:flex-wrap max-md:max-w-full">
+              <nav className="flex items-center justify-between gap-5 my-auto text-lg font-medium text-black">
                 {buttons.map((label) => (
                   <button
                     key={label}
@@ -169,7 +172,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                 ))}
               </nav>
-              <button className="justify-center px-6 py-3 text-base font-semibold text-black bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5">
+              <button className="justify-center px-6 py-3 text-base font-semibold text-black border-2 border-black border-solid rounded-lg bg-emerald-200 max-md:px-5">
                 New to $ERA
               </button>
             </div>
@@ -177,12 +180,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
           {selected === "All" && (
             <>
-              <div className="flex gap-5 justify-between mt-6 w-full font-medium max-md:flex-wrap max-md:max-w-full">
+              <div className="flex justify-between w-full gap-5 mt-6 font-medium max-md:flex-wrap max-md:max-w-full">
                 <div className="flex gap-1.5 px-2.5 py-1 my-auto text-lg text-black bg-yellow-200 rounded">
-                  <img
+                  <Image
                     loading="lazy"
                     src="/images/info.svg"
                     alt="Utilities Icon"
+                    width={24}
+                    height={24}
                     className="shrink-0 my-auto aspect-square w-[17px]"
                   />
                   <p>You don’t have any utilities yet</p>
@@ -192,8 +197,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 </div>
               </div>
 
-              <div className="flex justify-center items-center px-16 mt-6 text-lg text-black max-md:px-5 max-md:max-w-full">
-                <div className="flex gap-5 justify-between max-md:flex-wrap">
+              <div className="flex items-center justify-center px-16 mt-6 text-lg text-black max-md:px-5 max-md:max-w-full">
+                <div className="flex justify-between gap-5 max-md:flex-wrap">
                   <div className="flex gap-2.5 justify-center">
                     <div className=" flex justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
                       1
@@ -223,15 +228,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
             </>
           )}
           {selected === "Staking" && (
-            <h2 className="text-center mt-6">Staking</h2>
+            <h2 className="mt-6 text-center">Staking</h2>
           )}
 
           {selected === "Your Farming" && (
-            <h2 className="text-center mt-6">Your Farming</h2>
+            <h2 className="mt-6 text-center">Your Farming</h2>
           )}
 
           {selected === "Your airdrop" && (
-            <h2 className="text-center mt-6">Your airdrop</h2>
+            <h2 className="mt-6 text-center">Your airdrop</h2>
           )}
         </section>
       </div>

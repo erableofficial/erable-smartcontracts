@@ -1,6 +1,7 @@
 import Image from "next/image";
 import * as React from "react";
 
+
 type FeatureBlockProps = {
   title: string;
   text: string;
