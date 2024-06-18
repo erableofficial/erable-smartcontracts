@@ -12,13 +12,13 @@ type RoadmapSectionProps = {
 };
 
 const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
-  <div className="flex flex-col p-6 mt-5 w-full bg-white rounded-2xl border border-solid border-zinc-300 max-md:px-5">
-    <div className="flex gap-5 justify-between w-full">
+  <div className="flex flex-col w-full p-6 mt-5 bg-white border border-solid rounded-2xl border-zinc-300 max-md:px-5">
+    <div className="flex justify-between w-full gap-5">
       <div className="flex gap-2.5 text-xl font-bold">
         <Image
           src="/images/mail.svg"
           alt=""
-          className="shrink-0 w-6 aspect-square"
+          className="w-6 shrink-0 aspect-square"
           width={24}
           height={24}
         />
@@ -36,8 +36,8 @@ const RoadmapSection: React.FC<RoadmapSectionProps> = ({
   period,
   features,
 }) => (
-  <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
-    <div className="flex flex-col grow text-black max-md:mt-6">
+  <div  className="col-span-12 md:col-span-6 lg:col-span-3">
+    <div className="flex flex-col text-black grow max-md:mt-6">
       <h2 className="justify-center px-5 py-1.5 text-2xl font-semibold text-black bg-surface-500 rounded-lg">
         {period}
       </h2>
@@ -109,9 +109,9 @@ const Roadmap: React.FC = () => {
       <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem] ">
         Roadmap
       </div>
-      <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[96%]" />
+      <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[1263px]" />
       <div className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+        <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1">
           {roadmapData.map((section, index) => (
             <RoadmapSection
               key={index}

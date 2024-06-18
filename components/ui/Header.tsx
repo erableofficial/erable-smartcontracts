@@ -6,16 +6,12 @@ import ConnectWalletButton from "./connectWalletButton";
 
 export default function Header() {
   return (
-    <header className="container pt-8 mx-auto pb-20">
-      <div className="flex justify-between max-w-[85%] mx-auto items-center text-black border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3">
-        <div className="flex items-center justify-around gap-4">
-          <Image
-            className="w-[40%] h-auto"
-            src="/images/logo.svg"
-            alt="logo"
-            width={100}
-            height={100}
-          />
+    <header className="container sticky top-0 z-50 py-4 pb-20 mx-auto mt-12 max-sm:mt-1">
+      <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-black border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3">
+        <div className="flex items-center justify-around gap-4 max-sm:hidden">
+          <Link href="/" className="w-[40%] h-auto">
+            <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
+          </Link>
           <button className="bg-surface-500 py-1.5 px-3 rounded-full border-2 border-black border-solid flex items-center gap-0.5 ">
             <span className="text-base font-medium text-left text-nowrap ">
               Bridge $CLAP
@@ -30,16 +26,16 @@ export default function Header() {
           </button>
         </div>
         <nav>
-          <ul className="flex items-center justify-around gap-2 space-x-4">
+          <ul className="flex flex-wrap items-center justify-around gap-2 space-x-4">
             <li>
               <button className="flex items-center gap-0.5 justify-center">
-                <span className="font-medium text-lg ">Utilities</span>
+                <span className="text-lg font-medium ">Utilities</span>
                 <ChevronDown />
               </button>
             </li>
             <li>
               <button className="flex items-center gap-0.5 justify-center">
-                <span className="font-medium text-lg ">Docs</span>
+                <span className="text-lg font-medium ">Docs</span>
                 <ChevronDown />
               </button>
             </li>
@@ -49,10 +45,10 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <ConnectWalletButton />
-              {/* <button className="font-semibold text-lg text-[#1F1F1F] tracking-[2%] border-[2.5px] border-black border-solid px-4 py-2 rounded-xl max-md:px-5">
-                Connect wallet
-              </button> */}
+              <ConnectWalletButton
+                text="Connect Wallet"
+                className="font-semibold text-lg text-primary tracking-[2%] border-[2.5px] border-black border-solid px-4 py-2 rounded-xl max-md:px-5"
+              />
             </li>
           </ul>
         </nav>

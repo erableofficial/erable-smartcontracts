@@ -6,53 +6,16 @@ interface UtilityCardProps {
   title: string;
   description: string;
   imageUrl: string;
-  index: number; // Add index prop
-  activeIndex: number; // Add activeIndex prop
+  index: number;
+  activeIndex: number;
 }
-
-const UtilityCard: React.FC<UtilityCardProps> = ({
-  title,
-  description,
-  imageUrl,
-  index, // Add index prop
-  activeIndex, // Add activeIndex prop
-}) => (
-  <div
-    className={`flex flex-col p-6 ${
-      index === activeIndex ? "bg-surface-500" : "bg-white"
-    } rounded-2xl border border-solid border-stone-300 min-w-[45%] max-md:px-5`}
-  >
-    <div className="flex gap-5 justify-between font-semibold">
-      <h3 className="text-2xl text-black">{title}</h3>
-      <Link
-        href={"/learn-more"}
-        className="pb-1.5 my-auto text-base text-black border-b-2 border-black border-solid"
-      >
-        Learn more
-      </Link>
-    </div>
-    <p className="mt-6 text-lg font-medium text-neutral-500">{description}</p>
-    <Image
-      src={imageUrl}
-      alt={`${title} illustration`}
-      className="mt-16 w-full aspect-[1.15] max-md:mt-10"
-      width={300}
-      height={345}
-    />
-  </div>
-);
 
 const IconButton: React.FC<{
   src: string;
   alt: string;
   bgClass: string;
-  onClick: () => void; // Add onClick prop
-}> = ({
-  src,
-  alt,
-  bgClass,
-  onClick, // Add onClick prop
-}) => (
+  onClick: () => void;
+}> = ({ src, alt, bgClass, onClick }) => (
   <button
     onClick={onClick}
     className={`flex justify-center items-center p-3.5 ${bgClass} h-[57px] rounded-[47.25px] w-[57px]  `}
@@ -68,6 +31,39 @@ const IconButton: React.FC<{
 );
 
 const OurLiveUtil: React.FC = () => {
+  const cardRef = React.useRef<HTMLDivElement>(null);
+  const UtilityCard: React.FC<UtilityCardProps> = ({
+    title,
+    description,
+    imageUrl,
+    index,
+    activeIndex,
+  }) => (
+    <div
+      ref={cardRef}
+      className={`flex flex-col p-6 ${
+        index === activeIndex ? "bg-surface-500" : "bg-white"
+      } rounded-2xl border border-solid border-stone-300  max-sm:min-w-full min-w-[45%] max-md:px-5`}
+    >
+      <div className="flex gap-5 justify-between font-semibold">
+        <h3 className="text-2xl text-black">{title}</h3>
+        <Link
+          href={"/learn-more"}
+          className="pb-1.5 my-auto text-base text-black border-b-2 border-black border-solid"
+        >
+          Learn more
+        </Link>
+      </div>
+      <p className="mt-6 text-lg font-medium text-neutral-500">{description}</p>
+      <Image
+        src={imageUrl}
+        alt={`${title} illustration`}
+        className="mt-16 w-full aspect-[1.15] max-md:mt-10"
+        width={300}
+        height={345}
+      />
+    </div>
+  );
   const utilityCardsData = [
     {
       title: "Staking",
@@ -93,21 +89,19 @@ const OurLiveUtil: React.FC = () => {
         "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
       imageUrl: "/images/placeholder.png",
     },
-    // Add more cards as needed
   ];
 
-  // State to keep track of the active card index
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
 
   const scrollContainerRef = React.useRef<HTMLDivElement>(null); // Reference to the scroll container
 
-  // Function to scroll to the active card
   const scrollToActiveCard = () => {
-    if (!scrollContainerRef.current) return;
+    if (!scrollContainerRef.current || !cardRef.current) return;
 
-    const cardWidth = 300; // Width of each card, adjust based on your design
-    const gap = 20; // Gap between cards, adjust based on your design
-    const scrollPosition = (cardWidth + gap) * activeCardIndex;
+    const gap = 20;
+    const cardWidth = cardRef.current.offsetWidth;
+    const totalGapWidth = gap * activeCardIndex;
+    const scrollPosition = cardWidth * activeCardIndex + totalGapWidth;
 
     scrollContainerRef.current.scrollTo({
       left: scrollPosition,
@@ -115,7 +109,6 @@ const OurLiveUtil: React.FC = () => {
     });
   };
 
-  // Update the active card index and then scroll to it
   const handleMoveLeft = () => {
     setActiveCardIndex((prevIndex) =>
       prevIndex === 0 ? utilityCardsData.length - 1 : prevIndex - 1
@@ -128,7 +121,6 @@ const OurLiveUtil: React.FC = () => {
     );
   };
 
-  // Effect to scroll to the active card whenever it changes
   React.useEffect(() => {
     scrollToActiveCard();
   }, [activeCardIndex]);
@@ -139,9 +131,9 @@ const OurLiveUtil: React.FC = () => {
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-between self-stretch max-md:mt-10">
-              <h2 className="justify-center px-2.5 text-5xl leading-[4.641rem] font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
+              <h1 className="justify-center px-2.5 text-5xl leading-[4.641rem] font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
                 Our Live Utilities
-              </h2>
+              </h1>
               <p className="mt-10 text-lg font-medium text-black">
                 Explore our live utilities and engage with our token to unlock
                 the full experience.
@@ -175,10 +167,9 @@ const OurLiveUtil: React.FC = () => {
           </div>
           <div
             ref={scrollContainerRef}
-            className="hide-scrollbar overflow-auto flex flex-col ml-5 w-[69%] max-md:ml-0 max-md:w-full"
+            className="hide-scrollbar overflow-auto max-sm:p-1 flex flex-col ml-5 w-[69%] max-md:ml-0 max-md:w-full"
           >
-            <div className="flex grow gap-5 justify-between max-md:flex-wrap max-md:mt-10 max-md:max-w-full ">
-              {/* Render only the active card */}
+            <div className="flex grow gap-5 justify-between  max-md:mt-10 max-md:max-w-full ">
               {utilityCardsData.map((card, index) => (
                 <UtilityCard
                   key={index}

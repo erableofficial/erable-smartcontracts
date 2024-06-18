@@ -21,10 +21,11 @@ module.exports = {
         primary: "#1F1F1F",
       },
       fontFamily: {
-        inter: ["Inter", "sans-serif"],
-        poppins: ["Poppins", "sans-serif"],
         NeueHaas: ["NeueHaasGroteskDisplayPro", "sans-serif"],
         friends: ["Friends", "sans-serif"],
+      },
+      boxShadow: {
+        custom: "0px 0px 0px 3px #000000", // Custom drop shadow for border
       },
     },
   },
