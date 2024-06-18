@@ -27,7 +27,9 @@ export interface StakingInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "addToWhitelist"
+      | "calculateTax"
       | "calculateTotalWithdraw"
+      | "calculateYield"
       | "claim"
       | "cooldownPeriod"
       | "depositRewardTokens"
@@ -88,8 +90,16 @@ export interface StakingInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "calculateTax",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "calculateTotalWithdraw",
     values: [BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "calculateYield",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "claim", values: [BigNumberish]): string;
   encodeFunctionData(
@@ -232,7 +242,15 @@ export interface StakingInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "calculateTax",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "calculateTotalWithdraw",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "calculateYield",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
@@ -542,8 +560,20 @@ export interface Staking extends BaseContract {
     "nonpayable"
   >;
 
+  calculateTax: TypedContractMethod<
+    [timeStaked: BigNumberish],
+    [bigint],
+    "view"
+  >;
+
   calculateTotalWithdraw: TypedContractMethod<
     [_amount: BigNumberish, timeStaked: BigNumberish],
+    [bigint],
+    "view"
+  >;
+
+  calculateYield: TypedContractMethod<
+    [timeStaked: BigNumberish],
     [bigint],
     "view"
   >;
@@ -706,12 +736,18 @@ export interface Staking extends BaseContract {
     nameOrSignature: "addToWhitelist"
   ): TypedContractMethod<[_address: AddressLike], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "calculateTax"
+  ): TypedContractMethod<[timeStaked: BigNumberish], [bigint], "view">;
+  getFunction(
     nameOrSignature: "calculateTotalWithdraw"
   ): TypedContractMethod<
     [_amount: BigNumberish, timeStaked: BigNumberish],
     [bigint],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "calculateYield"
+  ): TypedContractMethod<[timeStaked: BigNumberish], [bigint], "view">;
   getFunction(
     nameOrSignature: "claim"
   ): TypedContractMethod<[stakeId: BigNumberish], [void], "nonpayable">;
