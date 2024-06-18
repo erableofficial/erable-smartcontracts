@@ -3,6 +3,7 @@ import {
   useSendTransaction,
   useWriteContract,
   useWaitForTransactionReceipt,
+  useAccount,
 } from "wagmi";
 import Header from "../../components/ui/Header";
 import {
@@ -11,8 +12,14 @@ import {
   stakingTokenABI,
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
-import { useAccount } from "wagmi";
-import { parseEther } from "viem";
+import { formatEther, parseEther } from "viem";
+import StakeButton from "../../components/test/stakeButton";
+import ApproveAddressButton from "../../components/test/approveAddressButton";
+import AddToWaitlistButton from "../../components/test/addToWaitlistButton";
+import DisableWhiteListButton from "../../components/test/disableWhiteListButton";
+import UpdateStakeDurationForm from "../../components/test/updateStakeDurationForm";
+import UnstackButton from "../../components/test/unstackButton";
+import DepositRewardPoolButton from "../../components/test/depositRewardPoolButton";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -44,29 +51,17 @@ export default function TestPage() {
     args: [account.address],
   });
 
-  // total stacked tokens
-  const { data: totalStackedTokens, error: totalStackedTokensError } =
-    useReadContract({
-      abi: contractABI,
-      address: contractAddress,
-      functionName: "totalStaked",
-    });
+  const { data: stakedTokens, error: stakedTokensError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "getTotalStakedForUser",
+    args: [account.address],
+  });
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
       hash,
     });
-
-  const handleStakeTokens = async (amount: number) => {
-    console.log("Stacking tokens...");
-    // stack tokens
-    writeContract({
-      abi: contractABI,
-      address: contractAddress,
-      functionName: "stake",
-      args: [parseEther(amount.toString())],
-    });
-  };
 
   const handleTransferTokenToAddr = async (amount: number, toAddr: string) => {
     // called only by the owner
@@ -93,68 +88,81 @@ export default function TestPage() {
         {error && <p>Error: {error.message}</p>}
 
         <div>
-          <h1>Owner Balance : {ownerBalance?.toString()}</h1>
+          <h1>
+            Owner Balance :
+            {ownerBalance
+              ? formatEther(BigInt(ownerBalance.toString())) + " ST"
+              : "0 ST"}
+          </h1>
           {ownerBalanceError && <p>Error: {ownerBalanceError.message}</p>}
         </div>
 
         {account.address !== owner ? (
           <div>
-            <h1>My Balance : {myBalance?.toString()}</h1>
+            <h1>
+              My Balance :{" "}
+              {myBalance
+                ? formatEther(BigInt(myBalance.toString())) + " ST"
+                : "0 ST"}
+            </h1>
             {myBalanceError && <p>Error: {myBalanceError.message}</p>}
           </div>
         ) : (
           <div>
-            <h1 className="font-medium text-3xl uppercase text-primary text-center">
+            <h1 className="text-3xl font-medium text-center uppercase text-primary">
               You are the owner
             </h1>
           </div>
         )}
 
         <div>
-          <h1>Total Stacked Tokens : {totalStackedTokens?.toString()}</h1>
-          {totalStackedTokensError && (
-            <p>Error: {totalStackedTokensError.message}</p>
-          )}
-        </div>
-        <div>
-          <div className="mt-10 flex justify-center items-center gap-2">
-            <div>
-              <button
-                disabled={isPending}
-                onClick={() => {
-                  handleStakeTokens(1);
-                }}
-                className="primary-button"
-              >
-                {isPending ? "Confirming..." : "Stake 1 token"}
-              </button>
-              {writeError && <p>Error: {writeError.message}</p>}
-              {hash && <p>Hash: {hash}</p>}
-              {isConfirming && <div>Waiting for confirmation...</div>}
-              {isConfirmed && <div>Transaction confirmed.</div>}
-            </div>
-          </div>
+          <h1>
+            Staked Tokens :{" "}
+            {stakedTokens
+              ? formatEther(BigInt(stakedTokens.toString())) + " ST"
+              : "0 ST"}
+          </h1>
         </div>
 
-        <div className="mt-10 flex justify-center items-center gap-2">
-          <div>
-            <button
-              disabled={isPending}
-              onClick={() => {
-                handleTransferTokenToAddr(
-                  10,
-                  "0x3f1c319e566b30e1d4ea31f7ad0a75a331e4ed9a"
-                );
-              }}
-              className="primary-button"
-            >
-              {isPending ? "Confirming..." : "Transfer 10 tokens to addr2"}
-            </button>
-            {writeError && <p>Error: {writeError.message}</p>}
-            {hash && <p>Hash: {hash}</p>}
-            {isConfirming && <div>Waiting for confirmation...</div>}
-            {isConfirmed && <div>Transaction confirmed.</div>}
-          </div>
+        {account.address === owner && (
+          <>
+            <h2 className="text-3xl text-center"> Owner Actions </h2>
+            <div className="flex items-center justify-center gap-2 mt-10">
+              <div>
+                <button
+                  disabled={isPending}
+                  onClick={() => {
+                    handleTransferTokenToAddr(
+                      10,
+                      "0xf97184f71561ca97113329c4FbCb1079c869D702"
+                    );
+                  }}
+                  className="primary-button"
+                >
+                  {isPending ? "Confirming..." : "Transfer 10 tokens to addr2"}
+                </button>
+                {writeError && <p>Error: {writeError.message}</p>}
+                {hash && <p>Hash: {hash}</p>}
+                {isConfirming && <div>Waiting for confirmation...</div>}
+                {isConfirmed && <div>Transaction confirmed.</div>}
+              </div>
+              <DepositRewardPoolButton />
+              <AddToWaitlistButton />
+              <DisableWhiteListButton />
+            </div>
+
+            <div>
+              <UpdateStakeDurationForm />
+            </div>
+          </>
+        )}
+
+        <h2 className="mt-8 text-3xl text-center">Users Actions</h2>
+
+        <div className="flex items-center justify-center gap-2 mt-10">
+          <ApproveAddressButton />
+          <StakeButton />
+          <UnstackButton />
         </div>
       </div>
     </>
