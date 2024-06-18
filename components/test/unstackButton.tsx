@@ -13,7 +13,7 @@ import {
 } from "../../lib/blockchain-config";
 import { parseEther } from "viem";
 
-export default function UnstackButton() {
+export default function UnstackButton({ stakeId }: { stakeId: number }) {
   const account = useAccount();
   const {
     writeContract,
@@ -40,7 +40,8 @@ export default function UnstackButton() {
       <button
         disabled={isPending}
         onClick={() => {
-          handleUnstack(0);
+          handleUnstack(stakeId);
+          console.log("Unstaking");
         }}
         className="primary-button"
       >

@@ -58,6 +58,14 @@ export default function TestPage() {
     args: [account.address],
   });
 
+  const { data: userStakesCounter, error: userStakesCounterError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "userStakeCounter",
+      args: [account.address],
+    });
+
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
       hash,
@@ -124,6 +132,16 @@ export default function TestPage() {
           </h1>
         </div>
 
+        <div>
+          <h1>
+            Last User Stake ID :
+            {userStakesCounter ? userStakesCounter.toString() : "0"}
+          </h1>
+          {userStakesCounterError && (
+            <p>Error: {userStakesCounterError.message}</p>
+          )}
+        </div>
+
         {account.address === owner && (
           <>
             <h2 className="text-3xl text-center"> Owner Actions </h2>
@@ -162,7 +180,25 @@ export default function TestPage() {
         <div className="flex items-center justify-center gap-2 mt-10">
           <ApproveAddressButton />
           <StakeButton />
-          <UnstackButton />
+          <UnstackButton stakeId={0} />
+        </div>
+
+        <h2 className="mt-8 text-3xl text-center">User Stakes </h2>
+
+        <div className="flex items-center justify-center gap-5 mt-8">
+          {Number(userStakesCounter?.toString()) > 0 &&
+            Array.from(
+              { length: Number(userStakesCounter?.toString()) },
+              (_, i) => i
+            ).map((i) => {
+              return (
+                <div key={i.toString()}>
+                  <h1 className="text-center">Stake ID : {i}</h1>
+                  
+                  <UnstackButton stakeId={i} />
+                </div>
+              );
+            })}
         </div>
       </div>
     </>
