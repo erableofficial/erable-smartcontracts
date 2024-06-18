@@ -2,14 +2,14 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/yessinemaalej/erable/contracts/contracts/Staking.sol": {
-      "lastModificationDate": 1718706801053,
+      "lastModificationDate": 1718706957621,
       "contentHash": "545db24c122b4d6f989a37867b5ffbf6",
       "sourceName": "contracts/Staking.sol",
       "solcConfig": {
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -27,6 +27,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -52,7 +55,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -70,6 +73,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -92,7 +98,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -110,6 +116,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -129,7 +138,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -147,6 +156,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -166,7 +178,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -184,6 +196,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -206,7 +221,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -224,6 +239,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -245,7 +263,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -263,6 +281,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -284,7 +305,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -302,6 +323,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -323,7 +347,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -341,6 +365,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -365,7 +392,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -383,6 +410,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -404,7 +434,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -422,6 +452,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
@@ -441,7 +474,7 @@
         "version": "0.8.20",
         "settings": {
           "optimizer": {
-            "enabled": true,
+            "enabled": false,
             "runs": 200
           },
           "evmVersion": "paris",
@@ -459,6 +492,9 @@
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": false
           }
         }
       },
