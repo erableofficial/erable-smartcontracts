@@ -17,6 +17,7 @@ import StakeButton from "../../components/test/stakeButton";
 import ApproveAddressButton from "../../components/test/approveAddressButton";
 import AddToWaitlistButton from "../../components/test/addToWaitlistButton";
 import DisableWhiteListButton from "../../components/test/disableWhiteListButton";
+import UpdateStakeDurationForm from "../../components/test/updateStakeDurationForm";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -145,6 +146,10 @@ export default function TestPage() {
               </div>
               <AddToWaitlistButton />
               <DisableWhiteListButton />
+            </div>
+
+            <div>
+              <UpdateStakeDurationForm />
             </div>
           </>
         )}
