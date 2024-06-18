@@ -20,6 +20,7 @@ import DisableWhiteListButton from "../../components/test/disableWhiteListButton
 import UpdateStakeDurationForm from "../../components/test/updateStakeDurationForm";
 import UnstackButton from "../../components/test/unstackButton";
 import DepositRewardPoolButton from "../../components/test/depositRewardPoolButton";
+import StakeInfo from "../../components/test/stakeInfo";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -191,13 +192,7 @@ export default function TestPage() {
               { length: Number(userStakesCounter?.toString()) },
               (_, i) => i
             ).map((i) => {
-              return (
-                <div key={i.toString()}>
-                  <h1 className="text-center">Stake ID : {i}</h1>
-                  
-                  <UnstackButton stakeId={i} />
-                </div>
-              );
+              return <StakeInfo stakeId={i} key={i.toString()} />;
             })}
         </div>
       </div>
