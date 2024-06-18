@@ -5,10 +5,15 @@ import {
   useWaitForTransactionReceipt,
   useAccount,
 } from "wagmi";
-import { contractABI, contractAddress } from "../../lib/blockchain-config";
+import {
+  contractABI,
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../lib/blockchain-config";
 import { parseEther } from "viem";
 
-export default function StakeButton() {
+export default function ApproveAddressButton() {
   const account = useAccount();
   const {
     writeContract,
@@ -22,30 +27,26 @@ export default function StakeButton() {
       hash,
     });
 
-  const handleStake = async (amount: number) => {
+  const handleApproveAddr = async (addr: string, amount: number) => {
     writeContract({
-      abi: contractABI,
-      address: contractAddress,
-      functionName: "stake",
-      args: [parseEther(amount.toString())],
+      abi: stakingTokenABI,
+      address: stakingTokenAddress,
+      functionName: "approve",
+      args: [addr, parseEther(amount.toString())],
     });
   };
-
-  console.log(writeError)
-
   return (
     <div>
       <button
         disabled={isPending}
         onClick={() => {
-          handleStake(2);
+          handleApproveAddr(contractAddress, 50);
         }}
         className="primary-button"
       >
-        {isPending ? "Confirming..." : "Stake 2 tokens"}
+        {isPending ? "Confirming..." : "Approve 50 tokens"}
       </button>
       {writeError && <p>Error: {writeError.message}</p>}
-
       {hash && <p>Hash: {hash}</p>}
       {isConfirming && <div>Waiting for confirmation...</div>}
       {isConfirmed && <div>Transaction confirmed.</div>}

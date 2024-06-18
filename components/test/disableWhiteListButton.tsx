@@ -5,10 +5,15 @@ import {
   useWaitForTransactionReceipt,
   useAccount,
 } from "wagmi";
-import { contractABI, contractAddress } from "../../lib/blockchain-config";
+import {
+  contractABI,
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../lib/blockchain-config";
 import { parseEther } from "viem";
 
-export default function StakeButton() {
+export default function DisableWhiteListButton() {
   const account = useAccount();
   const {
     writeContract,
@@ -22,30 +27,26 @@ export default function StakeButton() {
       hash,
     });
 
-  const handleStake = async (amount: number) => {
+  const handleDisableWaitlist = async () => {
     writeContract({
       abi: contractABI,
       address: contractAddress,
-      functionName: "stake",
-      args: [parseEther(amount.toString())],
+      functionName: "disableWhitelist",
+      args: [],
     });
   };
-
-  console.log(writeError)
-
   return (
     <div>
       <button
         disabled={isPending}
         onClick={() => {
-          handleStake(2);
+          handleDisableWaitlist();
         }}
         className="primary-button"
       >
-        {isPending ? "Confirming..." : "Stake 2 tokens"}
+        {isPending ? "Confirming..." : "Disable waitlist"}
       </button>
       {writeError && <p>Error: {writeError.message}</p>}
-
       {hash && <p>Hash: {hash}</p>}
       {isConfirming && <div>Waiting for confirmation...</div>}
       {isConfirmed && <div>Transaction confirmed.</div>}

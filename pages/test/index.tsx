@@ -14,6 +14,9 @@ import {
 } from "../../lib/blockchain-config";
 import { formatEther, parseEther } from "viem";
 import StakeButton from "../../components/test/stakeButton";
+import ApproveAddressButton from "../../components/test/approveAddressButton";
+import AddToWaitlistButton from "../../components/test/addToWaitlistButton";
+import DisableWhiteListButton from "../../components/test/disableWhiteListButton";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -42,6 +45,13 @@ export default function TestPage() {
     abi: stakingTokenABI,
     address: stakingTokenAddress,
     functionName: "balanceOf",
+    args: [account.address],
+  });
+
+  const { data: stakedTokens, error: stakedTokensError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "getTotalStakedForUser",
     args: [account.address],
   });
 
@@ -104,30 +114,45 @@ export default function TestPage() {
 
         <div>
           <h1>
-            Staked Tokens : {}
+            Staked Tokens :{" "}
+            {stakedTokens
+              ? formatEther(BigInt(stakedTokens.toString())) + " ST"
+              : "0 ST"}
           </h1>
         </div>
 
-        <div className="flex items-center justify-center gap-2 mt-10">
-          <div>
-            <button
-              disabled={isPending}
-              onClick={() => {
-                handleTransferTokenToAddr(
-                  50,
-                  "0x1556A67c507840c20BD981105B8C461C618aC3CA"
-                );
-              }}
-              className="primary-button"
-            >
-              {isPending ? "Confirming..." : "Transfer 10 tokens to addr2"}
-            </button>
-            {writeError && <p>Error: {writeError.message}</p>}
-            {hash && <p>Hash: {hash}</p>}
-            {isConfirming && <div>Waiting for confirmation...</div>}
-            {isConfirmed && <div>Transaction confirmed.</div>}
-          </div>
+        {account.address === owner && (
+          <>
+            <h2 className="text-3xl text-center"> Owner Actions </h2>
+            <div className="flex items-center justify-center gap-2 mt-10">
+              <div>
+                <button
+                  disabled={isPending}
+                  onClick={() => {
+                    handleTransferTokenToAddr(
+                      10,
+                      "0xf97184f71561ca97113329c4FbCb1079c869D702"
+                    );
+                  }}
+                  className="primary-button"
+                >
+                  {isPending ? "Confirming..." : "Transfer 10 tokens to addr2"}
+                </button>
+                {writeError && <p>Error: {writeError.message}</p>}
+                {hash && <p>Hash: {hash}</p>}
+                {isConfirming && <div>Waiting for confirmation...</div>}
+                {isConfirmed && <div>Transaction confirmed.</div>}
+              </div>
+              <AddToWaitlistButton />
+              <DisableWhiteListButton />
+            </div>
+          </>
+        )}
 
+        <h2 className="mt-8 text-3xl text-center">Users Actions</h2>
+
+        <div className="flex items-center justify-center gap-2 mt-10">
+          <ApproveAddressButton />
           <StakeButton />
         </div>
       </div>
