@@ -49,7 +49,7 @@ const OurLiveUtil: React.FC = () => {
         <h3 className="text-2xl text-black">{title}</h3>
         <Link
           href={"/learn-more"}
-          className="pb-1.5 my-auto text-base text-black border-b-2 border-black border-solid"
+          className="pb-1.5 cursor-pointer my-auto text-base text-black border-b-2 border-black border-solid"
         >
           Learn more
         </Link>
