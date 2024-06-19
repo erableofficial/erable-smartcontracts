@@ -20,6 +20,8 @@ const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
           src="/images/mail.svg"
           alt=""
           className="w-6 shrink-0 aspect-square"
+          width={24}
+          height={24}
         />
         <div>{title}</div>
       </div>
