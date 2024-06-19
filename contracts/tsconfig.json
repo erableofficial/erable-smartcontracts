@@ -9,5 +9,8 @@
     "resolveJsonModule": true
   },
   "include": ["./scripts", "./test", "./typechain", "./hardhat.config.ts"],
-  "files": ["./hardhat.config.ts"]
+  "files": ["./hardhat.config.ts"],
+  "ts-node": {
+    "esm": true
+}
 }

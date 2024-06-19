@@ -27,7 +27,9 @@ export interface StakingInterface extends Interface {
   getFunction(
     nameOrSignature:
       | "addToWhitelist"
+      | "calculateTax"
       | "calculateTotalWithdraw"
+      | "calculateYield"
       | "claim"
       | "cooldownPeriod"
       | "depositRewardTokens"
@@ -42,6 +44,7 @@ export interface StakingInterface extends Interface {
       | "owner"
       | "pause"
       | "paused"
+      | "pendingRewards"
       | "removeFromWhitelist"
       | "renounceOwnership"
       | "rewardPool"
@@ -88,8 +91,16 @@ export interface StakingInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "calculateTax",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "calculateTotalWithdraw",
     values: [BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "calculateYield",
+    values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "claim", values: [BigNumberish]): string;
   encodeFunctionData(
@@ -136,6 +147,10 @@ export interface StakingInterface extends Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "pendingRewards",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "removeFromWhitelist",
     values: [AddressLike]
@@ -232,7 +247,15 @@ export interface StakingInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "calculateTax",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "calculateTotalWithdraw",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "calculateYield",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
@@ -270,6 +293,10 @@ export interface StakingInterface extends Interface {
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "pendingRewards",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "removeFromWhitelist",
     data: BytesLike
@@ -542,8 +569,20 @@ export interface Staking extends BaseContract {
     "nonpayable"
   >;
 
+  calculateTax: TypedContractMethod<
+    [timeStaked: BigNumberish],
+    [bigint],
+    "view"
+  >;
+
   calculateTotalWithdraw: TypedContractMethod<
     [_amount: BigNumberish, timeStaked: BigNumberish],
+    [bigint],
+    "view"
+  >;
+
+  calculateYield: TypedContractMethod<
+    [timeStaked: BigNumberish],
     [bigint],
     "view"
   >;
@@ -594,6 +633,8 @@ export interface Staking extends BaseContract {
   pause: TypedContractMethod<[], [void], "nonpayable">;
 
   paused: TypedContractMethod<[], [boolean], "view">;
+
+  pendingRewards: TypedContractMethod<[], [bigint], "view">;
 
   removeFromWhitelist: TypedContractMethod<
     [_address: AddressLike],
@@ -706,12 +747,18 @@ export interface Staking extends BaseContract {
     nameOrSignature: "addToWhitelist"
   ): TypedContractMethod<[_address: AddressLike], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "calculateTax"
+  ): TypedContractMethod<[timeStaked: BigNumberish], [bigint], "view">;
+  getFunction(
     nameOrSignature: "calculateTotalWithdraw"
   ): TypedContractMethod<
     [_amount: BigNumberish, timeStaked: BigNumberish],
     [bigint],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "calculateYield"
+  ): TypedContractMethod<[timeStaked: BigNumberish], [bigint], "view">;
   getFunction(
     nameOrSignature: "claim"
   ): TypedContractMethod<[stakeId: BigNumberish], [void], "nonpayable">;
@@ -765,6 +812,9 @@ export interface Staking extends BaseContract {
   getFunction(
     nameOrSignature: "paused"
   ): TypedContractMethod<[], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "pendingRewards"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "removeFromWhitelist"
   ): TypedContractMethod<[_address: AddressLike], [void], "nonpayable">;

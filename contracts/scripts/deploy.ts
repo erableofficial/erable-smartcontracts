@@ -1,13 +1,15 @@
-import { ethers } from "hardhat";
+import {ethers, upgrades} from 'hardhat'
 
 async function main() {
+
+  console.log(ethers)
   const [deployer] = await ethers.getSigners();
-  console.log("Deploying contracts with account:", deployer.address);
 
   const MyToken = await ethers.getContractFactory("StakingToken");
   const myToken = await MyToken.deploy(ethers.parseEther("8000"));
 
-  console.log("MyToken deployed to:", myToken.target);
+  await stakingToken.waitForDeployment();
+  console.log("StakingToken deployed to:", stakingToken.target);
 
   const Staking = await ethers.getContractFactory("Staking");
   const staking = await Staking.deploy();
@@ -31,9 +33,7 @@ async function main() {
   console.log("Approved staking contract to spend tokens");
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
