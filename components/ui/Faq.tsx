@@ -31,7 +31,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
           {question}
         </div>
         <button
-          className="flex justify-center items-center p-3 bg-surface-500 border border-solid border-zinc-300 h-[2.813rem] rounded-[2.344rem] w-[2.813rem]"
+          className="flex justify-center items-center p-3 hover:bg-surface-500 border border-solid border-zinc-300 h-[2.813rem] rounded-[2.344rem] w-[2.813rem]"
           onClick={toggleOpen}
         >
           {isOpen ? <Minus /> : <Plus />}

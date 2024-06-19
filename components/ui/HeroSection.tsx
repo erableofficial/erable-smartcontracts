@@ -38,7 +38,7 @@ const Card: React.FC<CardProps> = ({ text, subtext }) => {
 };
 
 const HeroSection: React.FC = () => (
-  <section className="flex flex-col items-center px-20 max-md:px-5">
+  <section className="flex flex-col items-center mt-20 px-20 max-md:px-5 max-md:mt-5">
     <div className="text-8xl font-extrabold tracking-tighter text-center text-black leading-[6.938rem] max-md:max-w-full max-md:text-4xl max-md:leading-[3.438rem]">
       <span
         className="font-bold leading-[6.938rem] "

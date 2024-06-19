@@ -18,7 +18,6 @@ module.exports = {
           300: "#FFFEE9",
           500: "#FFFBA0",
         },
-        primary: "#1F1F1F",
         success: {
           100: "#BCFAD3",
           200: "#DCFCE7",
@@ -51,6 +50,7 @@ module.exports = {
           600: "#525252",
           700: "#000000",
         },
+        primary: "#1F1F1F",
       },
       fontFamily: {
         NeueHaas: ["NeueHaasGroteskDisplayPro", "sans-serif"],

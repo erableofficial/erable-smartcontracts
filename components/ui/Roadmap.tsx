@@ -20,8 +20,6 @@ const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
           src="/images/mail.svg"
           alt=""
           className="w-6 shrink-0 aspect-square"
-          width={24}
-          height={24}
         />
         <div>{title}</div>
       </div>
@@ -106,8 +104,8 @@ const Roadmap: React.FC = () => {
   ];
 
   return (
-    <section className="flex flex-col self-stretch p-20 bg-stone-50 max-md:px-5">
-      <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem] ">
+    <div className="flex flex-col self-stretch p-20 bg-stone-50 max-md:px-5">
+      <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
       </div>
       <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[1263px]" />
@@ -132,7 +130,7 @@ const Roadmap: React.FC = () => {
           </button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

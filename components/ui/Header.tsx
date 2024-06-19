@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowUpRight, Menu } from "lucide-react";
 import ConnectWalletButton from "./connectWalletButton";
 
 export default function Header() {
@@ -12,13 +11,16 @@ export default function Header() {
           <Link href="/" className="w-[40%] h-auto">
             <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
           </Link>
-          <button className="bg-surface-500 py-1.5 px-3 rounded-full border-2 border-black border-solid flex items-center gap-0.5 ">
+          <button className="md:hidden bg-surface-500 py-1.5 px-3 rounded-full border-2 border-black border-solid">
+            <Menu />
+          </button>
+          <button className="bg-surface-500 py-1.5 px-3 rounded-full border-2 border-black border-solid hidden md:flex items-center gap-0.5 ">
             <span className="text-base font-medium text-left text-nowrap ">
               Bridge $CLAP
             </span>
             <ArrowUpRight />
           </button>
-          <button className="bg-surface-500 py-1.5 px-3 rounded-full border-2 border-black border-solid flex items-center gap-0.5">
+          <button className="bg-surface-500 py-1.5 px-3 rounded-full border-2 border-black border-solid hidden md:flex items-center gap-0.5">
             <span className="text-base font-medium text-left text-nowrap ">
               Buy $ERA
             </span>
@@ -26,7 +28,7 @@ export default function Header() {
           </button>
         </div>
         <nav>
-          <ul className="flex flex-wrap items-center justify-around gap-2 space-x-4">
+          <ul className="flex-wrap items-center justify-around hidden gap-2 space-x-4 md:flex">
             <li>
               <button className="flex items-center gap-0.5 justify-center">
                 <span className="text-lg font-medium ">Utilities</span>

@@ -13,12 +13,11 @@ interface UtilityCardProps {
 const IconButton: React.FC<{
   src: string;
   alt: string;
-  bgClass: string;
   onClick: () => void;
-}> = ({ src, alt, bgClass, onClick }) => (
+}> = ({ src, alt, onClick }) => (
   <button
     onClick={onClick}
-    className={`flex justify-center items-center p-3.5 ${bgClass} h-[57px] rounded-[47.25px] w-[57px]  `}
+    className={`flex justify-center items-center p-3.5 hover:bg-surface-500 bg-zinc-100  h-[57px] rounded-[47.25px] w-[57px]  `}
   >
     <Image
       src={src}
@@ -49,7 +48,7 @@ const OurLiveUtil: React.FC = () => {
         <h3 className="text-2xl text-black">{title}</h3>
         <Link
           href={"/learn-more"}
-          className="pb-1.5 my-auto text-base text-black border-b-2 border-black border-solid"
+          className="pb-1.5 cursor-pointer my-auto text-base text-black border-b-2 border-black border-solid"
         >
           Learn more
         </Link>
@@ -126,7 +125,7 @@ const OurLiveUtil: React.FC = () => {
   }, [activeCardIndex]);
 
   return (
-    <section className="overflow-hidden flex justify-center items-center px-16 py-20 bg-white max-md:pl-5">
+    <section className="overflow-hidden flex justify-center items-center px-16 py-20 bg-white max-md:p-3">
       <div className="mt-2.5 w-full max-w-[98%] max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
@@ -152,13 +151,11 @@ const OurLiveUtil: React.FC = () => {
                   <IconButton
                     src="/images/move-left.svg"
                     alt="Utility 1"
-                    bgClass="bg-zinc-100"
                     onClick={handleMoveLeft}
                   />
                   <IconButton
                     src="/images/move-right.svg"
                     alt="Utility 2"
-                    bgClass="bg-surface-500"
                     onClick={handleMoveRight}
                   />
                 </div>
