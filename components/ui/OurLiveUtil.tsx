@@ -125,7 +125,7 @@ const OurLiveUtil: React.FC = () => {
   }, [activeCardIndex]);
 
   return (
-    <section className="overflow-hidden flex justify-center items-center px-16 py-20 bg-white max-md:pl-5">
+    <section className="overflow-hidden flex justify-center items-center px-16 py-20 bg-white max-md:p-3">
       <div className="mt-2.5 w-full max-w-[98%] max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
