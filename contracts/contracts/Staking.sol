@@ -6,7 +6,6 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
-
 /**
  * @title Staking Contract
  * @dev A contract for staking ERC20 tokens and earning rewards.
@@ -103,7 +102,7 @@ contract Staking is
         maxCap = 0;
         yieldConstant = _yieldConstant;
         cooldownPeriod = _cooldownPeriod;
-        monthsInStakingPeriod = _stakingDuration / 30 / 24 / 60 / 60;
+        monthsInStakingPeriod = _stakingDuration / 30 days;
         startingSlashingPoint = _startingSlashingPoint;
         monthlyIncreasePercentage = _monthlyIncreasePercentage;
     }
@@ -140,34 +139,40 @@ contract Staking is
      * @param stakeId The ID of the stake to unstake
      */
     function unstake(uint256 stakeId) external nonReentrant {
-        Stake storage stakeInfo = userStakes[msg.sender][stakeId];
-        require(stakeInfo.amount > 0, "No staked amount to request unstake");
-        require(!stakeInfo.unstakeRequested, "Unstake already requested");
+    Stake storage stakeInfo = userStakes[msg.sender][stakeId];
+    require(stakeInfo.amount > 0, "No staked amount to request unstake");
+    require(!stakeInfo.unstakeRequested, "Unstake already requested");
 
-        uint256 _amount = stakeInfo.amount;
-        uint256 totalAmount;
+    uint256 _amount = stakeInfo.amount;
+    uint256 totalAmount;
 
-        if (stakingDuration == 0) {
-            totalAmount = calculateTotalWithdraw(_amount, block.timestamp - stakeInfo.startTime);
-        } else if (block.timestamp < stakeInfo.startTime + stakingDuration) {
-            stakeInfo.requestUnstakeTime = block.timestamp;
-            stakeInfo.unstakeRequested = true;
-            emit UnstakeRequested(msg.sender, stakeInfo.amount);
-            return;
-        } else {
-            totalAmount = calculateTotalWithdraw(_amount, block.timestamp - stakeInfo.startTime);
-        }
-
-        _totalStaked -= _amount;
-        _rewardPool -= totalAmount - _amount;
-        delete userStakes[msg.sender][stakeId];
-        stakingToken.transfer(msg.sender, totalAmount);
-        emit Withdrawn(msg.sender, totalAmount);
-
-        if (getTotalStakedForUser(msg.sender) == 0) {
-            delete userStakeCounter[msg.sender];
-        }
+    if (stakingDuration == 0) {
+        totalAmount = calculateTotalWithdraw(_amount, block.timestamp - stakeInfo.startTime);
+    } else if (block.timestamp < stakeInfo.startTime + stakingDuration) {
+        stakeInfo.requestUnstakeTime = block.timestamp;
+        stakeInfo.unstakeRequested = true;
+        emit UnstakeRequested(msg.sender, stakeInfo.amount);
+        return;
+    } else {
+        totalAmount = calculateTotalWithdraw(_amount, block.timestamp - stakeInfo.startTime);
     }
+
+    require(_totalStaked >= _amount, "Overflow: total staked amount");
+    _totalStaked -= _amount;
+
+    uint256 rewardAmount = totalAmount - _amount;
+    require(_rewardPool >= rewardAmount, "Overflow: reward pool amount");
+    _rewardPool -= rewardAmount;
+
+    delete userStakes[msg.sender][stakeId];
+    stakingToken.transfer(msg.sender, totalAmount);
+    emit Withdrawn(msg.sender, totalAmount);
+
+    if (getTotalStakedForUser(msg.sender) == 0) {
+        delete userStakeCounter[msg.sender];
+    }
+}
+
 
     /**
      * @notice Claims the tokens and rewards after the cooldown period
@@ -198,25 +203,32 @@ contract Staking is
      * @param timeStaked The duration for which the tokens were staked
      * @return The total withdrawable amount
      */
-    function calculateTotalWithdraw(uint256 _amount, uint256 timeStaked)
-        public
-        view
-        returns (uint256)
-    {
-        uint256 Y = calculateYield(timeStaked);
-        uint256 T = calculateTax(timeStaked);
+function calculateTotalWithdraw(uint256 _amount, uint256 timeStaked)
+    public
+    view
+    returns (uint256)
+{
+    uint256 Y = calculateYield(timeStaked);
+    uint256 T = calculateTax(timeStaked);
 
-        uint256 reward = (_amount * Y) / 1e18;
-        uint256 slashingTax = (reward * T) / 1e18;
-        uint256 totalWithdrawAmount = _amount + reward - slashingTax;
+    // Ensure that reward calculation does not overflow
+    uint256 reward = (_amount * Y) / 1e18;
 
-        require(
-            _rewardPool >= reward - slashingTax,
-            "Insufficient reward pool"
-        );
+    // Ensure that slashing tax calculation does not overflow
+    uint256 slashingTax = (reward * T) / 1e18;
 
-        return totalWithdrawAmount;
-    }
+    // Ensure that total withdraw amount does not overflow
+    require(_amount + reward >= _amount, "Overflow in total withdraw amount calculation");
+    uint256 totalWithdrawAmount = _amount + reward - slashingTax;
+
+    require(
+        _rewardPool >= reward - slashingTax,
+        "Insufficient reward pool"
+    );
+
+    return totalWithdrawAmount;
+}
+
 
     /**
      * @notice Returns the total amount of tokens staked in the contract
@@ -257,7 +269,7 @@ contract Staking is
         onlyOwner
     {
         stakingDuration = _stakingDuration;
-        monthsInStakingPeriod = _stakingDuration / 30 / 24 / 60 / 60;
+        monthsInStakingPeriod = _stakingDuration / 30 days;
     }
 
     /**
@@ -345,6 +357,7 @@ contract Staking is
             uint256 T = startingSlashingPoint -
                 (monthlyIncreasePercentage * timeStaked) /
                 stakingDuration;
+            require(T > 0 , "Cannot slash a negative value");
             return T;
         }
     }
@@ -410,10 +423,18 @@ contract Staking is
      * @return The total staked amount
      */
     function getTotalStakedForUser(address user) public view returns (uint256) {
-        uint256 totalStakedTokens = 0;
-        for (uint256 i = 0; i < userStakeCounter[user]; i++) {
-            totalStakedTokens += userStakes[user][i].amount;
+    uint256 totalStakedTokens = 0;
+    uint256 stakeCount = userStakeCounter[user]; // Read from storage only once
+    mapping(uint256 => Stake) storage stakes = userStakes[user]; // Cache the mapping
+
+    for (uint256 i = 0; i < stakeCount; ) {
+        totalStakedTokens += stakes[i].amount;
+        unchecked {
+            i++;
         }
-        return totalStakedTokens;
     }
+
+    return totalStakedTokens;
+}
+
 }
