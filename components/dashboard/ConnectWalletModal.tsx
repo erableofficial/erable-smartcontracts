@@ -22,7 +22,7 @@ const ConnectWalletModal: React.FC = () => {
         />
       </div>
       <h1 className="mt-10 text-3xl font-semibold text-black">
-        Trouver un titre
+        Open Dashboard
       </h1>
       <p className="justify-center self-stretch px-2.5 py-1 mt-5 text-lg font-medium text-black bg-surface-500 rounded max-md:max-w-full">
         Please connect your wallet to access to your dashboard
