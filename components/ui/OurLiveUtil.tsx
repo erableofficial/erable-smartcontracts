@@ -13,12 +13,11 @@ interface UtilityCardProps {
 const IconButton: React.FC<{
   src: string;
   alt: string;
-  bgClass: string;
   onClick: () => void;
-}> = ({ src, alt, bgClass, onClick }) => (
+}> = ({ src, alt, onClick }) => (
   <button
     onClick={onClick}
-    className={`flex justify-center items-center p-3.5 ${bgClass} h-[57px] rounded-[47.25px] w-[57px]  `}
+    className={`flex justify-center items-center p-3.5 hover:bg-surface-500 bg-zinc-100  h-[57px] rounded-[47.25px] w-[57px]  `}
   >
     <Image
       src={src}
@@ -152,13 +151,11 @@ const OurLiveUtil: React.FC = () => {
                   <IconButton
                     src="/images/move-left.svg"
                     alt="Utility 1"
-                    bgClass="bg-zinc-100"
                     onClick={handleMoveLeft}
                   />
                   <IconButton
                     src="/images/move-right.svg"
                     alt="Utility 2"
-                    bgClass="bg-surface-500"
                     onClick={handleMoveRight}
                   />
                 </div>
