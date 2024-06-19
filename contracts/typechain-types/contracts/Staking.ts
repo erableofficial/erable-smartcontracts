@@ -44,6 +44,7 @@ export interface StakingInterface extends Interface {
       | "owner"
       | "pause"
       | "paused"
+      | "pendingRewards"
       | "removeFromWhitelist"
       | "renounceOwnership"
       | "rewardPool"
@@ -146,6 +147,10 @@ export interface StakingInterface extends Interface {
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "pendingRewards",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "removeFromWhitelist",
     values: [AddressLike]
@@ -288,6 +293,10 @@ export interface StakingInterface extends Interface {
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "pendingRewards",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "removeFromWhitelist",
     data: BytesLike
@@ -625,6 +634,8 @@ export interface Staking extends BaseContract {
 
   paused: TypedContractMethod<[], [boolean], "view">;
 
+  pendingRewards: TypedContractMethod<[], [bigint], "view">;
+
   removeFromWhitelist: TypedContractMethod<
     [_address: AddressLike],
     [void],
@@ -801,6 +812,9 @@ export interface Staking extends BaseContract {
   getFunction(
     nameOrSignature: "paused"
   ): TypedContractMethod<[], [boolean], "view">;
+  getFunction(
+    nameOrSignature: "pendingRewards"
+  ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "removeFromWhitelist"
   ): TypedContractMethod<[_address: AddressLike], [void], "nonpayable">;
