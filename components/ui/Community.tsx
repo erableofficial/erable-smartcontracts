@@ -18,9 +18,11 @@ const SectionContent: React.FC<SectionContentProps> = ({
   profilePics,
 }) => {
   return (
-    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-[20px] cursor-pointer border border-solid border-primary">
+    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-[20px] cursor-pointer border border-solid border-primary flex flex-col justify-between">
       <div className="flex gap-0 justify-between">
+        {/* <div> */}
         <h2 className="flex-1 text-3xl font-semibold text-black">{title}</h2>
+
         <div className="flex flex-row justify-center items-center">
           {profilePics.map((pic, index) => (
             <div
@@ -36,7 +38,8 @@ const SectionContent: React.FC<SectionContentProps> = ({
           ))}
         </div>
       </div>
-      <p className="mt-9 text-lg font-medium text-black">{description}</p>
+      <p className="text-lg font-medium text-black">{description}</p>
+      {/* </div> */}
     </section>
   );
 };
