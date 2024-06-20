@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, http } from "wagmi";
+import { defineChain } from "viem";
 import {
   arbitrum,
   base,
@@ -48,9 +49,23 @@ const connectors = connectorsForWallets(
   }
 );
 
+const hardhat = /*#__PURE__*/ defineChain({
+  id: 1_337,
+  name: "Hardhat",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Ether",
+    symbol: "ETH",
+  },
+  rpcUrls: {
+    default: { http: ["http://127.0.0.1:8545"] },
+  },
+});
+
 const config = createConfig({
   connectors,
   chains: [
+    hardhat,
     polygonAmoy,
     mainnet,
     polygon,
@@ -60,6 +75,7 @@ const config = createConfig({
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [sepolia] : []),
   ],
   transports: {
+    [hardhat.id]: http(),
     [polygonAmoy.id]: http(),
     [mainnet.id]: http(),
     [sepolia.id]: http(),

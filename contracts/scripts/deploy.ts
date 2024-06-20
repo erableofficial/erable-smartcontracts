@@ -1,23 +1,36 @@
-import { ethers } from "hardhat";
+import { ethers, upgrades } from "hardhat";
 
 async function main() {
+  // console.log(ethers);
   const [deployer] = await ethers.getSigners();
-  console.log("Deploying contracts with account:", deployer.address);
 
-  const MyToken = await ethers.getContractFactory("StakingToken");
-  const myToken = await MyToken.deploy(ethers.parseEther("1000")); 
+  const StakingToken = await ethers.getContractFactory("StakingToken");
+  const stakingToken = await StakingToken.deploy(
+    ethers.parseEther("1000000000")
+  );
 
-  console.log("MyToken deployed to:", myToken.target);
+  await stakingToken.waitForDeployment();
+  console.log("StakingToken deployed to:", stakingToken.target);
 
   const Staking = await ethers.getContractFactory("Staking");
-  const staking = await Staking.deploy(myToken.target, 365 * 24 * 60 * 60);
+  const staking = await upgrades.deployProxy(
+    Staking,
+    [
+      stakingToken.target,
+      31556926n, // 1 year in seconds
+      800000000000000n, // yield constant
+      300n, // cooldown period in seconds
+      600000000000000000n, // starting slashing point
+      480000000000000000n, // monthly increase percentage
+    ],
+    { initializer: "initialize" }
+  );
 
-  console.log("Staking contract deployed to: ", staking.target);
+  await staking.waitForDeployment();
+  console.log("Staking contract deployed to:", staking.target);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
