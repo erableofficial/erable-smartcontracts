@@ -118,11 +118,11 @@ const HeroSection = () => {
           data-sal-duration="1000"
         >
           <Image
-            src="/images/card-img.svg"
-            className="w-full aspect-[4.55] max-md:max-w-full mb-[-2px]"
+            src="/images/image 2838.png"
+            className="w-full  aspect-[2.5] max-md:max-w-full"
             alt="Descriptive text about the image"
-            width={894}
-            height={196}
+            width={2560}
+            height={1029}
           />
         </figure>
       </section>
