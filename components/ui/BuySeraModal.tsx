@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ArrowUpRight, Info, Pointer, Ticket, X } from "lucide-react";
+import { ArrowUpRight, Info, Ticket, X } from "lucide-react";
 import InfoText from "./InfoText";
 
 interface BuySeraModalProps {
