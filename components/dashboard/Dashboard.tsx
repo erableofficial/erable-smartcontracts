@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
 import Image from "next/image";
-import { ChevronDown, Info } from "lucide-react";
+import { ChevronDown, ChevronUp, Info, Minus, Plus } from "lucide-react";
+import Link from "next/link";
 
 interface DashboardProps {}
 
@@ -102,6 +103,23 @@ const airdropItems = [
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const [selected, setSelected] = useState<string>("All");
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // This useEffect ensures that updates to isOpen appropriately adjust maxHeight
+  React.useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.style.maxHeight = isOpen
+        ? `${contentRef.current.scrollHeight}px`
+        : "0";
+    }
+  }, [isOpen]);
   const { isConnected } = useAccount();
 
   const buttons: string[] = ["All", "Staking", "Your Farming", "Your airdrop"];
@@ -121,9 +139,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       {!isConnected && <ConnectWalletModal />}
 
       <div
-        className={`flex flex-col items-center ${
-          isConnected ? "" : "blur-lg"
-        }  `}
+        className={`flex flex-col items-center ${isConnected ? "" : " blur"}  `}
       >
         <div className="justify-between self-stretch px-32 mt-14 w-full max-md:px-5 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
@@ -140,8 +156,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <div className="flex gap-0.5 self-start mt-9 text-black">
                   <div className="text-4xl font-semibold">0.0</div>
                   <div className="self-start mt-5 text-lg font-medium">
-                    {" "}
-                    = 0,1 centime{" "}
+                    = 0,1 centime
                   </div>
                 </div>
                 <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-black bg-yellow-200 border border-black border-solid rounded-[38px]">
@@ -229,19 +244,52 @@ const Dashboard: React.FC<DashboardProps> = () => {
         </div>
 
         <section className="flex flex-col justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full">
-          <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-            <h2 className="my-auto text-2xl font-semibold text-black max-md:max-w-full">
-              Official link
-            </h2>
-            <div className="flex justify-center items-center p-3 bg-yellow-200 border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]">
-              <Image
-                loading="lazy"
-                src="/images/arrow down.svg"
-                alt="Official Link Icon"
-                width={24}
-                height={24}
-                className="w-6 aspect-square"
-              />
+          <div className="flex flex-col  justify-between max-md:flex-wrap max-md:max-w-full">
+            <div className="flex justify-between">
+              <h2 className="my-auto text-2xl font-semibold text-black max-md:max-w-full">
+                Official link
+              </h2>
+              <div
+                className={` cursor-pointer flex justify-center items-center p-3 ${
+                  isOpen ? "bg-surface-500" : ""
+                }  border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]`}
+                onClick={toggleOpen}
+              >
+                {isOpen ? <Minus /> : <Plus />}
+                {/* <Image
+                  loading="lazy"
+                  src="/images/arrow down.svg"
+                  alt="Official Link Icon"
+                  width={24}
+                  height={24}
+                  className="w-6 aspect-square"
+                  onClick={toggleOpen}
+                /> */}
+              </div>
+            </div>
+            <div
+              ref={contentRef}
+              className="overflow-hidden transition-max-height duration-500 ease-in-out"
+              style={{ maxHeight: "0" }}
+            >
+              <div className="mt-4 text-sm text-gray-700">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </div>
+
+              <div className="self-start pb-1.5 mt-6 text-lg font-semibold text-black ">
+                <Link
+                  href=""
+                  className="pb-1.5 mt-6 text-lg font-semibold text-black border-b-2 border-black"
+                >
+                  Read more
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -261,13 +309,38 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 ))}
               </nav>
               <div className="flex gap-4 pl-20 text-base font-semibold text-black max-md:flex-wrap">
-                <button className="justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
-                  New to $ERA ?
+                <button className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
+                  Help ?
                 </button>
-                <button className="flex gap-0.5 px-5 py-3 bg-emerald-200 rounded-lg border-2 border-black border-solid">
-                  <span className="my-auto">Start a new program</span>
-                  <ChevronDown height={24} width={24} color="#1F1F1F" />
-                </button>
+                <div>
+                  <button
+                    className="primary-button-sm flex gap-0.5 px-5 py-3 bg-emerald-200 rounded-lg border-[1px] border-black border-solid"
+                    onClick={toggleDropdown}
+                  >
+                    <span className="my-auto">Start a new program</span>
+                    {isDropdownOpen ? (
+                      <ChevronUp height={24} width={24} color="#1F1F1F" />
+                    ) : (
+                      <ChevronDown height={24} width={24} color="#1F1F1F" />
+                    )}
+                  </button>
+                  {isDropdownOpen && (
+                    <div
+                      className={`dropdown-content border-solid border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute`}
+                    >
+                      {/* Dropdown items here */}
+                      <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
+                        Staking
+                      </div>
+                      <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                        LP Farming
+                      </div>
+                      <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                        Airdrop
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
