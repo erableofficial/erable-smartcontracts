@@ -43,20 +43,22 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
           <Database size={32} width={35} height={35} />
         </div>
         <div className=" flex gap-3 mt-10 text-3xl font-semibold mb-8 text-black">
-          Bridge process
-          <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+          Bridge Your Tokens
+          <span className="justify-center flex items-center text-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
             $CLAP holders only
           </span>
         </div>
+        <p className="self-stretch mb-4 text-lg font-medium text-left text-black max-md:max-w-full">
+          This secure process enables you to transfer your tokens between the
+          Cardano and the Polygon blockchains. For more information or
+          assistance, please read the tutorial.
+        </p>
         <InfoText
           bgColor="bg-orange-200"
           Icon={<Info height={17} width={17} color="#000000" />}
-          text="You will be redirected to our bridge partner website"
+          text="To bridge your $CLAP tokens, follow the instructions provided on our partner's website"
         />
-        <p className="self-stretch mt-4 text-base font-medium text-left text-black max-md:max-w-full">
-          Lorem ipsum dolor sit amet consectetur. Ornare ut at viverra magna
-          platea arcu.
-        </p>
+
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-black">
           <button className="secondary-button-sm">See tutorial</button>
           <button className="primary-button-sm">

@@ -43,7 +43,7 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
           <Ticket size={32} width={35} height={35} />
         </div>
         <div className="mt-10 text-3xl font-semibold mb-8 text-black">
-          Buy $ERA
+          Buy $ERA on Uniswap
         </div>
         <InfoText
           bgColor="bg-orange-200"
@@ -51,8 +51,8 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
           text="You will be redirected to uniswap"
         />
         <p className="self-stretch mt-4 text-base font-medium text-left text-black max-md:max-w-full">
-          Blabla secure, pk acheter là-bas Lorem ipsum dolor sit amet
-          consectetur. Ornare ut at viverra magna platea arcu.
+          Purchase $ERA tokens securely through Uniswap. Follow the instructions
+          on the Uniswap platform to complete your transaction.
         </p>
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-black">
           <button className="secondary-button-sm">See tutorial</button>
