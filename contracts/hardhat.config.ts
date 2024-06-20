@@ -1,14 +1,17 @@
 import { HardhatUserConfig } from "hardhat/config";
-import '@openzeppelin/hardhat-upgrades';
+import "@openzeppelin/hardhat-upgrades";
 import "@nomicfoundation/hardhat-toolbox";
 import * as dotenv from "dotenv";
-import 'solidity-coverage'
+import "solidity-coverage";
 
 dotenv.config();
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
+    localhost: {
+      url: "http://127.0.0.1:8545",
+    },
     hardhat: {
       chainId: 1337,
     },

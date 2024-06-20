@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
 import Image from "next/image";
+import { ChevronDown, Info } from "lucide-react";
 
 interface DashboardProps {}
 
@@ -9,11 +10,95 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
   title,
   value,
 }) => (
-  <div className="flex justify-between gap-4 mt-2 text-black max-md:mr-1">
-    <div className="text-lg font-medium">{title}</div>
-    <div className="text-xl font-bold">{value}</div>
+  <div className="flex gap-4 justify-between mt-2 text-black max-md:mr-1">
+    <div className="text-lg font-medium text-neutral-500">{title}</div>
+    <div className=" text-[16px] font-medium ">{value}</div>
   </div>
 );
+
+const allItems = [
+  {
+    type: "Staking",
+    startDate: "JJ/MM/AAAA",
+    amount: "XXX,XXX.XXX",
+    currentRewards: "XXX,XXX.XXX",
+    endDate: "JJ/MM/AAAA",
+    action: "Claim",
+    daysLeft: "7 days left",
+  },
+  {
+    type: "Staking",
+    startDate: "JJ/MM/AAAA",
+    amount: "XXX,XXX.XXX",
+    currentRewards: "XXX,XXX.XXX",
+    endDate: "JJ/MM/AAAA",
+    action: "Claim",
+    daysLeft: "7 days left",
+  },
+  {
+    type: "LP Farming",
+    startDate: "JJ/MM/AAAA",
+    amount: "XXX,XXX.XXX",
+    currentRewards: "XXX,XXX.XXX",
+    endDate: "JJ/MM/AAAA",
+    action: "Unstake",
+    daysLeft: "7 days left",
+  },
+  {
+    type: "Airdrop",
+    startDate: "JJ/MM/AAAA",
+    amount: "XXX,XXX.XXX",
+    currentRewards: "XXX,XXX.XXX",
+    endDate: "JJ/MM/AAAA",
+    action: "Unstake",
+    daysLeft: "7 days left",
+  },
+];
+
+const stakingItems = [
+  {
+    type: "Staking",
+    startDate: "JJ/MM/AAAA",
+    amount: "XXX,XXX.XXX",
+    currentRewards: "XXX,XXX.XXX",
+    endDate: "JJ/MM/AAAA",
+    action: "Claim",
+    daysLeft: "7 days left",
+  },
+  {
+    type: "Staking",
+    startDate: "JJ/MM/AAAA",
+    amount: "XXX,XXX.XXX",
+    currentRewards: "XXX,XXX.XXX",
+    endDate: "JJ/MM/AAAA",
+    action: "Claim",
+    daysLeft: "7 days left",
+  },
+];
+
+const farmingItems = [
+  {
+    type: "LP Farming",
+    startDate: "JJ/MM/AAAA",
+    amount: "XXX,XXX.XXX",
+    currentRewards: "XXX,XXX.XXX",
+    endDate: "JJ/MM/AAAA",
+    action: "Unstake",
+    daysLeft: "7 days left",
+  },
+];
+
+const airdropItems = [
+  {
+    type: "Airdrop",
+    startDate: "JJ/MM/AAAA",
+    amount: "XXX,XXX.XXX",
+    currentRewards: "XXX,XXX.XXX",
+    endDate: "JJ/MM/AAAA",
+    action: "Unstake",
+    daysLeft: "7 days left",
+  },
+];
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const [selected, setSelected] = useState<string>("All");
@@ -40,7 +125,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           isConnected ? "" : "blur-lg"
         }  `}
       >
-        <div className="self-stretch justify-between w-full px-20 max-md:px-5 max-md:max-w-full">
+        <div className="justify-between self-stretch px-32 mt-14 w-full max-md:px-5 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col self-stretch justify-between w-full p-6 mx-auto bg-white border border-solid grow rounded-3xl border-stone-300 max-md:px-5 max-md:mt-6">
@@ -121,20 +206,23 @@ const Dashboard: React.FC<DashboardProps> = () => {
               </div>
             </section>
             <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col w-full p-6 mx-auto bg-white border border-solid grow rounded-3xl border-stone-300 max-md:px-5 max-md:mt-6">
-                <div className="flex justify-between gap-5 font-semibold">
-                  <div className="my-auto text-2xl text-black">
-                    $ERA statistiques
+              <div className="flex flex-col grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+                <div className="flex gap-5 justify-between font-semibold">
+                  <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
+                    <div className="text-2xl text-black">$ERA stats</div>
+                    <div className="self-start pb-1.5 text-lg text-black whitespace-nowrap border-b-2 border-black border-solid">
+                      Whitepaper
+                    </div>
                   </div>
-                  <button className="justify-center px-6 py-3 text-base text-black bg-white border-2 border-black border-solid rounded-lg whitespace-nowrap max-md:px-5">
-                    Whitepaper
-                  </button>
                 </div>
-                <StatBlock title="Marketcap" value="xx" />
-                <StatBlock title="Volume" value="xx" />
-                <StatBlock title="Circulating supply" value="xx" />
-                <StatBlock title="Total supply" value="xx" />
-                <StatBlock title="Fully diluted market cap" value="xx" />
+                <StatBlock title="Marketcap" value="$1,451,188" />
+                {/* <StatBlock title="Volume" value="xx" /> */}
+                <StatBlock title="Circulating supply" value="217,000,000" />
+                <StatBlock title="Total supply" value="1,000,000,000" />
+                <StatBlock
+                  title="Fully diluted market cap"
+                  value="$6,951,110"
+                />
               </div>
             </section>
           </div>
@@ -159,9 +247,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
         </section>
 
         <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full">
-          <div className="flex flex-col justify-center pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">
-            <div className="flex justify-between w-full gap-5 max-md:flex-wrap max-md:max-w-full">
-              <nav className="flex items-center justify-between gap-5 my-auto text-lg font-medium text-black">
+          <div className="flex flex-col justify-center mb-6 pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">
+            <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
+              <nav className="flex gap-5 justify-between items-center my-auto text-lg font-medium text-black">
                 {buttons.map((label) => (
                   <button
                     key={label}
@@ -172,24 +260,117 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                 ))}
               </nav>
-              <button className="justify-center px-6 py-3 text-base font-semibold text-black border-2 border-black border-solid rounded-lg bg-emerald-200 max-md:px-5">
-                New to $ERA
-              </button>
+              <div className="flex gap-4 pl-20 text-base font-semibold text-black max-md:flex-wrap">
+                <button className="justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
+                  New to $ERA ?
+                </button>
+                <button className="flex gap-0.5 px-5 py-3 bg-emerald-200 rounded-lg border-2 border-black border-solid">
+                  <span className="my-auto">Start a new program</span>
+                  <ChevronDown height={24} width={24} color="#1F1F1F" />
+                </button>
+              </div>
             </div>
           </div>
 
           {selected === "All" && (
             <>
-              <div className="flex justify-between w-full gap-5 mt-6 font-medium max-md:flex-wrap max-md:max-w-full">
+              <main className="flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
+                <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
+                  <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5">
+                    <div className="flex items-center gap-1 pr-2.5 text-neutral-500">
+                      <div>Type</div>
+                      <Info width={15} height={15} color="#7C7C7C" />
+                    </div>
+                    {/* <div className="justify-center px-4 py-2 mt-5 text-black bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                    Staking
+                  </div> */}
+                  </div>
+                  <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                    <div className="flex gap-1 items-center px-0.5 text-base text-neutral-500">
+                      <div>Start Date</div>
+                      <Info width={15} height={15} color="#7C7C7C" />
+                    </div>
+                    {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+                  </div>
+                  <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
+                    <div className="flex gap-1 pr-2 text-base text-neutral-500">
+                      <div>Amount</div>
+                      <Info width={15} height={15} color="#7C7C7C" />
+                    </div>
+                    {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+                  </div>
+                  <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                    <div className="flex gap-1 text-base text-neutral-500">
+                      <div>Current Rewards</div>
+                      <Info width={15} height={15} color="#7C7C7C" />
+                    </div>
+                    {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+                  </div>
+                  <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                    <div className="flex gap-1 pr-1.5 text-base text-neutral-500">
+                      <div>End date</div>
+                      <Info width={15} height={15} color="#7C7C7C" />
+                    </div>
+                    {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+                  </div>
+                  <div className="flex flex-col justify-between p-2.5 text-base">
+                    <div className="flex gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
+                      <div>Action</div>
+                      <Info width={15} height={15} color="#7C7C7C" />
+                    </div>
+                    {/* <button className="justify-center px-5 py-3 mt-3 font-semibold text-black bg-white rounded-lg border-2 border-black border-solid">
+                    Unstake
+                  </button> */}
+                  </div>
+                </section>
+                {/* <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" /> */}
+                {allItems.map((item, index) => (
+                  <React.Fragment key={index}>
+                    <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
+                      <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
+                        <div className="justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                          {item.type}
+                        </div>
+                      </div>
+                      <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                        {item.startDate}
+                      </div>
+                      <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                        {item.amount}
+                      </div>
+                      <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                        {item.currentRewards}
+                      </div>
+                      <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
+                        {item.endDate}
+                      </div>
+                      <div className="flex flex-col self-stretch px-2.5">
+                        {item.daysLeft && (
+                          <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
+                            <div>{item.daysLeft}</div>
+                            <Info width={15} height={15} color="#7C7C7C" />
+                          </div>
+                        )}
+                        <button
+                          className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap bg-white rounded-lg border-2 border-solid ${
+                            item.daysLeft
+                              ? "border-stone-300 text-stone-300"
+                              : "border-black text-black"
+                          }`}
+                        >
+                          {item.action}
+                        </button>
+                      </div>
+                    </div>
+                    {index < stakingItems.length - 1 && (
+                      <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+                    )}
+                  </React.Fragment>
+                ))}
+              </main>
+              {/* <div className="flex gap-5 justify-between mt-6 w-full font-medium max-md:flex-wrap max-md:max-w-full">
                 <div className="flex gap-1.5 px-2.5 py-1 my-auto text-lg text-black bg-yellow-200 rounded">
-                  <Image
-                    loading="lazy"
-                    src="/images/info.svg"
-                    alt="Utilities Icon"
-                    width={24}
-                    height={24}
-                    className="shrink-0 my-auto aspect-square w-[17px]"
-                  />
+                  <Info width={24} height={24} />
                   <p>You don’t have any utilities yet</p>
                 </div>
                 <div className="justify-center px-4 py-2 text-base text-black bg-white border-2 border-black border-solid rounded-[38px]">
@@ -224,19 +405,298 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
               <button className="justify-center self-center px-7 py-4 mt-6 text-lg font-semibold text-black bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5">
                 Discover our staking opportunity
-              </button>
+              </button> */}
             </>
           )}
           {selected === "Staking" && (
-            <h2 className="mt-6 text-center">Staking</h2>
+            <main className="flex flex-col self-stretcmap-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
+              <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
+                <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5">
+                  <div className="flex items-center gap-1 pr-2.5 text-neutral-500">
+                    <div>Type</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="justify-center px-4 py-2 mt-5 text-black bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                    Staking
+                  </div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 items-center px-0.5 text-base text-neutral-500">
+                    <div>Start Date</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
+                  <div className="flex gap-1 pr-2 text-base text-neutral-500">
+                    <div>Amount</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 text-base text-neutral-500">
+                    <div>Current Rewards</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 pr-1.5 text-base text-neutral-500">
+                    <div>End date</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+                </div>
+                <div className="flex flex-col justify-between p-2.5 text-base">
+                  <div className="flex gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
+                    <div>Action</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <button className="justify-center px-5 py-3 mt-3 font-semibold text-black bg-white rounded-lg border-2 border-black border-solid">
+                    Unstake
+                  </button> */}
+                </div>
+              </section>
+              <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+              {stakingItems.map((item, index) => (
+                <React.Fragment key={index}>
+                  <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
+                    <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
+                      <div className="justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                        {item.type}
+                      </div>
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.startDate}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.amount}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.currentRewards}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
+                      {item.endDate}
+                    </div>
+                    <div className="flex flex-col self-stretch px-2.5">
+                      {item.daysLeft && (
+                        <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
+                          <div>{item.daysLeft}</div>
+                          <Info width={15} height={15} color="#7C7C7C" />
+                        </div>
+                      )}
+                      <button
+                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap bg-white rounded-lg border-2 border-solid ${
+                          item.daysLeft
+                            ? "border-stone-300 text-stone-300"
+                            : "border-black text-black"
+                        }`}
+                      >
+                        {item.action}
+                      </button>
+                    </div>
+                  </div>
+                  {index < stakingItems.length - 1 && (
+                    <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+                  )}
+                </React.Fragment>
+              ))}
+            </main>
           )}
 
           {selected === "Your Farming" && (
-            <h2 className="mt-6 text-center">Your Farming</h2>
+            <main className="flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
+              <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
+                <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5">
+                  <div className="flex gap-1 pr-2.5 text-neutral-500">
+                    <div>Type</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="justify-center px-4 py-2 mt-5 text-black bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                    Staking
+                  </div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 items-center px-0.5 text-base text-neutral-500">
+                    <div>Start Date</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
+                  <div className="flex gap-1 pr-2 text-base text-neutral-500">
+                    <div>Amount</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 text-base text-neutral-500">
+                    <div>Current Rewards</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 pr-1.5 text-base text-neutral-500">
+                    <div>End date</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+                </div>
+                <div className="flex flex-col justify-between p-2.5 text-base">
+                  <div className="flex gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
+                    <div>Action</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <button className="justify-center px-5 py-3 mt-3 font-semibold text-black bg-white rounded-lg border-2 border-black border-solid">
+                    Unstake
+                  </button> */}
+                </div>
+              </section>
+              <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+              {farmingItems.map((item, index) => (
+                <React.Fragment key={index}>
+                  <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
+                    <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
+                      <div className="justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                        {item.type}
+                      </div>
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.startDate}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.amount}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.currentRewards}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
+                      {item.endDate}
+                    </div>
+                    <div className="flex flex-col self-stretch px-2.5">
+                      {item.daysLeft && (
+                        <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
+                          <div>{item.daysLeft}</div>
+                          <Info width={15} height={15} color="#7C7C7C" />
+                        </div>
+                      )}
+                      <button
+                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap bg-white rounded-lg border-2 border-solid ${
+                          item.daysLeft
+                            ? "border-stone-300 text-stone-300"
+                            : "border-black text-black"
+                        }`}
+                      >
+                        {item.action}
+                      </button>
+                    </div>
+                  </div>
+                  {index < stakingItems.length - 1 && (
+                    <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+                  )}
+                </React.Fragment>
+              ))}
+            </main>
           )}
 
           {selected === "Your airdrop" && (
-            <h2 className="mt-6 text-center">Your airdrop</h2>
+            <main className="flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
+              <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
+                <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5">
+                  <div className="flex gap-1 pr-2.5 text-neutral-500">
+                    <div>Type</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="justify-center px-4 py-2 mt-5 text-black bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                    Staking
+                  </div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 items-center px-0.5 text-base text-neutral-500">
+                    <div>Start Date</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
+                  <div className="flex gap-1 pr-2 text-base text-neutral-500">
+                    <div>Amount</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 text-base text-neutral-500">
+                    <div>Current Rewards</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+                </div>
+                <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
+                  <div className="flex gap-1 pr-1.5 text-base text-neutral-500">
+                    <div>End date</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+                </div>
+                <div className="flex flex-col justify-between p-2.5 text-base">
+                  <div className="flex gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
+                    <div>Action</div>
+                    <Info width={15} height={15} color="#7C7C7C" />
+                  </div>
+                  {/* <button className="justify-center px-5 py-3 mt-3 font-semibold text-black bg-white rounded-lg border-2 border-black border-solid">
+                    Unstake
+                  </button> */}
+                </div>
+              </section>
+              <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+              {airdropItems.map((item, index) => (
+                <React.Fragment key={index}>
+                  <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
+                    <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
+                      <div className="justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                        {item.type}
+                      </div>
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.startDate}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.amount}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+                      {item.currentRewards}
+                    </div>
+                    <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
+                      {item.endDate}
+                    </div>
+                    <div className="flex flex-col self-stretch px-2.5">
+                      {item.daysLeft && (
+                        <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
+                          <div>{item.daysLeft}</div>
+                          <Info width={15} height={15} color="#7C7C7C" />
+                        </div>
+                      )}
+                      <button
+                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap bg-white rounded-lg border-2 border-solid ${
+                          item.daysLeft
+                            ? "border-stone-300 text-stone-300"
+                            : "border-black text-black"
+                        }`}
+                      >
+                        {item.action}
+                      </button>
+                    </div>
+                  </div>
+                  {index < stakingItems.length - 1 && (
+                    <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+                  )}
+                </React.Fragment>
+              ))}
+            </main>
           )}
         </section>
       </div>

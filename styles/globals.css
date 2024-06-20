@@ -11,6 +11,23 @@
   /* .drop-shadow-custom {
     @apply drop-shadow-[2px_3px_0px_#000000];
   } */
+  .primary-button-sm {
+    @apply flex gap-1 px-5 py-3 bg-emerald-200 rounded-lg border-2 border-black border-solid;
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 2px 3px 0px #000000;
+    }
+  }
+  .secondary-button-sm {
+    @apply justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid;
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 2px 3px 0px #000000;
+    }
+  }
+
   .primary-button {
     @apply justify-center px-7 py-4 max-sm:py-3 max-sm:px-6 bg-surface-primary rounded-xl border-solid border-[3px] text-base md:text-lg   border-stone-900 max-md:px-5;
     transition: all 0.2s;

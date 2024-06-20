@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
+import BuySeraModal from "./BuySeraModal";
 
 type Step = {
   stepNumber: number;
@@ -52,60 +53,66 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   </>
 );
 
-const HowItWorks = () => (
-  <section className="self-stretch p-20 bg-stone-50 max-md:px-5">
-    <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-      <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
-        <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
-          <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-            <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem]">
-              How it works
-            </h1>
-            <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary">
-              <Link
-                href={"/"}
-                className="justify-center py-1 border-b-2 border-solid border-primary"
+const HowItWorks = () => {
+  const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
+  return (
+    <section className="self-stretch p-20 bg-stone-50 max-md:px-5">
+      <BuySeraModal
+        toggleBuyEraModal={toggleBuyEraModal}
+        setToggleBuyEraModal={setToggleBuyEraModal}
+      />
+      <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+        <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
+          <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
+            <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+              <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem]">
+                How it works
+              </h1>
+              <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary">
+                <Link
+                  href={"/"}
+                  className="justify-center py-1 border-b-2 border-solid border-primary"
+                >
+                  I’m a CLAP investor
+                </Link>
+              </div>
+            </div>
+            {steps.map((step) => (
+              <StepItem
+                key={step.stepNumber}
+                stepNumber={step.stepNumber}
+                title={step.title}
+                description={step.description}
+              />
+            ))}
+            <div className="flex justify-center self-start gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:mt-10">
+              <button
+                className="px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
+                onClick={() => setToggleBuyEraModal(true)}
               >
-                I’m a CLAP investor
+                Buy $ERA
+              </button>
+              <Link
+                href={"/dashboard"}
+                className="px-7 py-4 rounded-xl border-solid  border-[3px] border-primary max-md:px-5 secondary-button "
+              >
+                Open dashboard
               </Link>
             </div>
           </div>
-          {steps.map((step) => (
-            <StepItem
-              key={step.stepNumber}
-              stepNumber={step.stepNumber}
-              title={step.title}
-              description={step.description}
-            />
-          ))}
-          <div className="flex justify-center self-start gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:mt-10">
-            <button
-              tabIndex={0}
-              className="px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
-            >
-              Buy $ERA
-            </button>
-            <Link
-              href={"/dashboard"}
-              tabIndex={0}
-              className="px-7 py-4 rounded-xl border-solid  border-[3px] border-primary max-md:px-5 secondary-button "
-            >
-              Open dashboard
-            </Link>
-          </div>
+        </div>
+        <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
+          <Image
+            src="/images/placeholder.png"
+            alt=""
+            className="self-stretch mt-2.5 w-full aspect-[0.84] max-md:mt-10 max-md:max-w-full"
+            width={300}
+            height={253}
+          />
         </div>
       </div>
-      <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
-        <Image
-          src="/images/placeholder.png"
-          alt=""
-          className="self-stretch mt-2.5 w-full aspect-[0.84] max-md:mt-10 max-md:max-w-full"
-          width={300}
-          height={253}
-        />
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default HowItWorks;

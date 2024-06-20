@@ -1,5 +1,6 @@
 import Image from "next/image";
 import * as React from "react";
+import BuySeraModal from "./BuySeraModal";
 
 interface CardProps {
   imageSrc: string;
@@ -25,47 +26,57 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
   </div>
 );
 
-const EraUtil: React.FC = () => (
-  <section className="flex flex-col justify-center py-20 bg-stone-50">
-    <div className="flex flex-col justify-center items-center px-20 mt-2.5 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
-      <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-lg max-md:text-4xl">
-        $ERA utilities
-      </h1>
-      <p className="mt-10 text-lg font-medium text-center text-black max-w-[79%] max-md:max-w-full">
-        $ERA embodies our commitment to fair value redistribution across Erable°
-        and its brands. By holding and using $ERA, you are directly
-        participating in and benefiting from the value we create together,
-        fostering a collaborative and inclusive financial ecosystem.
-      </p>
-      <div className="justify-between self-stretch py-4 mx-2.5 mt-10 max-md:max-w-full">
-        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          <Card
-            imageSrc="/images/external-link.svg"
-            title="Access Services"
-            description="Hold $ERA to unlock all our products & services, whether you're an investor, project, or partner."
-          />
-          <Card
-            imageSrc="/images/money.svg"
-            title="Earn $ERA"
-            description="Get rewarded for ecosystem growth through contributions, LP farming, staking, and platform perks."
-          />
-          <Card
-            imageSrc="/images/gps-loc.svg"
-            title="Govern with $ERA"
-            description="Have a say in our strategic directions and supported projects, ensuring we stay true to our shared values."
-          />
+const EraUtil: React.FC = () => {
+  const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
+  return (
+    <section className="flex flex-col justify-center py-20 bg-stone-50">
+      <BuySeraModal
+        toggleBuyEraModal={toggleBuyEraModal}
+        setToggleBuyEraModal={setToggleBuyEraModal}
+      />
+      <div className="flex flex-col justify-center items-center px-20 mt-2.5 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
+        <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-lg max-md:text-4xl">
+          $ERA utilities
+        </h1>
+        <p className="mt-10 text-lg font-medium text-center text-black max-w-[79%] max-md:max-w-full">
+          $ERA embodies our commitment to fair value redistribution across
+          Erable° and its brands. By holding and using $ERA, you are directly
+          participating in and benefiting from the value we create together,
+          fostering a collaborative and inclusive financial ecosystem.
+        </p>
+        <div className="justify-between self-stretch py-4 mx-2.5 mt-10 max-md:max-w-full">
+          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+            <Card
+              imageSrc="/images/external-link.svg"
+              title="Access Services"
+              description="Hold $ERA to unlock all our products & services, whether you're an investor, project, or partner."
+            />
+            <Card
+              imageSrc="/images/money.svg"
+              title="Earn $ERA"
+              description="Get rewarded for ecosystem growth through contributions, LP farming, staking, and platform perks."
+            />
+            <Card
+              imageSrc="/images/gps-loc.svg"
+              title="Govern with $ERA"
+              description="Have a say in our strategic directions and supported projects, ensuring we stay true to our shared values."
+            />
+          </div>
+        </div>
+        <div className="flex gap-5 justify-center mt-10 text-lg font-semibold tracking-wide leading-5 text-primary">
+          <button
+            className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
+            onClick={() => setToggleBuyEraModal(true)}
+          >
+            Buy $ERA
+          </button>
+          <button className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button">
+            Read the Whitepaper
+          </button>
         </div>
       </div>
-      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold tracking-wide leading-5 text-primary">
-        <button className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button">
-          Buy $ERA
-        </button>
-        <button className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button">
-          Read the Whitepaper
-        </button>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default EraUtil;
