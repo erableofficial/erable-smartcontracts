@@ -14,27 +14,31 @@ import {
 } from "../../lib/blockchain-config";
 import { parseEther } from "viem";
 import ClaimButton from "./claimButton";
-
+interface StakeData {
+  amount: string;
+  startTime: number;
+  requestUnstakeTime: number;
+  unstakeRequested: boolean;
+}
 export default function StakeInfo({ stakeId }: { stakeId: number }) {
   const account = useAccount();
-
-  const { data: stake, error: stakeError } = useReadContract({
+  const result:any= useReadContract({
     address: contractAddress,
     abi: contractABI,
     functionName: "userStakes",
     args: [account.address, stakeId],
   });
-
-  console.log(stake);
+  console.log(result)
+  const {amount, startTime, requestUnstakeTime,unstakeRequested} = result.data 
 
   return (
     <div>
       <h1 className="text-center">Stake ID : {stakeId}</h1>
-      {stake && stake[0] === 0n ? (
+      {amount === 0 ? (
         <button disabled className="primary-button">
           Claimed
         </button>
-      ) : stake && stake[3] === false ? (
+      ) : unstakeRequested === false ? (
         <UnstackButton stakeId={stakeId} />
       ) : (
         <ClaimButton stakeId={stakeId} />
@@ -42,7 +46,7 @@ export default function StakeInfo({ stakeId }: { stakeId: number }) {
       <div className="text-center">
         <h2>Stake Details</h2>
       </div>
-      {stakeError && <p>Error: {stakeError?.message}</p>}
+      {result.stakeError && <p>Error: {result.stakeError?.message}</p>}
     </div>
   );
 }
