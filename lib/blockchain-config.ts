@@ -1133,8 +1133,8 @@ const stakingTokenABI = [
 
 const contractOwner = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
 
-const contractAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+const contractAddress = "0xf5059a5D33d5853360D16C683c16e67980206f36";
 
-const stakingTokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const stakingTokenAddress = "0x851356ae760d987E095750cCeb3bC6014560891C";
 
 export { contractABI, contractAddress, stakingTokenABI, stakingTokenAddress };

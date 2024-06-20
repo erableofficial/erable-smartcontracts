@@ -21,16 +21,15 @@ import UpdateStakeDurationForm from "../../components/test/updateStakeDurationFo
 import UnstackButton from "../../components/test/unstackButton";
 import DepositRewardPoolButton from "../../components/test/depositRewardPoolButton";
 import StakeInfo from "../../components/test/stakeInfo";
+import DepositRewardPoolForm from "../../components/test/depositRewardPoolForm";
+import WidthdrawTokensForm from "../../components/test/widthdrawTokensForm";
+import ApproveAddressForm from "../../components/test/approveAddressForm";
+import TransferTokensForm from "../../components/test/transferTokensForm";
+import StakeForm from "../../components/test/stakeForm";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
   const account = useAccount();
-  const {
-    writeContract,
-    data: hash,
-    error: writeError,
-    isPending,
-  } = useWriteContract();
 
   const { data: owner, error } = useReadContract({
     abi: contractABI,
@@ -74,26 +73,12 @@ export default function TestPage() {
     args: [],
   });
 
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
-
-  const handleTransferTokenToAddr = async (amount: number, toAddr: string) => {
-    // called only by the owner
-    if (account.address !== owner) {
-      alert("You are not the owner");
-      return;
-    }
-    console.log("Transfering tokens to contract...");
-    // transfer tokens to contract
-    writeContract({
-      abi: stakingTokenABI,
-      address: stakingTokenAddress,
-      functionName: "transfer",
-      args: [toAddr, parseEther(amount.toString())],
-    });
-  };
+  const { data: coolDownPeriod, error: coolDownPeriodError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "cooldownPeriod",
+    args: [],
+  });
 
   return (
     <>
@@ -170,29 +155,9 @@ export default function TestPage() {
         {account.address === owner && (
           <>
             <h2 className="text-3xl text-center"> Owner Actions </h2>
-            <div className="flex items-center justify-center gap-2 mt-10">
-              <div>
-                <button
-                  disabled={isPending}
-                  onClick={() => {
-                    handleTransferTokenToAddr(
-                      10,
-                      "0xf97184f71561ca97113329c4FbCb1079c869D702"
-                    );
-                  }}
-                  className="primary-button"
-                >
-                  {isPending ? "Confirming..." : "Transfer 10 tokens to addr2"}
-                </button>
-                {writeError && <p>Error: {writeError.message}</p>}
-                {hash && <p>Hash: {hash}</p>}
-                {isConfirming && <div>Waiting for confirmation...</div>}
-                {isConfirmed && <div>Transaction confirmed.</div>}
-              </div>
-              <DepositRewardPoolButton />
-              <AddToWaitlistButton />
-              <DisableWhiteListButton />
-            </div>
+            <DepositRewardPoolForm />
+            <WidthdrawTokensForm />
+            <TransferTokensForm />
 
             <div>
               <UpdateStakeDurationForm />
@@ -202,23 +167,26 @@ export default function TestPage() {
 
         <h2 className="mt-8 text-3xl text-center">Users Actions</h2>
 
-        <div className="flex items-center justify-center gap-2 mt-10">
-          <ApproveAddressButton />
-          <StakeButton />
-          <UnstackButton stakeId={0} />
-        </div>
+        <ApproveAddressForm />
+        <StakeForm />
 
         {account.address && (
           <div>
             <h2 className="mt-8 text-3xl text-center">User Stakes </h2>
 
-            <div className="flex items-center justify-center gap-5 mt-8">
+            <div className="flex items-center justify-around flex-wrap w-full gap-5  bg-surface-primary pt-10 rounded-lg my-8 ">
               {Number(userStakesCounter?.toString()) > 0 &&
                 Array.from(
                   { length: Number(userStakesCounter?.toString()) },
                   (_, i) => i
                 ).map((i) => {
-                  return <StakeInfo stakeId={i} key={i.toString()} />;
+                  return (
+                    <StakeInfo
+                      stakeId={i}
+                      cooldownPeriod={coolDownPeriod?.toString()}
+                      key={i.toString()}
+                    />
+                  );
                 })}
             </div>
           </div>

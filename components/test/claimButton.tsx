@@ -1,45 +1,77 @@
-
-
-
 import {
-    useReadContract,
-    useSendTransaction,
-    useWriteContract,
-    useWaitForTransactionReceipt,
-    useAccount,
-  } from "wagmi";
-  import {
-    contractABI,
-    contractAddress,
-    stakingTokenABI,
-    stakingTokenAddress,
-  } from "../../lib/blockchain-config";
-  import { parseEther } from "viem";
-  
-  export default function ClaimButton({ stakeId }: { stakeId: number }) {
-    const account = useAccount();
-    const {
-      writeContract,
-      data: hash,
-      error: writeError,
-      isPending,
-    } = useWriteContract();
-  
-    const { isLoading: isConfirming, isSuccess: isConfirmed } =
-      useWaitForTransactionReceipt({
-        hash,
+  useReadContract,
+  useSendTransaction,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+  useAccount,
+} from "wagmi";
+import {
+  contractABI,
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../lib/blockchain-config";
+import { parseEther } from "viem";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+
+export default function ClaimButton({
+  stakeId,
+  stake,
+  coolDownPeriod,
+}: {
+  stakeId: number;
+  stake: any;
+  coolDownPeriod?: string;
+}) {
+  const { writeContract, data: hash, error, isPending } = useWriteContract();
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
+  useEffect(() => {
+    if (isConfirmed) {
+      toast.success("Transaction confirmed.");
+    }
+  }, [isConfirmed]);
+
+  // error
+  useEffect(() => {
+    if (error) {
+      toast.error("Something went wrong.");
+      console.error(error);
+    }
+  }, [error]);
+
+  // hash
+  useEffect(() => {
+    if (hash) {
+      console.info("Transaction Hash: ", hash);
+      toast.info("Waiting for confirmation...", {
+        autoClose: 1000,
       });
-  
-    const handleClaim = async (stakeId: number) => {
-      writeContract({
-        abi: contractABI,
-        address: contractAddress,
-        functionName: "claim",
-        args: [stakeId],
-      });
-    };
-    return (
-      <div>
+    }
+  }, [hash]);
+
+  const handleClaim = async (stakeId: number) => {
+    writeContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "claim",
+      args: [stakeId],
+    });
+  };
+
+  const [amount, startTime, requestUnstakeTime, unstakeRequested] = stake;
+
+  const canClaimTime =
+    Number(requestUnstakeTime.toString()) + Number(coolDownPeriod?.toString());
+
+  return (
+    <div>
+      {Math.floor(new Date().getTime() / 1000) - canClaimTime >= 0 ? (
         <button
           disabled={isPending}
           onClick={() => {
@@ -50,11 +82,15 @@ import {
         >
           {isPending ? "Confirming..." : "Claim"}
         </button>
-        {writeError && <p>Error: {writeError.message}</p>}
-        {hash && <p>Hash: {hash}</p>}
-        {isConfirming && <div>Waiting for confirmation...</div>}
-        {isConfirmed && <div>Transaction confirmed.</div>}
-      </div>
-    );
-  }
-  
+      ) : (
+        <button disabled={true} className="primary-button cursor-not-allowed ">
+          {isPending
+            ? "Confirming..."
+            : "Claim in " +
+              (canClaimTime - Math.floor(new Date().getTime() / 1000)) +
+              " seconds"}
+        </button>
+      )}
+    </div>
+  );
+}

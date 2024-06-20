@@ -13,17 +13,18 @@ import {
   stakingTokenABI,
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
-import { parseEther } from "viem";
+import { formatEther, parseEther } from "viem";
 import ClaimButton from "./claimButton";
 import Loading from "../ui/loading";
-import {  toast } from "react-toastify";
-interface StakeData {
-  amount: number;
-  startTime: number;
-  requestUnstakeTime: number;
-  unstakeRequested: boolean;
-}
-export default function StakeInfo({ stakeId }: { stakeId: number }) {
+import { toast } from "react-toastify";
+
+export default function StakeInfo({
+  stakeId,
+  cooldownPeriod,
+}: {
+  stakeId: number;
+  cooldownPeriod?: string;
+}) {
   const account = useAccount();
 
   const result: UseReadContractReturnType = useReadContract({
@@ -56,23 +57,65 @@ export default function StakeInfo({ stakeId }: { stakeId: number }) {
     );
   }
 
-  const { amount, startTime, requestUnstakeTime, unstakeRequested } =
-    result.data as StakeData;
+  const [amount, startTime, requestUnstakeTime, unstakeRequested] =
+    result.data as any[];
+
+  console.log(result.data);
+
+  console.log("Amount : ", amount);
+  console.log("startTime : ", startTime);
+  console.log("requestUnstakeTime : ", requestUnstakeTime.toString());
+  console.log("unstakeRequested : ", unstakeRequested);
 
   return (
-    <div className="pb-6">
-      <h1 className="text-center font-medium tracking-wide text-primary leading-loose">
-        Stake ID : {stakeId}
-      </h1>
-      {amount === 0 ? (
-        <button disabled className="primary-button">
-          Claimed
-        </button>
-      ) : unstakeRequested === false ? (
-        <UnstackButton stakeId={stakeId} />
-      ) : (
-        <ClaimButton stakeId={stakeId} />
-      )}
+    <div
+      className="card mb-5 flex justify-around items-center  
+    border-2 border-primary bg-surface-500 p-5 w-[40%] rounded-lg shadow-lg"
+    >
+      <div className="space-y-4 flex flex-col">
+        <div className="flex items-center gap-2 text-xl font-medium font-friends">
+          <p className=" capitalize ">amount:</p>
+          <p>{formatEther(amount.toString())} ST</p>
+        </div>
+        <div className="flex items-center gap-2 text-xl font-medium font-friends">
+          <p className=" capitalize ">startTime:</p>
+          <p>
+            {new Date(Number(startTime.toString()) * 1000).toLocaleString()}
+          </p>
+        </div>
+        <div className="flex items-center gap-2 text-xl font-medium font-friends">
+          <p className=" capitalize ">requestUnstakeTime:</p>
+          {requestUnstakeTime.toString() !== "0" ? (
+            <p>
+              {new Date(
+                Number(requestUnstakeTime.toString()) * 1000
+              ).toLocaleString()}
+            </p>
+          ) : (
+            <p>Not requested</p>
+          )}
+        </div>
+        <div className="flex items-center gap-2 text-xl font-medium font-friends">
+          <p className=" capitalize ">unstakeRequested:</p>
+          <p>{unstakeRequested.toString()}</p>
+        </div>
+
+        <div className="flex justify-center items-center">
+          {amount.toString() === "0" ? (
+            <button disabled className="primary-button">
+              Claimed
+            </button>
+          ) : unstakeRequested === false ? (
+            <UnstackButton stakeId={stakeId} />
+          ) : (
+            <ClaimButton
+              stakeId={stakeId}
+              coolDownPeriod={cooldownPeriod}
+              stake={result.data}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 }
