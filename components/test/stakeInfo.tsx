@@ -5,6 +5,7 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
   useAccount,
+  UseReadContractReturnType,
 } from "wagmi";
 import {
   contractABI,
@@ -14,26 +15,55 @@ import {
 } from "../../lib/blockchain-config";
 import { parseEther } from "viem";
 import ClaimButton from "./claimButton";
+import Loading from "../ui/loading";
+import {  toast } from "react-toastify";
 interface StakeData {
-  amount: string;
+  amount: number;
   startTime: number;
   requestUnstakeTime: number;
   unstakeRequested: boolean;
 }
 export default function StakeInfo({ stakeId }: { stakeId: number }) {
   const account = useAccount();
-  const result:any= useReadContract({
+
+  const result: UseReadContractReturnType = useReadContract({
     address: contractAddress,
     abi: contractABI,
     functionName: "userStakes",
     args: [account.address, stakeId],
   });
-  console.log(result)
-  const {amount, startTime, requestUnstakeTime,unstakeRequested} = result.data 
+  console.log(result);
+
+  if (result.isLoading) {
+    return <Loading className="mb-5" />;
+  }
+
+  if (result.isError) {
+    toast.error("Error fetching stake data.");
+
+    console.error(
+      "Error fetching stake data : ",
+      result.error && result.error.message
+    );
+    return (
+      <div className="pb-6 flex justify-center items-center max-w-[85%]  ">
+        {result.error && (
+          <p className=" text-lg text-center text-red-500">
+            {result.error.message}
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  const { amount, startTime, requestUnstakeTime, unstakeRequested } =
+    result.data as StakeData;
 
   return (
-    <div>
-      <h1 className="text-center">Stake ID : {stakeId}</h1>
+    <div className="pb-6">
+      <h1 className="text-center font-medium tracking-wide text-primary leading-loose">
+        Stake ID : {stakeId}
+      </h1>
       {amount === 0 ? (
         <button disabled className="primary-button">
           Claimed
@@ -43,10 +73,6 @@ export default function StakeInfo({ stakeId }: { stakeId: number }) {
       ) : (
         <ClaimButton stakeId={stakeId} />
       )}
-      <div className="text-center">
-        <h2>Stake Details</h2>
-      </div>
-      {result.stakeError && <p>Error: {result.stakeError?.message}</p>}
     </div>
   );
 }
