@@ -1,19 +1,19 @@
 import * as React from "react";
-import { ArrowUpRight, Info, Ticket, X } from "lucide-react";
+import { ArrowUpRight, Database, Info, X } from "lucide-react";
 import InfoText from "./InfoText";
 
-interface BuySeraModalProps {
-  toggleBuyEraModal: boolean;
-  setToggleBuyEraModal: (value: boolean) => void;
+interface BridgeProcessModal {
+  toggleBridgeProcessModal: boolean;
+  setToggleBridgeProcessModal: (value: boolean) => void;
 }
 
-const BuySeraModal: React.FC<BuySeraModalProps> = ({
-  toggleBuyEraModal,
-  setToggleBuyEraModal,
+const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
+  toggleBridgeProcessModal,
+  setToggleBridgeProcessModal,
 }) => {
-  if (!toggleBuyEraModal) return null;
+  if (!toggleBridgeProcessModal) return null;
   const closeModal = () => {
-    setToggleBuyEraModal(false);
+    setToggleBridgeProcessModal(false);
   };
 
   const stopPropagation = (event: React.MouseEvent) => {
@@ -36,29 +36,32 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
             height={14}
             color="#989898"
             cursor={"pointer"}
-            onClick={() => setToggleBuyEraModal(false)}
+            onClick={() => setToggleBridgeProcessModal(false)}
           />
         </div>
         <div className="flex justify-center items-center px-4 border border-solid bg-zinc-50 border-stone-300 h-[67px] rounded-[55.833px] w-[67px]">
-          <Ticket size={32} width={35} height={35} />
+          <Database size={32} width={35} height={35} />
         </div>
-        <div className="mt-10 text-3xl font-semibold mb-8 text-black">
-          Buy $ERA
+        <div className=" flex gap-3 mt-10 text-3xl font-semibold mb-8 text-black">
+          Bridge process
+          <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+            $CLAP holders only
+          </span>
         </div>
         <InfoText
           bgColor="bg-orange-200"
           Icon={<Info height={17} width={17} color="#000000" />}
-          text="You will be redirected to uniswap"
+          text="You will be redirected to our bridge partner website"
         />
         <p className="self-stretch mt-4 text-base font-medium text-left text-black max-md:max-w-full">
-          Blabla secure, pk acheter là-bas Lorem ipsum dolor sit amet
-          consectetur. Ornare ut at viverra magna platea arcu.
+          Lorem ipsum dolor sit amet consectetur. Ornare ut at viverra magna
+          platea arcu.
         </p>
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-black">
           <button className="secondary-button-sm">See tutorial</button>
           <button className="primary-button-sm">
             <>
-              <span className="my-auto">Buy $ERA</span>
+              <span className="my-auto">Bridge my $CLAP</span>
               <ArrowUpRight width={24} height={24} size={32} color="#000000" />
             </>
           </button>
@@ -68,4 +71,4 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
   );
 };
 
-export default BuySeraModal;
+export default BridgeProcessModal;

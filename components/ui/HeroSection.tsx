@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import BuySeraModal from "./BuySeraModal";
+import BridgeProcessModal from "./BridgeProcessModal";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -21,12 +22,16 @@ const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
 interface CardProps {
   text: string;
   subtext?: string;
+  onClick?: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ text, subtext }) => {
+const Card: React.FC<CardProps> = ({ text, subtext, onClick }) => {
   return (
     <div className="flex flex-col">
-      <button className="flex flex-col justify-center text-lg font-semibold text-black ">
+      <button
+        className="flex flex-col justify-center text-lg font-semibold text-black "
+        onClick={onClick}
+      >
         <span className="secondary-button justify-center px-7 py-4 bg-white rounded-xl border-black border-solid border-[3px] max-md:px-5">
           {text}
         </span>
@@ -40,6 +45,8 @@ const Card: React.FC<CardProps> = ({ text, subtext }) => {
 
 const HeroSection = () => {
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
+  const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
+    React.useState(false);
 
   return (
     <>
@@ -47,6 +54,10 @@ const HeroSection = () => {
         <BuySeraModal
           toggleBuyEraModal={toggleBuyEraModal}
           setToggleBuyEraModal={setToggleBuyEraModal}
+        />
+        <BridgeProcessModal
+          toggleBridgeProcessModal={toggleBridgeProcessModal}
+          setToggleBridgeProcessModal={setToggleBridgeProcessModal}
         />
         <div className="text-8xl font-extrabold tracking-tighter text-center text-black leading-[6.938rem] max-md:max-w-full max-md:text-4xl max-md:leading-[3.438rem]">
           <span
@@ -108,7 +119,11 @@ const HeroSection = () => {
             data-sal-duration="1000"
           >
             <Button onClick={() => setToggleBuyEraModal(true)}>Buy $ERA</Button>
-            <Card text="Bridge $CLAP" subtext="*only for CLAP investors" />
+            <Card
+              text="Bridge $CLAP"
+              subtext="*only for CLAP investors"
+              onClick={() => setToggleBridgeProcessModal(true)}
+            />
           </div>
         </div>
         <figure
