@@ -1,6 +1,5 @@
-import Image from "next/image";
 import * as React from "react";
-
+import Image from "next/image";
 
 type FeatureBlockProps = {
   title: string;
@@ -13,19 +12,19 @@ type RoadmapSectionProps = {
 };
 
 const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
-  <div className="flex flex-col w-full p-6 mt-5 bg-white border border-solid rounded-2xl border-zinc-300 max-md:px-5">
-    <div className="flex justify-between w-full gap-5">
+  <div className="flex flex-col p-6 mt-5 w-full bg-white rounded-2xl border border-solid border-zinc-300 max-md:px-5">
+    <div className="flex gap-5 justify-between w-full">
       <div className="flex gap-2.5 text-xl font-bold">
         <Image
           src="/images/mail.svg"
           alt=""
-          className="w-6 shrink-0 aspect-square"
           width={24}
           height={24}
+          className="shrink-0 w-6 aspect-square"
         />
         <div>{title}</div>
       </div>
-      <div className="justify-center self-start px-2.5 py-1 text-xs font-medium whitespace-nowrap bg-surface-500 border border-black border-solid rounded-[2.375rem]">
+      <div className="justify-center self-start px-2.5 py-1 text-xs font-medium whitespace-nowrap bg-surface-500 border border-black border-solid rounded-[38px]">
         tech
       </div>
     </div>
@@ -37,16 +36,16 @@ const RoadmapSection: React.FC<RoadmapSectionProps> = ({
   period,
   features,
 }) => (
-  <div  className="col-span-12 md:col-span-6 lg:col-span-3">
-    <div className="flex flex-col text-black grow max-md:mt-6">
+  <section className="col-span-12 md:col-span-6 lg:col-span-3">
+    <header className="flex flex-col grow text-black max-md:mt-6">
       <h2 className="justify-center px-5 py-1.5 text-2xl font-semibold text-black bg-surface-500 rounded-lg">
         {period}
       </h2>
       {features.map((feature, index) => (
         <FeatureBlock key={index} title={feature.title} text={feature.text} />
       ))}
-    </div>
-  </div>
+    </header>
+  </section>
 );
 
 const Roadmap: React.FC = () => {
@@ -111,7 +110,7 @@ const Roadmap: React.FC = () => {
         Roadmap
       </div>
       <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[1263px]" />
-      <div className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full">
+      <main className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full">
         <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1">
           {roadmapData.map((section, index) => (
             <RoadmapSection
@@ -121,17 +120,13 @@ const Roadmap: React.FC = () => {
             />
           ))}
         </div>
-      </div>
-      <div className="flex justify-center items-center px-16 mx-2.5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:px-5 max-md:mt-10 max-md:max-w-full">
+      </main>
+      <nav className="flex justify-center items-center px-16 mx-2.5 mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:px-5 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-wrap">
-          <button className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button">
-            Read Whitepaper
-          </button>
-          <button className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button">
-            Our Community Manifesto
-          </button>
+          <button className="primary-button">Read Whitepaper</button>
+          <button className="secondary-button">Our Community Manifesto</button>
         </div>
-      </div>
+      </nav>
     </div>
   );
 };

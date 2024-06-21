@@ -5,9 +5,9 @@ import ConnectWalletButton from "./connectWalletButton";
 
 export default function Header() {
   return (
-    <header className="container sticky top-0 z-50 py-4 pb-20 mx-auto mt-12 max-sm:mt-1">
-      <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-black border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3">
-        <div className="flex items-center justify-around gap-4 max-sm:hidden">
+    <header className="container  py-4 mx-auto mt-12 max-sm:mt-1 sticky top-0 z-50">
+      <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-black border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3 max-md:mx-3">
+        <div className="flex items-center justify-around gap-4 max-md:w-full max-md:justify-between">
           <Link href="/" className="w-[40%] h-auto">
             <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
           </Link>
@@ -28,16 +28,16 @@ export default function Header() {
           </button>
         </div>
         <nav>
-          <ul className="flex-wrap items-center justify-around hidden gap-2 space-x-4 md:flex">
+          <ul className="hidden md:flex flex-wrap items-center justify-around gap-2 space-x-4">
             <li>
               <button className="flex items-center gap-0.5 justify-center">
-                <span className="text-lg font-medium ">Utilities</span>
+                <span className="font-medium text-lg ">Utilities</span>
                 <ChevronDown />
               </button>
             </li>
             <li>
               <button className="flex items-center gap-0.5 justify-center">
-                <span className="text-lg font-medium ">Docs</span>
+                <span className="font-medium text-lg ">Docs</span>
                 <ChevronDown />
               </button>
             </li>

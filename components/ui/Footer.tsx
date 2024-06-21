@@ -43,19 +43,19 @@ const solutions: SolutionItem[] = [
 ];
 
 const SolutionList: React.FC<{ solution: SolutionItem }> = ({ solution }) => (
-<div
+  <div
     className={`flex flex-col w-[41%] max-md:ml-0 max-md:w-full pt-16 pb-0 ${
       solution.title === "Social medias" ? "px-5" : "px-20"
     }`}
   >
-    <h2 className="text-xl font-semibold leading-8 tracking-tight text-primary">
+    <h2 className="text-xl font-semibold tracking-tight leading-8 text-primary">
       {solution.title}
     </h2>
-    <ul className="flex flex-col font-medium grow max-md:mt-10">
+    <ul className="flex flex-col grow font-medium max-md:mt-10">
       {solution.items.map((item, index) => (
         <li key={index} className="mt-4 ">
           <Link className="flex gap-2.5 justify-between" href="#">
-            <span className="text-base leading-5 tracking-tight text-primary">
+            <span className="text-base tracking-tight leading-5 text-primary">
               {item.text}
             </span>
             {item.icon && <ArrowUpRight />}
@@ -83,10 +83,10 @@ const Footer: React.FC = () => (
           width={76}
           height={76}
         />
-        <h1 className="text-2xl font-semibold leading-8 tracking-wide mt-7 text-primary">
+        <h1 className="mt-7 text-2xl font-semibold tracking-wide leading-8 text-primary">
           Your gateway to impact investment
         </h1>
-        <div className="text-sm leading-5 mt-14 text-primary max-md:mt-10">
+        <div className="mt-14 text-sm leading-5 text-primary max-md:mt-10">
           ©{new Date().getFullYear()} Erable. All rights reserved
         </div>
       </div>
@@ -101,7 +101,7 @@ const Footer: React.FC = () => (
     <Image
       src="/images/big erable footer.svg"
       alt="erable"
-      className="w-full mt-7 max-md:max-w-full"
+      className="mt-7 w-full max-md:max-w-full"
       width={1290}
       height={258}
     />

@@ -25,8 +25,8 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
   }, [isOpen]);
 
   return (
-    <div className="flex flex-col justify-center px-6 py-4 mt-6 bg-white border border-solid rounded-2xl border-stone-300 max-md:px-5 max-md:max-w-full">
-      <div className="flex justify-between gap-5">
+    <div className="flex flex-col justify-center px-6 py-4 mt-6 bg-white rounded-2xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
+      <div className="flex gap-5 justify-between">
         <div className="my-auto text-xl font-bold text-primary max-md:max-w-full">
           {question}
         </div>
@@ -39,7 +39,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
       </div>
       <div
         ref={contentRef}
-        className="overflow-hidden duration-500 ease-in-out transition-max-height"
+        className="overflow-hidden transition-max-height duration-500 ease-in-out"
         style={{ maxHeight: "0" }}
       >
         <div className="mt-4 text-sm text-gray-700">{answer}</div>
@@ -97,7 +97,7 @@ const Faq: React.FC = () => {
                 Asked Questions:
               </div>
             </h1>
-            <div className="flex justify-center gap-5 text-lg font-semibold leading-5 tracking-wide mt-14 text-primary max-md:mt-10">
+            <div className="flex gap-5 justify-center mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:mt-10">
               <Link
                 href="#"
                 className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
@@ -113,7 +113,7 @@ const Faq: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-6/12 ml-5 max-md:ml-0 max-md:w-full">
+        <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
           <div className="flex flex-col grow max-md:mt-10 max-md:max-w-full">
             {faqItems.map((item, index) => (
               <FAQItem
