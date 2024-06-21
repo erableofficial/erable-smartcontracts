@@ -28,6 +28,7 @@ import TransferTokensForm from "../../components/test/transferTokensForm";
 import StakeForm from "../../components/test/stakeForm";
 import StakeControlSection from "../../components/test/StakeControlSection";
 import WhiteListSection from "../../components/test/whiteListSection";
+import AddToWhiteListForm from "../../components/test/addToWhiteListForm";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -160,6 +161,7 @@ export default function TestPage() {
               <h2 className="text-3xl text-center"> Owner Actions </h2>
               <StakeControlSection />
               <WhiteListSection />
+              <AddToWhiteListForm />
               <DepositRewardPoolForm />
               <WidthdrawTokensForm />
               <TransferTokensForm />
