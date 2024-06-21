@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
-import Image from "next/image";
 import { ChevronDown, ChevronUp, Info, Minus, Plus } from "lucide-react";
 import Link from "next/link";
+import BuySeraModal from "../ui/BuySeraModal";
 
 interface DashboardProps {}
 
@@ -25,7 +25,6 @@ const allItems = [
     currentRewards: "XXX,XXX.XXX",
     endDate: "JJ/MM/AAAA",
     action: "Claim",
-    daysLeft: "7 days left",
   },
   {
     type: "Staking",
@@ -43,7 +42,7 @@ const allItems = [
     currentRewards: "XXX,XXX.XXX",
     endDate: "JJ/MM/AAAA",
     action: "Unstake",
-    daysLeft: "7 days left",
+    daysLeft: null,
   },
   {
     type: "Airdrop",
@@ -52,7 +51,7 @@ const allItems = [
     currentRewards: "XXX,XXX.XXX",
     endDate: "JJ/MM/AAAA",
     action: "Unstake",
-    daysLeft: "7 days left",
+    daysLeft: null,
   },
 ];
 
@@ -64,7 +63,6 @@ const stakingItems = [
     currentRewards: "XXX,XXX.XXX",
     endDate: "JJ/MM/AAAA",
     action: "Claim",
-    daysLeft: "7 days left",
   },
   {
     type: "Staking",
@@ -85,7 +83,7 @@ const farmingItems = [
     currentRewards: "XXX,XXX.XXX",
     endDate: "JJ/MM/AAAA",
     action: "Unstake",
-    daysLeft: "7 days left",
+    daysLeft: null,
   },
 ];
 
@@ -97,7 +95,7 @@ const airdropItems = [
     currentRewards: "XXX,XXX.XXX",
     endDate: "JJ/MM/AAAA",
     action: "Unstake",
-    daysLeft: "7 days left",
+    daysLeft: null,
   },
 ];
 
@@ -106,6 +104,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const contentRef = React.useRef<HTMLDivElement>(null);
+  const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
   const toggleOpen = () => {
@@ -122,7 +121,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
   }, [isOpen]);
   const { isConnected } = useAccount();
 
-  const buttons: string[] = ["All", "Staking", "Your Farming", "Your airdrop"];
+  const buttons = [
+    { name: "All", qt: allItems.length },
+    { name: "Staking", qt: stakingItems.length },
+    { name: "Your Farming", qt: farmingItems.length },
+    { name: "Airdrop", qt: airdropItems.length },
+  ];
 
   const handleTabClick = (label: string) => {
     setSelected(label);
@@ -130,39 +134,46 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   const getButtonClass = (label: string): string => {
     return label === selected
-      ? "justify-center self-stretch px-4 py-2 font-semibold whitespace-nowrap bg-yellow-200 border-2 border-black border-solid rounded-[38px]"
+      ? "justify-center self-stretch px-4 py-2 font-semibold whitespace-nowrap bg-surface-500 border-2 border-black border-solid rounded-[38px]"
       : "self-stretch my-auto";
   };
 
   return (
-    <div className="relative">
+    <div className="relative pb-28 bg-neutral-50">
       {!isConnected && <ConnectWalletModal />}
 
       <div
         className={`flex flex-col items-center ${isConnected ? "" : " blur"}  `}
       >
+        <BuySeraModal
+          toggleBuyEraModal={toggleBuyEraModal}
+          setToggleBuyEraModal={setToggleBuyEraModal}
+        />
         <div className="justify-between self-stretch px-32 mt-14 w-full max-md:px-5 max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
                 <div className="flex gap-2 justify-between font-semibold">
                   <div className="my-auto text-2xl text-black">
-                    $Era available :
+                    My $ERA Wallet
                   </div>
-                  <button className="justify-center px-6 py-3 text-base text-black bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5">
+                  <button
+                    className="primary-button-sm  justify-center px-6 py-3 text-base text-black bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5"
+                    onClick={() => setToggleBuyEraModal(true)}
+                  >
                     Buy $ERA
                   </button>
                 </div>
-                <div className="flex gap-0.5 self-start mt-9 text-black">
+                <div className="flex gap-0.5 self-start  text-black">
                   <div className="text-4xl font-semibold">0.0</div>
-                  <div className="self-start mt-5 text-lg font-medium">
+                  <div className="self-start h-full flex items-center text-lg font-medium">
                     = 0,1 centime
                   </div>
                 </div>
-                <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-black bg-yellow-200 border border-black border-solid rounded-[38px]">
+                <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-black bg-surface-500 border border-black border-solid rounded-[38px]">
                   1 $ERA = price
                 </div>
-                <div className="flex gap-2 justify-between mt-9 text-base">
+                <div className="flex gap-2 justify-between  text-base">
                   <div className="my-auto font-medium text-black">
                     *If you are a clap investor
                   </div>
@@ -178,50 +189,40 @@ const Dashboard: React.FC<DashboardProps> = () => {
             <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
                 <div className="flex gap-5 justify-between font-semibold">
-                  <div className="my-auto text-2xl text-black">
-                    Your rewards :
+                  <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
+                    <div className="text-2xl text-black">Total Rewards</div>
+                    <div className="self-start pb-1.5 text-lg text-black whitespace-nowrap border-b-2 border-black border-solid">
+                      View history
+                    </div>
                   </div>
-                  <button className="justify-center px-6 py-3 text-base text-black bg-white rounded-lg border-2 border-black border-solid max-md:px-5">
-                    View history
-                  </button>
                 </div>
                 <div className="flex gap-1 justify-between mt-8">
-                  <div className="text-lg font-medium text-black">
-                    Total LP: xx
+                  <div className="text-lg font-semibold text-black">
+                    Staking
                   </div>
-                  <div className="pb-1.5 text-base font-semibold text-black whitespace-nowrap border-b-2 border-black border-solid">
-                    Start
-                  </div>
+                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+                    100,870 $ERA
+                  </span>
                 </div>
-                <div className="text-xs font-medium text-neutral-500">
-                  Last rewards 22/02/2024
+                <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
+                  Total staked <span>2,000,870 $ERA</span>
                 </div>
-                <div className="flex gap-1 justify-between mt-3.5">
-                  <div className="text-lg font-medium text-black">
-                    Total Staking: xx
+
+                <div className="flex gap-1 justify-between mt-8">
+                  <div className="text-lg font-semibold text-black">
+                    LP Farming
                   </div>
-                  <div className="pb-1.5 text-base font-semibold text-black whitespace-nowrap border-b-2 border-black border-solid">
-                    Start
-                  </div>
+                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+                    200,870 $ERA
+                  </span>
                 </div>
-                <div className="text-xs font-medium text-neutral-500">
-                  Last rewards 22/02/2024
-                </div>
-                <div className="flex gap-1 justify-between mt-3.5">
-                  <div className="text-lg font-medium text-black">
-                    Total Airdrop: xx
-                  </div>
-                  <div className="pb-1.5 text-base font-semibold text-black whitespace-nowrap border-b-2 border-black border-solid">
-                    Start
-                  </div>
-                </div>
-                <div className="text-xs font-medium text-neutral-500">
-                  Last rewards 22/02/2024
+                <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
+                  Total liquidity provided <span>200,870 $ERA</span>
                 </div>
               </div>
             </section>
             <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+              <div className="flex flex-col justify-between grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
                 <div className="flex gap-5 justify-between font-semibold">
                   <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
                     <div className="text-2xl text-black">$ERA stats</div>
@@ -230,14 +231,16 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     </div>
                   </div>
                 </div>
-                <StatBlock title="Marketcap" value="$1,451,188" />
-                {/* <StatBlock title="Volume" value="xx" /> */}
-                <StatBlock title="Circulating supply" value="217,000,000" />
-                <StatBlock title="Total supply" value="1,000,000,000" />
-                <StatBlock
-                  title="Fully diluted market cap"
-                  value="$6,951,110"
-                />
+                <div>
+                  <StatBlock title="Marketcap" value="$1,451,188" />
+                  {/* <StatBlock title="Volume" value="xx" /> */}
+                  <StatBlock title="Circulating supply" value="217,000,000" />
+                  <StatBlock title="Total supply" value="1,000,000,000" />
+                  <StatBlock
+                    title="Fully diluted market cap"
+                    value="$6,951,110"
+                  />
+                </div>
               </div>
             </section>
           </div>
@@ -256,15 +259,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 onClick={toggleOpen}
               >
                 {isOpen ? <Minus /> : <Plus />}
-                {/* <Image
-                  loading="lazy"
-                  src="/images/arrow down.svg"
-                  alt="Official Link Icon"
-                  width={24}
-                  height={24}
-                  className="w-6 aspect-square"
-                  onClick={toggleOpen}
-                /> */}
               </div>
             </div>
             <div
@@ -300,11 +294,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
               <nav className="flex gap-5 justify-between items-center my-auto text-lg font-medium text-black">
                 {buttons.map((label) => (
                   <button
-                    key={label}
-                    className={getButtonClass(label)}
-                    onClick={() => handleTabClick(label)}
+                    key={label.name}
+                    className={getButtonClass(label.name)}
+                    onClick={() => {
+                      handleTabClick(label.name);
+                      console.log("selected", label.name);
+                    }}
                   >
-                    {label}
+                    {label.name} ({label.qt})
                   </button>
                 ))}
               </nav>
@@ -366,21 +363,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
                   </div>
                   <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
-                    <div className="flex gap-1 pr-2 text-base text-neutral-500">
+                    <div className="flex items-center gap-1 pr-2 text-base text-neutral-500">
                       <div>Amount</div>
                       <Info width={15} height={15} color="#7C7C7C" />
                     </div>
                     {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
                   </div>
                   <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
-                    <div className="flex gap-1 text-base text-neutral-500">
+                    <div className="flex items-center gap-1 text-base text-neutral-500">
                       <div>Current Rewards</div>
                       <Info width={15} height={15} color="#7C7C7C" />
                     </div>
                     {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
                   </div>
                   <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
-                    <div className="flex gap-1 pr-1.5 text-base text-neutral-500">
+                    <div className="flex items-center gap-1 pr-1.5 text-base text-neutral-500">
                       <div>End date</div>
                       <Info width={15} height={15} color="#7C7C7C" />
                     </div>
@@ -396,12 +393,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button> */}
                   </div>
                 </section>
-                {/* <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" /> */}
+                <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
                 {allItems.map((item, index) => (
                   <React.Fragment key={index}>
                     <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
                       <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
-                        <div className="justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                        <div className="justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                           {item.type}
                         </div>
                       </div>
@@ -425,7 +422,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
                           </div>
                         )}
                         <button
-                          className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap bg-white rounded-lg border-2 border-solid ${
+                          className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
+                            item.action === "Claim" && item.daysLeft == null
+                              ? "bg-surface-primary"
+                              : "bg-white"
+                          } rounded-lg border-2 border-solid ${
                             item.daysLeft
                               ? "border-stone-300 text-stone-300"
                               : "border-black text-black"
@@ -435,7 +436,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                         </button>
                       </div>
                     </div>
-                    {index < stakingItems.length - 1 && (
+                    {index < allItems.length - 1 && (
                       <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
                     )}
                   </React.Fragment>
@@ -501,21 +502,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
-                  <div className="flex gap-1 pr-2 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 pr-2 text-base text-neutral-500">
                     <div>Amount</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
                   {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
-                  <div className="flex gap-1 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 text-base text-neutral-500">
                     <div>Current Rewards</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
                   {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
-                  <div className="flex gap-1 pr-1.5 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 pr-1.5 text-base text-neutral-500">
                     <div>End date</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
@@ -536,7 +537,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <React.Fragment key={index}>
                   <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
                     <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
-                      <div className="justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                      <div className="justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                         {item.type}
                       </div>
                     </div>
@@ -553,18 +554,24 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       {item.endDate}
                     </div>
                     <div className="flex flex-col self-stretch px-2.5">
-                      {item.daysLeft && (
+                      {item?.daysLeft && (
                         <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
-                          <div>{item.daysLeft}</div>
+                          <div>{item?.daysLeft}</div>
                           <Info width={15} height={15} color="#7C7C7C" />
                         </div>
                       )}
                       <button
-                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap bg-white rounded-lg border-2 border-solid ${
-                          item.daysLeft
-                            ? "border-stone-300 text-stone-300"
-                            : "border-black text-black"
-                        }`}
+                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
+                          item.action === "Claim" && item.daysLeft == null
+                            ? "bg-surface-primary"
+                            : "bg-white"
+                        } rounded-lg border-2 border-solid 
+                           
+                          ${
+                            item?.daysLeft
+                              ? "border-stone-300 text-stone-300"
+                              : "border-black text-black"
+                          }`}
                       >
                         {item.action}
                       </button>
@@ -582,7 +589,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
             <main className="flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
               <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
                 <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5">
-                  <div className="flex gap-1 pr-2.5 text-neutral-500">
+                  <div className="flex items-center gap-1 pr-2.5 text-neutral-500">
                     <div>Type</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
@@ -598,21 +605,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
-                  <div className="flex gap-1 pr-2 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 pr-2 text-base text-neutral-500">
                     <div>Amount</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
                   {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
-                  <div className="flex gap-1 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 text-base text-neutral-500">
                     <div>Current Rewards</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
                   {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
-                  <div className="flex gap-1 pr-1.5 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 pr-1.5 text-base text-neutral-500">
                     <div>End date</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
@@ -633,7 +640,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <React.Fragment key={index}>
                   <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
                     <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
-                      <div className="justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                      <div className="justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                         {item.type}
                       </div>
                     </div>
@@ -657,7 +664,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
                         </div>
                       )}
                       <button
-                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap bg-white rounded-lg border-2 border-solid ${
+                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
+                          item.action === "Claim" && item.daysLeft == null
+                            ? "bg-surface-primary"
+                            : "bg-white"
+                        } rounded-lg border-2 border-solid ${
                           item.daysLeft
                             ? "border-stone-300 text-stone-300"
                             : "border-black text-black"
@@ -667,7 +678,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       </button>
                     </div>
                   </div>
-                  {index < stakingItems.length - 1 && (
+                  {index < farmingItems.length - 1 && (
                     <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
                   )}
                 </React.Fragment>
@@ -675,7 +686,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
             </main>
           )}
 
-          {selected === "Your airdrop" && (
+          {selected === "Airdrop" && (
             <main className="flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
               <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
                 <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5">
@@ -695,21 +706,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
-                  <div className="flex gap-1 pr-2 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 pr-2 text-base text-neutral-500">
                     <div>Amount</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
                   {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
-                  <div className="flex gap-1 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 text-base text-neutral-500">
                     <div>Current Rewards</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
                   {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
                 </div>
                 <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
-                  <div className="flex gap-1 pr-1.5 text-base text-neutral-500">
+                  <div className="flex items-center gap-1 pr-1.5 text-base text-neutral-500">
                     <div>End date</div>
                     <Info width={15} height={15} color="#7C7C7C" />
                   </div>
@@ -730,7 +741,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <React.Fragment key={index}>
                   <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
                     <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
-                      <div className="justify-center px-4 py-2 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+                      <div className="justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                         {item.type}
                       </div>
                     </div>
@@ -754,17 +765,23 @@ const Dashboard: React.FC<DashboardProps> = () => {
                         </div>
                       )}
                       <button
-                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap bg-white rounded-lg border-2 border-solid ${
+                        className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
+                          item.action === "Claim" && item.daysLeft == null
+                            ? "bg-surface-primary"
+                            : "bg-white"
+                        } rounded-lg border-2 border-solid ${
                           item.daysLeft
                             ? "border-stone-300 text-stone-300"
                             : "border-black text-black"
-                        }`}
+                        }
+                            
+                            `}
                       >
                         {item.action}
                       </button>
                     </div>
                   </div>
-                  {index < stakingItems.length - 1 && (
+                  {index < airdropItems.length - 1 && (
                     <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
                   )}
                 </React.Fragment>
