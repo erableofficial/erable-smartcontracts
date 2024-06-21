@@ -26,6 +26,7 @@ import WidthdrawTokensForm from "../../components/test/widthdrawTokensForm";
 import ApproveAddressForm from "../../components/test/approveAddressForm";
 import TransferTokensForm from "../../components/test/transferTokensForm";
 import StakeForm from "../../components/test/stakeForm";
+import StakeControlSection from "../../components/test/StakeControlSection";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -154,12 +155,15 @@ export default function TestPage() {
 
         {account.address === owner && (
           <>
-            <h2 className="text-3xl text-center"> Owner Actions </h2>
-            <DepositRewardPoolForm />
-            <WidthdrawTokensForm />
-            <TransferTokensForm />
-
             <div>
+              <StakeControlSection />
+            </div>
+            <div>
+              <h2 className="text-3xl text-center"> Owner Actions </h2>
+
+              <DepositRewardPoolForm />
+              <WidthdrawTokensForm />
+              <TransferTokensForm />
               <UpdateStakeDurationForm />
             </div>
           </>
