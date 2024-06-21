@@ -12,20 +12,41 @@ import {
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
 import { parseEther } from "viem";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function UnstackButton({ stakeId }: { stakeId: number }) {
   const account = useAccount();
-  const {
-    writeContract,
-    data: hash,
-    error: writeError,
-    isPending,
-  } = useWriteContract();
+  const { writeContract, data: hash, error, isPending } = useWriteContract();
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
       hash,
     });
+
+  useEffect(() => {
+    if (isConfirmed) {
+      toast.success("Transaction confirmed.");
+    }
+  }, [isConfirmed]);
+
+  // error
+  useEffect(() => {
+    if (error) {
+      toast.error("Something went wrong.");
+      console.error(error);
+    }
+  }, [error]);
+
+  // hash
+  useEffect(() => {
+    if (hash) {
+      console.info("Transaction Hash: ", hash);
+      toast.info("Waiting for confirmation...", {
+        autoClose: 1000,
+      });
+    }
+  }, [hash]);
 
   const handleUnstack = async (stakeId: number) => {
     writeContract({
@@ -47,10 +68,6 @@ export default function UnstackButton({ stakeId }: { stakeId: number }) {
       >
         {isPending ? "Confirming..." : "Unstack"}
       </button>
-      {writeError && <p>Error: {writeError.message}</p>}
-      {hash && <p>Hash: {hash}</p>}
-      {isConfirming && <div>Waiting for confirmation...</div>}
-      {isConfirmed && <div>Transaction confirmed.</div>}
     </div>
   );
 }

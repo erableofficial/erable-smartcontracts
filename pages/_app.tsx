@@ -1,7 +1,9 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "../styles/fonts.css";
+import 'react-toastify/dist/ReactToastify.css';
 import type { AppProps } from "next/app";
+
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, http } from "wagmi";
@@ -27,6 +29,8 @@ import {
   ledgerWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { createConfig } from "wagmi";
+import { ToastContainer } from "react-toastify";
+
 
 const connectors = connectorsForWallets(
   [
@@ -94,6 +98,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
+          <ToastContainer />
           <Component {...pageProps} />
         </RainbowKitProvider>
       </QueryClientProvider>
