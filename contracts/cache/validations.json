@@ -613,7 +613,7 @@
       "contracts/Staking.sol:Staking": {
         "src": "contracts/Staking.sol:14",
         "version": {
-          "withMetadata": "b117ec3c287173ed3166fa464ffd50ecfdc5cee9fe8ab8def4f106a57b61921c",
+          "withMetadata": "5aab0a9d2f86127c80da9eee5dd53e9db93e8cca4e139184089bd7abca443cf2",
           "withoutMetadata": "fa56d85d6ff69f86b1f379a6f74c170906267aae65b058f3a29b23e3ed45951f",
           "linkedWithoutMetadata": "fa56d85d6ff69f86b1f379a6f74c170906267aae65b058f3a29b23e3ed45951f"
         },
@@ -743,7 +743,7 @@
               "slot": "10",
               "type": "t_mapping(t_address,t_mapping(t_uint256,t_struct(Stake)1641_storage))",
               "contract": "Staking",
-              "src": "contracts/Staking.sol:58"
+              "src": "contracts/Staking.sol:57"
             },
             {
               "label": "userStakeCounter",
@@ -751,7 +751,7 @@
               "slot": "11",
               "type": "t_mapping(t_address,t_uint256)",
               "contract": "Staking",
-              "src": "contracts/Staking.sol:59"
+              "src": "contracts/Staking.sol:58"
             },
             {
               "label": "whitelistedAddresses",
@@ -759,7 +759,7 @@
               "slot": "12",
               "type": "t_mapping(t_address,t_bool)",
               "contract": "Staking",
-              "src": "contracts/Staking.sol:60"
+              "src": "contracts/Staking.sol:59"
             },
             {
               "label": "_totalStaked",
@@ -767,7 +767,7 @@
               "slot": "13",
               "type": "t_uint256",
               "contract": "Staking",
-              "src": "contracts/Staking.sol:61"
+              "src": "contracts/Staking.sol:60"
             },
             {
               "label": "_rewardPool",
@@ -775,7 +775,7 @@
               "slot": "14",
               "type": "t_uint256",
               "contract": "Staking",
-              "src": "contracts/Staking.sol:62"
+              "src": "contracts/Staking.sol:61"
             },
             {
               "label": "_totalPendingRewards",
@@ -783,7 +783,7 @@
               "slot": "15",
               "type": "t_uint256",
               "contract": "Staking",
-              "src": "contracts/Staking.sol:63"
+              "src": "contracts/Staking.sol:62"
             }
           ],
           "types": {
