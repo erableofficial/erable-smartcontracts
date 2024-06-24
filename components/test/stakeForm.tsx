@@ -95,9 +95,6 @@ export default function StakeForm() {
           >
             {isPending ? "Confirming..." : "Stake Now"}
           </button>
-
-          {/* {error && <p>Error: {error.message}</p>} */}
-          {/* {hash && <p>Hash: {hash}</p>} */}
         </form>
       </div>
     </div>

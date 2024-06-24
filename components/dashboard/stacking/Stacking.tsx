@@ -52,7 +52,7 @@ const Stacking: React.FC = () => {
       setTimeout(() => {
         setShowStackingModal(false);
         console.log("showStackingModal", showStackingModal);
-      }, 5000);
+      }, 2000);
     }
   }, [steps]);
 
@@ -116,11 +116,18 @@ const Stacking: React.FC = () => {
       )}
       {showStackingModal && <StackingLoadingModal />}
       {steps[1].isActive && showSignModal == false && (
-        <StackStepTwoBody setSteps={setSteps} />
+        <StackStepTwoBody
+          infoCards={infoCards}
+          amount={amount}
+          setSteps={setSteps}
+        />
       )}
 
       {steps[2].isActive && showStackingModal == false && (
-        <StackStepThreeBody />
+        <StackStepThreeBody
+          currentAddress={currentAddress}
+          stakingDuration={stakedDuration as bigint}
+        />
       )}
     </div>
   );

@@ -1,10 +1,30 @@
 import { Info, Sparkles } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
+import { StakeInfo } from "../../../lib/types";
+import { contractABI, contractAddress } from "../../../lib/blockchain-config";
+import {
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
+import { Address, formatEther } from "viem";
+import { toast } from "react-toastify";
 
 type InfoItemProps = {
   label: string;
   value: string;
+};
+
+type InfoCardProps = {
+  title: string;
+  description: string;
+  value: string;
+};
+
+type StackStepThreeBodyProps = {
+  currentAddress: Address | undefined;
+  stakingDuration: bigint;
 };
 
 const InfoItem: React.FC<InfoItemProps> = ({ label, value }) => (
@@ -17,13 +37,112 @@ const InfoItem: React.FC<InfoItemProps> = ({ label, value }) => (
   </div>
 );
 
-const StackStepThreeBody: React.FC = () => {
+const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
+  currentAddress,
+  stakingDuration,
+}) => {
+  const allUserStakesResult = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "getUserStakes",
+    args: [currentAddress],
+  });
+
+  if (allUserStakesResult.error) {
+    console.error(allUserStakesResult.error);
+  }
+
+  const stakes: Array<StakeInfo> = allUserStakesResult.data as Array<StakeInfo>;
+
+  if (!stakes) {
+    return;
+  }
+
+  const lastStake = stakes[stakes.length - 1];
+
+  console.log("Last Stake Info: ", lastStake);
+
+  const { data: rewardAmount, error: readError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "calculateTotalWithdraw",
+    args: [lastStake.amount, lastStake.startTime],
+  });
+
+  if (readError) {
+    console.error(readError);
+  }
+
+  console.log("Reward Amount: ", rewardAmount);
+
+  const currentRewards = rewardAmount
+    ? BigInt(rewardAmount.toString()) - lastStake.amount
+    : BigInt(0);
+
+  const startDate = new Date(
+    Number(lastStake.startTime) * 1000
+  ).toLocaleDateString();
+
+  const endDate = new Date(
+    Number(lastStake.startTime + stakingDuration) * 1000
+  ).toLocaleDateString();
+
   const infoItems: InfoItemProps[] = [
-    { label: "Start Date", value: "JJ/MM/AAAA" },
-    { label: "Amount", value: "XXX,XXX.XXX" },
-    { label: "Current Rewards", value: "XXX,XXX.XXX" },
-    { label: "End date", value: "JJ/MM/AAAA" },
+    { label: "Start Date", value: startDate },
+    { label: "Amount", value: formatEther(lastStake.amount).toString() },
+    { label: "Current Rewards", value: formatEther(currentRewards).toString() },
+    { label: "End date", value: endDate },
   ];
+
+  const {
+    writeContract,
+    data: hash,
+    error: writeError,
+    isPending,
+  } = useWriteContract();
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
+  React.useEffect(() => {
+    if (isConfirmed) {
+      toast.success("Transaction confirmed.", {
+        autoClose: 2000,
+      });
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 2000);
+    }
+  }, [isConfirmed]);
+
+  // error
+  React.useEffect(() => {
+    if (writeError) {
+      toast.error("Something went wrong.");
+      console.error(writeError);
+    }
+  }, [writeError]);
+
+  // hash
+  React.useEffect(() => {
+    if (hash) {
+      console.info("Transaction Hash: ", hash);
+      toast.info("Waiting for confirmation...", {
+        autoClose: 2000,
+      });
+    }
+  }, [hash]);
+
+  const handleUnstake = async (stakeId: number) => {
+    writeContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "unstake",
+      args: [stakeId],
+    });
+  };
 
   return (
     <div className=" mt-14 mx-auto flex flex-col items-center p-10 bg-white rounded-3xl border border-solid border-stone-300 max-w-[977px] max-md:px-5">
@@ -31,7 +150,7 @@ const StackStepThreeBody: React.FC = () => {
         <Sparkles width={24} height={24} color="#000000" />
       </div>
       <h1 className="mt-6 text-5xl font-semibold text-black">
-        10.000 $ERA staked
+        {lastStake.amount} $ERA staked
       </h1>
       <p className="mt-6 text-lg font-medium text-center text-black w-[572px] max-md:max-w-full">
         Lorem ipsum dolor sit amet consectetur. Sed consectetur erat feugiat
@@ -55,7 +174,12 @@ const StackStepThreeBody: React.FC = () => {
             <div>Action</div>
             <Info width={10} height={10} color="#7C7C7C" />
           </div>
-          <button className="justify-center px-3.5 py-2.5 mt-2 font-semibold text-black bg-white rounded-md border border-black border-solid">
+          <button
+            onClick={() => {
+              handleUnstake(stakes.length - 1);
+            }}
+            className="justify-center px-3.5 py-2.5 mt-2 font-semibold text-black bg-white rounded-md border border-black border-solid"
+          >
             Unstake
           </button>
         </div>

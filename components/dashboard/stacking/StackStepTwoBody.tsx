@@ -1,4 +1,20 @@
 import React from "react";
+import {
+  contractABI,
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../../lib/blockchain-config";
+import { toast } from "react-toastify";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { useEffect } from "react";
+import { formatEther, parseEther } from "viem";
+
+type InfoCardProps = {
+  title: string;
+  description: string;
+  value: string;
+};
 
 type StackStepTwoBodyProps = {
   setSteps: React.Dispatch<
@@ -11,31 +27,85 @@ type StackStepTwoBodyProps = {
       }[]
     >
   >;
+  infoCards: InfoCardProps[];
+  amount: number;
 };
 
-const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({ setSteps }) => {
+const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
+  setSteps,
+  infoCards,
+  amount,
+}) => {
   const items = [
     { label: "Total APR:", value: "00" },
-    { label: "Duration:", value: "1 year" },
-    { label: "Start date:", value: "15th July 2024" },
-    { label: "End date:", value: "15th July 2025" },
+    { label: "Duration:", value: infoCards[1].value },
+    { label: "Start date:", value: infoCards[2].value },
+    { label: "End date:", value: infoCards[3].value },
   ];
+
+  const { writeContract, data: hash, error, isPending } = useWriteContract();
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
+  useEffect(() => {
+    if (isConfirmed) {
+      toast.success("Transaction confirmed.", {
+        autoClose: 2500,
+      });
+      // wait for 2.5 second before setting the steps
+      setTimeout(() => {
+        setSteps([
+          {
+            number: "1",
+            title: "Stake your token : Informations",
+            text: "Staking Informations",
+            isActive: false,
+          },
+          {
+            number: "2",
+            title: "Send funds",
+            text: "Send funds",
+            isActive: false,
+          },
+          {
+            number: "3",
+            title: "You staked sucessfully",
+            text: "Confirmation",
+            isActive: true,
+          },
+        ]);
+      }, 2500);
+    }
+  }, [isConfirmed]);
+
+  // error
+  useEffect(() => {
+    if (error) {
+      toast.error("Something went wrong.");
+      console.error(error);
+    }
+  }, [error]);
+
+  // hash
+  useEffect(() => {
+    if (hash) {
+      console.info("Transaction Hash: ", hash);
+      toast.info("Waiting for confirmation...", {
+        autoClose: 1500,
+      });
+    }
+  }, [hash]);
+
   const handleClick = () => {
-    setSteps([
-      {
-        number: "1",
-        title: "Stake your token : Informations",
-        text: "Staking Informations",
-        isActive: false,
-      },
-      { number: "2", title: "Send funds", text: "Send funds", isActive: false },
-      {
-        number: "3",
-        title: "You staked sucessfully",
-        text: "Confirmation",
-        isActive: true,
-      },
-    ]);
+    writeContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "stake",
+      args: [parseEther(amount.toString())],
+    });
   };
   return (
     <div>
@@ -47,7 +117,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({ setSteps }) => {
           Your staking:
         </h2>
         <section className="flex gap-5 justify-between mt-2.5 max-md:flex-wrap max-md:max-w-full">
-          <div className="text-3xl font-semibold text-black">10.000 $ERA</div>
+          <div className="text-3xl font-semibold text-black">{amount} $ERA</div>
           <div className="my-auto text-base font-medium text-neutral-500">
             =$250.000
           </div>
