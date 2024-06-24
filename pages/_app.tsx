@@ -1,10 +1,10 @@
 import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "../styles/fonts.css";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import type { AppProps } from "next/app";
-
-
+import type { ReactElement, ReactNode } from "react";
+import type { NextPage } from "next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, http } from "wagmi";
 import { defineChain } from "viem";
@@ -31,6 +31,13 @@ import {
 import { createConfig } from "wagmi";
 import { ToastContainer } from "react-toastify";
 
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
 
 const connectors = connectorsForWallets(
   [
@@ -93,13 +100,14 @@ const config = createConfig({
 
 const client = new QueryClient();
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
           <ToastContainer />
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

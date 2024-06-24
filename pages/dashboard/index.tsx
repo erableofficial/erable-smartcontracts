@@ -1,21 +1,18 @@
-import type { NextPage } from "next";
-import Faq from "../../components/ui/Faq";
-import Footer from "../../components/ui/Footer";
-import Header from "../../components/ui/Header";
 import Dashboard from "../../components/dashboard/Dashboard";
-import RewardSystem from "../../components/dashboard/RewardSystem";
-import HeaderDashboard from "../../components/dashboard/HeaderDashboard";
+import LayoutDashboard from "../../components/dashboard/LayoutDashboard";
+import type { NextPageWithLayout } from "../_app";
+import type { ReactElement } from "react";
 
-const DashboardPage: NextPage = () => {
+const DashboardPage: NextPageWithLayout = () => {
   return (
     <>
-      <HeaderDashboard />
       <Dashboard />
-      <RewardSystem />
-      <Faq />
-      <Footer />
     </>
   );
+};
+
+DashboardPage.getLayout = function getLayout(page: ReactElement) {
+  return <LayoutDashboard>{page}</LayoutDashboard>;
 };
 
 export default DashboardPage;
