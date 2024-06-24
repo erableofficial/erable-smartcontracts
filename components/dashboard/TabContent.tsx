@@ -56,7 +56,7 @@ const TabContent: React.FC<TabContentProps> = ({ Items }) => {
           {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
         </div>
         <div className="flex flex-col justify-between p-2.5 text-base">
-          <div className="flex gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
+          <div className="flex items-center gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
             <div>Action</div>
             <Info width={15} height={15} color="#7C7C7C" />
           </div>

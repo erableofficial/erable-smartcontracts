@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
-import { ChevronDown, ChevronUp, Info, Minus, Plus } from "lucide-react";
-import Link from "next/link";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import BuySeraModal from "../ui/BuySeraModal";
 import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
+import Link from "next/link";
 
 interface DashboardProps {}
 
@@ -103,24 +103,10 @@ const airdropItems = [
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const [selected, setSelected] = useState<string>("All");
-  const [isOpen, setIsOpen] = React.useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const contentRef = React.useRef<HTMLDivElement>(null);
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const toggleOpen = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // This useEffect ensures that updates to isOpen appropriately adjust maxHeight
-  React.useEffect(() => {
-    if (contentRef.current) {
-      contentRef.current.style.maxHeight = isOpen
-        ? `${contentRef.current.scrollHeight}px`
-        : "0";
-    }
-  }, [isOpen]);
   const { isConnected } = useAccount();
 
   const buttons = [
@@ -151,8 +137,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
           toggleBuyEraModal={toggleBuyEraModal}
           setToggleBuyEraModal={setToggleBuyEraModal}
         />
-        <div className="justify-between self-stretch px-32 mt-14 w-full max-md:px-5 max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+        <div className="flex justify-center self-stretch  mt-14 w-full max-md:px-5 max-md:max-w-full">
+          <div className="flex gap-5 max-w-[1259px] w-full max-md:flex-col max-md:gap-0">
             <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
                 <div className="flex gap-2 justify-between font-semibold">
@@ -167,9 +153,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                 </div>
                 <div className="flex gap-0.5 self-start  text-black">
-                  <div className="text-4xl font-semibold">0.0</div>
+                  <div className="text-4xl font-semibold">20000</div>
                   <div className="self-start h-full flex items-center text-lg font-medium">
-                    = 0,1 centime
+                    $ERA = $1.50
                   </div>
                 </div>
                 <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-black bg-surface-500 border border-black border-solid rounded-[38px]">
@@ -193,7 +179,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <div className="flex gap-5 justify-between font-semibold">
                   <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
                     <div className="text-2xl text-black">Total Rewards</div>
-                    <div className="self-start pb-1.5 text-lg text-black whitespace-nowrap border-b-2 border-black border-solid">
+                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-black whitespace-nowrap border-b-2 border-black border-solid">
                       View history
                     </div>
                   </div>
@@ -228,7 +214,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <div className="flex gap-5 justify-between font-semibold">
                   <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
                     <div className="text-2xl text-black">$ERA stats</div>
-                    <div className="self-start pb-1.5 text-lg text-black whitespace-nowrap border-b-2 border-black border-solid">
+                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-black whitespace-nowrap border-b-2 border-black border-solid">
                       Whitepaper
                     </div>
                   </div>
@@ -288,9 +274,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       className={`dropdown-content border-solid border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute`}
                     >
                       {/* Dropdown items here */}
-                      <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
-                        Staking
-                      </div>
+                      <Link href="/dashboard/stacking">
+                        <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
+                          Staking
+                        </div>
+                      </Link>
                       <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
                         LP Farming
                       </div>
