@@ -1,6 +1,6 @@
 import { Info, Sparkles } from "lucide-react";
 import Link from "next/link";
-import * as React from "react";
+import React, { useEffect } from "react";
 import { StakeInfo } from "../../../lib/types";
 import { contractABI, contractAddress } from "../../../lib/blockchain-config";
 import {
@@ -48,17 +48,54 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
     args: [currentAddress],
   });
 
+  const {
+    writeContract,
+    data: hash,
+    error: writeError,
+    isPending,
+  } = useWriteContract();
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
+  useEffect(() => {
+    if (isConfirmed) {
+      toast.success("Transaction confirmed.", {
+        autoClose: 2000,
+      });
+      setTimeout(() => {
+        window.location.href = "/dashboard";
+      }, 2000);
+    }
+  }, [isConfirmed]);
+
+  // error
+  useEffect(() => {
+    if (writeError) {
+      toast.error("Something went wrong.");
+      console.error(writeError);
+    }
+  }, [writeError]);
+
+  // hash
+  useEffect(() => {
+    if (hash) {
+      console.info("Transaction Hash: ", hash);
+      toast.info("Waiting for confirmation...", {
+        autoClose: 2000,
+      });
+    }
+  }, [hash]);
+
   if (allUserStakesResult.error) {
     console.error(allUserStakesResult.error);
   }
 
   const stakes: Array<StakeInfo> = allUserStakesResult.data as Array<StakeInfo>;
 
-  if (!stakes) {
-    return;
-  }
-
-  const lastStake = stakes[stakes.length - 1];
+  const lastStake = stakes ? stakes[stakes.length - 1] : ({} as StakeInfo);
 
   console.log("Last Stake Info: ", lastStake);
 
@@ -93,47 +130,6 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
     { label: "Current Rewards", value: formatEther(currentRewards).toString() },
     { label: "End date", value: endDate },
   ];
-
-  const {
-    writeContract,
-    data: hash,
-    error: writeError,
-    isPending,
-  } = useWriteContract();
-
-  const { isLoading: isConfirming, isSuccess: isConfirmed } =
-    useWaitForTransactionReceipt({
-      hash,
-    });
-
-  React.useEffect(() => {
-    if (isConfirmed) {
-      toast.success("Transaction confirmed.", {
-        autoClose: 2000,
-      });
-      setTimeout(() => {
-        window.location.href = "/dashboard";
-      }, 2000);
-    }
-  }, [isConfirmed]);
-
-  // error
-  React.useEffect(() => {
-    if (writeError) {
-      toast.error("Something went wrong.");
-      console.error(writeError);
-    }
-  }, [writeError]);
-
-  // hash
-  React.useEffect(() => {
-    if (hash) {
-      console.info("Transaction Hash: ", hash);
-      toast.info("Waiting for confirmation...", {
-        autoClose: 2000,
-      });
-    }
-  }, [hash]);
 
   const handleUnstake = async (stakeId: number) => {
     writeContract({

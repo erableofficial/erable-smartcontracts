@@ -192,9 +192,9 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           </h2>
         </div>
         <p className="text-base font-medium text-black max-md:max-w-full">
-          If you decide to unstake before the end of the period, you'll get a
+          If you decide to unstake before the end of the period, you&apos;ll get a
           tax on your rewards. =&gt; derrière trouver comment bien expliquer
-          slashing ici (en + de l'article qui expliquera ofc)
+          slashing ici (en + de l&apos;article qui expliquera ofc)
         </p>
       </div>
       <button
