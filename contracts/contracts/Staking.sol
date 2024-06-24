@@ -464,4 +464,25 @@ contract Staking is
 
         return totalStakedTokens;
     }
+
+    /**
+     * @notice Returns all user stakes as an array of Stake structs.
+     * @param user The address of the user.
+     * @return An array of Stake structs representing all the user's stakes.
+     */
+    function getUserStakes(
+        address user
+    ) external view returns (Stake[] memory) {
+        uint256 stakeCount = userStakeCounter[user];
+        Stake[] memory stakes = new Stake[](stakeCount);
+
+        for (uint256 i = 0; i < stakeCount; ) {
+            stakes[i] = userStakes[user][i];
+            unchecked {
+                i++;
+            }
+        }
+
+        return stakes;
+    }
 }

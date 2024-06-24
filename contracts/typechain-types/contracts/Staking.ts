@@ -23,6 +23,27 @@ import type {
   TypedContractMethod,
 } from "../common";
 
+export declare namespace Staking {
+  export type StakeStruct = {
+    amount: BigNumberish;
+    startTime: BigNumberish;
+    requestUnstakeTime: BigNumberish;
+    unstakeRequested: boolean;
+  };
+
+  export type StakeStructOutput = [
+    amount: bigint,
+    startTime: bigint,
+    requestUnstakeTime: bigint,
+    unstakeRequested: boolean
+  ] & {
+    amount: bigint;
+    startTime: bigint;
+    requestUnstakeTime: bigint;
+    unstakeRequested: boolean;
+  };
+}
+
 export interface StakingInterface extends Interface {
   getFunction(
     nameOrSignature:
@@ -36,6 +57,7 @@ export interface StakingInterface extends Interface {
       | "disableWhitelist"
       | "enableWhitelist"
       | "getTotalStakedForUser"
+      | "getUserStakes"
       | "initialize"
       | "maxCap"
       | "minCap"
@@ -121,6 +143,10 @@ export interface StakingInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getTotalStakedForUser",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getUserStakes",
     values: [AddressLike]
   ): string;
   encodeFunctionData(
@@ -277,6 +303,10 @@ export interface StakingInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getTotalStakedForUser",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getUserStakes",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
@@ -607,6 +637,12 @@ export interface Staking extends BaseContract {
     "view"
   >;
 
+  getUserStakes: TypedContractMethod<
+    [user: AddressLike],
+    [Staking.StakeStructOutput[]],
+    "view"
+  >;
+
   initialize: TypedContractMethod<
     [
       _stakingToken: AddressLike,
@@ -777,6 +813,13 @@ export interface Staking extends BaseContract {
   getFunction(
     nameOrSignature: "getTotalStakedForUser"
   ): TypedContractMethod<[user: AddressLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "getUserStakes"
+  ): TypedContractMethod<
+    [user: AddressLike],
+    [Staking.StakeStructOutput[]],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "initialize"
   ): TypedContractMethod<
