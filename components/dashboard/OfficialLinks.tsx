@@ -22,7 +22,7 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
     <div className="flex flex-col justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full">
       <div className="flex flex-col  justify-between max-md:flex-wrap max-md:max-w-full">
         <div className="flex justify-between">
-          <div className="my-auto text-2xl font-semibold text-black max-md:max-w-full">
+          <div className="my-auto text-2xl font-semibold text-neutral-700 max-md:max-w-full">
             Official links
           </div>
           <div
@@ -49,10 +49,10 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
             culpa qui officia deserunt mollit anim id est laborum.
           </div>
 
-          <div className="self-start pb-1.5 mt-6 text-lg font-semibold text-black ">
+          <div className="self-start pb-1.5 mt-6 text-lg font-semibold text-neutral-700 ">
             <Link
               href=""
-              className="pb-1.5 mt-6 text-lg font-semibold text-black border-b-2 border-black"
+              className="pb-1.5 mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
             >
               Read more
             </Link>

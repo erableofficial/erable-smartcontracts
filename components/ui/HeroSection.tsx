@@ -3,46 +3,6 @@ import React from "react";
 import BuySeraModal from "./BuySeraModal";
 import BridgeProcessModal from "./BridgeProcessModal";
 
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-}
-
-const Button: React.FC<ButtonProps> = ({ children, onClick }) => {
-  return (
-    <button
-      onClick={onClick}
-      className="justify-center self-start px-7 py-4 text-lg font-semibold text-black bg-surface-primary rounded-xl border-black border-solid border-[3px] max-md:px-5 primary-button"
-    >
-      {children}
-    </button>
-  );
-};
-
-interface CardProps {
-  text: string;
-  subtext?: string;
-  onClick?: () => void;
-}
-
-const Card: React.FC<CardProps> = ({ text, subtext, onClick }) => {
-  return (
-    <div className="flex flex-col">
-      <button
-        className="flex flex-col justify-center text-lg font-semibold text-black "
-        onClick={onClick}
-      >
-        <span className="secondary-button justify-center px-7 py-4 bg-white rounded-xl border-black border-solid border-[3px] max-md:px-5">
-          {text}
-        </span>
-      </button>
-      {subtext && (
-        <p className="mt-3 text-sm font-medium text-black">{subtext}</p>
-      )}
-    </div>
-  );
-};
-
 const HeroSection = () => {
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
   const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
@@ -59,14 +19,12 @@ const HeroSection = () => {
           toggleBridgeProcessModal={toggleBridgeProcessModal}
           setToggleBridgeProcessModal={setToggleBridgeProcessModal}
         />
-        <div className="text-8xl font-extrabold tracking-tighter text-center text-black leading-[6.938rem] max-md:max-w-full max-md:text-4xl max-md:leading-[3.438rem]">
+        <div className="text-8xl font-extrabold tracking-tighter text-center text-neutral-700 leading-[6.938rem] max-md:max-w-full max-md:text-4xl max-md:leading-[3.438rem]">
           <span
             className="font-bold leading-[6.938rem] "
             data-sal-delay="100"
             data-sal="slide-up"
             data-sal-duration="1000"
-
-            // data-sal-easing="easeOutQuad"
           >
             &lt;
           </span>
@@ -90,20 +48,18 @@ const HeroSection = () => {
           </span>
         </div>
         <h1
-          className="justify-center px-5 mt-5 text-[5.625rem] font-extrabold tracking-tighter text-center text-black bg-surface-500 rounded-2xl leading-[6.75rem] max-md:max-w-full max-md:text-4xl font-friends "
+          className="justify-center px-5 mt-5 text-[5.625rem] font-extrabold tracking-tighter text-center text-neutral-700 bg-surface-500 rounded-2xl leading-[6.75rem] max-md:max-w-full max-md:text-4xl font-friends "
           data-sal-delay="200"
           data-sal="slide-up"
           data-sal-duration="1000"
-          // data-sal-easing="easeOutQuad"
         >
           Impact Investing
         </h1>
         <p
-          className="self-stretch mt-10 mr-2.5 ml-3 text-lg font-medium font-friends text-center text-black max-md:max-w-full"
+          className="self-stretch mt-10 mr-2.5 ml-3 text-lg font-medium font-friends text-center text-neutral-700 max-md:max-w-full"
           data-sal-delay="300"
           data-sal="slide-up"
           data-sal-duration="1000"
-          // data-sal-easing="easeOutQuad"
         >
           erable° is a powerhouse for next-gen investment products! <br />{" "}
           <br />
@@ -118,12 +74,25 @@ const HeroSection = () => {
             data-sal="slide-up"
             data-sal-duration="1000"
           >
-            <Button onClick={() => setToggleBuyEraModal(true)}>Buy $ERA</Button>
-            <Card
-              text="Bridge $CLAP"
-              subtext="*only for CLAP investors"
-              onClick={() => setToggleBridgeProcessModal(true)}
-            />
+            <button
+              className="justify-center self-start px-7 py-4 text-lg font-semibold text-neutral-700 bg-surface-primary rounded-xl border-black border-solid border-[3px] max-md:px-5 primary-button"
+              onClick={() => setToggleBuyEraModal(true)}
+            >
+              Buy $ERA
+            </button>
+            <div className="flex flex-col">
+              <button
+                className="flex flex-col justify-center text-lg font-semibold text-neutral-700 "
+                onClick={() => setToggleBridgeProcessModal(true)}
+              >
+                <span className="secondary-button justify-center px-7 py-4 bg-white rounded-xl border-black border-solid border-[3px] max-md:px-5">
+                  Bridge $CLAP
+                </span>
+              </button>
+              <p className="mt-3 text-sm font-medium text-neutral-700">
+                *only for CLAP investors
+              </p>
+            </div>
           </div>
         </div>
         <figure

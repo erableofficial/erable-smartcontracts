@@ -38,14 +38,14 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
             onClick={() => setToggleWithdrawTokenCdModalModal(false)}
           />
         </div>
-        <div className=" flex items-center justify-between mt-3 text-3xl font-semibold mb-10 text-black">
+        <div className=" flex items-center justify-between mt-3 text-3xl font-semibold mb-10 text-neutral-700">
           <div className="flex gap-3 items-center">
             <span className="flex justify-center items-center px-3  bg-surface-500 h-[45px] rounded-[37.5px] w-[45px]">
               <Gift size={32} width={24} height={24} />
             </span>
             Withdraw your tokens and rewards
           </div>
-          <span className="justify-center flex items-center text-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+          <span className="justify-center flex items-center text-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
             7 Days cooldown
           </span>
         </div>
@@ -56,10 +56,10 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="flex-1 my-auto text-xl font-bold text-black max-md:max-w-full">
+            <div className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
               Withdraw conditions
             </div>
-            <div className="self-start text-base font-medium text-black max-md:max-w-full">
+            <div className="self-start text-base font-medium text-neutral-700 max-md:max-w-full">
               Please note that withdrawing your stake early will result in
               penalties on your accrued rewards. For a detailed explanation,
               please read our full article on staking rewards and penalties
@@ -78,7 +78,7 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
           rewards.
         </p>
 
-        <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-black">
+        <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
           <button className="secondary-button-sm">Read tutorial</button>
           <button className="primary-button-sm">
             <>

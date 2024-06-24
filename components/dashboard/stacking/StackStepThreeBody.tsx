@@ -13,7 +13,7 @@ const InfoItem: React.FC<InfoItemProps> = ({ label, value }) => (
       <div>{label}</div>
       <Info width={10} height={10} color="#7C7C7C" />
     </div>
-    <div className="mt-6 text-lg text-black">{value}</div>
+    <div className="mt-6 text-lg text-neutral-700">{value}</div>
   </div>
 );
 
@@ -30,10 +30,10 @@ const StackStepThreeBody: React.FC = () => {
       <div className="flex justify-center items-center px-3 bg-yellow-200 h-[45px] rounded-[37.5px] w-[45px]">
         <Sparkles width={24} height={24} color="#000000" />
       </div>
-      <h1 className="mt-6 text-5xl font-semibold text-black">
+      <h1 className="mt-6 text-5xl font-semibold text-neutral-700">
         10.000 $ERA staked
       </h1>
-      <p className="mt-6 text-lg font-medium text-center text-black w-[572px] max-md:max-w-full">
+      <p className="mt-6 text-lg font-medium text-center text-neutral-700 w-[572px] max-md:max-w-full">
         Lorem ipsum dolor sit amet consectetur. Sed consectetur erat feugiat
         felis pharetra mauris neque id
       </p>
@@ -43,7 +43,7 @@ const StackStepThreeBody: React.FC = () => {
             <div>Type</div>
             <Info width={10} height={10} color="#7C7C7C" />
           </div>
-          <div className="justify-center px-3 py-1.5 mt-3 text-black bg-yellow-200 rounded-3xl border border-black border-solid">
+          <div className="justify-center px-3 py-1.5 mt-3 text-neutral-700 bg-yellow-200 rounded-3xl border border-black border-solid">
             Staking
           </div>
         </div>
@@ -55,12 +55,12 @@ const StackStepThreeBody: React.FC = () => {
             <div>Action</div>
             <Info width={10} height={10} color="#7C7C7C" />
           </div>
-          <button className="justify-center px-3.5 py-2.5 mt-2 font-semibold text-black bg-white rounded-md border border-black border-solid">
+          <button className="justify-center px-3.5 py-2.5 mt-2 font-semibold text-neutral-700 bg-white rounded-md border border-black border-solid">
             Unstake
           </button>
         </div>
       </section>
-      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold text-black">
+      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold text-neutral-700">
         <button className="secondary-button">Join our community</button>
         <Link className="primary-button" href={"/dashboard"}>
           View my staking

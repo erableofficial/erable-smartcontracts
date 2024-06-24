@@ -38,7 +38,7 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
             onClick={() => setToggleBuyEraModal(false)}
           />
         </div>
-        <div className=" flex items-center justify-between mt-3 text-3xl font-semibold mb-10 text-black">
+        <div className=" flex items-center justify-between mt-3 text-3xl font-semibold mb-10 text-neutral-700">
           <div className="flex gap-3 items-center">
             <span className="flex justify-center items-center px-3  bg-surface-500 h-[45px] rounded-[37.5px] w-[45px]">
               <CircleDollarSign size={32} width={24} height={24} />
@@ -53,10 +53,10 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
             </div>
           </div>
           <div className="flex flex-col">
-            <div className="flex-1 my-auto text-xl font-bold text-black max-md:max-w-full">
+            <div className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
               Buy $ERA on uniswap
             </div>
-            <div className="self-start text-base font-medium text-black max-md:max-w-full">
+            <div className="self-start text-base font-medium text-neutral-700 max-md:max-w-full">
               To complete bridge, you'll be redirected to uniswap, who we
               partnered with.Please click "Bridge my $CLAP" to continue.
               <br /> Please click &quot;Bridge my $CLAP&quot; to continue.
@@ -68,7 +68,7 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
           on the Uniswap platform to complete your transaction.
         </p>
 
-        <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-black">
+        <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
           <button className="secondary-button-sm">Read tutorial</button>
           <button className="primary-button-sm">
             <>

@@ -38,7 +38,7 @@ const TabContent: React.FC<TabContentProps> = ({ Items }) => {
             <div>Type</div>
             <Info width={15} height={15} color="#7C7C7C" />
           </div>
-          {/* <div className="justify-center px-4 py-2 mt-5 text-black bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
+          {/* <div className="justify-center px-4 py-2 mt-5 text-neutral-700 bg-yellow-200 border-2 border-black border-solid rounded-[38px]">
         Staking
       </div> */}
         </div>
@@ -47,35 +47,35 @@ const TabContent: React.FC<TabContentProps> = ({ Items }) => {
             <div>Start Date</div>
             <Info width={15} height={15} color="#7C7C7C" />
           </div>
-          {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+          {/* <div className="mt-8 text-lg text-neutral-700">JJ/MM/AAAA</div> */}
         </div>
         <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
           <div className="flex items-center gap-1 pr-2 text-base text-neutral-500">
             <div>Amount</div>
             <Info width={15} height={15} color="#7C7C7C" />
           </div>
-          {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+          {/* <div className="mt-8 text-lg text-neutral-700">XXX,XXX.XXX</div> */}
         </div>
         <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
           <div className="flex items-center gap-1 text-base text-neutral-500">
             <div>Current Rewards</div>
             <Info width={15} height={15} color="#7C7C7C" />
           </div>
-          {/* <div className="mt-8 text-lg text-black">XXX,XXX.XXX</div> */}
+          {/* <div className="mt-8 text-lg text-neutral-700">XXX,XXX.XXX</div> */}
         </div>
         <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5">
           <div className="flex items-center gap-1 pr-1.5 text-base text-neutral-500">
             <div>End date</div>
             <Info width={15} height={15} color="#7C7C7C" />
           </div>
-          {/* <div className="mt-8 text-lg text-black">JJ/MM/AAAA</div> */}
+          {/* <div className="mt-8 text-lg text-neutral-700">JJ/MM/AAAA</div> */}
         </div>
         <div className="flex flex-col justify-between p-2.5 text-base">
           <div className="flex items-center gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
             <div>Action</div>
             <Info width={15} height={15} color="#7C7C7C" />
           </div>
-          {/* <button className="justify-center px-5 py-3 mt-3 font-semibold text-black bg-white rounded-lg border-2 border-black border-solid">
+          {/* <button className="justify-center px-5 py-3 mt-3 font-semibold text-neutral-700 bg-white rounded-lg border-2 border-black border-solid">
         Unstake
       </button> */}
         </div>
@@ -84,7 +84,7 @@ const TabContent: React.FC<TabContentProps> = ({ Items }) => {
       {Items.map((item, index) => (
         <React.Fragment key={index}>
           <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
-            <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
+            <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-neutral-700 whitespace-nowrap max-md:pr-5">
               <div className="justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                 {item.type}
               </div>
@@ -116,7 +116,7 @@ const TabContent: React.FC<TabContentProps> = ({ Items }) => {
                 } rounded-lg border-2 border-solid ${
                   item.daysLeft
                     ? "border-stone-300 text-stone-300"
-                    : "border-black text-black"
+                    : "border-black text-neutral-700"
                 }`}
                 onClick={() => handleActionClick(item.action, item.daysLeft)}
               >

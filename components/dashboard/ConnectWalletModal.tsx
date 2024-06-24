@@ -21,15 +21,15 @@ const ConnectWalletModal: React.FC = () => {
           className="w-full aspect-square"
         />
       </div>
-      <h1 className="mt-10 text-3xl font-semibold text-black">
+      <h1 className="mt-10 text-3xl font-semibold text-neutral-700">
         Open Dashboard
       </h1>
-      <p className="justify-center self-stretch px-2.5 py-1 mt-5 text-lg font-medium text-black bg-surface-500 rounded max-md:max-w-full">
+      <p className="justify-center self-stretch px-2.5 py-1 mt-5 text-lg font-medium text-neutral-700 bg-surface-500 rounded max-md:max-w-full">
         Please connect your wallet to access to your dashboard
       </p>
       <ConnectWalletButton
         text="Connect your wallet"
-        className="justify-center px-5 py-3 mt-10 text-base font-semibold text-black bg-emerald-200 rounded-lg border-2 border-black border-solid"
+        className="justify-center px-5 py-3 mt-10 text-base font-semibold text-neutral-700 bg-emerald-200 rounded-lg border-2 border-black border-solid"
       />
     </div>
   );

@@ -37,8 +37,8 @@ const RoadmapSection: React.FC<RoadmapSectionProps> = ({
   features,
 }) => (
   <section className="col-span-12 md:col-span-6 lg:col-span-3">
-    <header className="flex flex-col grow text-black max-md:mt-6">
-      <h2 className="justify-center px-5 py-1.5 text-2xl font-semibold text-black bg-surface-500 rounded-lg">
+    <header className="flex flex-col grow text-neutral-700 max-md:mt-6">
+      <h2 className="justify-center px-5 py-1.5 text-2xl font-semibold text-neutral-700 bg-surface-500 rounded-lg">
         {period}
       </h2>
       {features.map((feature, index) => (
@@ -106,7 +106,7 @@ const Roadmap: React.FC = () => {
 
   return (
     <div className="flex flex-col self-stretch p-20 bg-stone-50 max-md:px-5">
-      <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-black whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
+      <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-neutral-700 whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
       </div>
       <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[1263px]" />

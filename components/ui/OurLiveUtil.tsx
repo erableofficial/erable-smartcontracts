@@ -45,10 +45,10 @@ const OurLiveUtil: React.FC = () => {
       } rounded-2xl border border-solid border-stone-300  max-sm:min-w-full min-w-[45%] max-md:px-5`}
     >
       <div className="flex gap-5 justify-between font-semibold">
-        <h3 className="text-2xl text-black">{title}</h3>
+        <h3 className="text-2xl text-neutral-700">{title}</h3>
         <Link
           href={"/learn-more"}
-          className="pb-1.5 cursor-pointer my-auto text-base text-black border-b-2 border-black border-solid"
+          className="pb-1.5 cursor-pointer my-auto text-base text-neutral-700 border-b-2 border-black border-solid"
         >
           Learn more
         </Link>
@@ -130,10 +130,10 @@ const OurLiveUtil: React.FC = () => {
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-between self-stretch max-md:mt-10">
-              <h1 className="justify-center px-2.5 text-5xl leading-[4.641rem] font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl">
+              <h1 className="justify-center px-2.5 text-5xl leading-[4.641rem] font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl">
                 Our Live Utilities
               </h1>
-              <p className="mt-10 text-lg font-medium text-black">
+              <p className="mt-10 text-lg font-medium text-neutral-700">
                 Explore our live utilities and engage with our token to unlock
                 the full experience.
               </p>
@@ -144,7 +144,7 @@ const OurLiveUtil: React.FC = () => {
                 Open dashboard
               </Link>
               <div className="flex gap-5 justify-between mt-52 w-full max-md:mt-10">
-                <span className="my-auto text-2xl leading-6 text-black">
+                <span className="my-auto text-2xl leading-6 text-neutral-700">
                   {activeCardIndex + 1}/{utilityCardsData.length}
                 </span>
                 <div className="flex gap-2.5">

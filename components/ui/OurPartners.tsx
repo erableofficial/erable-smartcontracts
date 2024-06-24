@@ -138,7 +138,7 @@ const OurPartners: React.FC = () => {
         </div>
       </div>
       <div
-        className="flex flex-col my-auto text-black"
+        className="flex flex-col my-auto text-neutral-700"
         data-sal-delay="100"
         data-sal="slide-up"
         data-sal-duration="1000"

@@ -44,10 +44,10 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
       >
         <div className="mt-4 text-sm text-gray-700">{answer}</div>
         {link && (
-          <div className="self-start pb-1.5 mt-6 text-lg font-semibold text-black ">
+          <div className="self-start pb-1.5 mt-6 text-lg font-semibold text-neutral-700 ">
             <Link
               href={link}
-              className="pb-1.5 mt-6 text-lg font-semibold text-black border-b-2 border-black"
+              className="pb-1.5 mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
             >
               Read more
             </Link>
@@ -90,7 +90,7 @@ const Faq: React.FC = () => {
     <section className="self-stretch p-[90px] max-md:p-2 ">
       <div className="flex gap-5 max-md:flex-col max-md:gap-0">
         <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
-          <div className="flex flex-col px-5 text-5xl font-extrabold text-black leading-[3.3rem] max-md:mt-10 max-md:text-4xl">
+          <div className="flex flex-col px-5 text-5xl font-extrabold text-neutral-700 leading-[3.3rem] max-md:mt-10 max-md:text-4xl">
             <h1 className="max-md:text-4xl">
               Frequently
               <div className="justify-center px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-md:text-4xl">
