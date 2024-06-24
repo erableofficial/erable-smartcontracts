@@ -1,17 +1,10 @@
 import { Info } from "lucide-react";
 import React from "react";
-type Item = {
-  type: string;
-  startDate: string;
-  amount: string;
-  currentRewards: string;
-  endDate: string;
-  action: string;
-  daysLeft?: string | null;
-};
+import { TabItem } from "../../lib/types";
+import StakeItem from "./stakeItem";
 
 type TabContentProps = {
-  Items: Item[];
+  Items: TabItem[];
 };
 
 const TabContent: React.FC<TabContentProps> = ({ Items }) => {
@@ -67,51 +60,12 @@ const TabContent: React.FC<TabContentProps> = ({ Items }) => {
       </section>
       <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
       {Items.map((item, index) => (
-        <React.Fragment key={index}>
-          <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
-            <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
-              <div className="justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-                {item.type}
-              </div>
-            </div>
-            <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
-              {item.startDate}
-            </div>
-            <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
-              {item.amount}
-            </div>
-            <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
-              {item.currentRewards}
-            </div>
-            <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
-              {item.endDate}
-            </div>
-            <div className="flex flex-col self-stretch px-2.5">
-              {item.daysLeft && (
-                <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
-                  <div>{item.daysLeft}</div>
-                  <Info width={15} height={15} color="#7C7C7C" />
-                </div>
-              )}
-              <button
-                className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
-                  item.action === "Claim" && item.daysLeft == null
-                    ? "bg-surface-primary"
-                    : "bg-white"
-                } rounded-lg border-2 border-solid ${
-                  item.daysLeft
-                    ? "border-stone-300 text-stone-300"
-                    : "border-black text-black"
-                }`}
-              >
-                {item.action}
-              </button>
-            </div>
-          </div>
-          {index < Items.length - 1 && (
-            <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
-          )}
-        </React.Fragment>
+        <StakeItem
+          key={index}
+          index={index}
+          stake={item}
+          itemsCounter={Items.length - 1}
+        />
       ))}
     </div>
   );

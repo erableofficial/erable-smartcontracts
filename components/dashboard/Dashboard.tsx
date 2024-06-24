@@ -1,11 +1,25 @@
-import React, { useState } from "react";
-import { useAccount } from "wagmi";
+import React, { useEffect, useState } from "react";
+import {
+  useAccount,
+  useClient,
+  useReadContract,
+  useWriteContract,
+} from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import BuySeraModal from "../ui/BuySeraModal";
 import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
 import Link from "next/link";
+import {
+  contractABI,
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../lib/blockchain-config";
+import { Chain, Client, Transport, formatEther } from "viem";
+import { StakeInfo, TabItem } from "../../lib/types";
+import { readContract, writeContract } from "viem/actions";
 
 interface DashboardProps {}
 
@@ -19,7 +33,7 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
   </div>
 );
 
-const allItems = [
+/* const allItems = [
   {
     type: "Staking",
     startDate: "JJ/MM/AAAA",
@@ -54,26 +68,6 @@ const allItems = [
     endDate: "JJ/MM/AAAA",
     action: "Unstake",
     daysLeft: null,
-  },
-];
-
-const stakingItems = [
-  {
-    type: "Staking",
-    startDate: "JJ/MM/AAAA",
-    amount: "XXX,XXX.XXX",
-    currentRewards: "XXX,XXX.XXX",
-    endDate: "JJ/MM/AAAA",
-    action: "Claim",
-  },
-  {
-    type: "Staking",
-    startDate: "JJ/MM/AAAA",
-    amount: "XXX,XXX.XXX",
-    currentRewards: "XXX,XXX.XXX",
-    endDate: "JJ/MM/AAAA",
-    action: "Claim",
-    daysLeft: "7 days left",
   },
 ];
 
@@ -99,22 +93,114 @@ const airdropItems = [
     action: "Unstake",
     daysLeft: null,
   },
-];
+]; */
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const [selected, setSelected] = useState<string>("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const [allItems, setAllItems] = useState<Array<TabItem>>([]);
+  const [farmingItems, setFarmingItems] = useState<Array<TabItem>>([]);
+  const [airdropItems, setAirdropItems] = useState<Array<TabItem>>([]);
+  const [stakingItems, setStakingItems] = useState<Array<TabItem>>([]);
 
-  const { isConnected } = useAccount();
+  const { isConnected, address: currentAddress } = useAccount();
+
+  const { data: myBalance, error: myBalanceError } = useReadContract({
+    abi: stakingTokenABI,
+    address: stakingTokenAddress,
+    functionName: "balanceOf",
+    args: [currentAddress],
+  });
+
+  const { data: stakedDuration, error: stakedDurationError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "stakingDuration",
+    args: [],
+  });
+
+  const { data: coolDownPeriod, error: coolDownPeriodError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "cooldownPeriod",
+    args: [],
+  });
+
+  const { data: totalStaked, error: totalStakedError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "totalStaked",
+  });
+
+  const { data: userStakingBalance, error: userStakingBalanceError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "getTotalStakedForUser",
+      args: [currentAddress],
+    });
+
+  const { data: userStakesCounter, error: userStakesCounterError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "userStakeCounter",
+      args: [currentAddress],
+    });
+
+  const allUserStakesResult = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "getUserStakes",
+    args: [currentAddress],
+  });
+
+  if (allUserStakesResult.error) {
+    console.error(allUserStakesResult.error);
+  }
+
+  const stakes: Array<StakeInfo> = allUserStakesResult.data as Array<StakeInfo>;
+
+  useEffect(() => {
+    if (!allUserStakesResult.isLoading && !allUserStakesResult.error) {
+      const items: TabItem[] = stakes.map((stake, index) => {
+        const { amount, startTime, requestUnstakeTime, unstakeRequested } =
+          stake;
+
+        const daysLeft =
+          Number(requestUnstakeTime) +
+          Number(coolDownPeriod) -
+          Math.floor(new Date().getTime() / 1000);
+
+        return {
+          type: "Staking",
+          id: index,
+          startTime: Number(startTime) * 1000,
+          amount: formatEther(BigInt(amount.toString())),
+          currentRewards: "xxx",
+          endTime: (Number(startTime) + Number(stakedDuration)) * 1000,
+          requestUnstakeTime: requestUnstakeTime.toString(),
+          unstakeRequested: unstakeRequested,
+          action: unstakeRequested ? "Claim" : "Unstake",
+          daysLeft: daysLeft > 0 ? `${daysLeft} secondes left` : null,
+        };
+      });
+
+      setStakingItems(items);
+      setAllItems(items);
+    }
+  }, [allUserStakesResult.isLoading]);
 
   const buttons = [
     { name: "All", qt: allItems.length },
-    { name: "Staking", qt: stakingItems.length },
-    { name: "Your Farming", qt: farmingItems.length },
-    { name: "Airdrop", qt: airdropItems.length },
+    { name: "Staking", qt: Number(userStakesCounter) },
+    { name: "Your Farming", qt: 0 },
+    { name: "Airdrop", qt: 0 },
   ];
+
+  console.log("Staking Items : ", stakingItems);
 
   const handleTabClick = (label: string) => {
     setSelected(label);
@@ -153,7 +239,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                 </div>
                 <div className="flex gap-0.5 self-start  text-black">
-                  <div className="text-4xl font-semibold">20000</div>
+                  <div className="text-4xl font-semibold">
+                    {myBalance
+                      ? formatEther(BigInt(myBalance.toString()))
+                      : "0"}
+                  </div>
                   <div className="self-start h-full flex items-center text-lg font-medium">
                     $ERA = $1.50
                   </div>
@@ -189,11 +279,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     Staking
                   </div>
                   <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-                    100,870 $ERA
+                    {userStakingBalance
+                      ? formatEther(BigInt(userStakingBalance.toString()))
+                      : "0"}{" "}
+                    $ERA
                   </span>
                 </div>
                 <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
-                  Total staked <span>2,000,870 $ERA</span>
+                  Total staked{" "}
+                  <span>
+                    {" "}
+                    {totalStaked
+                      ? formatEther(BigInt(totalStaked.toString()))
+                      : "0"}{" "}
+                    $ERA
+                  </span>
                 </div>
 
                 <div className="flex gap-1 justify-between mt-8">
@@ -291,55 +391,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
               </div>
             </div>
           </div>
-
-          {selected === "All" && (
-            <>
-              <TabContent Items={allItems} />
-              {/* <div className="flex gap-5 justify-between mt-6 w-full font-medium max-md:flex-wrap max-md:max-w-full">
-                <div className="flex gap-1.5 px-2.5 py-1 my-auto text-lg text-black bg-yellow-200 rounded">
-                  <Info width={24} height={24} />
-                  <p>You don’t have any utilities yet</p>
-                </div>
-                <div className="justify-center px-4 py-2 text-base text-black bg-white border-2 border-black border-solid rounded-[38px]">
-                  APY : xx / Program duration : 1 an
-                </div>
-              </div>
-
-              <div className="flex justify-center items-center px-16 mt-6 text-lg text-black max-md:px-5 max-md:max-w-full">
-                <div className="flex gap-5 justify-between max-md:flex-wrap">
-                  <div className="flex gap-2.5 justify-center">
-                    <div className=" flex justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
-                      1
-                    </div>
-                    <p className="my-auto font-medium">
-                      Buy $ERA on uniswap.org
-                    </p>
-                  </div>
-                  <div className="flex gap-2.5 justify-center">
-                    <div className=" flex justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
-                      2
-                    </div>
-                    <p className="my-auto font-medium">Choose an utility</p>
-                  </div>
-                  <div className="flex gap-2.5 justify-center">
-                    <div className="flex justify-center items-center px-3.5 py-2 font-semibold whitespace-nowrap bg-yellow-200 border border-solid border-stone-300 h-[33px] rounded-[38.095px] w-[33px]">
-                      3
-                    </div>
-                    <p className="my-auto font-medium">Get rewards</p>
-                  </div>
-                </div>
-              </div>
-
-              <button className="justify-center self-center px-7 py-4 mt-6 text-lg font-semibold text-black bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5">
-                Discover our staking opportunity
-              </button> */}
-            </>
-          )}
+          {selected === "All" && <TabContent Items={allItems} />}
           {selected === "Staking" && <TabContent Items={stakingItems} />}
 
-          {selected === "Your Farming" && <TabContent Items={farmingItems} />}
+          {/* {selected === "Your Farming" && <TabContent Items={farmingItems} />} */}
 
-          {selected === "Airdrop" && <TabContent Items={airdropItems} />}
+          {/* {selected === "Airdrop" && <TabContent Items={airdropItems} />} */}
         </section>
       </div>
     </div>
