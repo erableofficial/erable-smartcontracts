@@ -241,7 +241,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <div className="flex gap-0.5 self-start  text-black">
                   <div className="text-4xl font-semibold">
                     {myBalance
-                      ? formatEther(BigInt(myBalance.toString()))
+                      ? Number(
+                          formatEther(BigInt(myBalance.toString()))
+                        ).toLocaleString()
                       : "0"}
                   </div>
                   <div className="self-start h-full flex items-center text-lg font-medium">
