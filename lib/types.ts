@@ -9,7 +9,7 @@ export interface TabItem {
   type: "Staking" | "LP Farming" | "Airdrop";
   id: number;
   startTime: number;
-  amount: string;
+  amount: bigint;
   currentRewards?: string;
   endTime: number;
   requestUnstakeTime: string;

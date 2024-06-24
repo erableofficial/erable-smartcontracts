@@ -8,6 +8,7 @@ import {
 } from "wagmi";
 import { contractABI, contractAddress } from "../../lib/blockchain-config";
 import { toast } from "react-toastify";
+import { formatEther } from "viem";
 
 interface StakeItemProps {
   stake: TabItem;
@@ -24,12 +25,18 @@ const StakeItem: React.FC<StakeItemProps> = ({
     abi: contractABI,
     address: contractAddress,
     functionName: "calculateTotalWithdraw",
-    args: [stake.amount, BigInt(stake.startTime)],
+    args: [stake.amount, BigInt(stake.startTime / 1000)],
   });
 
-  const currentRewards = rewardAmount
-    ? (BigInt(rewardAmount.toString()) - BigInt(stake.amount)).toString()
-    : stake.currentRewards;
+  console.log("Stake ID: ", stake.id);
+
+  console.log("Reward Amount: ", rewardAmount);
+
+  console.log("Stake Amount : ", stake.amount);
+
+  const currentRewards: bigint = rewardAmount
+    ? BigInt(rewardAmount.toString()) - BigInt(stake.amount)
+    : BigInt(0);
 
   const {
     writeContract,
@@ -97,10 +104,10 @@ const StakeItem: React.FC<StakeItemProps> = ({
           {new Date(stake.startTime).toLocaleDateString()}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
-          {stake.amount}
+          {formatEther(stake.amount)}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
-          {currentRewards}
+          {formatEther(currentRewards)}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
           {new Date(stake.endTime).toLocaleDateString()}

@@ -178,7 +178,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           type: "Staking",
           id: index,
           startTime: Number(startTime) * 1000,
-          amount: formatEther(BigInt(amount.toString())),
+          amount: amount,
           currentRewards: "xxx",
           endTime: (Number(startTime) + Number(stakedDuration)) * 1000,
           requestUnstakeTime: requestUnstakeTime.toString(),
