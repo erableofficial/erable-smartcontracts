@@ -40,12 +40,19 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({ setSteps }) => {
   return (
     <div>
       <div className="flex mx-auto flex-col p-10 mt-14 bg-white rounded-3xl border border-solid border-stone-300 max-w-[791px] max-md:px-5">
-        <h1 className="text-3xl font-semibold text-black max-md:max-w-full">
-          Confirm Staking by sending funds
-        </h1>
-        <h2 className="mt-10 text-xl font-bold text-black max-md:max-w-full">
+        <div className="text-3xl font-semibold text-black max-md:max-w-full">
+          Confirm Fund Transfer
+        </div>
+        <p className=" text-lg mt-3">
+          Now, let’s secure your rewards! Please confirm the transfer of your
+          tokens into the staking contract. This action will lock your tokens
+          for one year, starting your earnings. Remember, withdrawing funds
+          before the term ends may result in penalties. This transfer might take
+          a few moments.
+        </p>
+        <div className="mt-10 text-xl font-bold text-black max-md:max-w-full">
           Your staking:
-        </h2>
+        </div>
         <section className="flex gap-5 justify-between mt-2.5 max-md:flex-wrap max-md:max-w-full">
           <div className="text-3xl font-semibold text-black">10.000 $ERA</div>
           <div className="my-auto text-base font-medium text-neutral-500">
@@ -53,9 +60,9 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({ setSteps }) => {
           </div>
         </section>
         <hr className="shrink-0 mt-6 h-px border border-solid bg-neutral-300 border-neutral-300 max-md:max-w-full" />
-        <h2 className="mt-6 text-xl font-bold text-black max-md:max-w-full">
+        <div className="mt-6 text-xl font-bold text-black max-md:max-w-full">
           Staking key informations:
-        </h2>
+        </div>
         <section className="flex gap-5 justify-between mt-6 text-lg font-medium text-black max-md:flex-wrap max-md:max-w-full">
           <div className="flex flex-col">
             {items.map((item, index) => (

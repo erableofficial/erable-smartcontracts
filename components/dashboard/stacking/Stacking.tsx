@@ -10,15 +10,20 @@ const Stacking: React.FC = () => {
   const [steps, setSteps] = React.useState([
     {
       number: "1",
-      title: "Stake your token : Informations",
-      text: "Staking Informations",
+      title: "Staking Process",
+      text: "Set Up Staking",
       isActive: true,
     },
-    { number: "2", title: "Send funds", text: "Send funds", isActive: false },
+    {
+      number: "2",
+      title: "Staking Process",
+      text: "Transfer Funds",
+      isActive: false,
+    },
     {
       number: "3",
-      title: "You staked sucessfully",
-      text: "Confirmation",
+      title: "Staking Process",
+      text: "Start Earning",
       isActive: false,
     },
   ]);
@@ -49,24 +54,25 @@ const Stacking: React.FC = () => {
 
   const infoCards = [
     {
-      title: "Current APY",
-      description: "Lorem ipsum dolor sit amet coetur.",
+      title: "Reward Rate (APR)",
+      description:
+        "The annual percentage rate currently being earned in the staking program.",
       value: "xx",
     },
     {
-      title: "Program duration",
-      description: "Lorem ipsum dolor sit amet coetur.",
+      title: "Staking Duration",
+      description: "The total length of time the staking program will run.",
       value: "xx",
     },
 
     {
-      title: "Start date",
-      description: "Lorem ipsum dolor sit amet coetur.",
+      title: "Start Date",
+      description: "The date when the staking program begins.",
       value: "xx",
     },
     {
-      title: "End date",
-      description: "Lorem ipsum dolor sit amet coetur.",
+      title: "End Date",
+      description: "The date when the staking program concludes.",
       value: "xx",
     },
   ];

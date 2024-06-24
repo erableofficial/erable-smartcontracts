@@ -74,9 +74,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
 
       <div className="flex flex-col p-6 mx-2.5 mt-5 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
         <div className="flex gap-5 justify-between font-medium text-black max-md:flex-wrap max-md:max-w-full">
-          <div className="my-auto text-lg">
-            Enter the amount you want to stake:
-          </div>
+          <div className="my-auto text-lg">Enter Amount to Stake:</div>
           <div className="justify-center px-4 py-2 text-base bg-surface-500 border-2 border-black border-solid rounded-[38px]">
             Total staked + rewards:
           </div>
@@ -100,14 +98,14 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         <div className="flex gap-5 justify-between mt-6 w-full text-lg max-md:flex-wrap max-md:max-w-full">
           <div className="flex gap-3 pr-20 max-md:flex-wrap">
             <div className="my-auto font-medium text-black">
-              You own : 400.000 $ERA
+              Your Balance : 400.000 $ERA
             </div>
             <div className="justify-center py-1 font-semibold text-black border-b-2 border-black border-solid">
               Stake Max
             </div>
           </div>
           <div className="my-auto font-medium text-black">
-            1 year simulation
+            Projected Earning After 1 Year
           </div>
         </div>
       </div>
@@ -117,13 +115,15 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
             <TriangleAlert width={18} height={18} color="#000000" />
           </div>
           <h2 className="flex-1 my-auto text-xl font-bold text-black max-md:max-w-full">
-            More infos about early unstaking{" "}
+            More Information on Early Unstaking
           </h2>
         </div>
         <p className="text-base font-medium text-black max-md:max-w-full">
-          If you decide to unstake before the end of the period, you'll get a
-          tax on your rewards. =&gt; derrière trouver comment bien expliquer
-          slashing ici (en + de l'article qui expliquera ofc)
+          The longer you stake your tokens, the more rewards you earn. However,
+          withdrawing your stake early will result in penalties on your accrued
+          rewards. Additionally, please note that there is a 7-day cooldown
+          period before you can fully withdraw your staked tokens. Read our full
+          article on staking rewards and penalties for a detailed explanation.
         </p>
       </div>
       <button

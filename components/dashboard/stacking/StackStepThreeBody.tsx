@@ -22,7 +22,7 @@ const StackStepThreeBody: React.FC = () => {
     { label: "Start Date", value: "JJ/MM/AAAA" },
     { label: "Amount", value: "XXX,XXX.XXX" },
     { label: "Current Rewards", value: "XXX,XXX.XXX" },
-    { label: "End date", value: "JJ/MM/AAAA" },
+    { label: "End Date", value: "JJ/MM/AAAA" },
   ];
 
   return (
