@@ -65,7 +65,8 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
         </div>
         <p className="self-stretch mb-4 text-base font-medium text-left text-neutral-600 max-md:max-w-full">
           Purchase $ERA tokens securely through Uniswap.Follow the instructions
-          on the Uniswap platform to complete your transaction.
+          on the Uniswap platform to complete your transaction. <br />
+          For detailed guidance, read the tutorial.
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
