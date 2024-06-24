@@ -1,3 +1,5 @@
+import { Address } from "viem";
+
 const contractABI = [
   {
     inputs: [],
@@ -1131,8 +1133,10 @@ const stakingTokenABI = [
   },
 ];
 
-const stakingTokenAddress = process.env.NEXT_PUBLIC_TOKEN_ADDRESS;
+const stakingTokenAddress: Address = process.env
+  .NEXT_PUBLIC_TOKEN_ADDRESS as Address;
 
-const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+const contractAddress: Address = process.env
+  .NEXT_PUBLIC_CONTRACT_ADDRESS as Address;
 
 export { contractABI, contractAddress, stakingTokenABI, stakingTokenAddress };
