@@ -204,7 +204,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
               Your Balance :{" "}
               {myBalance ? formatEther(myBalance).toString() : "0"} $ERA
             </div>
-            <div
+            <button
               className="justify-center py-1 cursor-pointer font-semibold text-neutral-700 border-b-2 border-black border-solid"
               onClick={() => {
                 setAmount(Number(formatEther(myBalance)));
