@@ -1,3 +1,5 @@
+import { Address } from "viem";
+
 const contractABI = [
   {
     inputs: [],
@@ -254,6 +256,25 @@ const contractABI = [
     inputs: [
       {
         internalType: "uint256",
+        name: "timeStaked",
+        type: "uint256",
+      },
+    ],
+    name: "calculateTax",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "_amount",
         type: "uint256",
       },
@@ -264,6 +285,25 @@ const contractABI = [
       },
     ],
     name: "calculateTotalWithdraw",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "timeStaked",
+        type: "uint256",
+      },
+    ],
+    name: "calculateYield",
     outputs: [
       {
         internalType: "uint256",
@@ -341,6 +381,47 @@ const contractABI = [
         internalType: "uint256",
         name: "",
         type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "getUserStakes",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "amount",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "startTime",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "requestUnstakeTime",
+            type: "uint256",
+          },
+          {
+            internalType: "bool",
+            name: "unstakeRequested",
+            type: "bool",
+          },
+        ],
+        internalType: "struct Staking.Stake[]",
+        name: "",
+        type: "tuple[]",
       },
     ],
     stateMutability: "view",
@@ -464,6 +545,19 @@ const contractABI = [
         internalType: "bool",
         name: "",
         type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "pendingRewards",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
       },
     ],
     stateMutability: "view",

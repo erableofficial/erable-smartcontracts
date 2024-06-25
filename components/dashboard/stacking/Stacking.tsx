@@ -5,6 +5,14 @@ import SignLoadingModal from "../SignLoadingModal";
 import StackStepTwoBody from "./StackStepTwoBody";
 import StackingLoadingModal from "../StackingLoadingModal";
 import StackStepThreeBody from "./StackStepThreeBody";
+import { useAccount, useReadContract } from "wagmi";
+import {
+  contractABI,
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../../lib/blockchain-config";
+import { approximateTime } from "../../../lib/utils";
 
 const Stacking: React.FC = () => {
   const [steps, setSteps] = React.useState([
@@ -29,6 +37,7 @@ const Stacking: React.FC = () => {
   ]);
   const [showSignModal, setShowSignModal] = React.useState(false);
   const [showStackingModal, setShowStackingModal] = React.useState(false);
+  const [amount, setAmount] = React.useState(50);
 
   React.useEffect(() => {
     const step2 = steps.find((step) => step.number == "2");
@@ -52,6 +61,24 @@ const Stacking: React.FC = () => {
     }
   }, [steps]);
 
+  const { address: currentAddress } = useAccount();
+
+  const { data: myBalance, error: myBalanceError } = useReadContract({
+    abi: stakingTokenABI,
+    address: stakingTokenAddress,
+    functionName: "balanceOf",
+    args: [currentAddress],
+  });
+
+  const { data: stakedDuration, error: stakedDurationError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "stakingDuration",
+    args: [],
+  });
+
+  console.log("stakedDuration", stakedDuration);
+
   const infoCards = [
     {
       title: "Reward Rate (APR)",
@@ -62,18 +89,21 @@ const Stacking: React.FC = () => {
     {
       title: "Staking Duration",
       description: "The total length of time the staking program will run.",
-      value: "xx",
+      value: approximateTime(Number(stakedDuration)) || "xx",
     },
 
     {
       title: "Start Date",
       description: "The date when the staking program begins.",
-      value: "xx",
+      value: new Date().toLocaleDateString() || "xx",
     },
     {
       title: "End Date",
       description: "The date when the staking program concludes.",
-      value: "xx",
+      value:
+        new Date(
+          new Date().getTime() + Number(stakedDuration) * 1000
+        ).toLocaleDateString() || "xx",
     },
   ];
 
@@ -82,15 +112,28 @@ const Stacking: React.FC = () => {
       <StackingStepsHeader steps={steps} />
       {showSignModal && <SignLoadingModal />}
       {steps[0].isActive && (
-        <StackStepOneBody infoCards={infoCards} setSteps={setSteps} />
+        <StackStepOneBody
+          infoCards={infoCards}
+          setSteps={setSteps}
+          amount={amount}
+          setAmount={setAmount}
+          myBalance={myBalance as bigint}
+        />
       )}
       {showStackingModal && <StackingLoadingModal />}
       {steps[1].isActive && showSignModal == false && (
-        <StackStepTwoBody setSteps={setSteps} />
+        <StackStepTwoBody
+          setSteps={setSteps}
+          infoCards={infoCards}
+          amount={amount}
+        />
       )}
 
       {steps[2].isActive && showStackingModal == false && (
-        <StackStepThreeBody />
+        <StackStepThreeBody
+          currentAddress={currentAddress}
+          stakingDuration={stakedDuration as bigint}
+        />
       )}
     </div>
   );

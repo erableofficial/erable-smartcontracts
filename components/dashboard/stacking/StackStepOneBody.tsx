@@ -1,5 +1,13 @@
 import { ArrowLeftRight, Info, TriangleAlert } from "lucide-react";
 import React from "react";
+import { formatEther, parseEther } from "viem";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import {
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../../lib/blockchain-config";
+import { toast } from "react-toastify";
 
 type InfoCardProps = {
   title: string;
@@ -19,6 +27,9 @@ type StackStepOneBodyProps = {
       }[]
     >
   >;
+  amount: number;
+  setAmount: React.Dispatch<React.SetStateAction<number>>;
+  myBalance: bigint;
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
@@ -37,24 +48,74 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
 const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   infoCards,
   setSteps,
+  amount,
+  setAmount,
+  myBalance,
 }) => {
+  const { writeContract, data: hash, error, isPending } = useWriteContract();
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
+  React.useEffect(() => {
+    if (isConfirmed) {
+      toast.success("Transaction confirmed.", {
+        autoClose: 2500,
+      });
+      // wait for 2.5 second before setting the steps
+      setTimeout(() => {
+        setSteps([
+          {
+            number: "1",
+            title: "Stake your token : Informations",
+            text: "Staking Informations",
+            isActive: false,
+          },
+          {
+            number: "2",
+            title: "Send funds",
+            text: "Send funds",
+            isActive: true,
+          },
+          {
+            number: "3",
+            title: "You staked sucessfully",
+            text: "Confirmation",
+            isActive: false,
+          },
+        ]);
+      }, 2500);
+    }
+  }, [isConfirmed]);
+
+  // error
+  React.useEffect(() => {
+    if (error) {
+      toast.error("Something went wrong.");
+      console.error(error);
+    }
+  }, [error]);
+
+  // hash
+  React.useEffect(() => {
+    if (hash) {
+      console.info("Transaction Hash: ", hash);
+      toast.info("Waiting for confirmation...", {
+        autoClose: 1500,
+      });
+    }
+  }, [hash]);
+
   const handleClick = () => {
-    setSteps([
-      {
-        number: "1",
-        title: "Stake your token : Informations",
-        text: "Staking Informations",
-        isActive: false,
-      },
-      { number: "2", title: "Send funds", text: "Send funds", isActive: true },
-      {
-        number: "3",
-        title: "You staked sucessfully",
-        text: "Confirmation",
-        isActive: false,
-      },
-    ]);
+    writeContract({
+      abi: stakingTokenABI,
+      address: stakingTokenAddress,
+      functionName: "approve",
+      args: [contractAddress, parseEther(amount.toString())],
+    });
   };
+
   return (
     <>
       {/* info cards section */}
@@ -81,13 +142,19 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         </div>
         <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
           <div className="flex gap-1.5">
-            <div className="text-5xl font-semibold">200.000</div>
+            <div className="text-5xl font-semibold">
+              <input
+                className={`text-5xl font-semibold outline-none max-w-[30%] overflow-auto `}
+                value={amount}
+                onChange={(e) => setAmount(Number(e.target.value))}
+              />
+            </div>
             <div className="my-auto text-xl font-bold">$ERA</div>
           </div>
 
           <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
           <div className="flex gap-1.5">
-            <div className="text-5xl font-semibold">=200.000</div>
+            <div className="text-5xl font-semibold">={amount}</div>
             <div className="my-auto text-xl font-bold">$ERA</div>
           </div>
         </div>
@@ -98,9 +165,15 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         <div className="flex gap-5 justify-between mt-6 w-full text-lg max-md:flex-wrap max-md:max-w-full">
           <div className="flex gap-3 pr-20 max-md:flex-wrap">
             <div className="my-auto font-medium text-neutral-700">
-              Your Balance : 400.000 $ERA
+              Your Balance :{" "}
+              {myBalance ? formatEther(myBalance).toString() : "0"} $ERA
             </div>
-            <div className="justify-center py-1 font-semibold text-neutral-700 border-b-2 border-black border-solid">
+            <div
+              className="justify-center py-1 cursor-pointer font-semibold text-neutral-700 border-b-2 border-black border-solid"
+              onClick={() => {
+                setAmount(Number(formatEther(myBalance)));
+              }}
+            >
               Stake Max
             </div>
           </div>
@@ -130,7 +203,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         className="primary-button justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
         onClick={handleClick}
       >
-        Approve 200.000 $ERA
+        Approve {amount} $ERA
       </button>
     </>
   );

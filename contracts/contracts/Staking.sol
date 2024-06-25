@@ -47,7 +47,6 @@ contract Staking is
     /// @notice Indicates if whitelisting is enabled
     bool public whitelistEnabled;
 
-
     struct Stake {
         uint256 amount;
         uint256 startTime;
@@ -61,7 +60,6 @@ contract Staking is
     uint256 private _totalStaked;
     uint256 private _rewardPool;
     uint256 private _totalPendingRewards;
-
 
     event Staked(address indexed user, uint256 amount);
     event UnstakeRequested(address indexed user, uint256 amount);
@@ -115,12 +113,9 @@ contract Staking is
      * @notice Stakes a specified amount of tokens
      * @param _amount The amount of tokens to stake
      */
-    function stake(uint256 _amount)
-        external
-        nonReentrant
-        whenNotPaused
-        onlyWhitelisted
-    {
+    function stake(
+        uint256 _amount
+    ) external nonReentrant whenNotPaused onlyWhitelisted {
         require(_amount > 0, "Cannot stake 0");
         if (minCap > 0) {
             require(_amount >= minCap, "Amount below minimum cap");
@@ -158,7 +153,6 @@ contract Staking is
         uint256 totalAmount;
 
         if (stakingDuration == 0) {
-            
             totalAmount = calculateTotalWithdraw(
                 _amount,
                 block.timestamp - stakeInfo.startTime
@@ -169,8 +163,6 @@ contract Staking is
             emit UnstakeRequested(msg.sender, stakeInfo.amount);
             return;
         } else {
-            
-        
             totalAmount = calculateTotalWithdraw(
                 _amount,
                 block.timestamp - stakeInfo.startTime
@@ -181,7 +173,7 @@ contract Staking is
         _totalStaked -= _amount;
 
         uint256 rewardAmount = totalAmount - _amount;
-        
+
         require(_rewardPool >= rewardAmount, "Overflow: reward pool amount");
         _rewardPool -= rewardAmount;
         _totalPendingRewards -= rewardAmount;
@@ -217,7 +209,7 @@ contract Staking is
 
         _totalStaked -= _amount;
         _rewardPool -= rewardAmount;
-        _totalPendingRewards-=rewardAmount;
+        _totalPendingRewards -= rewardAmount;
         delete userStakes[msg.sender][stakeId];
         stakingToken.transfer(msg.sender, totalAmount);
         emit Withdrawn(msg.sender, totalAmount);
@@ -233,11 +225,10 @@ contract Staking is
      * @param timeStaked The duration for which the tokens were staked
      * @return The total withdrawable amount
      */
-    function calculateTotalWithdraw(uint256 _amount, uint256 timeStaked)
-        public
-        view
-        returns (uint256)
-    {
+    function calculateTotalWithdraw(
+        uint256 _amount,
+        uint256 timeStaked
+    ) public view returns (uint256) {
         uint256 Y = calculateYield(timeStaked);
         uint256 T = calculateTax(timeStaked);
 
@@ -270,12 +261,11 @@ contract Staking is
         return _totalStaked;
     }
 
-
     /**
      * @notice Returns the total amount of pennding rewards  in the contract
      * @return The total pending rewards
      */
-    function pendingRewards() external view returns (uint256){
+    function pendingRewards() external view returns (uint256) {
         return _totalPendingRewards;
     }
 
@@ -305,10 +295,9 @@ contract Staking is
      * @notice Updates the staking duration
      * @param _stakingDuration The new staking duration
      */
-    function updateStakingDuration(uint256 _stakingDuration)
-        external
-        onlyOwner
-    {
+    function updateStakingDuration(
+        uint256 _stakingDuration
+    ) external onlyOwner {
         stakingDuration = _stakingDuration;
         monthsInStakingPeriod = _stakingDuration / 30 days;
     }
@@ -349,10 +338,9 @@ contract Staking is
      * @notice Updates the starting slashing point
      * @param _startingSlashingPoint The new starting slashing point
      */
-    function updateStartingSlashingPoint(uint256 _startingSlashingPoint)
-        external
-        onlyOwner
-    {
+    function updateStartingSlashingPoint(
+        uint256 _startingSlashingPoint
+    ) external onlyOwner {
         startingSlashingPoint = _startingSlashingPoint;
     }
 
@@ -360,10 +348,9 @@ contract Staking is
      * @notice Updates the monthly increase percentage for slashing tax
      * @param _monthlyIncreasePercentage The new monthly increase percentage
      */
-    function updateMonthlyIncreasePercentage(uint256 _monthlyIncreasePercentage)
-        external
-        onlyOwner
-    {
+    function updateMonthlyIncreasePercentage(
+        uint256 _monthlyIncreasePercentage
+    ) external onlyOwner {
         monthlyIncreasePercentage = _monthlyIncreasePercentage;
     }
 
@@ -476,5 +463,26 @@ contract Staking is
         }
 
         return totalStakedTokens;
+    }
+
+    /**
+     * @notice Returns all user stakes as an array of Stake structs.
+     * @param user The address of the user.
+     * @return An array of Stake structs representing all the user's stakes.
+     */
+    function getUserStakes(
+        address user
+    ) external view returns (Stake[] memory) {
+        uint256 stakeCount = userStakeCounter[user];
+        Stake[] memory stakes = new Stake[](stakeCount);
+
+        for (uint256 i = 0; i < stakeCount; ) {
+            stakes[i] = userStakes[user][i];
+            unchecked {
+                i++;
+            }
+        }
+
+        return stakes;
     }
 }
