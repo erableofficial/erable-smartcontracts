@@ -20,8 +20,10 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
           height={45}
         />
       </div>
-      <h3 className="mt-3.5 text-2xl font-semibold text-black">{title}</h3>
-      <p className="mt-8 text-lg font-medium text-black">{description}</p>
+      <h3 className="mt-3.5 text-2xl font-semibold text-neutral-700">
+        {title}
+      </h3>
+      <p className="mt-8 text-lg font-medium text-neutral-700">{description}</p>
     </div>
   </div>
 );
@@ -35,10 +37,10 @@ const EraUtil: React.FC = () => {
         setToggleBuyEraModal={setToggleBuyEraModal}
       />
       <div className="flex flex-col justify-center items-center px-20 mt-2.5 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
-        <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-lg max-md:text-4xl">
+        <h1 className="justify-center px-2.5 text-5xl font-extrabold text-neutral-700 bg-surface-500 rounded-lg max-md:text-4xl">
           $ERA utilities
         </h1>
-        <p className="mt-10 text-lg font-medium text-center text-black max-w-[79%] max-md:max-w-full">
+        <p className="mt-10 text-lg font-medium text-center text-neutral-700 max-w-[79%] max-md:max-w-full">
           $ERA embodies our commitment to fair value redistribution across
           Erable° and its brands. By holding and using $ERA, you are directly
           participating in and benefiting from the value we create together,

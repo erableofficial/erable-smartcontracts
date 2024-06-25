@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   useAccount,
   useClient,
@@ -6,7 +6,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Info } from "lucide-react";
 import BuySeraModal from "../ui/BuySeraModal";
 import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
@@ -19,7 +19,7 @@ import {
 } from "../../lib/blockchain-config";
 import { Chain, Client, Transport, formatEther } from "viem";
 import { StakeInfo, TabItem } from "../../lib/types";
-import { readContract, writeContract } from "viem/actions";
+import NoUtilities from "./NoUtilities";
 
 interface DashboardProps {}
 
@@ -27,78 +27,99 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
   title,
   value,
 }) => (
-  <div className="flex gap-4 justify-between mt-2 text-black max-md:mr-1">
+  <div className="flex gap-4 justify-between mt-2 text-neutral-700 max-md:mr-1">
     <div className="text-lg font-medium text-neutral-500">{title}</div>
     <div className=" text-[16px] font-medium ">{value}</div>
   </div>
 );
 
-/* const allItems = [
-  {
-    type: "Staking",
-    startDate: "JJ/MM/AAAA",
-    amount: "XXX,XXX.XXX",
-    currentRewards: "XXX,XXX.XXX",
-    endDate: "JJ/MM/AAAA",
-    action: "Claim",
-  },
-  {
-    type: "Staking",
-    startDate: "JJ/MM/AAAA",
-    amount: "XXX,XXX.XXX",
-    currentRewards: "XXX,XXX.XXX",
-    endDate: "JJ/MM/AAAA",
-    action: "Claim",
-    daysLeft: "7 days left",
-  },
-  {
-    type: "LP Farming",
-    startDate: "JJ/MM/AAAA",
-    amount: "XXX,XXX.XXX",
-    currentRewards: "XXX,XXX.XXX",
-    endDate: "JJ/MM/AAAA",
-    action: "Unstake",
-    daysLeft: null,
-  },
-  {
-    type: "Airdrop",
-    startDate: "JJ/MM/AAAA",
-    amount: "XXX,XXX.XXX",
-    currentRewards: "XXX,XXX.XXX",
-    endDate: "JJ/MM/AAAA",
-    action: "Unstake",
-    daysLeft: null,
-  },
-];
+// const allItems = [
+//   {
+//     type: "Staking",
+//     startDate: "JJ/MM/AAAA",
+//     amount: "XXX,XXX.XXX",
+//     currentRewards: "XXX,XXX.XXX",
+//     endDate: "JJ/MM/AAAA",
+//     action: "Claim",
+//   },
+//   {
+//     type: "Staking",
+//     startDate: "JJ/MM/AAAA",
+//     amount: "XXX,XXX.XXX",
+//     currentRewards: "XXX,XXX.XXX",
+//     endDate: "JJ/MM/AAAA",
+//     action: "Claim",
+//     daysLeft: "7 days left",
+//   },
+//   {
+//     type: "LP Farming",
+//     startDate: "JJ/MM/AAAA",
+//     amount: "XXX,XXX.XXX",
+//     currentRewards: "XXX,XXX.XXX",
+//     endDate: "JJ/MM/AAAA",
+//     action: "Unstake",
+//     daysLeft: null,
+//   },
+//   {
+//     type: "Airdrop",
+//     startDate: "JJ/MM/AAAA",
+//     amount: "XXX,XXX.XXX",
+//     currentRewards: "XXX,XXX.XXX",
+//     endDate: "JJ/MM/AAAA",
+//     action: "Unstake",
+//     daysLeft: null,
+//   },
+// ];
 
-const farmingItems = [
-  {
-    type: "LP Farming",
-    startDate: "JJ/MM/AAAA",
-    amount: "XXX,XXX.XXX",
-    currentRewards: "XXX,XXX.XXX",
-    endDate: "JJ/MM/AAAA",
-    action: "Unstake",
-    daysLeft: null,
-  },
-];
+// const stakingItems = [
+//   {
+//     type: "Staking",
+//     startDate: "JJ/MM/AAAA",
+//     amount: "XXX,XXX.XXX",
+//     currentRewards: "XXX,XXX.XXX",
+//     endDate: "JJ/MM/AAAA",
+//     action: "Claim",
+//   },
+//   {
+//     type: "Staking",
+//     startDate: "JJ/MM/AAAA",
+//     amount: "XXX,XXX.XXX",
+//     currentRewards: "XXX,XXX.XXX",
+//     endDate: "JJ/MM/AAAA",
+//     action: "Claim",
+//     daysLeft: "7 days left",
+//   },
+// ];
 
-const airdropItems = [
-  {
-    type: "Airdrop",
-    startDate: "JJ/MM/AAAA",
-    amount: "XXX,XXX.XXX",
-    currentRewards: "XXX,XXX.XXX",
-    endDate: "JJ/MM/AAAA",
-    action: "Unstake",
-    daysLeft: null,
-  },
-]; */
+// const farmingItems = [
+//   {
+//     type: "LP Farming",
+//     startDate: "JJ/MM/AAAA",
+//     amount: "XXX,XXX.XXX",
+//     currentRewards: "XXX,XXX.XXX",
+//     endDate: "JJ/MM/AAAA",
+//     action: "Unstake",
+//     daysLeft: null,
+//   },
+// ];
+
+// const airdropItems = [
+//   {
+//     type: "Airdrop",
+//     startDate: "JJ/MM/AAAA",
+//     amount: "XXX,XXX.XXX",
+//     currentRewards: "XXX,XXX.XXX",
+//     endDate: "JJ/MM/AAAA",
+//     action: "Unstake",
+//     daysLeft: null,
+//   },
+// ];
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const [selected, setSelected] = useState<string>("All");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [toggleBuyEraModal, setToggleBuyEraModal] =
+    React.useState<boolean>(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const [allItems, setAllItems] = useState<Array<TabItem>>([]);
   const [farmingItems, setFarmingItems] = useState<Array<TabItem>>([]);
@@ -106,7 +127,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [stakingItems, setStakingItems] = useState<Array<TabItem>>([]);
 
   const { isConnected, address: currentAddress } = useAccount();
-
   const { data: myBalance, error: myBalanceError } = useReadContract({
     abi: stakingTokenABI,
     address: stakingTokenAddress,
@@ -163,9 +183,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   const stakes: Array<StakeInfo> = allUserStakesResult.data as Array<StakeInfo>;
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!allUserStakesResult.isLoading && !allUserStakesResult.error) {
-      const items: TabItem[] = stakes.map((stake, index) => {
+      const items: TabItem[] = stakes?.map((stake, index) => {
         const { amount, startTime, requestUnstakeTime, unstakeRequested } =
           stake;
 
@@ -190,14 +210,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
       setStakingItems(items);
       setAllItems(items);
+      console.log("Staking Items from inside: ", items);
     }
-  }, [allUserStakesResult.isLoading]);
+  }, [allUserStakesResult.isLoading, allUserStakesResult.error, stakes]);
 
   const buttons = [
-    { name: "All", qt: allItems.length },
+    { name: "All", qt: allItems?.length },
     { name: "Staking", qt: Number(userStakesCounter) },
-    { name: "Your Farming", qt: 0 },
-    { name: "Airdrop", qt: 0 },
+    { name: "Your Farming", qt: farmingItems?.length },
+    { name: "Airdrop", qt: airdropItems?.length },
   ];
 
   console.log("Staking Items : ", stakingItems);
@@ -211,6 +232,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
       ? "justify-center self-stretch px-4 py-2 font-semibold whitespace-nowrap bg-surface-500 border-2 border-black border-solid rounded-[38px]"
       : "self-stretch my-auto";
   };
+
+  // console.log("all items array", allItems);
+  // console.log("staking items array", stakingItems);
 
   return (
     <div className="relative pb-28 bg-neutral-50">
@@ -228,17 +252,17 @@ const Dashboard: React.FC<DashboardProps> = () => {
             <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
                 <div className="flex gap-2 justify-between font-semibold">
-                  <div className="my-auto text-2xl text-black">
+                  <div className="my-auto text-2xl text-neutral-700">
                     My $ERA Wallet
                   </div>
                   <button
-                    className="primary-button-sm  justify-center px-6 py-3 text-base text-black bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5"
+                    className="primary-button-sm  justify-center px-6 py-3 text-base text-neutral-700 bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5"
                     onClick={() => setToggleBuyEraModal(true)}
                   >
                     Buy $ERA
                   </button>
                 </div>
-                <div className="flex gap-0.5 self-start  text-black">
+                <div className="flex gap-0.5 self-start  text-neutral-700">
                   <div className="text-4xl font-semibold">
                     {myBalance
                       ? Number(
@@ -250,16 +274,16 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     $ERA = $1.50
                   </div>
                 </div>
-                <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-black bg-surface-500 border border-black border-solid rounded-[38px]">
+                <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-neutral-700 bg-surface-500 border border-black border-solid rounded-[38px]">
                   1 $ERA = price
                 </div>
                 <div className="flex gap-2 justify-between  text-base">
-                  <div className="my-auto font-medium text-black">
+                  <div className="my-auto font-medium text-neutral-700">
                     *If you are a clap investor
                   </div>
                   <a
                     href="#"
-                    className="pb-1.5 font-semibold text-black whitespace-nowrap border-b-2 border-black border-solid"
+                    className="pb-1.5 font-semibold text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid"
                   >
                     Bridge
                   </a>
@@ -270,17 +294,19 @@ const Dashboard: React.FC<DashboardProps> = () => {
               <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
                 <div className="flex gap-5 justify-between font-semibold">
                   <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
-                    <div className="text-2xl text-black">Total Rewards</div>
-                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-black whitespace-nowrap border-b-2 border-black border-solid">
+                    <div className="text-2xl text-neutral-700">
+                      Total Rewards
+                    </div>
+                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
                       View history
                     </div>
                   </div>
                 </div>
                 <div className="flex gap-1 justify-between mt-8">
-                  <div className="text-lg font-semibold text-black">
+                  <div className="text-lg font-semibold text-neutral-700">
                     Staking
                   </div>
-                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                     {userStakingBalance
                       ? formatEther(BigInt(userStakingBalance.toString()))
                       : "0"}{" "}
@@ -290,7 +316,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
                   Total staked{" "}
                   <span>
-                    {" "}
                     {totalStaked
                       ? formatEther(BigInt(totalStaked.toString()))
                       : "0"}{" "}
@@ -299,10 +324,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 </div>
 
                 <div className="flex gap-1 justify-between mt-8">
-                  <div className="text-lg font-semibold text-black">
+                  <div className="text-lg font-semibold text-neutral-700">
                     LP Farming
                   </div>
-                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-black bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                     200,870 $ERA
                   </span>
                 </div>
@@ -315,8 +340,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
               <div className="flex flex-col justify-between grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
                 <div className="flex gap-5 justify-between font-semibold">
                   <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
-                    <div className="text-2xl text-black">$ERA stats</div>
-                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-black whitespace-nowrap border-b-2 border-black border-solid">
+                    <div className="text-2xl text-neutral-700">$ERA stats</div>
+                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
                       Whitepaper
                     </div>
                   </div>
@@ -341,7 +366,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full">
           <div className="flex flex-col justify-center mb-6 pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">
             <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-              <nav className="flex gap-5 justify-between items-center my-auto text-lg font-medium text-black">
+              <nav className="flex gap-5 justify-between items-center my-auto text-lg font-medium text-neutral-700">
                 {buttons.map((label) => (
                   <button
                     key={label.name}
@@ -355,7 +380,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                 ))}
               </nav>
-              <div className="flex gap-4 pl-20 text-base font-semibold text-black max-md:flex-wrap">
+              <div className="flex gap-4 pl-20 text-base font-semibold text-neutral-700 max-md:flex-wrap">
                 <button className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
                   Help ?
                 </button>
@@ -373,7 +398,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                   {isDropdownOpen && (
                     <div
-                      className={`dropdown-content border-solid border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute`}
+                      className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute`}
                     >
                       {/* Dropdown items here */}
                       <Link href="/dashboard/stacking">
@@ -393,12 +418,45 @@ const Dashboard: React.FC<DashboardProps> = () => {
               </div>
             </div>
           </div>
-          {selected === "All" && <TabContent Items={allItems} />}
-          {selected === "Staking" && <TabContent Items={stakingItems} />}
 
-          {/* {selected === "Your Farming" && <TabContent Items={farmingItems} />} */}
+          {selected === "All" && (
+            <>
+              {allItems?.length === 0 ? (
+                <NoUtilities />
+              ) : (
+                <TabContent Items={allItems} />
+              )}
+            </>
+          )}
+          {selected === "Staking" && (
+            <>
+              {stakingItems?.length === 0 ? (
+                <NoUtilities />
+              ) : (
+                <TabContent Items={stakingItems} />
+              )}
+            </>
+          )}
 
-          {/* {selected === "Airdrop" && <TabContent Items={airdropItems} />} */}
+          {selected === "Your Farming" && (
+            <>
+              {farmingItems?.length === 0 ? (
+                <NoUtilities />
+              ) : (
+                <TabContent Items={farmingItems} />
+              )}
+            </>
+          )}
+
+          {selected === "Airdrop" && (
+            <>
+              {airdropItems?.length === 0 ? (
+                <NoUtilities />
+              ) : (
+                <TabContent Items={airdropItems} />
+              )}
+            </>
+          )}
         </section>
       </div>
     </div>

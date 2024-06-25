@@ -40,18 +40,22 @@ const MemberCard: React.FC<MemberCardProps> = ({
         height={300}
       />
     )}
-    <div className="flex gap-2 justify-between mt-6 text-black whitespace-nowrap">
+    <div className="flex gap-2 justify-between mt-6 text-neutral-700 whitespace-nowrap">
       <div className="text-2xl font-semibold">{title}</div>
       <div className="justify-center px-2.5 py-1 my-auto text-xs font-medium bg-surface-500 border border-black border-solid rounded-[2.375rem]">
         {tag}
       </div>
     </div>
-    <div className="mt-3 text-base font-medium text-black">{description}</div>
+    <div className="mt-3 text-base font-medium text-neutral-700">
+      {description}
+    </div>
     <div className="flex gap-3 justify-center mt-6">
       <div className="flex flex-col justify-center">
         <div className="shrink-0 rounded-full border border-solid bg-zinc-300 border-neutral-500 h-[1.875rem] stroke-[0.769px] w-[1.875rem]" />
       </div>
-      <div className="my-auto text-lg font-medium text-black">{contact}</div>
+      <div className="my-auto text-lg font-medium text-neutral-700">
+        {contact}
+      </div>
     </div>
   </div>
 );
@@ -101,7 +105,7 @@ const members = [
 
 const OurTeam: React.FC = () => (
   <section className="flex flex-col justify-center p-20 bg-white max-md:px-5">
-    <div className="self-start px-2.5 mt-2.5 ml-2.5 text-5xl font-extrabold leading-[4.254rem] text-black bg-surface-500 rounded-xl">
+    <div className="self-start px-2.5 mt-2.5 ml-2.5 text-5xl font-extrabold leading-[4.254rem] text-neutral-700 bg-surface-500 rounded-xl">
       Our team
     </div>
     <div className="mx-2.5 mt-12 max-md:mt-10 max-md:max-w-full">

@@ -31,14 +31,14 @@ const InfoBox: React.FC<InfoBoxProps> = ({ text }) => (
 
 const SignLoadingModal: React.FC = () => {
   return (
-    <div className=" mt-14 mx-auto flex flex-col items-center p-10 text-lg font-semibold text-black bg-white rounded-3xl border border-solid border-stone-300 max-w-[650px] max-md:px-5">
+    <div className=" mt-14 mx-auto flex flex-col items-center p-10 text-lg font-semibold text-neutral-700 bg-white rounded-3xl border border-solid border-stone-300 max-w-[650px] max-md:px-5">
       <LoaderCircle width={43} height={43} className="animate-spin" />
       <h1 className="mt-10 text-3xl">Staking en cours on polygon</h1>
       <InfoBox text="Please connect your wallet to sign the transaction" />
       <p className="self-stretch mt-5 font-medium text-center max-md:max-w-full">
         Please wait a moment. This can take a few minutes.
       </p>
-      <section className="flex gap-2.5 justify-center mt-10 text-base text-black">
+      <section className="flex gap-2.5 justify-center mt-10 text-base text-neutral-700">
         <Button variant="secondary">Read tutorial</Button>
         <Button variant="primary">Bridge my $CLAP</Button>
       </section>

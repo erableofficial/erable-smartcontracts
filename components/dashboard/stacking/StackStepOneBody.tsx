@@ -1,13 +1,14 @@
-import { ArrowLeftRight, Info, TriangleAlert } from "lucide-react";
-import React, { useEffect } from "react";
+import { ArrowLeftRight, Check, Info, TriangleAlert } from "lucide-react";
+import React from "react";
 import { formatEther, parseEther } from "viem";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import {
   contractAddress,
   stakingTokenABI,
   stakingTokenAddress,
 } from "../../../lib/blockchain-config";
 import { toast } from "react-toastify";
-import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import CustomToast from "../CustomToast";
 
 type InfoCardProps = {
   title: string;
@@ -33,7 +34,7 @@ type StackStepOneBodyProps = {
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
-  <div className="flex flex-col grow justify-center p-6 mx-auto w-full font-semibold text-black bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
+  <div className="flex flex-col grow justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
     <div className="flex gap-1 pr-5 text-lg">
       <div>{title}</div>
       <Info width={15} height={15} color="#000000" />
@@ -53,17 +54,25 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   myBalance,
 }) => {
   const { writeContract, data: hash, error, isPending } = useWriteContract();
-
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
       hash,
     });
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isConfirmed) {
-      toast.success("Transaction confirmed.", {
-        autoClose: 2500,
-      });
+      toast.success(
+        <CustomToast
+          title="Transaction confirmed."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          theme: "colored",
+          icon: <Check width={21} height={21} size={32} color="#21725E" />,
+        }
+      );
       // wait for 2.5 second before setting the steps
       setTimeout(() => {
         setSteps([
@@ -91,20 +100,46 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   }, [isConfirmed]);
 
   // error
-  useEffect(() => {
+  React.useEffect(() => {
     if (error) {
-      toast.error("Something went wrong.");
+      toast.error(
+        <CustomToast
+          title="Something went wrong"
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: (
+            <TriangleAlert width={21} height={21} size={32} color="#B91C1C" />
+          ),
+        }
+      );
       console.error(error);
     }
   }, [error]);
 
   // hash
-  useEffect(() => {
+  React.useEffect(() => {
     if (hash) {
       console.info("Transaction Hash: ", hash);
-      toast.info("Waiting for confirmation...", {
-        autoClose: 1500,
-      });
+      toast.info(
+        <CustomToast
+          title="Waiting for confirmation..."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: <Info width={21} height={21} size={32} color="#0000" />,
+        }
+      );
     }
   }, [hash]);
 
@@ -116,6 +151,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
       args: [contractAddress, parseEther(amount.toString())],
     });
   };
+
   return (
     <>
       {/* info cards section */}
@@ -134,27 +170,27 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
       {/* end info cards section */}
 
       <div className="flex flex-col p-6 mx-2.5 mt-5 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 justify-between font-medium text-black max-md:flex-wrap max-md:max-w-full">
-          <div className="my-auto text-lg">
-            Enter the amount you want to stake:
-          </div>
+        <div className="flex gap-5 justify-between font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
+          <div className="my-auto text-lg">Enter Amount to Stake:</div>
           <div className="justify-center px-4 py-2 text-base bg-surface-500 border-2 border-black border-solid rounded-[38px]">
             Total staked + rewards:
           </div>
         </div>
-        <div className="flex gap-5 justify-between mt-6 w-full text-black whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-          <div className="flex gap-1.5 overflow-auto">
-            <input
-              className={`text-5xl font-semibold outline-none max-w-[30%] overflow-auto `}
-              value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
-            />
+        <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+          <div className="flex gap-1.5">
+            <div className="text-5xl font-semibold">
+              <input
+                className={`text-5xl font-semibold outline-none max-w-[30%] overflow-auto `}
+                value={amount}
+                onChange={(e) => setAmount(Number(e.target.value))}
+              />
+            </div>
             <div className="my-auto text-xl font-bold">$ERA</div>
           </div>
 
           <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
           <div className="flex gap-1.5">
-            <div className="text-5xl font-semibold">{amount}</div>
+            <div className="text-5xl font-semibold">={amount}</div>
             <div className="my-auto text-xl font-bold">$ERA</div>
           </div>
         </div>
@@ -164,21 +200,21 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         </div>
         <div className="flex gap-5 justify-between mt-6 w-full text-lg max-md:flex-wrap max-md:max-w-full">
           <div className="flex gap-3 pr-20 max-md:flex-wrap">
-            <div className="my-auto font-medium text-black">
-              You own : {myBalance ? formatEther(myBalance).toString() : "0"}{" "}
-              $ERA
+            <div className="my-auto font-medium text-neutral-700">
+              Your Balance :{" "}
+              {myBalance ? formatEther(myBalance).toString() : "0"} $ERA
             </div>
-            <button
+            <div
+              className="justify-center py-1 cursor-pointer font-semibold text-neutral-700 border-b-2 border-black border-solid"
               onClick={() => {
                 setAmount(Number(formatEther(myBalance)));
               }}
-              className="justify-center py-1 font-semibold text-black border-b-2 border-black border-solid"
             >
               Stake Max
             </button>
           </div>
-          <div className="my-auto font-medium text-black">
-            1 year simulation
+          <div className="my-auto font-medium text-neutral-700">
+            Projected Earning After 1 Year
           </div>
         </div>
       </div>
@@ -187,18 +223,20 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           <div className="flex justify-center items-center p-2 bg-orange-200 h-[35px] rounded-[29.167px] w-[35px]">
             <TriangleAlert width={18} height={18} color="#000000" />
           </div>
-          <h2 className="flex-1 my-auto text-xl font-bold text-black max-md:max-w-full">
-            More infos about early unstaking{" "}
+          <h2 className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
+            More Information on Early Unstaking
           </h2>
         </div>
-        <p className="text-base font-medium text-black max-md:max-w-full">
-          If you decide to unstake before the end of the period, you&apos;ll get a
-          tax on your rewards. =&gt; derrière trouver comment bien expliquer
-          slashing ici (en + de l&apos;article qui expliquera ofc)
+        <p className="text-base font-medium text-neutral-700 max-md:max-w-full">
+          The longer you stake your tokens, the more rewards you earn. However,
+          withdrawing your stake early will result in penalties on your accrued
+          rewards. Additionally, please note that there is a 7-day cooldown
+          period before you can fully withdraw your staked tokens. Read our full
+          article on staking rewards and penalties for a detailed explanation.
         </p>
       </div>
       <button
-        className="primary-button justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-black bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
+        className="primary-button justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
         onClick={handleClick}
       >
         Approve {amount} $ERA

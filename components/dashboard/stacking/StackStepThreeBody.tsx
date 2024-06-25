@@ -1,6 +1,6 @@
-import { Info, Sparkles } from "lucide-react";
+import { Check, Info, Sparkles, TriangleAlert } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import * as React from "react";
 import { StakeInfo } from "../../../lib/types";
 import { contractABI, contractAddress } from "../../../lib/blockchain-config";
 import {
@@ -10,18 +10,12 @@ import {
 } from "wagmi";
 import { Address, formatEther } from "viem";
 import { toast } from "react-toastify";
+import CustomToast from "../CustomToast";
 
 type InfoItemProps = {
   label: string;
   value: string;
 };
-
-type InfoCardProps = {
-  title: string;
-  description: string;
-  value: string;
-};
-
 type StackStepThreeBodyProps = {
   currentAddress: Address | undefined;
   stakingDuration: bigint;
@@ -33,7 +27,7 @@ const InfoItem: React.FC<InfoItemProps> = ({ label, value }) => (
       <div>{label}</div>
       <Info width={10} height={10} color="#7C7C7C" />
     </div>
-    <div className="mt-6 text-lg text-black">{value}</div>
+    <div className="mt-6 text-lg text-neutral-700">{value}</div>
   </div>
 );
 
@@ -60,11 +54,20 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
       hash,
     });
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isConfirmed) {
-      toast.success("Transaction confirmed.", {
-        autoClose: 2000,
-      });
+      toast.success(
+        <CustomToast
+          title="Transaction confirmed."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          theme: "colored",
+          icon: <Check width={21} height={21} size={32} color="#21725E" />,
+        }
+      );
       setTimeout(() => {
         window.location.href = "/dashboard";
       }, 2000);
@@ -72,20 +75,46 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
   }, [isConfirmed]);
 
   // error
-  useEffect(() => {
+  React.useEffect(() => {
     if (writeError) {
-      toast.error("Something went wrong.");
+      toast.error(
+        <CustomToast
+          title="Something went wrong"
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: (
+            <TriangleAlert width={21} height={21} size={32} color="#B91C1C" />
+          ),
+        }
+      );
       console.error(writeError);
     }
   }, [writeError]);
 
   // hash
-  useEffect(() => {
+  React.useEffect(() => {
     if (hash) {
       console.info("Transaction Hash: ", hash);
-      toast.info("Waiting for confirmation...", {
-        autoClose: 2000,
-      });
+      toast.info(
+        <CustomToast
+          title="Waiting for confirmation..."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: <Info width={21} height={21} size={32} color="#0000" />,
+        }
+      );
     }
   }, [hash]);
 
@@ -121,15 +150,10 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
   ).toLocaleDateString();
 
   const endDate = new Date(
-    Number(lastStake.startTime + stakingDuration) * 1000
+    // Number(lastStake.startTime + stakingDuration) * 1000
+    // Number(BigInt(lastStake.startTime) + BigInt(stakingDuration)) * 1000
+    (Number(lastStake?.startTime) + Number(stakingDuration)) * 1000
   ).toLocaleDateString();
-
-  const infoItems: InfoItemProps[] = [
-    { label: "Start Date", value: startDate },
-    { label: "Amount", value: formatEther(lastStake.amount).toString() },
-    { label: "Current Rewards", value: formatEther(currentRewards).toString() },
-    { label: "End date", value: endDate },
-  ];
 
   const handleUnstake = async (stakeId: number) => {
     writeContract({
@@ -139,16 +163,24 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
       args: [stakeId],
     });
   };
-
+  const infoItems: InfoItemProps[] = [
+    { label: "Start Date", value: startDate },
+    { label: "Amount", value: formatEther(lastStake?.amount)?.toString() },
+    {
+      label: "Current Rewards",
+      value: formatEther(currentRewards)?.toString(),
+    },
+    { label: "End date", value: endDate },
+  ];
   return (
     <div className=" mt-14 mx-auto flex flex-col items-center p-10 bg-white rounded-3xl border border-solid border-stone-300 max-w-[977px] max-md:px-5">
       <div className="flex justify-center items-center px-3 bg-yellow-200 h-[45px] rounded-[37.5px] w-[45px]">
         <Sparkles width={24} height={24} color="#000000" />
       </div>
-      <h1 className="mt-6 text-5xl font-semibold text-black">
-        {lastStake.amount} $ERA staked
+      <h1 className="mt-6 text-5xl font-semibold text-neutral-700">
+        10.000 $ERA staked
       </h1>
-      <p className="mt-6 text-lg font-medium text-center text-black w-[572px] max-md:max-w-full">
+      <p className="mt-6 text-lg font-medium text-center text-neutral-700 w-[572px] max-md:max-w-full">
         Lorem ipsum dolor sit amet consectetur. Sed consectetur erat feugiat
         felis pharetra mauris neque id
       </p>
@@ -158,7 +190,7 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
             <div>Type</div>
             <Info width={10} height={10} color="#7C7C7C" />
           </div>
-          <div className="justify-center px-3 py-1.5 mt-3 text-black bg-yellow-200 rounded-3xl border border-black border-solid">
+          <div className="justify-center px-3 py-1.5 mt-3 text-neutral-700 bg-yellow-200 rounded-3xl border border-black border-solid">
             Staking
           </div>
         </div>
@@ -171,16 +203,16 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
             <Info width={10} height={10} color="#7C7C7C" />
           </div>
           <button
+            className="justify-center px-3.5 py-2.5 mt-2 font-semibold text-neutral-700 bg-white rounded-md border border-black border-solid"
             onClick={() => {
               handleUnstake(stakes.length - 1);
             }}
-            className="justify-center px-3.5 py-2.5 mt-2 font-semibold text-black bg-white rounded-md border border-black border-solid"
           >
             Unstake
           </button>
         </div>
       </section>
-      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold text-black">
+      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold text-neutral-700">
         <button className="secondary-button">Join our community</button>
         <Link className="primary-button" href={"/dashboard"}>
           View my staking

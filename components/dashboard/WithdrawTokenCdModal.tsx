@@ -1,18 +1,18 @@
 import * as React from "react";
-import { ArrowUpDown, ArrowUpRight, Info, X } from "lucide-react";
+import { Gift, TriangleAlert, X } from "lucide-react";
 
-interface BridgeProcessModal {
-  toggleBridgeProcessModal: boolean;
-  setToggleBridgeProcessModal: (value: boolean) => void;
+interface WithdrawTokenCdModalModal {
+  toggleWithdrawTokenCdModalModal: boolean;
+  setToggleWithdrawTokenCdModalModal: (value: boolean) => void;
 }
 
-const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
-  toggleBridgeProcessModal,
-  setToggleBridgeProcessModal,
+const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
+  toggleWithdrawTokenCdModalModal,
+  setToggleWithdrawTokenCdModalModal,
 }) => {
-  if (!toggleBridgeProcessModal) return null;
+  if (!toggleWithdrawTokenCdModalModal) return null;
   const closeModal = () => {
-    setToggleBridgeProcessModal(false);
+    setToggleWithdrawTokenCdModalModal(false);
   };
 
   const stopPropagation = (event: React.MouseEvent) => {
@@ -35,55 +35,54 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
             height={14}
             color="#989898"
             cursor={"pointer"}
-            onClick={() => setToggleBridgeProcessModal(false)}
+            onClick={() => setToggleWithdrawTokenCdModalModal(false)}
           />
         </div>
         <div className=" flex items-center justify-between mt-3 text-3xl font-semibold mb-10 text-neutral-700">
           <div className="flex gap-3 items-center">
             <span className="flex justify-center items-center px-3  bg-surface-500 h-[45px] rounded-[37.5px] w-[45px]">
-              <ArrowUpDown size={32} width={24} height={24} />
+              <Gift size={32} width={24} height={24} />
             </span>
-            Bridge Your Tokens
+            Withdraw your tokens and rewards
           </div>
           <span className="justify-center flex items-center text-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-            $CLAP holders only
+            7 Days cooldown
           </span>
         </div>
-
-        {/* <InfoText
-          bgColor="bg-orange-200"
-          Icon={<Info height={17} width={17} color="#000000" />}
-          text="To bridge your $CLAP tokens, follow the instructions provided on our partner's website"
-        /> */}
-        <div className="flex flex-row self-stretch p-5 mb-6 bg-white rounded-xl border-2 border-solid border-stone-300 max-w-[720px]">
+        <div className="flex flex-row self-stretch p-5 mb-6 bg-white rounded-xl border-2 border-solid border-warning-200 max-w-[720px]">
           <div className="flex gap-3.5 max-md:flex-wrap">
-            <div className="flex justify-center mr-3 items-center p-2 bg-surface-500 h-[35px] rounded-[29.167px] w-[35px]">
-              <Info height={17} width={17} color="#000000" />
+            <div className="flex justify-center mr-3 items-center p-2 bg-warning-200 h-[35px] rounded-[29.167px] w-[35px]">
+              <TriangleAlert height={17} width={17} color="#000000" />
             </div>
           </div>
           <div className="flex flex-col">
             <div className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
-              Bridging redirection on uniswap(?)
+              Withdraw conditions
             </div>
             <div className="self-start text-base font-medium text-neutral-700 max-md:max-w-full">
-              To bridge your $CLAP, you'll be redirected to THE WEBSITE, who we
-              partnered with.
-              <br /> Please click &quot;Bridge my $CLAP&quot; to continue.
+              Please note that withdrawing your stake early will result in
+              penalties on your accrued rewards. For a detailed explanation,
+              please read our full article on staking rewards and penalties
             </div>
           </div>
         </div>
+        <span className=" font-semibold text-lg mb-3">
+          {" "}
+          7-day cooldown period:
+        </span>
         <p className="self-stretch mb-4 text-base font-medium text-left text-neutral-600 max-md:max-w-full">
-          This secure process enables you to transfer your tokens between the
-          Cardano and the Polygon blockchains. For more information or
-          assistance, please read the tutorial.
+          You are currently in the process of unstaking your tokens. During the
+          <span className=" font-semibold"> 7-day cooldown period</span>, your
+          tokens are being prepared for withdrawal. Once this period ends, you
+          can return to the platform to claim your tokens and any associated
+          rewards.
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
           <button className="secondary-button-sm">Read tutorial</button>
           <button className="primary-button-sm">
             <>
-              <span className="my-auto">Bridge my $CLAP</span>
-              <ArrowUpRight width={24} height={24} size={32} color="#000000" />
+              <span className="my-auto">Withdraw my tokens</span>
             </>
           </button>
         </div>
@@ -92,4 +91,4 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
   );
 };
 
-export default BridgeProcessModal;
+export default WithdrawTokenCdModal;

@@ -23,7 +23,7 @@ const Step: React.FC<StepProps> = ({ number, text, isActive }) => (
     <div
       className={`justify-center flex items-center px-5 py-3 w-11 h-11 font-semibold whitespace-nowrap ${
         isActive
-          ? "bg-surface-500 border-black text-black"
+          ? "bg-surface-500 border-black text-neutral-700"
           : "bg-white border-stone-300"
       } border border-solid rounded-[50px]`}
     >
@@ -31,7 +31,9 @@ const Step: React.FC<StepProps> = ({ number, text, isActive }) => (
     </div>
     <div
       className={`my-auto ${
-        isActive ? "font-semibold text-black" : "font-medium text-neutral-400"
+        isActive
+          ? "font-semibold text-neutral-700"
+          : "font-medium text-neutral-400"
       }`}
     >
       {text}
@@ -42,11 +44,11 @@ const Step: React.FC<StepProps> = ({ number, text, isActive }) => (
 const StackingStepsHeader: React.FC<StackingStepsHeaderProps> = ({ steps }) => {
   return (
     <>
-      <div className="text-5xl text-center font-semibold text-black max-md:max-w-full max-md:text-4xl">
+      <div className="text-5xl text-center font-semibold text-neutral-700 max-md:max-w-full max-md:text-4xl">
         {steps.filter((step) => step.isActive)[0].title}
       </div>
       <div className="flex gap-3.5 justify-between pl-20 mx-2.5 max-w-full font-semibold w-[1260px] max-md:flex-wrap max-md:pl-5">
-        <div className="pb-1.5 my-auto text-lg text-black border-b-2 border-black border-solid">
+        <div className="pb-1.5 my-auto text-lg text-neutral-700 border-b-2 border-black border-solid">
           View tuto
         </div>
       </div>

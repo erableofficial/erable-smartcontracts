@@ -39,10 +39,10 @@ const steps: Step[] = [
 const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   <>
     <div className="flex items-start gap-4 mt-8 max-md:flex-wrap">
-      <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-black whitespace-nowrap bg-surface-500 border border-solid border-neutral-300 h-[2.688rem] rounded-full w-[2.688rem]">
+      <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-neutral-700 whitespace-nowrap bg-surface-500 border border-solid border-neutral-300 h-[2.688rem] rounded-full w-[2.688rem]">
         {stepNumber}
       </div>
-      <div className="flex flex-col flex-1 justify-center text-black max-md:max-w-full">
+      <div className="flex flex-col flex-1 justify-center text-neutral-700 max-md:max-w-full">
         <div className="text-2xl font-semibold max-md:max-w-full">{title}</div>
         <div className="mt-1 text-sm font-medium max-md:max-w-full">
           {description}
@@ -65,7 +65,7 @@ const HowItWorks = () => {
         <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
           <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
             <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-              <h1 className="justify-center px-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem]">
+              <h1 className="justify-center px-2.5 text-5xl font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem]">
                 How it works
               </h1>
               <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary">

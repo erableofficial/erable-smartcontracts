@@ -18,15 +18,20 @@ const Stacking: React.FC = () => {
   const [steps, setSteps] = React.useState([
     {
       number: "1",
-      title: "Stake your token : Informations",
-      text: "Staking Informations",
+      title: "Staking Process",
+      text: "Set Up Staking",
       isActive: true,
     },
-    { number: "2", title: "Send funds", text: "Send funds", isActive: false },
+    {
+      number: "2",
+      title: "Staking Process",
+      text: "Transfer Funds",
+      isActive: false,
+    },
     {
       number: "3",
-      title: "You staked sucessfully",
-      text: "Confirmation",
+      title: "Staking Process",
+      text: "Start Earning",
       isActive: false,
     },
   ]);
@@ -76,24 +81,25 @@ const Stacking: React.FC = () => {
 
   const infoCards = [
     {
-      title: "Current APY",
-      description: "Lorem ipsum dolor sit amet coetur.",
+      title: "Reward Rate (APR)",
+      description:
+        "The annual percentage rate currently being earned in the staking program.",
       value: "xx",
     },
     {
-      title: "Program duration",
-      description: "Lorem ipsum dolor sit amet coetur.",
+      title: "Staking Duration",
+      description: "The total length of time the staking program will run.",
       value: approximateTime(Number(stakedDuration)) || "xx",
     },
 
     {
-      title: "Start date",
-      description: "Lorem ipsum dolor sit amet coetur.",
+      title: "Start Date",
+      description: "The date when the staking program begins.",
       value: new Date().toLocaleDateString() || "xx",
     },
     {
-      title: "End date",
-      description: "Lorem ipsum dolor sit amet coetur.",
+      title: "End Date",
+      description: "The date when the staking program concludes.",
       value:
         new Date(
           new Date().getTime() + Number(stakedDuration) * 1000
@@ -117,9 +123,9 @@ const Stacking: React.FC = () => {
       {showStackingModal && <StackingLoadingModal />}
       {steps[1].isActive && showSignModal == false && (
         <StackStepTwoBody
+          setSteps={setSteps}
           infoCards={infoCards}
           amount={amount}
-          setSteps={setSteps}
         />
       )}
 

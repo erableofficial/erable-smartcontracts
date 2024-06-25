@@ -61,7 +61,7 @@ const SolutionList: React.FC<{ solution: SolutionItem }> = ({ solution }) => (
             {item.icon && <ArrowUpRight />}
 
             {item.note && (
-              <span className="justify-center px-2.5 py-1 text-xs text-black bg-white border border-black border-solid rounded-[38px]">
+              <span className="justify-center px-2.5 py-1 text-xs text-neutral-700 bg-white border border-black border-solid rounded-[38px]">
                 {item.note}
               </span>
             )}
