@@ -1,4 +1,4 @@
-import { Info, Sparkles } from "lucide-react";
+import { Check, Info, Sparkles, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 import { StakeInfo } from "../../../lib/types";
@@ -10,6 +10,7 @@ import {
 } from "wagmi";
 import { Address, formatEther } from "viem";
 import { toast } from "react-toastify";
+import CustomToast from "../CustomToast";
 
 type InfoItemProps = {
   label: string;
@@ -55,9 +56,18 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
 
   React.useEffect(() => {
     if (isConfirmed) {
-      toast.success("Transaction confirmed.", {
-        autoClose: 2000,
-      });
+      toast.success(
+        <CustomToast
+          title="Transaction confirmed."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          theme: "colored",
+          icon: <Check width={21} height={21} size={32} color="#21725E" />,
+        }
+      );
       setTimeout(() => {
         window.location.href = "/dashboard";
       }, 2000);
@@ -67,7 +77,22 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
   // error
   React.useEffect(() => {
     if (writeError) {
-      toast.error("Something went wrong.");
+      toast.error(
+        <CustomToast
+          title="Something went wrong"
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: (
+            <TriangleAlert width={21} height={21} size={32} color="#B91C1C" />
+          ),
+        }
+      );
       console.error(writeError);
     }
   }, [writeError]);
@@ -76,9 +101,20 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({
   React.useEffect(() => {
     if (hash) {
       console.info("Transaction Hash: ", hash);
-      toast.info("Waiting for confirmation...", {
-        autoClose: 2000,
-      });
+      toast.info(
+        <CustomToast
+          title="Waiting for confirmation..."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: <Info width={21} height={21} size={32} color="#0000" />,
+        }
+      );
     }
   }, [hash]);
 

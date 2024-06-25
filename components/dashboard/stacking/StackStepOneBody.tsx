@@ -1,4 +1,4 @@
-import { ArrowLeftRight, Info, TriangleAlert } from "lucide-react";
+import { ArrowLeftRight, Check, Info, TriangleAlert } from "lucide-react";
 import React from "react";
 import { formatEther, parseEther } from "viem";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
@@ -8,6 +8,7 @@ import {
   stakingTokenAddress,
 } from "../../../lib/blockchain-config";
 import { toast } from "react-toastify";
+import CustomToast from "../CustomToast";
 
 type InfoCardProps = {
   title: string;
@@ -60,9 +61,18 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
 
   React.useEffect(() => {
     if (isConfirmed) {
-      toast.success("Transaction confirmed.", {
-        autoClose: 2500,
-      });
+      toast.success(
+        <CustomToast
+          title="Transaction confirmed."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          theme: "colored",
+          icon: <Check width={21} height={21} size={32} color="#21725E" />,
+        }
+      );
       // wait for 2.5 second before setting the steps
       setTimeout(() => {
         setSteps([
@@ -92,7 +102,22 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   // error
   React.useEffect(() => {
     if (error) {
-      toast.error("Something went wrong.");
+      toast.error(
+        <CustomToast
+          title="Something went wrong"
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: (
+            <TriangleAlert width={21} height={21} size={32} color="#B91C1C" />
+          ),
+        }
+      );
       console.error(error);
     }
   }, [error]);
@@ -101,9 +126,20 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   React.useEffect(() => {
     if (hash) {
       console.info("Transaction Hash: ", hash);
-      toast.info("Waiting for confirmation...", {
-        autoClose: 1500,
-      });
+      toast.info(
+        <CustomToast
+          title="Waiting for confirmation..."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: <Info width={21} height={21} size={32} color="#0000" />,
+        }
+      );
     }
   }, [hash]);
 

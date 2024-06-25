@@ -396,7 +396,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                   {isDropdownOpen && (
                     <div
-                      className={`dropdown-content border-solid border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute`}
+                      className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute`}
                     >
                       {/* Dropdown items here */}
                       <Link href="/dashboard/stacking">

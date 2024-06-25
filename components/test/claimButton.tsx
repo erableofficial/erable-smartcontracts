@@ -14,6 +14,8 @@ import {
 import { parseEther } from "viem";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import CustomToast from "../dashboard/CustomToast";
+import { Check } from "lucide-react";
 
 export default function ClaimButton({
   stakeId,
@@ -33,7 +35,18 @@ export default function ClaimButton({
 
   useEffect(() => {
     if (isConfirmed) {
-      toast.success("Transaction confirmed.");
+      toast.success(
+        <CustomToast
+          title="Transaction confirmed."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          theme: "colored",
+          icon: <Check width={21} height={21} size={32} color="#21725E" />,
+        }
+      );
     }
   }, [isConfirmed]);
 

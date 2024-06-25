@@ -14,6 +14,8 @@ import {
 import { parseEther } from "viem";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import CustomToast from "../dashboard/CustomToast";
+import { Check, Info } from "lucide-react";
 
 export default function ApproveAddressForm() {
   const [amount, setAmount] = useState(0);
@@ -28,7 +30,18 @@ export default function ApproveAddressForm() {
   useEffect(() => {
     if (isConfirmed) {
       setAmount(100);
-      toast.success("Transaction confirmed.");
+      toast.success(
+        <CustomToast
+          title="Transaction confirmed."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          theme: "colored",
+          icon: <Check width={21} height={21} size={32} color="#21725E" />,
+        }
+      );
     }
   }, [isConfirmed]);
 
@@ -44,9 +57,20 @@ export default function ApproveAddressForm() {
   useEffect(() => {
     if (hash) {
       console.info("Transaction Hash: ", hash);
-      toast.info("Waiting for confirmation...", {
-        autoClose: 1000,
-      });
+      toast.info(
+        <CustomToast
+          title="Waiting for confirmation..."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: <Info width={21} height={21} size={32} color="#0000" />,
+        }
+      );
     }
   }, [hash]);
 
@@ -71,7 +95,6 @@ export default function ApproveAddressForm() {
           className="gap-5 items-center flex flex-col space-y-2  "
           onSubmit={handleSubmit}
         >
-   
           <div className="w-full">
             <label
               className="text-xl tracking-wide font-friends font-medium"
