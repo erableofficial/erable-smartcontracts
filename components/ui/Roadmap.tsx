@@ -124,7 +124,7 @@ const Roadmap: React.FC = () => {
       <nav className="flex justify-center items-center px-16 mx-2.5 mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:px-5 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-wrap">
           <button className="primary-button">Read Whitepaper</button>
-          <button className="secondary-button">Our Community Manifesto</button>
+          {/* <button className="secondary-button">Our Community Manifesto</button> */}
         </div>
       </nav>
     </div>
