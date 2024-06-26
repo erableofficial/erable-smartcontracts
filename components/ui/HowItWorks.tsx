@@ -65,7 +65,7 @@ const HowItWorks = () => {
         <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
           <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
             <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
-              <h1 className="justify-center px-2.5 text-5xl font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem]">
+              <h1 className="justify-center px-2.5 text-5xl font-extrabold  text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem] max-xl:w-min max-md:w-fit">
                 How it Works
               </h1>
               <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary">

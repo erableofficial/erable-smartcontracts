@@ -7,13 +7,31 @@ type PartnerLogoProps = {
 };
 
 const PartnerLogo: React.FC<PartnerLogoProps> = ({ src, alt }) => (
-  <div className="flex justify-center items-center px-4 mx-auto bg-white border border-solid border-zinc-300 h-[6.938rem] rounded-full w-[6.938rem] max-md:mt-7">
+  // <div className="flex justify-center items-center px-4 mx-auto bg-white border border-solid border-zinc-300 h-[6.938rem] rounded-full w-[6.938rem] max-lg:mt-7">
+  //   <Image
+  //     src={src}
+  //     alt={alt}
+  //     className="aspect-[2.94] w-[4.813rem]"
+  //     width={77}
+  //     height={26}
+  //   />
+  // </div>
+  <div
+    className="flex justify-center items-center px-4 mx-auto bg-white border border-solid border-zinc-300 rounded-full max-lg:mt-7"
+    style={{
+      width: "20vw",
+      height: "20vw",
+      maxWidth: "6.938rem",
+      maxHeight: "6.938rem",
+    }}
+  >
     <Image
       src={src}
       alt={alt}
-      className="aspect-[2.94] w-[4.813rem]"
       width={77}
       height={26}
+      className="max-w-full max-h-full" // Ensure the image scales within the container
+      style={{ aspectRatio: "2.94" }} // Maintain aspect ratio
     />
   </div>
 );
@@ -21,7 +39,7 @@ const PartnerLogo: React.FC<PartnerLogoProps> = ({ src, alt }) => (
 const PartnerLogosRow: React.FC<{ logos: PartnerLogoProps[] }> = ({
   logos,
 }) => (
-  <div className="flex gap-5 flex-row flex-wrap max-md:gap-0">
+  <div className="flex gap-5 flex-row max-lg:gap-1">
     {logos.map((logo, index) => (
       <PartnerLogo key={index} {...logo} />
     ))}
@@ -98,10 +116,10 @@ const OurPartners: React.FC = () => {
   ];
 
   return (
-    <section className="flex gap-5 justify-between pr-20 bg-stone-50 max-md:flex-wrap max-md:pr-0">
-      <div className="flex flex-col justify-center px-20 py-20 bg-surface-500 max-md:px-5 max-md:w-full">
+    <section className="flex gap-5 justify-between pr-20 bg-stone-50 max-lg:flex-wrap max-lg:pr-0 max-lg:pb-9">
+      <div className="flex flex-col justify-center px-20 py-20 bg-surface-500 max-lg:px-5 max-lg:w-full">
         <div
-          className="mx-2.5 max-md:max-w-full"
+          className="mx-2.5 max-lg:max-w-full"
           data-sal-delay="100"
           data-sal="slide-up"
           data-sal-duration="1000"
@@ -119,7 +137,7 @@ const OurPartners: React.FC = () => {
           ))}
         </div>
         <div
-          className="mx-2.5 mt-3.5 max-md:max-w-full"
+          className="mx-2.5 mt-3.5 max-lg:max-w-full"
           data-sal-delay="300"
           data-sal="slide-up"
           data-sal-duration="1000"
@@ -143,12 +161,12 @@ const OurPartners: React.FC = () => {
         data-sal="slide-up"
         data-sal-duration="1000"
       >
-        <div className="justify-center self-end px-2.5 text-5xl font-extrabold bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem]">
+        <div className="justify-center self-end px-2.5 text-5xl font-extrabold bg-surface-500 rounded-xl max-lg:text-4xl leading-[4.641rem]">
           Our Partners
         </div>
         <p className="mt-6 self-end justify-center text-lg font-medium w-[55%]">
-          Lorem ipsum dolor sit amet consectetur. Iaculis dictumst commodo massa
-          gravida quam massa
+          Meet our amazing partners who help us drive toward financial
+          innovations and sustainability.
         </p>
       </div>
     </section>
