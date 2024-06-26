@@ -1225,8 +1225,10 @@ const stakingTokenABI = [
   },
 ];
 
-const contractAddress = "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0";
+const stakingTokenAddress: Address = process.env
+  .NEXT_PUBLIC_TOKEN_ADDRESS as Address;
 
-const stakingTokenAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const contractAddress: Address = process.env
+  .NEXT_PUBLIC_CONTRACT_ADDRESS as Address;
 
 export { contractABI, contractAddress, stakingTokenABI, stakingTokenAddress };

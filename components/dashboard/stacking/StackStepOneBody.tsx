@@ -177,18 +177,19 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           </div>
         </div>
         <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-          <div className="flex gap-1.5">
-            <div className="text-5xl font-semibold">
+          <div className="flex gap-1.5 max-w-[40%]">
+            <div className="flex text-5xl font-semibold">
               <input
-                className={`text-5xl font-semibold outline-none max-w-[30%] overflow-auto `}
+                className={`text-5xl font-semibold outline-none w-[80%] overflow-auto `}
                 value={amount}
                 onChange={(e) => setAmount(Number(e.target.value))}
               />
+              <div className="my-auto text-xl font-bold">$ERA</div>
             </div>
-            <div className="my-auto text-xl font-bold">$ERA</div>
           </div>
-
-          <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
+          <div className="flex items-center">
+            <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
+          </div>
           <div className="flex gap-1.5">
             <div className="text-5xl font-semibold">={amount}</div>
             <div className="my-auto text-xl font-bold">$ERA</div>
