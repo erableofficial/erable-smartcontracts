@@ -61,8 +61,6 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   setAmount,
   myBalance,
 }) => {
-  const [showSignModal, setShowSignModal] = React.useState(false);
-
   const { writeContract, data: hash, error, isPending } = useWriteContract();
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
@@ -85,31 +83,26 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           icon: <Check width={21} height={21} size={32} color="#21725E" />,
         }
       );
-      // wait for 1.5 second before setting the steps
-      // remove setTimeout when deploying to production
-      setTimeout(() => {
-        setShowSignModal(false);
-        setSteps([
-          {
-            number: "1",
-            title: "Stake your token : Informations",
-            text: "Staking Informations",
-            isActive: false,
-          },
-          {
-            number: "2",
-            title: "Send funds",
-            text: "Send funds",
-            isActive: true,
-          },
-          {
-            number: "3",
-            title: "You staked sucessfully",
-            text: "Confirmation",
-            isActive: false,
-          },
-        ]);
-      }, 2500);
+      setSteps([
+        {
+          number: "1",
+          title: "Stake your token : Informations",
+          text: "Staking Informations",
+          isActive: false,
+        },
+        {
+          number: "2",
+          title: "Send funds",
+          text: "Send funds",
+          isActive: true,
+        },
+        {
+          number: "3",
+          title: "You staked sucessfully",
+          text: "Confirmation",
+          isActive: false,
+        },
+      ]);
     }
   }, [isConfirmed]);
 
@@ -155,7 +148,6 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           autoClose: 2000,
         }
       );
-      setShowSignModal(true);
     }
   }, [hash]);
 
