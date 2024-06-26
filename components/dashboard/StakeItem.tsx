@@ -69,6 +69,10 @@ const StakeItem: React.FC<StakeItemProps> = ({
           icon: <Check width={21} height={21} size={32} color="#21725E" />,
         }
       );
+      // make optimitic refresh
+      setTimeout(() => {
+        window.location.reload();
+      }, 2500);
     }
   }, [isConfirmed]);
 
@@ -124,7 +128,6 @@ const StakeItem: React.FC<StakeItemProps> = ({
       args: [stakeId],
     });
   };
-
 
   //   const handleActionClick = (
   //     action: string,
