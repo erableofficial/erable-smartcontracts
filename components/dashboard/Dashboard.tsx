@@ -203,15 +203,18 @@ const Dashboard: React.FC<DashboardProps> = () => {
         };
       });
 
-      setStakingItems(items);
-      setAllItems(items);
-      console.log("Staking Items from inside: ", items);
+      // remove stakes that has amount === 0
+      const filteredItems = items.filter((item) => item.amount !== BigInt(0));
+
+      setStakingItems(filteredItems);
+      setAllItems(filteredItems);
+      console.log("Staking Items from inside: ", filteredItems);
     }
   }, [allUserStakesResult.isLoading, allUserStakesResult.error, stakes]);
 
   const buttons = [
     { name: "All", qt: allItems?.length },
-    { name: "Staking", qt: Number(userStakesCounter) },
+    { name: "Staking", qt: stakingItems?.length },
     { name: "Your Farming", qt: farmingItems?.length },
     { name: "Airdrop", qt: airdropItems?.length },
   ];
