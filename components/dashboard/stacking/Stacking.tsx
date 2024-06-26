@@ -1,7 +1,6 @@
 import React from "react";
 import StackingStepsHeader from "./StackingStepsHeader";
 import StackStepOneBody from "./StackStepOneBody";
-import SignLoadingModal from "../SignLoadingModal";
 import StackStepTwoBody from "./StackStepTwoBody";
 import StackingLoadingModal from "../StackingLoadingModal";
 import StackStepThreeBody from "./StackStepThreeBody";

@@ -1,25 +1,14 @@
 import { Info, LoaderCircle } from "lucide-react";
 import React from "react";
 
-type ButtonProps = {
-  children: React.ReactNode;
-  variant: "primary" | "secondary";
-  onClick?: () => void;
-};
-
-const Button: React.FC<ButtonProps> = ({ children, variant, onClick }) => (
-  <button
-    onClick={onClick}
-    className={`px-5 py-3 rounded-lg border-2 border-black border-solid ${
-      variant === "primary" ? "bg-emerald-200" : "bg-white"
-    }`}
-  >
-    {children}
-  </button>
-);
-
 type InfoBoxProps = {
   text: string;
+};
+type StackingLoadingModalProps = {
+  toggleStackingLoadingModal: boolean;
+  setToggleStackingLoadingModal: (value: boolean) => void;
+  isConfirmed: boolean;
+  error: any;
 };
 
 const InfoBox: React.FC<InfoBoxProps> = ({ text }) => (
@@ -29,21 +18,35 @@ const InfoBox: React.FC<InfoBoxProps> = ({ text }) => (
   </div>
 );
 
-const SignLoadingModal: React.FC = () => {
+const StackingLoadingModal: React.FC<StackingLoadingModalProps> = ({
+  toggleStackingLoadingModal,
+  setToggleStackingLoadingModal,
+  isConfirmed,
+  error,
+}) => {
+  if (!toggleStackingLoadingModal) return null;
+
+  React.useEffect(() => {
+    if (isConfirmed) {
+      setToggleStackingLoadingModal(false);
+    }
+
+    if (error) {
+      setToggleStackingLoadingModal(false);
+    }
+  }, [isConfirmed, error]);
+
   return (
-    <div className=" mt-14 mx-auto flex flex-col items-center p-10 text-lg font-semibold text-neutral-700 bg-white rounded-3xl border border-solid border-stone-300 max-w-[650px] max-md:px-5">
-      <LoaderCircle width={43} height={43} className="animate-spin" />
-      <h1 className="mt-10 text-3xl">Staking en cours on polygon</h1>
-      <InfoBox text="Please connect your wallet to sign the transaction" />
-      <p className="self-stretch mt-5 font-medium text-center max-md:max-w-full">
-        Please wait a moment. This can take a few minutes.
-      </p>
-      <section className="flex gap-2.5 justify-center mt-10 text-base text-neutral-700">
-        <Button variant="secondary">Read tutorial</Button>
-        <Button variant="primary">Bridge my $CLAP</Button>
-      </section>
+    <div className="fixed inset-0 bg-black bg-opacity-40 z-[100] flex justify-center items-center">
+      <div className=" mt-14 mx-auto flex flex-col items-center p-10 text-lg font-semibold text-neutral-700 bg-white rounded-3xl border border-solid border-stone-300 max-w-[650px] max-md:px-5">
+        <LoaderCircle width={43} height={43} className="animate-spin" />
+        <h1 className="mt-10 text-3xl">Staking in Progress</h1>
+        <p className="self-stretch mt-5 font-medium text-center max-md:max-w-full">
+          Please wait a moment. This can take a few minutes.
+        </p>
+      </div>
     </div>
   );
 };
 
-export default SignLoadingModal;
+export default StackingLoadingModal;

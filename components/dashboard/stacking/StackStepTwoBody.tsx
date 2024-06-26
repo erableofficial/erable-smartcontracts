@@ -6,6 +6,9 @@ import { parseEther } from "viem";
 import CustomToast from "../CustomToast";
 import { Check, Info, TriangleAlert } from "lucide-react";
 import SignLoadingModal from "../SignLoadingModal";
+import InfoText from "../../ui/InfoText";
+import { InfoBox } from "../AuthorizeStackingModal";
+import StackingLoadingModal from "../StackingLoadingModal";
 
 type InfoCardProps = {
   title: string;
@@ -32,6 +35,8 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   infoCards,
   amount,
 }) => {
+  const [toggleStackingLoadingModal, setToggleStackingLoadingModal] =
+    React.useState(false);
   const [showSignModal, setShowSignModal] = React.useState(false);
   const items = [
     { label: "Total APR:", value: "00" },
@@ -132,7 +137,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
     }
   }, [hash]);
 
-  const handleClick = () => {
+  const handleSendFund = () => {
     writeContract({
       abi: contractABI,
       address: contractAddress,
