@@ -116,7 +116,7 @@ const Faq: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col ml-5 w-6/12  max-lg:w-[90%] max-lg:mx-auto max-md:w-full">
+        <div className="flex flex-col ml-5 w-6/12  max-lg:w-[90%] max-lg:mx-auto max-md:w-full max-lg:pb-8 ">
           <div className="flex flex-col grow max-lg:mt-10 max-lg:max-w-full">
             {faqItems.map((item, index) => (
               <FAQItem
