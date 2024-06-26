@@ -38,7 +38,7 @@ const EraUtil: React.FC = () => {
       />
       <div className="flex flex-col justify-center items-center px-20 mt-2.5 w-full rounded-3xl max-md:px-5 max-md:max-w-full">
         <h1 className="justify-center px-2.5 text-5xl font-extrabold text-neutral-700 bg-surface-500 rounded-lg max-md:text-4xl">
-          $ERA utilities
+          $ERA Utilities
         </h1>
         <p className="mt-10 text-lg font-medium text-center text-neutral-700 max-w-[79%] max-md:max-w-full">
           $ERA embodies our commitment to fair value redistribution across
