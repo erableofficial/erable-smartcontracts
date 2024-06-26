@@ -118,12 +118,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   React.useEffect(() => {
     if (error) {
       toast.error(
-        <CustomToast
-          title="Something went wrong"
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
-        />,
+        <CustomToast title="Something went wrong" message={error.message} />,
         {
           // icon: <Info />,
           // autoClose: 5000000,
@@ -134,6 +129,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         }
       );
       console.error(error);
+      console.error(error.cause);
     }
   }, [error]);
 
@@ -159,7 +155,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     }
   }, [hash]);
 
-  const handleApproveStacking = () => {
+  const handleApproveStacking = async () => {
     writeContract({
       abi: stakingTokenABI,
       address: stakingTokenAddress,

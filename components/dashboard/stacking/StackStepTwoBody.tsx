@@ -118,6 +118,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
         }
       );
       console.error(error);
+      console.error(error.cause);
     }
   }, [error]);
 
@@ -142,7 +143,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
     }
   }, [hash]);
 
-  const handleSendFund = () => {
+  const handleSendFund = async () => {
     setToggleStackingLoadingModal(true);
     writeContract({
       abi: contractABI,
