@@ -25,8 +25,11 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
   }, [isOpen]);
 
   return (
-    <div className="flex flex-col justify-center px-6 py-4 mt-6 bg-white rounded-2xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
-      <div className="flex gap-5 justify-between">
+    <div
+      className="flex flex-col justify-center px-6 py-4 mt-6 bg-white rounded-2xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full cursor-pointer"
+      onClick={toggleOpen}
+    >
+      <div className="flex gap-5 justify-between ">
         <div className="my-auto text-xl font-bold text-primary max-md:max-w-full">
           {question}
         </div>
