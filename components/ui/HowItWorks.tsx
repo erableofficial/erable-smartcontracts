@@ -12,9 +12,9 @@ type Step = {
 const steps: Step[] = [
   {
     stepNumber: 1,
-    title: "Learn about Erable° and our token $ERA",
+    title: "Learn about erable° and our token $ERA",
     description:
-      "Discover the mission behind Erable° and understand how our $ERA token works. Hyperlink Whitepaper",
+      "Discover the mission behind erable° and understand how our $ERA token works. Hyperlink Whitepaper",
   },
   {
     stepNumber: 2,
