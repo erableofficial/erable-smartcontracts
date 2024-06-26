@@ -10,6 +10,7 @@ import { contractABI, contractAddress } from "../../lib/blockchain-config";
 import { toast } from "react-toastify";
 import CustomToast from "./CustomToast";
 import { formatEther } from "viem";
+import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
 
 interface StakeItemProps {
   stake: TabItem;
@@ -22,6 +23,9 @@ const StakeItem: React.FC<StakeItemProps> = ({
   index,
   itemsCounter,
 }) => {
+  const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
+    React.useState(false);
+
   const { data: rewardAmount, error } = useReadContract({
     abi: contractABI,
     address: contractAddress,
@@ -121,14 +125,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
     });
   };
 
-  const handleUnstack = async (stakeId: number) => {
-    writeContract({
-      abi: contractABI,
-      address: contractAddress,
-      functionName: "unstake",
-      args: [stakeId],
-    });
-  };
+
   //   const handleActionClick = (
   //     action: string,
   //     daysLeft: string | null | undefined
@@ -140,6 +137,11 @@ const StakeItem: React.FC<StakeItemProps> = ({
 
   return (
     <React.Fragment>
+      <WithdrawTokenCdModal
+        toggleWithdrawTokenCdModalModal={toggleWithdrawTokenCdModalModal}
+        setToggleWithdrawTokenCdModalModal={setToggleWithdrawTokenCdModalModal}
+        stake={stake}
+      />
       <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
         <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
           <div className="justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
@@ -172,7 +174,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
                     handleClaim(stake.id);
                   }
                 : () => {
-                    handleUnstack(stake.id);
+                    setToggleWithdrawTokenCdModalModal(true);
                   }
             }
             className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${

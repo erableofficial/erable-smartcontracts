@@ -1,15 +1,97 @@
 import * as React from "react";
-import { Gift, TriangleAlert, X } from "lucide-react";
+import { Check, Gift, Info, TriangleAlert, X } from "lucide-react";
+import { toast } from "react-toastify";
+import CustomToast from "./CustomToast";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import { contractABI, contractAddress } from "../../lib/blockchain-config";
+import { TabItem } from "../../lib/types";
 
 interface WithdrawTokenCdModalModal {
   toggleWithdrawTokenCdModalModal: boolean;
   setToggleWithdrawTokenCdModalModal: (value: boolean) => void;
+  stake: TabItem;
 }
 
 const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
   toggleWithdrawTokenCdModalModal,
   setToggleWithdrawTokenCdModalModal,
+  stake,
 }) => {
+  const {
+    writeContract,
+    data: hash,
+    error: writeError,
+    isPending,
+  } = useWriteContract();
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
+  React.useEffect(() => {
+    if (isConfirmed) {
+      toast.success(
+        <CustomToast
+          title="Transaction confirmed."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          theme: "colored",
+          icon: <Check width={21} height={21} size={32} color="#21725E" />,
+        }
+      );
+      setToggleWithdrawTokenCdModalModal(false);
+    }
+  }, [isConfirmed]);
+
+  // error
+  React.useEffect(() => {
+    if (writeError) {
+      toast.error(
+        <CustomToast
+          title="Something went wrong"
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: (
+            <TriangleAlert width={21} height={21} size={32} color="#B91C1C" />
+          ),
+        }
+      );
+      console.error(writeError);
+      setToggleWithdrawTokenCdModalModal(false);
+    }
+  }, [writeError]);
+
+  // hash
+  React.useEffect(() => {
+    if (hash) {
+      console.info("Transaction Hash: ", hash);
+      toast.info(
+        <CustomToast
+          title="Waiting for confirmation..."
+          message="When you do something noble and beautiful and nobody noticed, do not be
+        sad. For the sun every morning is a beautiful spectacle and yet most of
+        the audience still sleeps."
+        />,
+        {
+          // icon: <Info />,
+          // autoClose: 5000000,
+          theme: "colored",
+          icon: <Info width={21} height={21} size={32} color="#0000" />,
+        }
+      );
+    }
+  }, [hash]);
+
   if (!toggleWithdrawTokenCdModalModal) return null;
   const closeModal = () => {
     setToggleWithdrawTokenCdModalModal(false);
@@ -17,6 +99,15 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
 
   const stopPropagation = (event: React.MouseEvent) => {
     event.stopPropagation();
+  };
+
+  const handleUnstack = async () => {
+    writeContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "unstake",
+      args: [stake.id],
+    });
   };
 
   return (
@@ -80,10 +171,8 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
           <button className="secondary-button-sm">Read tutorial</button>
-          <button className="primary-button-sm">
-            <>
-              <span className="my-auto">Withdraw my tokens</span>
-            </>
+          <button onClick={handleUnstack} className="primary-button-sm">
+            <span className="my-auto">Withdraw my tokens</span>
           </button>
         </div>
       </div>
