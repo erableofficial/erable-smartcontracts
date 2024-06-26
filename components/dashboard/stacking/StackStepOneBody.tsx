@@ -1,8 +1,13 @@
 import { ArrowLeftRight, Check, Info, TriangleAlert } from "lucide-react";
 import React from "react";
 import { formatEther, parseEther } from "viem";
-import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import {
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
+import {
+  contractABI,
   contractAddress,
   stakingTokenABI,
   stakingTokenAddress,
@@ -11,6 +16,7 @@ import { toast } from "react-toastify";
 import CustomToast from "../CustomToast";
 import Tooltip from "../Tooltip";
 import AuthorizeStackingModal from "../AuthorizeStackingModal";
+import EstimatedWithdrawTokens from "./EstimatedWithdrawTokens";
 
 type InfoCardProps = {
   title: string;
@@ -33,6 +39,7 @@ type StackStepOneBodyProps = {
   amount: number;
   setAmount: React.Dispatch<React.SetStateAction<number>>;
   myBalance: bigint;
+  stakingDuration: bigint;
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
@@ -60,6 +67,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   amount,
   setAmount,
   myBalance,
+  stakingDuration,
 }) => {
   const { writeContract, data: hash, error, isPending } = useWriteContract();
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
@@ -160,6 +168,11 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     });
   };
 
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const amountVal = Number(e.target.value);
+    setAmount(amountVal);
+  };
+
   return (
     <>
       <AuthorizeStackingModal
@@ -199,7 +212,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
               <input
                 className={`text-5xl font-semibold outline-none w-[80%] overflow-auto `}
                 value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
+                onChange={handleAmountChange}
               />
               <div className="my-auto text-xl font-bold">$ERA</div>
             </div>
@@ -207,10 +220,10 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           <div className="flex items-center">
             <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
           </div>
-          <div className="flex gap-1.5">
-            <div className="text-5xl font-semibold">={amount}</div>
-            <div className="my-auto text-xl font-bold">$ERA</div>
-          </div>
+          <EstimatedWithdrawTokens
+            amount={amount}
+            stakingDuration={stakingDuration}
+          />
         </div>
         <div className="flex gap-5 justify-between text-base font-medium whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:max-w-full">
           <div>=$250.000</div>

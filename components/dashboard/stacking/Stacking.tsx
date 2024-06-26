@@ -94,6 +94,7 @@ const Stacking: React.FC = () => {
           amount={amount}
           setAmount={setAmount}
           myBalance={myBalance as bigint}
+          stakingDuration={stakedDuration as bigint}
         />
       )}
       {steps[1].isActive && (
