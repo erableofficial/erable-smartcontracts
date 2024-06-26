@@ -105,12 +105,7 @@ const Stacking: React.FC = () => {
         />
       )}
 
-      {steps[2].isActive && (
-        <StackStepThreeBody
-          currentAddress={currentAddress}
-          stakingDuration={stakedDuration as bigint}
-        />
-      )}
+      {steps[2].isActive && <StackStepThreeBody amount={amount} />}
     </div>
   );
 };
