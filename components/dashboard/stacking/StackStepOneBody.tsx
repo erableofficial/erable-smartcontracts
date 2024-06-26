@@ -9,6 +9,8 @@ import {
 } from "../../../lib/blockchain-config";
 import { toast } from "react-toastify";
 import CustomToast from "../CustomToast";
+import Tooltip from "../Tooltip";
+import AuthorizeStackingModal from "../AuthorizeStackingModal";
 
 type InfoCardProps = {
   title: string;
@@ -38,13 +40,15 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
     <div className="flex flex-col grow h-full justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
       <div className="flex gap-1 pr-5 text-lg">
         <div>{title}</div>
-        <div className="flex items-center">
-          <Info width={15} height={15} color="#000000" />
-        </div>
+        <Tooltip message={description}>
+          <div className="flex items-center cursor-pointer">
+            <Info width={15} height={15} color="#000000" />
+          </div>
+        </Tooltip>
       </div>
-      <div className="mt-1 text-base font-medium text-neutral-500">
+      {/* <div className="mt-1 text-base font-medium text-neutral-500">
         {description}
-      </div>
+      </div> */}
       <div className="mt-6 text-4xl">{value}</div>
     </div>
   </div>
@@ -62,6 +66,8 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     useWaitForTransactionReceipt({
       hash,
     });
+  const [toggleAuthorizeStackingModal, setToggleAuthorizeStackingModal] =
+    React.useState(false);
 
   React.useEffect(() => {
     if (isConfirmed) {
@@ -147,7 +153,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     }
   }, [hash]);
 
-  const handleClick = () => {
+  const handleApproveStacking = () => {
     writeContract({
       abi: stakingTokenABI,
       address: stakingTokenAddress,
@@ -160,8 +166,13 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     <>
       {/* info cards section */}
       <div className="mx-2.5 mt-14 max-md:mt-10 max-md:mb-6 max max-md:max-w-full">
+        <AuthorizeStackingModal
+          handleApprove={handleApproveStacking}
+          toggleAuthorizeStackingModal={toggleAuthorizeStackingModal}
+          setToggleAuthorizeStackingModal={setToggleAuthorizeStackingModal}
+        />
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1">
+          <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1 w-full">
             {infoCards.map((card, index) => (
               <React.Fragment key={index}>
                 <InfoCard {...card} />
@@ -218,7 +229,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
             </div>
           </div>
           <div className="my-auto font-medium text-neutral-700">
-            Projected Earning After 1 Year
+            Projected Earning After one Year
           </div>
         </div>
       </div>
@@ -228,7 +239,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
             <TriangleAlert width={18} height={18} color="#000000" />
           </div>
           <h2 className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
-            More Information on Early Unstaking
+            *More Information on Early Unstaking
           </h2>
         </div>
         <p className="text-base font-medium text-neutral-700 max-md:max-w-full">
@@ -241,9 +252,9 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
       </div>
       <button
         className="primary-button justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
-        onClick={handleClick}
+        onClick={() => setToggleAuthorizeStackingModal(true)}
       >
-        Approve {amount} $ERA
+        Start Program
       </button>
     </>
   );

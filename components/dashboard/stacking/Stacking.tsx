@@ -1,7 +1,6 @@
 import React from "react";
 import StackingStepsHeader from "./StackingStepsHeader";
 import StackStepOneBody from "./StackStepOneBody";
-import SignLoadingModal from "../SignLoadingModal";
 import StackStepTwoBody from "./StackStepTwoBody";
 import StackingLoadingModal from "../StackingLoadingModal";
 import StackStepThreeBody from "./StackStepThreeBody";
@@ -35,21 +34,13 @@ const Stacking: React.FC = () => {
       isActive: false,
     },
   ]);
-  const [showSignModal, setShowSignModal] = React.useState(false);
+
   const [showStackingModal, setShowStackingModal] = React.useState(false);
   const [amount, setAmount] = React.useState(50);
 
   React.useEffect(() => {
     const step2 = steps.find((step) => step.number == "2");
     const step3 = steps.find((step) => step.number == "3");
-    if (step2 && step2.isActive) {
-      setShowSignModal(true);
-      console.log("showSignModal", showSignModal);
-      setTimeout(() => {
-        setShowSignModal(false);
-        console.log("showSignModal", showSignModal);
-      }, 5000);
-    }
 
     if (step3 && step3.isActive) {
       setShowStackingModal(true);
@@ -110,7 +101,6 @@ const Stacking: React.FC = () => {
   return (
     <div className=" relative flex pb-20 pt-20 bg-neutral-50 flex-col px-20 max-md:px-5 max-md:pt-7">
       <StackingStepsHeader steps={steps} />
-      {showSignModal && <SignLoadingModal />}
       {steps[0].isActive && (
         <StackStepOneBody
           infoCards={infoCards}
@@ -120,8 +110,8 @@ const Stacking: React.FC = () => {
           myBalance={myBalance as bigint}
         />
       )}
-      {showStackingModal && <StackingLoadingModal />}
-      {steps[1].isActive && showSignModal == false && (
+      {/* {showStackingModal && <StackingLoadingModal />} */}
+      {steps[1].isActive && (
         <StackStepTwoBody
           setSteps={setSteps}
           infoCards={infoCards}

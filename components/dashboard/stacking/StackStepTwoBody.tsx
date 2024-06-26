@@ -5,6 +5,9 @@ import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { parseEther } from "viem";
 import CustomToast from "../CustomToast";
 import { Check, Info, TriangleAlert } from "lucide-react";
+import InfoText from "../../ui/InfoText";
+import { InfoBox } from "../AuthorizeStackingModal";
+import StackingLoadingModal from "../StackingLoadingModal";
 
 type InfoCardProps = {
   title: string;
@@ -31,6 +34,8 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   infoCards,
   amount,
 }) => {
+  const [toggleStackingLoadingModal, setToggleStackingLoadingModal] =
+    React.useState(false);
   const items = [
     { label: "Total APR:", value: "00" },
     { label: "Duration:", value: infoCards[1].value },
@@ -58,29 +63,27 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
           icon: <Check width={21} height={21} size={32} color="#21725E" />,
         }
       );
-      // wait for 2.5 second before setting the steps
-      setTimeout(() => {
-        setSteps([
-          {
-            number: "1",
-            title: "Stake your token : Informations",
-            text: "Staking Informations",
-            isActive: false,
-          },
-          {
-            number: "2",
-            title: "Send funds",
-            text: "Send funds",
-            isActive: false,
-          },
-          {
-            number: "3",
-            title: "You staked sucessfully",
-            text: "Confirmation",
-            isActive: true,
-          },
-        ]);
-      }, 2500);
+
+      setSteps([
+        {
+          number: "1",
+          title: "Stake your token : Informations",
+          text: "Staking Informations",
+          isActive: false,
+        },
+        {
+          number: "2",
+          title: "Send funds",
+          text: "Send funds",
+          isActive: false,
+        },
+        {
+          number: "3",
+          title: "You staked sucessfully",
+          text: "Confirmation",
+          isActive: true,
+        },
+      ]);
     }
   }, [isConfirmed]);
 
@@ -128,7 +131,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
     }
   }, [hash]);
 
-  const handleClick = () => {
+  const handleSendFund = () => {
     writeContract({
       abi: contractABI,
       address: contractAddress,
@@ -139,16 +142,34 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   return (
     <div>
       <div className="flex mx-auto flex-col p-10 mt-14 bg-white rounded-3xl border border-solid border-stone-300 max-w-[791px] max-md:px-5">
-        <div className="text-3xl font-semibold text-neutral-700 max-md:max-w-full">
+        <StackingLoadingModal
+          toggleStackingLoadingModal={toggleStackingLoadingModal}
+          setToggleStackingLoadingModal={setToggleStackingLoadingModal}
+          isConfirmed={isConfirmed}
+          error={error}
+        />
+        <div className="text-3xl mb-3 font-semibold text-neutral-700 max-md:max-w-full">
           Confirm Fund Transfer
         </div>
-        <p className=" text-lg mt-3">
-          Now, let’s secure your rewards! Please confirm the transfer of your
+        {/* <InfoText
+          bgColor="bg-surface-500"
+          text="Now, let’s secure your rewards! Please confirm the transfer of your
           tokens into the staking contract. This action will lock your tokens
           for one year, starting your earnings. Remember, withdrawing funds
           before the term ends may result in penalties. This transfer might take
-          a few moments.
-        </p>
+          a few moments."
+          Icon={<Info width={17} height={17} color="#000000" />}
+        /> */}
+
+        <InfoBox
+          text="Now, let’s secure your rewards! Please confirm the transfer of your
+         tokens into the staking contract. This action will lock your tokens
+         for one year, starting your earnings. Remember, withdrawing funds
+         before the term ends may result in penalties. This transfer might take
+         a few moments."
+          bgColor="bg-surface-500"
+        />
+
         <div className="mt-10 text-xl font-bold text-neutral-700 max-md:max-w-full">
           Your staking:
         </div>
@@ -180,9 +201,18 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
             ))}
           </div>
         </section>
+        <div className=" py-10">
+          <InfoBox
+            text="Remember, withdrawing funds before the term ends may result in penalties. This transfer might take a few moments."
+            bgColor="bg-warning-200"
+          />
+        </div>
         <button
-          className="justify-center self-center px-7 py-4 mt-10 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5"
-          onClick={handleClick}
+          className="justify-center self-center px-7 py-4 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5"
+          onClick={() => {
+            setToggleStackingLoadingModal(true);
+            handleSendFund();
+          }}
         >
           Send funds
         </button>
