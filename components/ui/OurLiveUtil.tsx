@@ -8,6 +8,8 @@ interface UtilityCardProps {
   imageUrl: string;
   index: number;
   activeIndex: number;
+  btnText: string;
+  link: string;
 }
 
 const IconButton: React.FC<{
@@ -37,6 +39,8 @@ const OurLiveUtil: React.FC = () => {
     imageUrl,
     index,
     activeIndex,
+    btnText,
+    link,
   }) => (
     <div
       ref={cardRef}
@@ -47,10 +51,10 @@ const OurLiveUtil: React.FC = () => {
       <div className="flex gap-5 justify-between font-semibold">
         <h3 className="text-2xl text-neutral-700">{title}</h3>
         <Link
-          href={"/learn-more"}
+          href={link}
           className="pb-1.5 cursor-pointer my-auto text-base text-neutral-700 border-b-2 border-black border-solid"
         >
-          Learn more
+          {btnText}
         </Link>
       </div>
       <p className="mt-6 text-lg font-medium text-neutral-500">{description}</p>
@@ -69,24 +73,32 @@ const OurLiveUtil: React.FC = () => {
       description:
         "Earn rewards by locking $ERA tokens in a secure contract, showing your commitment to the ecosystem.",
       imageUrl: "/images/placeholder.png",
+      btnText: "Learn more",
+      link: "/",
     },
     {
       title: "LP Farming",
       description:
         "Provide liquidity to the $ERA pool on Uniswap and lock it into our farming contract to earn $ERA.",
       imageUrl: "/images/placeholder.png",
+      btnText: "Learn more",
+      link: "/",
     },
     {
       title: "Earn",
       description:
         "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
       imageUrl: "/images/placeholder.png",
+      btnText: "Learn more",
+      link: "/",
     },
     {
-      title: "LP Farming 2",
+      title: "Governance",
       description:
-        "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
+        "Hold $ERA tokens and vote on key decisions including project funding, strategic directions, and community proposals. ",
       imageUrl: "/images/placeholder.png",
+      btnText: "Coming soon",
+      link: "/",
     },
   ];
 
