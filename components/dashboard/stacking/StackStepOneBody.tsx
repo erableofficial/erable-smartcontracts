@@ -35,15 +35,19 @@ type StackStepOneBodyProps = {
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
-  <div className="flex flex-col grow justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
-    <div className="flex gap-1 pr-5 text-lg">
-      <div>{title}</div>
-      <Info width={15} height={15} color="#000000" />
+  <div className="col-span-12 md:col-span-6 lg:col-span-3">
+    <div className="flex flex-col grow h-full justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
+      <div className="flex gap-1 pr-5 text-lg">
+        <div>{title}</div>
+        <div className="flex items-center">
+          <Info width={15} height={15} color="#000000" />
+        </div>
+      </div>
+      <div className="mt-1 text-base font-medium text-neutral-500">
+        {description}
+      </div>
+      <div className="mt-6 text-4xl">{value}</div>
     </div>
-    <div className="mt-1 text-base font-medium text-neutral-500">
-      {description}
-    </div>
-    <div className="mt-6 text-4xl">{value}</div>
   </div>
 );
 
@@ -187,18 +191,19 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
             </div>
           </div>
           <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-            <div className="flex gap-1.5">
-              <div className="text-5xl font-semibold">
+            <div className="flex gap-1.5 max-w-[40%]">
+              <div className="flex text-5xl font-semibold">
                 <input
-                  className={`text-5xl font-semibold outline-none max-w-[30%] overflow-auto `}
+                  className={`text-5xl font-semibold outline-none w-[80%] overflow-auto `}
                   value={amount}
                   onChange={(e) => setAmount(Number(e.target.value))}
                 />
+                <div className="my-auto text-xl font-bold">$ERA</div>
               </div>
-              <div className="my-auto text-xl font-bold">$ERA</div>
             </div>
-
-            <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
+            <div className="flex items-center">
+              <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
+            </div>
             <div className="flex gap-1.5">
               <div className="text-5xl font-semibold">={amount}</div>
               <div className="my-auto text-xl font-bold">$ERA</div>
@@ -214,14 +219,14 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
                 Your Balance :{" "}
                 {myBalance ? formatEther(myBalance).toString() : "0"} $ERA
               </div>
-              <button
+              <div
                 className="justify-center py-1 cursor-pointer font-semibold text-neutral-700 border-b-2 border-black border-solid"
                 onClick={() => {
                   setAmount(Number(formatEther(myBalance)));
                 }}
               >
                 Stake Max
-              </button>
+              </div>
             </div>
             <div className="my-auto font-medium text-neutral-700">
               Projected Earning After 1 Year
