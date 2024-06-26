@@ -108,7 +108,7 @@ const Stacking: React.FC = () => {
   ];
 
   return (
-    <div className=" relative flex pb-20 pt-20 bg-neutral-50 flex-col px-20 max-md:px-5">
+    <div className=" relative flex pb-20 pt-20 bg-neutral-50 flex-col px-20 max-md:px-5 max-md:pt-7">
       <StackingStepsHeader steps={steps} />
       {showSignModal && <SignLoadingModal />}
       {steps[0].isActive && (

@@ -35,7 +35,7 @@ type StackStepOneBodyProps = {
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
   <div className="col-span-12 md:col-span-6 lg:col-span-3">
-    <div className="flex flex-col grow justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
+    <div className="flex flex-col grow h-full justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
       <div className="flex gap-1 pr-5 text-lg">
         <div>{title}</div>
         <div className="flex items-center">
@@ -159,7 +159,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   return (
     <>
       {/* info cards section */}
-      <div className="mx-2.5 mt-14 max-md:mt-10 max-md:max-w-full">
+      <div className="mx-2.5 mt-14 max-md:mt-10 max-md:mb-6 max max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1">
             {infoCards.map((card, index) => (
