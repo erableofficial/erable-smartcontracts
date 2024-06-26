@@ -34,15 +34,19 @@ type StackStepOneBodyProps = {
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
-  <div className="flex flex-col grow justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
-    <div className="flex gap-1 pr-5 text-lg">
-      <div>{title}</div>
-      <Info width={15} height={15} color="#000000" />
+  <div className="col-span-12 md:col-span-6 lg:col-span-3">
+    <div className="flex flex-col grow justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
+      <div className="flex gap-1 pr-5 text-lg">
+        <div>{title}</div>
+        <div className="flex items-center">
+          <Info width={15} height={15} color="#000000" />
+        </div>
+      </div>
+      <div className="mt-1 text-base font-medium text-neutral-500">
+        {description}
+      </div>
+      <div className="mt-6 text-4xl">{value}</div>
     </div>
-    <div className="mt-1 text-base font-medium text-neutral-500">
-      {description}
-    </div>
-    <div className="mt-6 text-4xl">{value}</div>
   </div>
 );
 
@@ -157,14 +161,13 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
       {/* info cards section */}
       <div className="mx-2.5 mt-14 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          {infoCards.map((card, index) => (
-            <div
-              key={index}
-              className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full"
-            >
-              <InfoCard {...card} />
-            </div>
-          ))}
+          <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1">
+            {infoCards.map((card, index) => (
+              <React.Fragment key={index}>
+                <InfoCard {...card} />
+              </React.Fragment>
+            ))}
+          </div>
         </div>
       </div>
       {/* end info cards section */}
