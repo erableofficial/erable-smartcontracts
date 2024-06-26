@@ -9,7 +9,6 @@ import {
 } from "../../../lib/blockchain-config";
 import { toast } from "react-toastify";
 import CustomToast from "../CustomToast";
-import SignLoadingModal from "../SignLoadingModal";
 import Tooltip from "../Tooltip";
 import AuthorizeStackingModal from "../AuthorizeStackingModal";
 
@@ -169,25 +168,31 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     });
   };
 
-  if (showSignModal) {
-    return <SignLoadingModal />;
-  } else {
-    return (
-      <>
-        {/* info cards section */}
-        <div className="mx-2.5 mt-14 max-md:mt-10 max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-            {infoCards.map((card, index) => (
-              <div
-                key={index}
-                className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full"
-              >
-                <InfoCard {...card} />
-              </div>
-            ))}
-          </div>
+  return (
+    <>
+      <AuthorizeStackingModal
+        toggleAuthorizeStackingModal={toggleAuthorizeStackingModal}
+        setToggleAuthorizeStackingModal={setToggleAuthorizeStackingModal}
+        handleApprove={handleApproveStacking}
+        isConfirmed={isConfirmed}
+        isConfirming={isConfirming}
+        hash={hash}
+      />
+
+      {/* info cards section */}
+      <div className="mx-2.5 mt-14 max-md:mt-10 max-md:max-w-full">
+        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+          {infoCards.map((card, index) => (
+            <div
+              key={index}
+              className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full"
+            >
+              <InfoCard {...card} />
+            </div>
+          ))}
         </div>
-        {/* end info cards section */}
+      </div>
+      {/* end info cards section */}
 
       <div className="flex flex-col p-6 mx-2.5 mt-5 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
         <div className="flex gap-5 justify-between font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
@@ -265,5 +270,4 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     </>
   );
 };
-
 export default StackStepOneBody;
