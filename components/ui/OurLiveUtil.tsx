@@ -46,7 +46,7 @@ const OurLiveUtil: React.FC = () => {
       ref={cardRef}
       className={`flex flex-col p-6 ${
         index === activeIndex ? "bg-surface-500" : "bg-white"
-      } rounded-2xl border border-solid border-stone-300  max-sm:min-w-full min-w-[45%] max-md:px-5`}
+      } rounded-2xl border border-solid border-stone-300  max-xl:min-w-full min-w-[45%] max-md:px-5`}
     >
       <div className="flex gap-5 justify-between font-semibold">
         <h3 className="text-2xl text-neutral-700">{title}</h3>
