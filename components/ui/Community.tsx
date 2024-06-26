@@ -100,7 +100,7 @@ const Community: React.FC = () => {
           </div>
         </div>
         <div className="flex gap-5 justify-center self-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
-          <button className="primary-button ">Join now</button>
+          <button className="primary-button ">Join Us on Discord</button>
           {/* <button className="secondary-button">Our Community Manifesto</button> */}
         </div>
       </div>
