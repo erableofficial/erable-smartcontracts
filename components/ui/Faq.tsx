@@ -93,7 +93,7 @@ const Faq: React.FC = () => {
           <div className="flex flex-col px-5 text-5xl font-extrabold text-neutral-700 leading-[3.3rem] max-md:mt-10 max-md:text-4xl">
             <h1 className="max-md:text-4xl">
               Frequently
-              <div className="justify-center px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-md:text-4xl">
+              <div className="justify-center font-friends px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-md:text-4xl">
                 Asked Questions:
               </div>
             </h1>
