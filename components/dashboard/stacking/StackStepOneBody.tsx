@@ -9,6 +9,7 @@ import {
 } from "../../../lib/blockchain-config";
 import { toast } from "react-toastify";
 import CustomToast from "../CustomToast";
+import SignLoadingModal from "../SignLoadingModal";
 
 type InfoCardProps = {
   title: string;
@@ -53,6 +54,8 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   setAmount,
   myBalance,
 }) => {
+  const [showSignModal, setShowSignModal] = React.useState(false);
+
   const { writeContract, data: hash, error, isPending } = useWriteContract();
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
@@ -73,8 +76,10 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           icon: <Check width={21} height={21} size={32} color="#21725E" />,
         }
       );
-      // wait for 2.5 second before setting the steps
+      // wait for 1.5 second before setting the steps
+      // remove setTimeout when deploying to production
       setTimeout(() => {
+        setShowSignModal(false);
         setSteps([
           {
             number: "1",
@@ -138,8 +143,10 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           // autoClose: 5000000,
           theme: "colored",
           icon: <Info width={21} height={21} size={32} color="#0000" />,
+          autoClose: 2000,
         }
       );
+      setShowSignModal(true);
     }
   }, [hash]);
 
@@ -152,97 +159,102 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     });
   };
 
-  return (
-    <>
-      {/* info cards section */}
-      <div className="mx-2.5 mt-14 max-md:mt-10 max-md:max-w-full">
-        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          {infoCards.map((card, index) => (
-            <div
-              key={index}
-              className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full"
-            >
-              <InfoCard {...card} />
-            </div>
-          ))}
+  if (showSignModal) {
+    return <SignLoadingModal />;
+  } else {
+    return (
+      <>
+        {/* info cards section */}
+        <div className="mx-2.5 mt-14 max-md:mt-10 max-md:max-w-full">
+          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+            {infoCards.map((card, index) => (
+              <div
+                key={index}
+                className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full"
+              >
+                <InfoCard {...card} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      {/* end info cards section */}
+        {/* end info cards section */}
 
-      <div className="flex flex-col p-6 mx-2.5 mt-5 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
-        <div className="flex gap-5 justify-between font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
-          <div className="my-auto text-lg">Enter Amount to Stake:</div>
-          <div className="justify-center px-4 py-2 text-base bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-            Total staked + rewards:
-          </div>
-        </div>
-        <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
-          <div className="flex gap-1.5">
-            <div className="text-5xl font-semibold">
-              <input
-                className={`text-5xl font-semibold outline-none max-w-[30%] overflow-auto `}
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
-              />
+        <div className="flex flex-col p-6 mx-2.5 mt-5 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
+          <div className="flex gap-5 justify-between font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
+            <div className="my-auto text-lg">Enter Amount to Stake:</div>
+            <div className="justify-center px-4 py-2 text-base bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+              Total staked + rewards:
             </div>
-            <div className="my-auto text-xl font-bold">$ERA</div>
           </div>
+          <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
+            <div className="flex gap-1.5">
+              <div className="text-5xl font-semibold">
+                <input
+                  className={`text-5xl font-semibold outline-none max-w-[30%] overflow-auto `}
+                  value={amount}
+                  onChange={(e) => setAmount(Number(e.target.value))}
+                />
+              </div>
+              <div className="my-auto text-xl font-bold">$ERA</div>
+            </div>
 
-          <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
-          <div className="flex gap-1.5">
-            <div className="text-5xl font-semibold">={amount}</div>
-            <div className="my-auto text-xl font-bold">$ERA</div>
+            <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
+            <div className="flex gap-1.5">
+              <div className="text-5xl font-semibold">={amount}</div>
+              <div className="my-auto text-xl font-bold">$ERA</div>
+            </div>
           </div>
-        </div>
-        <div className="flex gap-5 justify-between text-base font-medium whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:max-w-full">
-          <div>=$250.000</div>
-          <div>=$250.000</div>
-        </div>
-        <div className="flex gap-5 justify-between mt-6 w-full text-lg max-md:flex-wrap max-md:max-w-full">
-          <div className="flex gap-3 pr-20 max-md:flex-wrap">
+          <div className="flex gap-5 justify-between text-base font-medium whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:max-w-full">
+            <div>=$250.000</div>
+            <div>=$250.000</div>
+          </div>
+          <div className="flex gap-5 justify-between mt-6 w-full text-lg max-md:flex-wrap max-md:max-w-full">
+            <div className="flex gap-3 pr-20 max-md:flex-wrap">
+              <div className="my-auto font-medium text-neutral-700">
+                Your Balance :{" "}
+                {myBalance ? formatEther(myBalance).toString() : "0"} $ERA
+              </div>
+              <button
+                className="justify-center py-1 cursor-pointer font-semibold text-neutral-700 border-b-2 border-black border-solid"
+                onClick={() => {
+                  setAmount(Number(formatEther(myBalance)));
+                }}
+              >
+                Stake Max
+              </button>
+            </div>
             <div className="my-auto font-medium text-neutral-700">
-              Your Balance :{" "}
-              {myBalance ? formatEther(myBalance).toString() : "0"} $ERA
+              Projected Earning After 1 Year
             </div>
-            <button
-              className="justify-center py-1 cursor-pointer font-semibold text-neutral-700 border-b-2 border-black border-solid"
-              onClick={() => {
-                setAmount(Number(formatEther(myBalance)));
-              }}
-            >
-              Stake Max
-            </button>
-          </div>
-          <div className="my-auto font-medium text-neutral-700">
-            Projected Earning After 1 Year
           </div>
         </div>
-      </div>
-      <div className="flex flex-col p-5 mx-2.5 mt-5 bg-white rounded-xl border-2 border-orange-200 border-solid max-md:max-w-full">
-        <div className="flex gap-3.5 max-md:flex-wrap">
-          <div className="flex justify-center items-center p-2 bg-orange-200 h-[35px] rounded-[29.167px] w-[35px]">
-            <TriangleAlert width={18} height={18} color="#000000" />
+        <div className="flex flex-col p-5 mx-2.5 mt-5 bg-white rounded-xl border-2 border-orange-200 border-solid max-md:max-w-full">
+          <div className="flex gap-3.5 max-md:flex-wrap">
+            <div className="flex justify-center items-center p-2 bg-orange-200 h-[35px] rounded-[29.167px] w-[35px]">
+              <TriangleAlert width={18} height={18} color="#000000" />
+            </div>
+            <h2 className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
+              More Information on Early Unstaking
+            </h2>
           </div>
-          <h2 className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
-            More Information on Early Unstaking
-          </h2>
+          <p className="text-base font-medium text-neutral-700 max-md:max-w-full">
+            The longer you stake your tokens, the more rewards you earn.
+            However, withdrawing your stake early will result in penalties on
+            your accrued rewards. Additionally, please note that there is a
+            7-day cooldown period before you can fully withdraw your staked
+            tokens. Read our full article on staking rewards and penalties for a
+            detailed explanation.
+          </p>
         </div>
-        <p className="text-base font-medium text-neutral-700 max-md:max-w-full">
-          The longer you stake your tokens, the more rewards you earn. However,
-          withdrawing your stake early will result in penalties on your accrued
-          rewards. Additionally, please note that there is a 7-day cooldown
-          period before you can fully withdraw your staked tokens. Read our full
-          article on staking rewards and penalties for a detailed explanation.
-        </p>
-      </div>
-      <button
-        className="primary-button justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
-        onClick={handleClick}
-      >
-        Approve {amount} $ERA
-      </button>
-    </>
-  );
+        <button
+          className="primary-button justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
+          onClick={handleClick}
+        >
+          Approve {amount} $ERA
+        </button>
+      </>
+    );
+  }
 };
 
 export default StackStepOneBody;

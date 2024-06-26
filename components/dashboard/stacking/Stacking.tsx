@@ -35,31 +35,8 @@ const Stacking: React.FC = () => {
       isActive: false,
     },
   ]);
-  const [showSignModal, setShowSignModal] = React.useState(false);
   const [showStackingModal, setShowStackingModal] = React.useState(false);
-  const [amount, setAmount] = React.useState(50);
-
-  React.useEffect(() => {
-    const step2 = steps.find((step) => step.number == "2");
-    const step3 = steps.find((step) => step.number == "3");
-    if (step2 && step2.isActive) {
-      setShowSignModal(true);
-      console.log("showSignModal", showSignModal);
-      setTimeout(() => {
-        setShowSignModal(false);
-        console.log("showSignModal", showSignModal);
-      }, 5000);
-    }
-
-    if (step3 && step3.isActive) {
-      setShowStackingModal(true);
-      console.log("showStackingModal", showStackingModal);
-      setTimeout(() => {
-        setShowStackingModal(false);
-        console.log("showStackingModal", showStackingModal);
-      }, 2000);
-    }
-  }, [steps]);
+  const [amount, setAmount] = React.useState(2);
 
   const { address: currentAddress } = useAccount();
 
@@ -110,7 +87,8 @@ const Stacking: React.FC = () => {
   return (
     <div className=" relative flex pb-20 pt-20 bg-neutral-50 flex-col px-20 max-md:px-5">
       <StackingStepsHeader steps={steps} />
-      {showSignModal && <SignLoadingModal />}
+      {/* {showSignModal && <SignLoadingModal />} */}
+      {showStackingModal && <StackingLoadingModal />}
       {steps[0].isActive && (
         <StackStepOneBody
           infoCards={infoCards}
@@ -120,8 +98,7 @@ const Stacking: React.FC = () => {
           myBalance={myBalance as bigint}
         />
       )}
-      {showStackingModal && <StackingLoadingModal />}
-      {steps[1].isActive && showSignModal == false && (
+      {steps[1].isActive && (
         <StackStepTwoBody
           setSteps={setSteps}
           infoCards={infoCards}
@@ -129,7 +106,7 @@ const Stacking: React.FC = () => {
         />
       )}
 
-      {steps[2].isActive && showStackingModal == false && (
+      {steps[2].isActive && (
         <StackStepThreeBody
           currentAddress={currentAddress}
           stakingDuration={stakedDuration as bigint}
