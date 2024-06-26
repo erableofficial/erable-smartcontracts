@@ -144,7 +144,7 @@ const OurPartners: React.FC = () => {
         data-sal-duration="1000"
       >
         <div className="justify-center self-end px-2.5 text-5xl font-extrabold bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem]">
-          Our partners
+          Our Partners
         </div>
         <p className="mt-6 self-end justify-center text-lg font-medium w-[55%]">
           Lorem ipsum dolor sit amet consectetur. Iaculis dictumst commodo massa
