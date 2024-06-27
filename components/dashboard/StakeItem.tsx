@@ -33,12 +33,6 @@ const StakeItem: React.FC<StakeItemProps> = ({
     args: [stake.amount, BigInt(stake.startTime / 1000)],
   });
 
-  console.log("Stake ID: ", stake.id);
-
-  console.log("Reward Amount: ", rewardAmount);
-
-  console.log("Stake Amount : ", stake.amount);
-
   const currentRewards: bigint = rewardAmount
     ? BigInt(rewardAmount.toString()) - BigInt(stake.amount)
     : BigInt(0);
@@ -81,10 +75,8 @@ const StakeItem: React.FC<StakeItemProps> = ({
     if (writeError) {
       toast.error(
         <CustomToast
-          title="Something went wrong"
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title={writeError.name || "Something went wrong"}
+          message={writeError.message}
         />,
         {
           // icon: <Info />,
@@ -128,15 +120,6 @@ const StakeItem: React.FC<StakeItemProps> = ({
       args: [stakeId],
     });
   };
-
-  //   const handleActionClick = (
-  //     action: string,
-  //     daysLeft: string | null | undefined
-  //   ) => {
-  //     if (action === "Claim" && daysLeft == null) {
-  //       setToggleWithdrawTokenCdModalModal(true);
-  //     }
-  //   };
 
   return (
     <React.Fragment>

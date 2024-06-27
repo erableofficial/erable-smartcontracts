@@ -109,7 +109,10 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
     if (error) {
       setToggleStackingLoadingModal(false);
       toast.error(
-        <CustomToast title="Something went wrong" message={error.message} />,
+        <CustomToast
+          title={error.name || "Something went wrong"}
+          message={error.message}
+        />,
         {
           theme: "colored",
           icon: (

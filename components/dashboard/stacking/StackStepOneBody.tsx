@@ -118,7 +118,10 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   React.useEffect(() => {
     if (error) {
       toast.error(
-        <CustomToast title="Something went wrong" message={error.message} />,
+        <CustomToast
+          title={error.name || "Something went wrong"}
+          message={error.message}
+        />,
         {
           // icon: <Info />,
           // autoClose: 5000000,

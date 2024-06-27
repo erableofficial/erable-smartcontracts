@@ -44,6 +44,10 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
         }
       );
       setToggleWithdrawTokenCdModalModal(false);
+      // refresh page after transaction
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
   }, [isConfirmed]);
 
@@ -52,10 +56,8 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
     if (writeError) {
       toast.error(
         <CustomToast
-          title="Something went wrong"
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title={writeError.name || "Something went wrong"}
+          message={writeError.message}
         />,
         {
           // icon: <Info />,
