@@ -156,3 +156,32 @@ h2 {
 .Toastify__toast-body {
   align-items: flex-start !important;
 }
+.hover-effect:hover button .icon-chevron-down {
+  stroke-width: 4px !important;
+}
+
+.hover-effect:hover button span {
+  font-weight: 600 !important;
+}
+
+.hover-effect {
+  position: relative;
+}
+
+.hover-effect .dropdown-content {
+  opacity: 0;
+  transform: translateY(-10px);
+  display: block;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hover-effect:hover .dropdown-content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+li.hover-effect:hover .icon-chevron-down {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease; /* Smooth transition */
+}
