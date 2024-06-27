@@ -127,7 +127,7 @@ const OurPartners: React.FC = () => {
           <PartnerLogosRow logos={logos1} />
         </div>
         <div
-          className="flex gap-5 justify-between self-center mt-3.5"
+          className="flex gap-5 justify-between self-center mt-3.5 max-lg:w-[70%] max-sm:w-[80%] "
           data-sal-delay="200"
           data-sal="slide-up"
           data-sal-duration="1000"
@@ -145,7 +145,7 @@ const OurPartners: React.FC = () => {
           <PartnerLogosRow logos={logos3} />
         </div>
         <div
-          className="flex gap-5 justify-between self-center mt-3.5"
+          className="flex gap-5 justify-between self-center mt-3.5 max-lg:w-[70%] max-sm:w-[80%]"
           data-sal-delay="400"
           data-sal="slide-up"
           data-sal-duration="1000"
