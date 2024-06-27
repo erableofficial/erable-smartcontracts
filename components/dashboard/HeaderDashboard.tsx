@@ -69,14 +69,14 @@ export default function Header() {
                 </div>
               </div>
             </li>
-            {/* <li className="min-w-[94px]">
+            <li className="min-w-[94px]">
               <Link
                 className="text-lg font-medium hover:font-semibold"
                 href="/dashboard"
               >
                 Dashboard
               </Link>
-            </li> */}
+            </li>
             <li>
               <ConnectWalletButton
                 text="Connect Wallet"

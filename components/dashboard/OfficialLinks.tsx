@@ -28,10 +28,7 @@ const LinkSection: React.FC<LinkSectionProps> = ({ title, links }) => (
   </section>
 );
 
-interface OfficialLinksProps {
-  title: string;
-  iconSrc: string;
-}
+interface OfficialLinksProps {}
 
 const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
   const [isOpen, setIsOpen] = React.useState(false);
