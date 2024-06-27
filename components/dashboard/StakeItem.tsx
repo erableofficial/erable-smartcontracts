@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import CustomToast from "./CustomToast";
 import { formatEther } from "viem";
 import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
+import Tooltip from "./Tooltip";
 
 interface StakeItemProps {
   stake: TabItem;
@@ -150,7 +151,17 @@ const StakeItem: React.FC<StakeItemProps> = ({
           {stake.daysLeft && (
             <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
               <div>{stake.daysLeft}</div>
-              <Info width={15} height={15} color="#7C7C7C" />
+              <Tooltip
+                message="You are currently in the process of unstaking your tokens. During this cooldown period, your tokens are being prepared for withdrawal. 
+Once this period ends, you can return to the platform to claim your tokens and any associated rewards."
+              >
+                <Info
+                  width={15}
+                  height={15}
+                  color="#7C7C7C"
+                  cursor={"pointer"}
+                />
+              </Tooltip>
             </div>
           )}
           <button
@@ -172,6 +183,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
                 ? "border-stone-300 text-stone-300"
                 : "border-black text-black"
             }`}
+            disabled={stake.action === "Claim" && stake.daysLeft != null}
           >
             {stake.action}
           </button>
