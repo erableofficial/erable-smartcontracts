@@ -92,15 +92,22 @@ export interface StakingInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "calculateTax",
-    values: [BigNumberish]
+    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "calculateTotalWithdraw",
-    values: [BigNumberish, BigNumberish]
+    values: [
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      BigNumberish
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "calculateYield",
-    values: [BigNumberish]
+    values: [BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "claim", values: [BigNumberish]): string;
   encodeFunctionData(
@@ -127,11 +134,15 @@ export interface StakingInterface extends Interface {
     functionFragment: "initialize",
     values: [
       AddressLike,
+      AddressLike,
       BigNumberish,
       BigNumberish,
       BigNumberish,
       BigNumberish,
-      BigNumberish
+      BigNumberish,
+      BigNumberish,
+      BigNumberish,
+      boolean
     ]
   ): string;
   encodeFunctionData(functionFragment: "maxCap", values?: undefined): string;
@@ -570,19 +581,31 @@ export interface Staking extends BaseContract {
   >;
 
   calculateTax: TypedContractMethod<
-    [timeStaked: BigNumberish],
+    [
+      timeStaked: BigNumberish,
+      _monthlyIncreasePercentage: BigNumberish,
+      _startingSlashingPoint: BigNumberish,
+      _stakingDuration: BigNumberish
+    ],
     [bigint],
     "view"
   >;
 
   calculateTotalWithdraw: TypedContractMethod<
-    [_amount: BigNumberish, timeStaked: BigNumberish],
+    [
+      _amount: BigNumberish,
+      timeStaked: BigNumberish,
+      _yieldConstant: BigNumberish,
+      _monthlyIncreasePercentage: BigNumberish,
+      _startingSlashingPoint: BigNumberish,
+      _stakingDuration: BigNumberish
+    ],
     [bigint],
     "view"
   >;
 
   calculateYield: TypedContractMethod<
-    [timeStaked: BigNumberish],
+    [timeStaked: BigNumberish, _yieldConstant: BigNumberish],
     [bigint],
     "view"
   >;
@@ -609,12 +632,16 @@ export interface Staking extends BaseContract {
 
   initialize: TypedContractMethod<
     [
+      _owner: AddressLike,
       _stakingToken: AddressLike,
       _stakingDuration: BigNumberish,
       _yieldConstant: BigNumberish,
       _cooldownPeriod: BigNumberish,
       _startingSlashingPoint: BigNumberish,
-      _monthlyIncreasePercentage: BigNumberish
+      _monthlyIncreasePercentage: BigNumberish,
+      _minCap: BigNumberish,
+      _maxCap: BigNumberish,
+      _whitelistEnabled: boolean
     ],
     [void],
     "nonpayable"
@@ -713,11 +740,15 @@ export interface Staking extends BaseContract {
   userStakes: TypedContractMethod<
     [arg0: AddressLike, arg1: BigNumberish],
     [
-      [bigint, bigint, bigint, boolean] & {
+      [bigint, bigint, bigint, boolean, bigint, bigint, bigint, bigint] & {
         amount: bigint;
         startTime: bigint;
         requestUnstakeTime: bigint;
         unstakeRequested: boolean;
+        yieldConstant: bigint;
+        monthlyIncreasePercentage: bigint;
+        startingSlashingPoint: bigint;
+        stakingDuration: bigint;
       }
     ],
     "view"
@@ -748,17 +779,37 @@ export interface Staking extends BaseContract {
   ): TypedContractMethod<[_address: AddressLike], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "calculateTax"
-  ): TypedContractMethod<[timeStaked: BigNumberish], [bigint], "view">;
+  ): TypedContractMethod<
+    [
+      timeStaked: BigNumberish,
+      _monthlyIncreasePercentage: BigNumberish,
+      _startingSlashingPoint: BigNumberish,
+      _stakingDuration: BigNumberish
+    ],
+    [bigint],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "calculateTotalWithdraw"
   ): TypedContractMethod<
-    [_amount: BigNumberish, timeStaked: BigNumberish],
+    [
+      _amount: BigNumberish,
+      timeStaked: BigNumberish,
+      _yieldConstant: BigNumberish,
+      _monthlyIncreasePercentage: BigNumberish,
+      _startingSlashingPoint: BigNumberish,
+      _stakingDuration: BigNumberish
+    ],
     [bigint],
     "view"
   >;
   getFunction(
     nameOrSignature: "calculateYield"
-  ): TypedContractMethod<[timeStaked: BigNumberish], [bigint], "view">;
+  ): TypedContractMethod<
+    [timeStaked: BigNumberish, _yieldConstant: BigNumberish],
+    [bigint],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "claim"
   ): TypedContractMethod<[stakeId: BigNumberish], [void], "nonpayable">;
@@ -781,12 +832,16 @@ export interface Staking extends BaseContract {
     nameOrSignature: "initialize"
   ): TypedContractMethod<
     [
+      _owner: AddressLike,
       _stakingToken: AddressLike,
       _stakingDuration: BigNumberish,
       _yieldConstant: BigNumberish,
       _cooldownPeriod: BigNumberish,
       _startingSlashingPoint: BigNumberish,
-      _monthlyIncreasePercentage: BigNumberish
+      _monthlyIncreasePercentage: BigNumberish,
+      _minCap: BigNumberish,
+      _maxCap: BigNumberish,
+      _whitelistEnabled: boolean
     ],
     [void],
     "nonpayable"
@@ -889,11 +944,15 @@ export interface Staking extends BaseContract {
   ): TypedContractMethod<
     [arg0: AddressLike, arg1: BigNumberish],
     [
-      [bigint, bigint, bigint, boolean] & {
+      [bigint, bigint, bigint, boolean, bigint, bigint, bigint, bigint] & {
         amount: bigint;
         startTime: bigint;
         requestUnstakeTime: bigint;
         unstakeRequested: boolean;
+        yieldConstant: bigint;
+        monthlyIncreasePercentage: bigint;
+        startingSlashingPoint: bigint;
+        stakingDuration: bigint;
       }
     ],
     "view"
