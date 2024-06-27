@@ -2,7 +2,33 @@ import { Minus, Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-type OfficialLinksProps = {};
+interface LinkSectionProps {
+  title: string;
+  links: Array<{ label: string; url: string }>;
+}
+
+const LinkSection: React.FC<LinkSectionProps> = ({ title, links }) => (
+  <section>
+    <div className="text-lg font-bold tracking-wide leading-7 text-stone-900">
+      {title}
+    </div>
+    <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
+      {links.map((link, index) => (
+        <li key={index}>
+          <a
+            href={link.url === "NO LINK" ? "# " : link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+);
+
+interface OfficialLinksProps {}
 
 const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -18,8 +44,49 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
         : "0";
     }
   }, [isOpen]);
+
+  const linkSections = [
+    {
+      title: "",
+      links: [
+        { label: "Website", url: "https://www.erable.com/" },
+        { label: "Whitepaper", url: "NO LINK" },
+        { label: "Github", url: "NO LINK" },
+      ],
+    },
+    {
+      title: "$ERA INFOS",
+      links: [
+        { label: "ERC20 contract on PolygonScan", url: "NO LINK" },
+        { label: "$ERA on CoinMarketCap", url: "NO LINK" },
+        { label: "$ERA on CoinGecko", url: "NO LINK" },
+      ],
+    },
+    {
+      title: "IMPACT FUNDING PLATFORMS",
+      links: [
+        { label: "era°app", url: "https://app.erable.com/" },
+        { label: "WE DO GOOD", url: "https://wedogood.co/" },
+        { label: "Keenest", url: "https://www.keenest.co/" },
+      ],
+    },
+    {
+      title: "SOCIAL MEDIA",
+      links: [
+        { label: "Discord", url: "PLACEHOLDER" },
+        { label: "Twitter", url: "https://twitter.com/erableofficial" },
+        { label: "LinkedIn", url: "https://www.linkedin.com/company/erable/" },
+        { label: "YouTube", url: "https://www.youtube.com/@erableofficial" },
+        { label: "Medium", url: "https://erableofficial.medium.com/" },
+        { label: "Newsletter", url: "https://urlz.fr/o1BO" },
+      ],
+    },
+  ];
   return (
-    <div className="flex flex-col justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full">
+    <div
+      className="flex flex-col cursor-pointer justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full"
+      onClick={toggleOpen}
+    >
       <div className="flex flex-col  justify-between max-md:flex-wrap max-md:max-w-full">
         <div className="flex justify-between">
           <div className="my-auto text-2xl font-semibold text-neutral-700 max-md:max-w-full">
@@ -39,24 +106,15 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
           className="overflow-hidden transition-max-height duration-500 ease-in-out"
           style={{ maxHeight: "0" }}
         >
-          <div className="mt-4 text-sm text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-
-          <div className="self-start pb-1.5 mt-6 text-lg font-semibold text-neutral-700 ">
-            <Link
-              href=""
-              className="pb-1.5 mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
-            >
-              Read more
-            </Link>
-          </div>
+          <main className="mt-6 max-md:max-w-full">
+            {linkSections.map((section, index) => (
+              <LinkSection
+                key={index}
+                title={section.title}
+                links={section.links}
+              />
+            ))}
+          </main>
         </div>
       </div>
     </div>
