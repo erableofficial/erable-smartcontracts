@@ -16,12 +16,14 @@ interface StakeItemProps {
   stake: TabItem;
   index: number;
   itemsCounter: number;
+  setTransactionSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const StakeItem: React.FC<StakeItemProps> = ({
   stake,
   index,
   itemsCounter,
+  setTransactionSuccess,
 }) => {
   const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
     React.useState(false);
@@ -63,10 +65,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
           icon: <Check width={21} height={21} size={32} color="#21725E" />,
         }
       );
-      // make optimitic refresh
-      setTimeout(() => {
-        window.location.reload();
-      }, 2500);
+      setTransactionSuccess(true);
     }
   }, [isConfirmed]);
 
@@ -112,7 +111,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
     }
   }, [hash]);
 
-  const handleClaim = async (stakeId: number) => {
+  const handleClaim = (stakeId: number) => {
     writeContract({
       abi: contractABI,
       address: contractAddress,
@@ -127,6 +126,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
         toggleWithdrawTokenCdModalModal={toggleWithdrawTokenCdModalModal}
         setToggleWithdrawTokenCdModalModal={setToggleWithdrawTokenCdModalModal}
         stake={stake}
+        setTransactionSuccess={setTransactionSuccess}
       />
       <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
         <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">

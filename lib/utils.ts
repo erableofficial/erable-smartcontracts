@@ -1,3 +1,9 @@
+import { readContract } from "@wagmi/core";
+import { Address } from "viem";
+import { config } from "./wagmi/config";
+import { contractABI, contractAddress } from "./blockchain-config";
+import { StakeInfo } from "./types";
+
 export function approximateTime(seconds: number): string {
   const minute = 60;
   const hour = minute * 60;
@@ -15,4 +21,18 @@ export function approximateTime(seconds: number): string {
   } else {
     return `${Math.round(seconds / year)} years`;
   }
+}
+
+export async function getUserStakes(
+  userAddress: Address | undefined
+): Promise<Array<StakeInfo>> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "getUserStakes",
+    args: [userAddress],
+  });
+
+  console.log("Result From getUserStakes: ", result);
+  return result as StakeInfo[];
 }

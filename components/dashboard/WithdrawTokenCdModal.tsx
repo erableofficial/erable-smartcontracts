@@ -10,12 +10,14 @@ interface WithdrawTokenCdModalModal {
   toggleWithdrawTokenCdModalModal: boolean;
   setToggleWithdrawTokenCdModalModal: (value: boolean) => void;
   stake: TabItem;
+  setTransactionSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
   toggleWithdrawTokenCdModalModal,
   setToggleWithdrawTokenCdModalModal,
   stake,
+  setTransactionSuccess,
 }) => {
   const {
     writeContract,
@@ -45,9 +47,7 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
       );
       setToggleWithdrawTokenCdModalModal(false);
       // refresh page after transaction
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      setTransactionSuccess(true);
     }
   }, [isConfirmed]);
 
