@@ -1,8 +1,13 @@
 import { ArrowLeftRight, Check, Info, TriangleAlert } from "lucide-react";
 import React from "react";
 import { formatEther, parseEther } from "viem";
-import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import {
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
+import {
+  contractABI,
   contractAddress,
   stakingTokenABI,
   stakingTokenAddress,
@@ -11,6 +16,7 @@ import { toast } from "react-toastify";
 import CustomToast from "../CustomToast";
 import Tooltip from "../Tooltip";
 import AuthorizeStackingModal from "../AuthorizeStackingModal";
+import EstimatedWithdrawTokens from "./EstimatedWithdrawTokens";
 
 type InfoCardProps = {
   title: string;
@@ -33,6 +39,7 @@ type StackStepOneBodyProps = {
   amount: number;
   setAmount: React.Dispatch<React.SetStateAction<number>>;
   myBalance: bigint;
+  stakingDuration: bigint;
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
@@ -60,6 +67,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   amount,
   setAmount,
   myBalance,
+  stakingDuration,
 }) => {
   const { writeContract, data: hash, error, isPending } = useWriteContract();
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
@@ -83,29 +91,26 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           icon: <Check width={21} height={21} size={32} color="#21725E" />,
         }
       );
-      // wait for 2.5 second before setting the steps
-      setTimeout(() => {
-        setSteps([
-          {
-            number: "1",
-            title: "Stake your token : Informations",
-            text: "Staking Informations",
-            isActive: false,
-          },
-          {
-            number: "2",
-            title: "Send funds",
-            text: "Send funds",
-            isActive: true,
-          },
-          {
-            number: "3",
-            title: "You staked sucessfully",
-            text: "Confirmation",
-            isActive: false,
-          },
-        ]);
-      }, 2500);
+      setSteps([
+        {
+          number: "1",
+          title: "Stake your token : Informations",
+          text: "Staking Informations",
+          isActive: false,
+        },
+        {
+          number: "2",
+          title: "Send funds",
+          text: "Send funds",
+          isActive: true,
+        },
+        {
+          number: "3",
+          title: "You staked sucessfully",
+          text: "Confirmation",
+          isActive: false,
+        },
+      ]);
     }
   }, [isConfirmed]);
 
@@ -113,12 +118,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   React.useEffect(() => {
     if (error) {
       toast.error(
-        <CustomToast
-          title="Something went wrong"
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
-        />,
+        <CustomToast title="Something went wrong" message={error.message} />,
         {
           // icon: <Info />,
           // autoClose: 5000000,
@@ -129,6 +129,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         }
       );
       console.error(error);
+      console.error(error.cause);
     }
   }, [error]);
 
@@ -148,12 +149,13 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           // autoClose: 5000000,
           theme: "colored",
           icon: <Info width={21} height={21} size={32} color="#0000" />,
+          autoClose: 2000,
         }
       );
     }
   }, [hash]);
 
-  const handleApproveStacking = () => {
+  const handleApproveStacking = async () => {
     writeContract({
       abi: stakingTokenABI,
       address: stakingTokenAddress,
@@ -162,23 +164,33 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     });
   };
 
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const amountVal = Number(e.target.value);
+    setAmount(amountVal);
+  };
+
   return (
     <>
+      <AuthorizeStackingModal
+        toggleAuthorizeStackingModal={toggleAuthorizeStackingModal}
+        setToggleAuthorizeStackingModal={setToggleAuthorizeStackingModal}
+        handleApprove={handleApproveStacking}
+        isConfirmed={isConfirmed}
+        isConfirming={isConfirming}
+        hash={hash}
+      />
+
       {/* info cards section */}
-      <div className="mx-2.5 mt-14 max-md:mt-10 max-md:mb-6 max max-md:max-w-full">
-        <AuthorizeStackingModal
-          handleApprove={handleApproveStacking}
-          toggleAuthorizeStackingModal={toggleAuthorizeStackingModal}
-          setToggleAuthorizeStackingModal={setToggleAuthorizeStackingModal}
-        />
+      <div className="mx-2.5 mt-14 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1 w-full">
-            {infoCards.map((card, index) => (
-              <React.Fragment key={index}>
-                <InfoCard {...card} />
-              </React.Fragment>
-            ))}
-          </div>
+          {infoCards.map((card, index) => (
+            <div
+              key={index}
+              className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full"
+            >
+              <InfoCard {...card} />
+            </div>
+          ))}
         </div>
       </div>
       {/* end info cards section */}
@@ -196,7 +208,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
               <input
                 className={`text-5xl font-semibold outline-none w-[80%] overflow-auto `}
                 value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
+                onChange={handleAmountChange}
               />
               <div className="my-auto text-xl font-bold">$ERA</div>
             </div>
@@ -204,10 +216,10 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           <div className="flex items-center">
             <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
           </div>
-          <div className="flex gap-1.5">
-            <div className="text-5xl font-semibold">={amount}</div>
-            <div className="my-auto text-xl font-bold">$ERA</div>
-          </div>
+          <EstimatedWithdrawTokens
+            amount={amount}
+            stakingDuration={stakingDuration}
+          />
         </div>
         <div className="flex gap-5 justify-between text-base font-medium whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:max-w-full">
           <div>=$250.000</div>
@@ -259,5 +271,4 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     </>
   );
 };
-
 export default StackStepOneBody;

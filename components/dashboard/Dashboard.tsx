@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-  useAccount,
-  useClient,
-  useReadContract,
-  useWriteContract,
-} from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
-import { ChevronDown, ChevronUp, Info } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import BuySeraModal from "../ui/BuySeraModal";
 import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
@@ -17,7 +12,7 @@ import {
   stakingTokenABI,
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
-import { Chain, Client, Transport, formatEther } from "viem";
+import { formatEther } from "viem";
 import { StakeInfo, TabItem } from "../../lib/types";
 import NoUtilities from "./NoUtilities";
 
@@ -208,18 +203,23 @@ const Dashboard: React.FC<DashboardProps> = () => {
         };
       });
 
-      setStakingItems(items);
-      setAllItems(items);
-      console.log("Staking Items from inside: ", items);
+      // remove stakes that has amount === 0
+      const filteredItems = items.filter((item) => item.amount !== BigInt(0));
+
+      setStakingItems(filteredItems);
+      setAllItems(filteredItems);
+      console.log("Staking Items from inside: ", filteredItems);
     }
   }, [allUserStakesResult.isLoading, allUserStakesResult.error, stakes]);
 
   const buttons = [
     { name: "All", qt: allItems?.length },
-    { name: "Staking", qt: Number(userStakesCounter) },
+    { name: "Staking", qt: stakingItems?.length },
     { name: "Your Farming", qt: farmingItems?.length },
     { name: "Airdrop", qt: airdropItems?.length },
   ];
+
+  console.log("Staking Items : ", stakingItems);
 
   const handleTabClick = (label: string) => {
     setSelected(label);
@@ -254,7 +254,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     My $ERA Wallet
                   </div>
                   <button
-                    className="primary-button-sm  justify-center px-6 py-3 text-base text-neutral-700 bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5"
+                    className="primary-button-sm  justify-center px-6 py-3 text-base text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid max-md:px-5"
                     onClick={() => setToggleBuyEraModal(true)}
                   >
                     Buy $ERA
@@ -384,7 +384,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 </button>
                 <div>
                   <button
-                    className="primary-button-sm flex gap-0.5 px-5 py-3 bg-emerald-200 rounded-lg border-[1px] border-black border-solid"
+                    className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
                     onClick={toggleDropdown}
                   >
                     <span className="my-auto">Start a new program</span>

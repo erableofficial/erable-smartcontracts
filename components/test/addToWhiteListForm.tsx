@@ -15,8 +15,8 @@ import { parseEther } from "viem";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export default function StakeForm() {
-  const [amount, setAmount] = useState(0);
+export default function AddToWhiteListForm() {
+  const [addr, setAddr] = useState("");
 
   const { writeContract, data: hash, error, isPending } = useWriteContract();
 
@@ -55,8 +55,8 @@ export default function StakeForm() {
     writeContract({
       abi: contractABI,
       address: contractAddress,
-      functionName: "stake",
-      args: [parseEther(amount.toString())],
+      functionName: "addToWhitelist",
+      args: [addr],
     });
   };
 
@@ -64,7 +64,7 @@ export default function StakeForm() {
     <div className="flex items-center justify-center my-8 bg-surface-primary py-4 rounded-xl max-w-[60%] mx-auto ">
       <div className="min-w-[60%] mx-auto">
         <h2 className="text-2xl tracking-wide font-friends font-bold text-gray-800 text-center pb-4  ">
-          Stake ST Tokens Form
+          Add To WhiteList Form
         </h2>
         <form
           className="gap-5 items-center flex flex-col space-y-2  "
@@ -73,18 +73,18 @@ export default function StakeForm() {
           <div className="w-full">
             <label
               className="text-xl tracking-wide font-friends font-medium"
-              htmlFor="amount"
+              htmlFor="addr"
             >
-              Amount :
+              Address :
             </label>
             <input
-              type="number"
-              name="amount"
-              id="amount"
-              placeholder="100"
+              type="string"
+              name="addr"
+              id="addr"
+              placeholder="0x************"
               className="p-3 ml-2 border rounded w-[70%] "
-              value={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              value={addr}
+              onChange={(e) => setAddr(e.target.value)}
             />
           </div>
 
@@ -93,7 +93,7 @@ export default function StakeForm() {
             type="submit"
             className="secondary-button"
           >
-            {isPending ? "Confirming..." : "Stake Now"}
+            {isPending ? "Confirming..." : "Add To WhiteList"}
           </button>
         </form>
       </div>

@@ -26,7 +26,7 @@ export default function StakeInfo({
   cooldownPeriod?: string;
 }) {
   const account = useAccount();
-
+  
   const result: UseReadContractReturnType = useReadContract({
     address: contractAddress,
     abi: contractABI,

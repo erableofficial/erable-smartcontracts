@@ -6,9 +6,6 @@ type InfoBoxProps = {
 };
 type StackingLoadingModalProps = {
   toggleStackingLoadingModal: boolean;
-  setToggleStackingLoadingModal: (value: boolean) => void;
-  isConfirmed: boolean;
-  error: any;
 };
 
 const InfoBox: React.FC<InfoBoxProps> = ({ text }) => (
@@ -20,21 +17,8 @@ const InfoBox: React.FC<InfoBoxProps> = ({ text }) => (
 
 const StackingLoadingModal: React.FC<StackingLoadingModalProps> = ({
   toggleStackingLoadingModal,
-  setToggleStackingLoadingModal,
-  isConfirmed,
-  error,
 }) => {
   if (!toggleStackingLoadingModal) return null;
-
-  React.useEffect(() => {
-    if (isConfirmed) {
-      setToggleStackingLoadingModal(false);
-    }
-
-    if (error) {
-      setToggleStackingLoadingModal(false);
-    }
-  }, [isConfirmed, error]);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 z-[100] flex justify-center items-center">

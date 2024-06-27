@@ -29,6 +29,22 @@ type StackStepTwoBodyProps = {
   amount: number;
 };
 
+type ErrorBoxProps = {
+  text: string;
+  bgColor: string;
+};
+
+const ErrorBox: React.FC<ErrorBoxProps> = ({ text, bgColor }) => (
+  <div
+    className={`flex gap-1.5 px-2.5 py-1 font-medium ${bgColor} rounded font-NeueHaas text-lg leading-[21.6px] `}
+  >
+    <div>
+      <TriangleAlert width={17} height={17} color="#000000" />
+    </div>
+    <div>{text}</div>
+  </div>
+);
+
 const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   setSteps,
   infoCards,
@@ -36,6 +52,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
 }) => {
   const [toggleStackingLoadingModal, setToggleStackingLoadingModal] =
     React.useState(false);
+
   const items = [
     { label: "Total APR:", value: "00" },
     { label: "Duration:", value: infoCards[1].value },
@@ -51,6 +68,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
 
   React.useEffect(() => {
     if (isConfirmed) {
+      setToggleStackingLoadingModal(false);
       toast.success(
         <CustomToast
           title="Transaction confirmed."
@@ -63,7 +81,6 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
           icon: <Check width={21} height={21} size={32} color="#21725E" />,
         }
       );
-
       setSteps([
         {
           number: "1",
@@ -90,16 +107,10 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   // error
   React.useEffect(() => {
     if (error) {
+      setToggleStackingLoadingModal(false);
       toast.error(
-        <CustomToast
-          title="Something went wrong"
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
-        />,
+        <CustomToast title="Something went wrong" message={error.message} />,
         {
-          // icon: <Info />,
-          // autoClose: 5000000,
           theme: "colored",
           icon: (
             <TriangleAlert width={21} height={21} size={32} color="#B91C1C" />
@@ -107,6 +118,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
         }
       );
       console.error(error);
+      console.error(error.cause);
     }
   }, [error]);
 
@@ -131,7 +143,8 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
     }
   }, [hash]);
 
-  const handleSendFund = () => {
+  const handleSendFund = async () => {
+    setToggleStackingLoadingModal(true);
     writeContract({
       abi: contractABI,
       address: contractAddress,
@@ -139,34 +152,19 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
       args: [parseEther(amount.toString())],
     });
   };
+
   return (
     <div>
       <div className="flex mx-auto flex-col p-10 mt-14 bg-white rounded-3xl border border-solid border-stone-300 max-w-[791px] max-md:px-5">
         <StackingLoadingModal
           toggleStackingLoadingModal={toggleStackingLoadingModal}
-          setToggleStackingLoadingModal={setToggleStackingLoadingModal}
-          isConfirmed={isConfirmed}
-          error={error}
         />
         <div className="text-3xl mb-3 font-semibold text-neutral-700 max-md:max-w-full">
           Confirm Fund Transfer
         </div>
-        {/* <InfoText
-          bgColor="bg-surface-500"
-          text="Now, let’s secure your rewards! Please confirm the transfer of your
-          tokens into the staking contract. This action will lock your tokens
-          for one year, starting your earnings. Remember, withdrawing funds
-          before the term ends may result in penalties. This transfer might take
-          a few moments."
-          Icon={<Info width={17} height={17} color="#000000" />}
-        /> */}
 
         <InfoBox
-          text="Now, let’s secure your rewards! Please confirm the transfer of your
-         tokens into the staking contract. This action will lock your tokens
-         for one year, starting your earnings. Remember, withdrawing funds
-         before the term ends may result in penalties. This transfer might take
-         a few moments."
+          text="Now, let’s secure your rewards! Please confirm the transfer of your tokens into the staking contract. This action will lock your tokens for one year, starting your earnings."
           bgColor="bg-surface-500"
         />
 
@@ -207,6 +205,14 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
             bgColor="bg-warning-200"
           />
         </div>
+        {error && (
+          <div className="flex justify-center items-center pb-4">
+            <ErrorBox
+              text="Transaction faliled, try again !"
+              bgColor="bg-[#FFD4D4]"
+            />
+          </div>
+        )}
         <button
           className="justify-center self-center px-7 py-4 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5"
           onClick={() => {

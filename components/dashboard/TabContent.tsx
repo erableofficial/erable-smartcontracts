@@ -2,7 +2,6 @@ import { Info } from "lucide-react";
 import React from "react";
 import { TabItem } from "../../lib/types";
 import StakeItem from "./StakeItem";
-import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
 import Tooltip from "./Tooltip";
 
 type TabContentProps = {
@@ -10,22 +9,11 @@ type TabContentProps = {
 };
 
 const TabContent: React.FC<TabContentProps> = ({ Items }) => {
-  const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
-    React.useState(false);
-  const handleActionClick = (
-    action: string,
-    daysLeft: string | null | undefined
-  ) => {
-    if (action === "Claim" && daysLeft == null) {
-      setToggleWithdrawTokenCdModalModal(true);
-    }
-  };
+ 
+
   return (
     <div className="flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
-      <WithdrawTokenCdModal
-        toggleWithdrawTokenCdModalModal={toggleWithdrawTokenCdModalModal}
-        setToggleWithdrawTokenCdModalModal={setToggleWithdrawTokenCdModalModal}
-      />
+      
       <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
         <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5">
           <div className="flex items-center gap-1 pr-2.5 text-neutral-500">

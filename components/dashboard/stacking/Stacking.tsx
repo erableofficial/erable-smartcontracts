@@ -34,23 +34,8 @@ const Stacking: React.FC = () => {
       isActive: false,
     },
   ]);
-
   const [showStackingModal, setShowStackingModal] = React.useState(false);
-  const [amount, setAmount] = React.useState(50);
-
-  React.useEffect(() => {
-    const step2 = steps.find((step) => step.number == "2");
-    const step3 = steps.find((step) => step.number == "3");
-
-    if (step3 && step3.isActive) {
-      setShowStackingModal(true);
-      console.log("showStackingModal", showStackingModal);
-      setTimeout(() => {
-        setShowStackingModal(false);
-        console.log("showStackingModal", showStackingModal);
-      }, 5000);
-    }
-  }, [steps]);
+  const [amount, setAmount] = React.useState(2);
 
   const { address: currentAddress } = useAccount();
 
@@ -101,6 +86,7 @@ const Stacking: React.FC = () => {
   return (
     <div className=" relative flex pb-20 pt-20 bg-neutral-50 flex-col px-20 max-md:px-5 max-md:pt-7">
       <StackingStepsHeader steps={steps} />
+
       {steps[0].isActive && (
         <StackStepOneBody
           infoCards={infoCards}
@@ -108,9 +94,9 @@ const Stacking: React.FC = () => {
           amount={amount}
           setAmount={setAmount}
           myBalance={myBalance as bigint}
+          stakingDuration={stakedDuration as bigint}
         />
       )}
-      {/* {showStackingModal && <StackingLoadingModal />} */}
       {steps[1].isActive && (
         <StackStepTwoBody
           setSteps={setSteps}
@@ -119,12 +105,7 @@ const Stacking: React.FC = () => {
         />
       )}
 
-      {steps[2].isActive && showStackingModal == false && (
-        <StackStepThreeBody
-          currentAddress={currentAddress}
-          stakingDuration={stakedDuration as bigint}
-        />
-      )}
+      {steps[2].isActive && <StackStepThreeBody amount={amount} />}
     </div>
   );
 };
