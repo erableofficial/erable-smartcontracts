@@ -106,7 +106,7 @@ const members = [
 const OurTeam: React.FC = () => (
   <section className="flex flex-col justify-center p-20 bg-white max-md:px-5">
     <div className="self-start px-2.5 mt-2.5 ml-2.5 text-5xl font-extrabold leading-[4.254rem] text-neutral-700 bg-surface-500 rounded-xl">
-      Our team
+      Our Team
     </div>
     <div className="mx-2.5 mt-12 max-md:mt-10 max-md:max-w-full">
       <div className="flex gap-5 max-md:flex-col max-md:gap-0">

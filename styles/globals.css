@@ -8,7 +8,7 @@
     @apply drop-shadow-[2px_3px_0px_#000000];
   } */
   .primary-button-sm {
-    @apply flex gap-1 px-5 py-3 bg-emerald-200 rounded-lg border-2 border-black border-solid;
+    @apply flex gap-1 px-5 py-3 bg-surface-primary rounded-lg border-2 border-black border-solid;
     transition: all 0.2s;
 
     &:hover {
@@ -155,4 +155,33 @@ h2 {
 
 .Toastify__toast-body {
   align-items: flex-start !important;
+}
+.hover-effect:hover button .icon-chevron-down {
+  stroke-width: 4px !important;
+}
+
+.hover-effect:hover button span {
+  font-weight: 600 !important;
+}
+
+.hover-effect {
+  position: relative;
+}
+
+.hover-effect .dropdown-content {
+  opacity: 0;
+  transform: translateY(-10px);
+  display: block;
+  pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.hover-effect:hover .dropdown-content {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+li.hover-effect:hover .icon-chevron-down {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease; /* Smooth transition */
 }

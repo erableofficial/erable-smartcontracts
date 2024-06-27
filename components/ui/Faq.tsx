@@ -25,9 +25,12 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
   }, [isOpen]);
 
   return (
-    <div className="flex flex-col justify-center px-6 py-4 mt-6 bg-white rounded-2xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
-      <div className="flex gap-5 justify-between">
-        <div className="my-auto text-xl font-bold text-primary max-md:max-w-full">
+    <div
+      className="flex flex-col justify-center px-6 py-4 mt-6 bg-white rounded-2xl border border-solid border-stone-300 max-lg:px-5 max-lg:max-w-full cursor-pointer"
+      onClick={toggleOpen}
+    >
+      <div className="flex gap-5 justify-between ">
+        <div className="my-auto text-xl font-bold text-primary max-lg:max-w-full">
           {question}
         </div>
         <button
@@ -87,17 +90,17 @@ const Faq: React.FC = () => {
   ];
 
   return (
-    <section className="self-stretch p-[90px] max-md:p-2 ">
-      <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-        <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
-          <div className="flex flex-col px-5 text-5xl font-extrabold text-neutral-700 leading-[3.3rem] max-md:mt-10 max-md:text-4xl">
-            <h1 className="max-md:text-4xl">
+    <section className="self-stretch p-[90px] max-lg:p-2 ">
+      <div className="flex gap-5 max-lg:flex-col max-lg:gap-0">
+        <div className="flex flex-col w-6/12 max-lg:ml-0 max-lg:w-full">
+          <div className="flex flex-col px-5 text-5xl font-extrabold text-neutral-700 leading-[3.3rem] max-lg:mt-10 maxlg:text-4xl">
+            <h1 className="max-lg:text-4xl">
               Frequently
-              <div className="justify-center px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-md:text-4xl">
+              <div className="justify-center font-friends w-fit px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-lg:text-4xl">
                 Asked Questions:
               </div>
             </h1>
-            <div className="flex gap-5 justify-center mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:mt-10">
+            <div className="flex gap-5 justify-center mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-lg:mt-10">
               <Link
                 href="#"
                 className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
@@ -113,8 +116,8 @@ const Faq: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
-          <div className="flex flex-col grow max-md:mt-10 max-md:max-w-full">
+        <div className="flex flex-col ml-5 w-6/12  max-lg:w-[90%] max-lg:mx-auto max-md:w-full max-lg:pb-8 ">
+          <div className="flex flex-col grow max-lg:mt-10 max-lg:max-w-full">
             {faqItems.map((item, index) => (
               <FAQItem
                 key={index}

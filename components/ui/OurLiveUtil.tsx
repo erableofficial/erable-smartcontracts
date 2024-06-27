@@ -8,6 +8,8 @@ interface UtilityCardProps {
   imageUrl: string;
   index: number;
   activeIndex: number;
+  btnText: string;
+  link: string;
 }
 
 const IconButton: React.FC<{
@@ -37,20 +39,22 @@ const OurLiveUtil: React.FC = () => {
     imageUrl,
     index,
     activeIndex,
+    btnText,
+    link,
   }) => (
     <div
       ref={cardRef}
       className={`flex flex-col p-6 ${
         index === activeIndex ? "bg-surface-500" : "bg-white"
-      } rounded-2xl border border-solid border-stone-300  max-sm:min-w-full min-w-[45%] max-md:px-5`}
+      } rounded-2xl border border-solid border-stone-300  max-xl:min-w-full min-w-[45%] max-md:px-5`}
     >
       <div className="flex gap-5 justify-between font-semibold">
         <h3 className="text-2xl text-neutral-700">{title}</h3>
         <Link
-          href={"/learn-more"}
+          href={link}
           className="pb-1.5 cursor-pointer my-auto text-base text-neutral-700 border-b-2 border-black border-solid"
         >
-          Learn more
+          {btnText}
         </Link>
       </div>
       <p className="mt-6 text-lg font-medium text-neutral-500">{description}</p>
@@ -69,24 +73,32 @@ const OurLiveUtil: React.FC = () => {
       description:
         "Earn rewards by locking $ERA tokens in a secure contract, showing your commitment to the ecosystem.",
       imageUrl: "/images/placeholder.png",
+      btnText: "Learn more",
+      link: "/",
     },
     {
       title: "LP Farming",
       description:
         "Provide liquidity to the $ERA pool on Uniswap and lock it into our farming contract to earn $ERA.",
       imageUrl: "/images/placeholder.png",
+      btnText: "Learn more",
+      link: "/",
     },
     {
       title: "Earn",
       description:
         "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
       imageUrl: "/images/placeholder.png",
+      btnText: "Learn more",
+      link: "/",
     },
     {
-      title: "LP Farming 2",
+      title: "Governance",
       description:
-        "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
+        "Hold $ERA tokens and vote on key decisions including project funding, strategic directions, and community proposals. ",
       imageUrl: "/images/placeholder.png",
+      btnText: "Coming soon",
+      link: "/",
     },
   ];
 
@@ -130,7 +142,7 @@ const OurLiveUtil: React.FC = () => {
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-between self-stretch max-md:mt-10">
-              <h1 className="justify-center px-2.5 text-5xl leading-[4.641rem] font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl">
+              <h1 className="justify-center px-2.5 text-5xl leading-[4.641rem] w-fit font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl max-xl:w-min max-md:w-fit">
                 Our Live Utilities
               </h1>
               <p className="mt-10 text-lg font-medium text-neutral-700">

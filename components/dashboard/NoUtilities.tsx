@@ -37,7 +37,7 @@ const NoUtilities = () => {
         </div>
       </div>
 
-      <button className="justify-center self-center px-7 py-4 mt-6 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5">
+      <button className="justify-center self-center px-7 py-4 mt-6 text-lg font-semibold text-neutral-700 bg-surface-primary rounded-xl border-black border-solid border-[3px] max-md:px-5">
         Discover our staking opportunity
       </button>
     </>

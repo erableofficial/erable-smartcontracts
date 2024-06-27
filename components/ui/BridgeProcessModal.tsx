@@ -63,19 +63,19 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
           </div>
           <div className="flex flex-col">
             <div className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
-              Bridging redirection on uniswap(?)
+              Redirection to Chainport for the bridging process
             </div>
             <div className="self-start text-base font-medium text-neutral-700 max-md:max-w-full">
-              To bridge your $CLAP, you'll be redirected to THE WEBSITE, who we
-              partnered with.
-              <br /> Please click &quot;Bridge my $CLAP&quot; to continue.
+              To bridge your $CLAP tokens, you’ll need to follow the
+              instructions provided by Chainport, our bridge partner.
+              <br /> Click &quot;Bridge my $CLAP&quot; to start the process.
             </div>
           </div>
         </div>
-        <p className="self-stretch mb-4 text-base font-medium text-left text-neutral-600 max-md:max-w-full">
+        <p className="self-stretch text-base font-medium text-left text-neutral-600 max-md:max-w-full">
           This secure process enables you to transfer your tokens between the
-          Cardano and the Polygon blockchains. For more information or
-          assistance, please read the tutorial.
+          blockchains Cardano and Polygon. For more information or assistance,
+          please read the tutorial.
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">

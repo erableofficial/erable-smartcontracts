@@ -40,7 +40,9 @@ const SectionContent: React.FC<SectionContentProps> = ({
           ))}
         </div>
       </div>
-      <p className="text-lg font-medium text-neutral-700">{description}</p>
+      <p className="text-lg font-medium text-neutral-700 mt-16">
+        {description}
+      </p>
       {/* </div> */}
     </section>
   );
@@ -57,7 +59,7 @@ const Community: React.FC = () => {
           <div className="grid grid-cols-12 gap-5 w-full">
             <div className="col-span-12 sm:col-span-6 lg:col-span-4">
               <div className="p-6 bg-surface-500 rounded-[20px] cursor-pointer border border-solid border-zinc-300">
-                <p className="text-lg font-semibold text-neutral-700">
+                <p className="text-lg font-medium text-neutral-700">
                   erable° is redefining sustainability and impact investing by
                   leveraging blockchain technology to build a comprehensive
                   ecosystem of contributors and investors aimed at systemic
@@ -70,38 +72,38 @@ const Community: React.FC = () => {
             </div>
             <SectionContent
               title="Impact Investors"
-              description="Join a community of like-minded impact investors committed to driving systemic change through sustainable investments. Collaborate and contribute to projects that align with your values and investment goals."
+              description="Join a community focused on sustainable investments. Collaborate on projects that align with your values and investment goals."
               profilePics={profilePics}
             />
             <SectionContent
               title="Impact Entrepreneurs"
-              description="Become part of a network of impact entrepreneurs who are creating innovative solutions to global challenges. Share your vision, gain support, and leverage our ecosystem to scale your impact-driven projects."
+              description="Join a network of innovators tackling global challenges. Share your ideas, get support, and scale your impact-driven projects."
               profilePics={profilePics}
             />
-          </div>
+            {/* </div>
         </div>
         <div className="mt-6 bg-stone-50 flex flex-col max-md:max-w-full">
-          <div className="grid grid-cols-12 gap-5 w-full">
+          <div className="grid grid-cols-12 gap-5 w-full"> */}
             <SectionContent
-              title="Impact Support Partnership"
-              description="Partner with us to support impactful initiatives and contribute to a sustainable future. Whether you're an organization or individual, your partnership helps drive meaningful change and supports our mission."
+              title="Impact Partners"
+              description="Whether you're an organization or individual, your partnership helps drive meaningful change and supports our mission."
               profilePics={profilePics}
             />
             <SectionContent
               title="Community Supporters"
-              description="Engage with our community as a supporter or member of the general public. Participate in discussions, provide feedback, and help shape the future of sustainable impact investing."
+              description="Engage with our community, participate in discussions, provide feedback, and help shape the future of sustainable impact investing."
               profilePics={profilePics}
             />
             <SectionContent
-              title="Financial Product Providers"
-              description="Collaborate with us as a provider of impact financial products. Offer your expertise and products to our community, and help create a diverse and inclusive financial ecosystem that prioritizes sustainability and impact."
+              title="Financial Partners"
+              description="Collaborate with us to offer your impact financial products and expertise, fostering a sustainable financial ecosystem."
               profilePics={profilePics}
             />
           </div>
         </div>
         <div className="flex gap-5 justify-center self-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
-          <button className="primary-button ">Join now</button>
-          <button className="secondary-button">Our Community Manifesto</button>
+          <button className="primary-button ">Join Us on Discord</button>
+          {/* <button className="secondary-button">Our Community Manifesto</button> */}
         </div>
       </div>
     </section>
