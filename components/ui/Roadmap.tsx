@@ -109,7 +109,7 @@ const Roadmap: React.FC = () => {
       <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-neutral-700 whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
       </div>
-      <hr className="shrink-0 mx-2.5 mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-[1263px]" />
+      <hr className="shrink-0  mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-full mx-auto" />
       <main className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full">
         <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1">
           {roadmapData.map((section, index) => (
