@@ -8,6 +8,7 @@ import { Check, Info, TriangleAlert } from "lucide-react";
 import InfoText from "../../ui/InfoText";
 import { InfoBox } from "../AuthorizeStackingModal";
 import StackingLoadingModal from "../StackingLoadingModal";
+import ErrorBox from "../../ui/ErrorBox";
 
 type InfoCardProps = {
   title: string;
@@ -28,22 +29,6 @@ type StackStepTwoBodyProps = {
   infoCards: InfoCardProps[];
   amount: number;
 };
-
-type ErrorBoxProps = {
-  text: string;
-  bgColor: string;
-};
-
-const ErrorBox: React.FC<ErrorBoxProps> = ({ text, bgColor }) => (
-  <div
-    className={`flex gap-1.5 px-2.5 py-1 font-medium ${bgColor} rounded font-NeueHaas text-lg leading-[21.6px] `}
-  >
-    <div>
-      <TriangleAlert width={17} height={17} color="#000000" />
-    </div>
-    <div>{text}</div>
-  </div>
-);
 
 const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   setSteps,

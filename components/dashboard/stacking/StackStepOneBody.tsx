@@ -17,6 +17,7 @@ import CustomToast from "../CustomToast";
 import Tooltip from "../Tooltip";
 import AuthorizeStackingModal from "../AuthorizeStackingModal";
 import EstimatedWithdrawTokens from "./EstimatedWithdrawTokens";
+import ErrorBox from "../../ui/ErrorBox";
 
 type InfoCardProps = {
   title: string;
@@ -76,6 +77,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     });
   const [toggleAuthorizeStackingModal, setToggleAuthorizeStackingModal] =
     React.useState(false);
+  const [lessBalanceError, setLessBalanceError] = React.useState(false);
 
   React.useEffect(() => {
     if (isConfirmed) {
@@ -170,6 +172,11 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const amountVal = Number(e.target.value);
     setAmount(amountVal);
+    if (parseEther(amountVal.toString()) > myBalance) {
+      setLessBalanceError(true);
+    } else {
+      setLessBalanceError(false);
+    }
   };
 
   return (
@@ -228,6 +235,14 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           <div>=$250.000</div>
           <div>=$250.000</div>
         </div>
+        {lessBalanceError && (
+          <div className="pt-6 max-w-fit ">
+            <ErrorBox
+              text="You  do not have enough $ERA to stake this amount"
+              bgColor="bg-red-200"
+            />
+          </div>
+        )}
         <div className="flex gap-5 justify-between mt-6 w-full text-lg max-md:flex-wrap max-md:max-w-full">
           <div className="flex gap-3 pr-20 max-md:flex-wrap">
             <div className="my-auto font-medium text-neutral-700">
