@@ -15,6 +15,7 @@ import {
 import { formatEther } from "viem";
 import { StakeInfo, TabItem } from "../../lib/types";
 import NoUtilities from "./NoUtilities";
+import { getUserStakes } from "../../lib/utils";
 
 interface DashboardProps {}
 
@@ -28,88 +29,6 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
   </div>
 );
 
-// const allItems = [
-//   {
-//     type: "Staking",
-//     startDate: "JJ/MM/AAAA",
-//     amount: "XXX,XXX.XXX",
-//     currentRewards: "XXX,XXX.XXX",
-//     endDate: "JJ/MM/AAAA",
-//     action: "Claim",
-//   },
-//   {
-//     type: "Staking",
-//     startDate: "JJ/MM/AAAA",
-//     amount: "XXX,XXX.XXX",
-//     currentRewards: "XXX,XXX.XXX",
-//     endDate: "JJ/MM/AAAA",
-//     action: "Claim",
-//     daysLeft: "7 days left",
-//   },
-//   {
-//     type: "LP Farming",
-//     startDate: "JJ/MM/AAAA",
-//     amount: "XXX,XXX.XXX",
-//     currentRewards: "XXX,XXX.XXX",
-//     endDate: "JJ/MM/AAAA",
-//     action: "Unstake",
-//     daysLeft: null,
-//   },
-//   {
-//     type: "Airdrop",
-//     startDate: "JJ/MM/AAAA",
-//     amount: "XXX,XXX.XXX",
-//     currentRewards: "XXX,XXX.XXX",
-//     endDate: "JJ/MM/AAAA",
-//     action: "Unstake",
-//     daysLeft: null,
-//   },
-// ];
-
-// const stakingItems = [
-//   {
-//     type: "Staking",
-//     startDate: "JJ/MM/AAAA",
-//     amount: "XXX,XXX.XXX",
-//     currentRewards: "XXX,XXX.XXX",
-//     endDate: "JJ/MM/AAAA",
-//     action: "Claim",
-//   },
-//   {
-//     type: "Staking",
-//     startDate: "JJ/MM/AAAA",
-//     amount: "XXX,XXX.XXX",
-//     currentRewards: "XXX,XXX.XXX",
-//     endDate: "JJ/MM/AAAA",
-//     action: "Claim",
-//     daysLeft: "7 days left",
-//   },
-// ];
-
-// const farmingItems = [
-//   {
-//     type: "LP Farming",
-//     startDate: "JJ/MM/AAAA",
-//     amount: "XXX,XXX.XXX",
-//     currentRewards: "XXX,XXX.XXX",
-//     endDate: "JJ/MM/AAAA",
-//     action: "Unstake",
-//     daysLeft: null,
-//   },
-// ];
-
-// const airdropItems = [
-//   {
-//     type: "Airdrop",
-//     startDate: "JJ/MM/AAAA",
-//     amount: "XXX,XXX.XXX",
-//     currentRewards: "XXX,XXX.XXX",
-//     endDate: "JJ/MM/AAAA",
-//     action: "Unstake",
-//     daysLeft: null,
-//   },
-// ];
-
 const Dashboard: React.FC<DashboardProps> = () => {
   const [selected, setSelected] = useState<string>("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -120,8 +39,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [farmingItems, setFarmingItems] = useState<Array<TabItem>>([]);
   const [airdropItems, setAirdropItems] = useState<Array<TabItem>>([]);
   const [stakingItems, setStakingItems] = useState<Array<TabItem>>([]);
+  const [transactionSuccess, setTransactionSuccess] = useState<boolean>(false);
 
   const { isConnected, address: currentAddress } = useAccount();
+
   const { data: myBalance, error: myBalanceError } = useReadContract({
     abi: stakingTokenABI,
     address: stakingTokenAddress,
@@ -157,29 +78,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
       args: [currentAddress],
     });
 
-  const { data: userStakesCounter, error: userStakesCounterError } =
-    useReadContract({
-      abi: contractABI,
-      address: contractAddress,
-      functionName: "userStakeCounter",
-      args: [currentAddress],
-    });
-
-  const allUserStakesResult = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "getUserStakes",
-    args: [currentAddress],
-  });
-
-  if (allUserStakesResult.error) {
-    console.error(allUserStakesResult.error);
-  }
-
-  const stakes: Array<StakeInfo> = allUserStakesResult.data as Array<StakeInfo>;
-
   React.useEffect(() => {
-    if (!allUserStakesResult.isLoading && !allUserStakesResult.error) {
+    async function updateUserStakes() {
+      const stakes = await getUserStakes(currentAddress);
+      console.log("All Stakes  : ", stakes);
       const items: TabItem[] = stakes?.map((stake, index) => {
         const { amount, startTime, requestUnstakeTime, unstakeRequested } =
           stake;
@@ -209,8 +111,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
       setStakingItems(filteredItems);
       setAllItems(filteredItems);
       console.log("Staking Items from inside: ", filteredItems);
+
+      setTransactionSuccess(false);
     }
-  }, [allUserStakesResult.isLoading, allUserStakesResult.error, stakes]);
+
+    if (currentAddress && stakedDuration) {
+      updateUserStakes();
+    }
+  }, [currentAddress, stakedDuration, transactionSuccess]);
 
   const buttons = [
     { name: "All", qt: allItems?.length },
@@ -218,8 +126,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
     { name: "Your Farming", qt: farmingItems?.length },
     { name: "Airdrop", qt: airdropItems?.length },
   ];
-
-  console.log("Staking Items : ", stakingItems);
 
   const handleTabClick = (label: string) => {
     setSelected(label);
@@ -230,9 +136,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       ? "justify-center self-stretch px-4 py-2 font-semibold whitespace-nowrap bg-surface-500 border-2 border-black border-solid rounded-[38px]"
       : "self-stretch my-auto";
   };
-
-  // console.log("all items array", allItems);
-  // console.log("staking items array", stakingItems);
 
   return (
     <div className="relative pb-28 bg-neutral-50">
@@ -360,7 +263,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
         </div>
 
         <OfficialLinks />
-
         <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full">
           <div className="flex flex-col justify-center mb-6 pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">
             <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
@@ -422,7 +324,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
               {allItems?.length === 0 ? (
                 <NoUtilities />
               ) : (
-                <TabContent Items={allItems} />
+                <TabContent
+                  setTransactionSuccess={setTransactionSuccess}
+                  Items={allItems}
+                />
               )}
             </>
           )}
@@ -431,7 +336,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
               {stakingItems?.length === 0 ? (
                 <NoUtilities />
               ) : (
-                <TabContent Items={stakingItems} />
+                <TabContent
+                  setTransactionSuccess={setTransactionSuccess}
+                  Items={stakingItems}
+                />
               )}
             </>
           )}
@@ -441,7 +349,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
               {farmingItems?.length === 0 ? (
                 <NoUtilities />
               ) : (
-                <TabContent Items={farmingItems} />
+                <TabContent
+                  setTransactionSuccess={setTransactionSuccess}
+                  Items={farmingItems}
+                />
               )}
             </>
           )}
@@ -451,7 +362,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
               {airdropItems?.length === 0 ? (
                 <NoUtilities />
               ) : (
-                <TabContent Items={airdropItems} />
+                <TabContent
+                  setTransactionSuccess={setTransactionSuccess}
+                  Items={airdropItems}
+                />
               )}
             </>
           )}

@@ -16,12 +16,14 @@ interface StakeItemProps {
   stake: TabItem;
   index: number;
   itemsCounter: number;
+  setTransactionSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const StakeItem: React.FC<StakeItemProps> = ({
   stake,
   index,
   itemsCounter,
+  setTransactionSuccess,
 }) => {
   const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
     React.useState(false);
@@ -32,12 +34,6 @@ const StakeItem: React.FC<StakeItemProps> = ({
     functionName: "calculateTotalWithdraw",
     args: [stake.amount, BigInt(stake.startTime / 1000)],
   });
-
-  console.log("Stake ID: ", stake.id);
-
-  console.log("Reward Amount: ", rewardAmount);
-
-  console.log("Stake Amount : ", stake.amount);
 
   const currentRewards: bigint = rewardAmount
     ? BigInt(rewardAmount.toString()) - BigInt(stake.amount)
@@ -69,10 +65,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
           icon: <Check width={21} height={21} size={32} color="#21725E" />,
         }
       );
-      // make optimitic refresh
-      setTimeout(() => {
-        window.location.reload();
-      }, 2500);
+      setTransactionSuccess(true);
     }
   }, [isConfirmed]);
 
@@ -81,10 +74,8 @@ const StakeItem: React.FC<StakeItemProps> = ({
     if (writeError) {
       toast.error(
         <CustomToast
-          title="Something went wrong"
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title={writeError.name || "Something went wrong"}
+          message={writeError.message}
         />,
         {
           // icon: <Info />,
@@ -120,7 +111,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
     }
   }, [hash]);
 
-  const handleClaim = async (stakeId: number) => {
+  const handleClaim = (stakeId: number) => {
     writeContract({
       abi: contractABI,
       address: contractAddress,
@@ -129,21 +120,13 @@ const StakeItem: React.FC<StakeItemProps> = ({
     });
   };
 
-  //   const handleActionClick = (
-  //     action: string,
-  //     daysLeft: string | null | undefined
-  //   ) => {
-  //     if (action === "Claim" && daysLeft == null) {
-  //       setToggleWithdrawTokenCdModalModal(true);
-  //     }
-  //   };
-
   return (
     <React.Fragment>
       <WithdrawTokenCdModal
         toggleWithdrawTokenCdModalModal={toggleWithdrawTokenCdModalModal}
         setToggleWithdrawTokenCdModalModal={setToggleWithdrawTokenCdModalModal}
         stake={stake}
+        setTransactionSuccess={setTransactionSuccess}
       />
       <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
         <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">

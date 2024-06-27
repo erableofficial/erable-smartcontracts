@@ -6,14 +6,16 @@ import Tooltip from "./Tooltip";
 
 type TabContentProps = {
   Items: TabItem[];
+
+  setTransactionSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const TabContent: React.FC<TabContentProps> = ({ Items }) => {
- 
-
+const TabContent: React.FC<TabContentProps> = ({
+  Items,
+  setTransactionSuccess,
+}) => {
   return (
     <div className="flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
-      
       <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
         <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5">
           <div className="flex items-center gap-1 pr-2.5 text-neutral-500">
@@ -81,6 +83,7 @@ const TabContent: React.FC<TabContentProps> = ({ Items }) => {
           index={index}
           stake={item}
           itemsCounter={Items.length - 1}
+          setTransactionSuccess={setTransactionSuccess}
         />
       ))}
     </div>

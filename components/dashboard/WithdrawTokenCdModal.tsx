@@ -10,12 +10,14 @@ interface WithdrawTokenCdModalModal {
   toggleWithdrawTokenCdModalModal: boolean;
   setToggleWithdrawTokenCdModalModal: (value: boolean) => void;
   stake: TabItem;
+  setTransactionSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
   toggleWithdrawTokenCdModalModal,
   setToggleWithdrawTokenCdModalModal,
   stake,
+  setTransactionSuccess,
 }) => {
   const {
     writeContract,
@@ -44,6 +46,8 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
         }
       );
       setToggleWithdrawTokenCdModalModal(false);
+      // refresh page after transaction
+      setTransactionSuccess(true);
     }
   }, [isConfirmed]);
 
@@ -52,10 +56,8 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
     if (writeError) {
       toast.error(
         <CustomToast
-          title="Something went wrong"
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title={writeError.name || "Something went wrong"}
+          message={writeError.message}
         />,
         {
           // icon: <Info />,
