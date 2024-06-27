@@ -29,7 +29,7 @@ const ConnectWalletModal: React.FC = () => {
       </p>
       <ConnectWalletButton
         text="Connect your wallet"
-        className="justify-center px-5 py-3 mt-10 text-base font-semibold text-neutral-700 bg-emerald-200 rounded-lg border-2 border-black border-solid"
+        className="justify-center px-5 py-3 mt-10 text-base font-semibold text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid"
       />
     </div>
   );

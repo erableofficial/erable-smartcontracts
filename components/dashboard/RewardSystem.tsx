@@ -19,7 +19,7 @@ const RewardOption: React.FC<RewardOptionProps> = ({ title, description }) => (
     <p className="mt-8 text-lg font-medium text-neutral-700">{description}</p>
     <a
       href="#"
-      className="justify-center self-start px-6 py-3 mt-8 text-base text-neutral-700 bg-emerald-200 rounded-lg border-2 border-black border-solid max-md:px-5"
+      className="justify-center self-start px-6 py-3 mt-8 text-base text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid max-md:px-5"
     >
       En savoir plus
     </a>

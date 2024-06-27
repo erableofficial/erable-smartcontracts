@@ -263,7 +263,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         </p>
       </div>
       <button
-        className="primary-button justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-neutral-700 bg-emerald-200 rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
+        className="primary-button justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-neutral-700 bg-surface-primary rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5"
         onClick={() => setToggleAuthorizeStackingModal(true)}
       >
         Start Program

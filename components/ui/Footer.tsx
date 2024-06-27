@@ -104,11 +104,12 @@ const Footer: React.FC = () => {
           </div>
         </div>
       </div>
-      <img
-        loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d1a063db0154fd9db8d2f478e500a62d8195b6993eacbfd57276d0ac08dda60?apiKey=b5a3f3b9a2da4a44aeb72712ff03a4c3&"
-        alt=""
-        className="mt-7 w-full aspect-[7.14] max-md:max-w-full"
+      <Image
+        src="/images/big erable footer.svg"
+        alt="erable"
+        className="mt-7 w-full max-md:max-w-full"
+        width={1290}
+        height={258}
       />
     </div>
   );
