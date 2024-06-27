@@ -23,6 +23,7 @@ export default function Document() {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
+        <title>Eratoken</title>
       </Head>
       <body>
         <Main />
