@@ -1,7 +1,12 @@
 import { readContract } from "@wagmi/core";
 import { Address } from "viem";
 import { config } from "./wagmi/config";
-import { contractABI, contractAddress } from "./blockchain-config";
+import {
+  contractABI,
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "./blockchain-config";
 import { StakeInfo } from "./types";
 
 export function approximateTime(seconds: number): string {
@@ -53,5 +58,43 @@ export async function calculateTotalWithdraw(
   });
 
   console.log("Result From calculateTotalWithdraw: ", result);
+  return result as bigint;
+}
+
+export async function getUserBalance(address: Address | undefined) {
+  const result = await readContract(config, {
+    abi: stakingTokenABI,
+    address: stakingTokenAddress,
+    functionName: "balanceOf",
+    args: [address],
+  });
+
+  console.log("Result From getUserBalance: ", result);
+  return result as bigint;
+}
+
+export async function getTotalStaked(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "totalStaked",
+    args: [],
+  });
+
+  console.log("Result From getTotalStaked: ", result);
+  return result as bigint;
+}
+
+export async function getTotalStakedForUser(
+  address: Address | undefined
+): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "getTotalStakedForUser",
+    args: [address],
+  });
+
+  console.log("Result From getTotalStakedForUser: ", result);
   return result as bigint;
 }

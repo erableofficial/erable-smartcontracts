@@ -15,7 +15,12 @@ import {
 import { formatEther } from "viem";
 import { StakeInfo, TabItem } from "../../lib/types";
 import NoUtilities from "./NoUtilities";
-import { getUserStakes } from "../../lib/utils";
+import {
+  getTotalStaked,
+  getTotalStakedForUser,
+  getUserBalance,
+  getUserStakes,
+} from "../../lib/utils";
 
 interface DashboardProps {}
 
@@ -40,15 +45,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [airdropItems, setAirdropItems] = useState<Array<TabItem>>([]);
   const [stakingItems, setStakingItems] = useState<Array<TabItem>>([]);
   const [transactionSuccess, setTransactionSuccess] = useState<boolean>(false);
+  const [myBalance, setMyBalance] = useState<bigint>(BigInt(0));
+
+  const [totalStaked, setTotalStaked] = useState<bigint>(BigInt(0));
+  const [userStakingBalance, setUserStakingBalance] = React.useState<bigint>(
+    BigInt(0)
+  );
 
   const { isConnected, address: currentAddress } = useAccount();
-
-  const { data: myBalance, error: myBalanceError } = useReadContract({
-    abi: stakingTokenABI,
-    address: stakingTokenAddress,
-    functionName: "balanceOf",
-    args: [currentAddress],
-  });
 
   const { data: stakedDuration, error: stakedDurationError } = useReadContract({
     abi: contractABI,
@@ -63,20 +67,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
     functionName: "cooldownPeriod",
     args: [],
   });
-
-  const { data: totalStaked, error: totalStakedError } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "totalStaked",
-  });
-
-  const { data: userStakingBalance, error: userStakingBalanceError } =
-    useReadContract({
-      abi: contractABI,
-      address: contractAddress,
-      functionName: "getTotalStakedForUser",
-      args: [currentAddress],
-    });
 
   React.useEffect(() => {
     async function updateUserStakes() {
@@ -114,9 +104,24 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
       setTransactionSuccess(false);
     }
+    async function updateUserBalnce() {
+      const balance = await getUserBalance(currentAddress);
+      setMyBalance(balance);
+    }
+    async function updateUserStaked() {
+      const totalStaked = await getTotalStaked();
+      setTotalStaked(totalStaked);
+    }
+    async function updateUserTotalStaked() {
+      const userStakingBalance = await getTotalStakedForUser(currentAddress);
+      setUserStakingBalance(userStakingBalance);
+    }
 
     if (currentAddress && stakedDuration) {
       updateUserStakes();
+      updateUserBalnce();
+      updateUserStaked();
+      updateUserTotalStaked();
     }
   }, [currentAddress, stakedDuration, transactionSuccess]);
 
