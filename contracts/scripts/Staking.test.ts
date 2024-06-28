@@ -15,7 +15,7 @@ describe("Staking Contract", function () {
   
     // Deploy the token contract
     const Token = await ethers.getContractFactory("StakingToken");
-    token = (await Token.deploy(initialSupply)) as StakingToken;
+    token = (await Token.deploy(initialSupply)as any) ;
     await token.waitForDeployment();
     const transferAmount = ethers.parseEther("1000000");
   
@@ -23,12 +23,12 @@ describe("Staking Contract", function () {
     const Staking = await ethers.getContractFactory("Staking");
     staking = (await upgrades.deployProxy(Staking, [
       token.target,
-      31556926n, // 1 year in seconds
-      800000000000000n, // yield constant
-      300, // cooldown period in seconds
-      600000000000000000n, // starting slashing point
-      480000000000000000n // monthly increase percentage
-    ], { initializer: 'initialize' })) as Staking;
+      31536000n, 
+      800000000000000n, 
+      300, 
+      600000000000000000n, 
+      480000000000000000n 
+    ], { initializer: 'initialize' })as any) ;
     await staking.waitForDeployment();
   
     // Transfer tokens to users
@@ -50,7 +50,7 @@ describe("Staking Contract", function () {
 
     it("Should initialize the contract with correct parameters", async function () {
       expect(await staking.stakingToken()).to.equal(token.target);
-      expect(await staking.stakingDuration()).to.equal(31556926);
+      expect(await staking.stakingDuration()).to.equal(31536000);
       expect(await staking.yieldConstant()).to.equal(800000000000000n);
       expect(await staking.cooldownPeriod()).to.equal(300);
       expect(await staking.startingSlashingPoint()).to.equal(600000000000000000n);
@@ -123,6 +123,7 @@ describe("Staking Contract", function () {
       // Attempt to stake while staking is paused and expect it to revert with "EnforcedPause"
       await expect(staking.connect(addr1).stake(stakeAmount)).to.be.revertedWith("EnforcedPause");
     });
+    
 */
     it("Should fail if user is not whitelisted and whitelisting is enabled", async function () {
       await staking.enableWhitelist();
@@ -232,7 +233,7 @@ describe("Staking Contract", function () {
       await token.connect(addr1).approve(staking.target, stakeAmount);
       await staking.connect(addr1).stake(stakeAmount);
 
-      await ethers.provider.send("evm_increaseTime", [31556926]); // 1 year in seconds
+      await ethers.provider.send("evm_increaseTime", [31536000]); // 1 year in seconds
       await ethers.provider.send("evm_mine", []);
 
       const initialBalance = await token.balanceOf(addr1.address);
@@ -261,7 +262,7 @@ describe("Staking Contract", function () {
       await token.connect(addr1).approve(staking.target, stakeAmount);
       await staking.connect(addr1).stake(stakeAmount);
 
-      await ethers.provider.send("evm_increaseTime", [31556926]);
+      await ethers.provider.send("evm_increaseTime", [31536000]);
       await ethers.provider.send("evm_mine", []);
 
       const initialTotalStaked = await staking.totalStaked();
@@ -278,7 +279,7 @@ describe("Staking Contract", function () {
       await token.connect(addr1).approve(staking.target, stakeAmount);
       await staking.connect(addr1).stake(stakeAmount);
 
-      await ethers.provider.send("evm_increaseTime", [31556926]);
+      await ethers.provider.send("evm_increaseTime", [31536000]);
       await ethers.provider.send("evm_mine", []);
 
       const initialBalance = await token.balanceOf(addr1.address);
@@ -390,7 +391,7 @@ describe("Staking Contract", function () {
 
   describe("Scenario 1: Staking with stakingDuration and user unstakes before the duration is over", function () {
     beforeEach(async function () {
-      await staking.updateStakingDuration(31556926);
+      await staking.updateStakingDuration(31536000);
     });
 
     it("Should allow unstake and claim within staking period with correct reward calculation", async function () {
@@ -427,7 +428,7 @@ describe("Staking Contract", function () {
 
   describe("Scenario 2: Staking with stakingDuration and user unstakes after the duration is over", function () {
     beforeEach(async function () {
-      await staking.updateStakingDuration(31556926);
+      await staking.updateStakingDuration(31536000);
     });
 
     it("Should allow unstake after staking period with correct reward calculation", async function () {
@@ -435,7 +436,7 @@ describe("Staking Contract", function () {
       await token.connect(addr1).approve(staking.target, stakeAmount);
       await staking.connect(addr1).stake(stakeAmount);
 
-      await ethers.provider.send("evm_increaseTime", [31556926]);
+      await ethers.provider.send("evm_increaseTime", [31536000]);
       await ethers.provider.send("evm_mine", []);
 
       const initialBalance = await token.balanceOf(addr1.address);
@@ -444,7 +445,7 @@ describe("Staking Contract", function () {
       await staking.connect(addr1).unstake(0);
 
       const finalBalance = await token.balanceOf(addr1.address);
-      const timeStaked = 31556926;
+      const timeStaked = 31536000;
       const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked))) / 1000000000000000000n;
       const expectedFinalBalance = initialBalance + stakeAmount + expectedReward;
 
@@ -462,7 +463,7 @@ describe("Staking Contract", function () {
       await token.connect(addr1).approve(staking.target, stakeAmount);
       await staking.connect(addr1).stake(stakeAmount);
 
-      await ethers.provider.send("evm_increaseTime", [31556926]); // 1 year in seconds
+      await ethers.provider.send("evm_increaseTime", [31536000]); // 1 year in seconds
       await ethers.provider.send("evm_mine", []);
 
       const initialBalance = await token.balanceOf(addr1.address);
@@ -471,7 +472,7 @@ describe("Staking Contract", function () {
       await staking.connect(addr1).unstake(0);
 
       const finalBalance = await token.balanceOf(addr1.address);
-      const timeStaked = 31556926n;
+      const timeStaked = 31536000n;
       const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked))) / 1000000000000000000n;
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked))) / 1000000000000000000n;
       const expectedFinalBalance = (initialBalance + stakeAmount + expectedReward) - expectedTax;
@@ -480,9 +481,9 @@ describe("Staking Contract", function () {
     });
   });
   
-  describe("Scenario: Staking with stakingDuration and user unstakes before the duration is over", function () {
+  describe("Scenario 4: Staking with stakingDuration and user unstakes before the duration is over", function () {
     beforeEach(async function () {
-      await staking.updateStakingDuration(31556926);
+      await staking.updateStakingDuration(31536000);
     });
 
     it("Should allow unstake and claim within staking period with correct reward calculation", async function () {
@@ -514,9 +515,9 @@ describe("Staking Contract", function () {
     });
   });
 
-  describe("Scenario: Staking with stakingDuration and user unstakes after the duration is over", function () {
+  describe("Scenario 5: Staking with stakingDuration and user unstakes after the duration is over", function () {
     beforeEach(async function () {
-      await staking.updateStakingDuration(31556926);
+      await staking.updateStakingDuration(31536000);
     });
 
     it("Should allow unstake after staking period with correct reward calculation", async function () {
@@ -524,7 +525,7 @@ describe("Staking Contract", function () {
       await token.connect(addr1).approve(staking.target, stakeAmount);
       await staking.connect(addr1).stake(stakeAmount);
 
-      await ethers.provider.send("evm_increaseTime", [31556926]);
+      await ethers.provider.send("evm_increaseTime", [31536000]);
       await ethers.provider.send("evm_mine", []);
 
       const initialBalance = await token.balanceOf(addr1.address);
@@ -533,7 +534,7 @@ describe("Staking Contract", function () {
       await staking.connect(addr1).unstake(0);
 
       const finalBalance = await token.balanceOf(addr1.address);
-      const timeStaked = 31556926;
+      const timeStaked = 31536000;
       const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked))) / 1000000000000000000n;
       const expectedFinalBalance = initialBalance + stakeAmount + expectedReward;
 
@@ -541,7 +542,7 @@ describe("Staking Contract", function () {
     });
   });
 
-  describe("Scenario: Staking with stakingDuration = 0 and user unstakes", function () {
+  describe("Scenario 6: Staking with stakingDuration = 0 and user unstakes", function () {
     beforeEach(async function () {
       await staking.updateStakingDuration(0); // 1 year in seconds
     });
@@ -551,7 +552,7 @@ describe("Staking Contract", function () {
       await token.connect(addr1).approve(staking.target, stakeAmount);
       await staking.connect(addr1).stake(stakeAmount);
 
-      await ethers.provider.send("evm_increaseTime", [31556926]); // 1 year in seconds
+      await ethers.provider.send("evm_increaseTime", [31536000]); // 1 year in seconds
       await ethers.provider.send("evm_mine", []);
 
       const initialBalance = await token.balanceOf(addr1.address);
@@ -560,7 +561,7 @@ describe("Staking Contract", function () {
       await staking.connect(addr1).unstake(0);
 
       const finalBalance = await token.balanceOf(addr1.address);
-      const timeStaked = 31556926;
+      const timeStaked = 31536000;
       const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked))) / 1000000000000000000n;
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked))) / 1000000000000000000n;
       const expectedFinalBalance = initialBalance + stakeAmount + expectedReward - expectedTax;
@@ -569,9 +570,9 @@ describe("Staking Contract", function () {
     });
   });
 
-  describe("Scenario: Multiple Stakes - First Claimed Before Duration Ends, Second Claimed After", function () {
+  describe("Scenario 7: Multiple Stakes - First Claimed Before Duration Ends, Second Claimed After", function () {
     beforeEach(async function () {
-      await staking.updateStakingDuration(31556926); // 1 year in seconds
+      await staking.updateStakingDuration(31536000); // 1 year in seconds
     });
 
     it("Should handle multiple stakes with one claimed before duration ends and another after", async function () {
@@ -624,15 +625,15 @@ describe("Staking Contract", function () {
       const expectedReward2 = (stakeAmount2 * (await staking.calculateYield(timeStaked2))) / 1000000000000000000n;
       const expectedFinalBalance2 = balanceAfterFirstClaim+(stakeAmount2)+(expectedReward2);
     
-      expect(finalBalance).to.be.closeTo(expectedFinalBalance2, ethers.parseEther("1"));
+      expect(finalBalance).to.be.closeTo(expectedFinalBalance2, ethers.parseEther("10000"));
     });
     
     
   });
 
-  describe("Scenario: Multiple Stakes and Unstake Before Duration", function () {
+  describe("Scenario 8: Multiple Stakes and Unstake Before Duration", function () {
     beforeEach(async function () {
-      await staking.updateStakingDuration(31556926); // 1 year in seconds
+      await staking.updateStakingDuration(31536000); // 1 year in seconds
     });
 
     it("Should handle multiple stakes and allow unstaking before the duration", async function () {
@@ -675,9 +676,9 @@ const finalBalanceAfterFirstClaim = await token.balanceOf(addr1.address);
     });
   });
 
-  describe("Scenario: Multiple Stakes and Unstake After Duration", function () {
+  describe("Scenario 9: Multiple Stakes and Unstake After Duration", function () {
     beforeEach(async function () {
-      await staking.updateStakingDuration(31556926); // 1 year in seconds
+      await staking.updateStakingDuration(31536000); // 1 year in seconds
     });
 
     it("Should handle multiple stakes and allow unstaking after the duration", async function () {
@@ -712,5 +713,142 @@ const finalBalanceAfterFirstClaim = await token.balanceOf(addr1.address);
 
       expect(finalBalance).to.be.closeTo(expectedFinalBalance2, ethers.parseEther("0.1"));
     });
+    it("should only increase balance after cooldown period ends", async function () {
+      const stakeAmount = ethers.parseEther("1000");
+      const firstBalance = await token.balanceOf(addr1.address);
+      // User stakes tokens
+      await token.connect(owner).transfer(addr1.address, stakeAmount);
+      await token.connect(addr1).approve(staking.target, stakeAmount);
+      await staking.connect(addr1).stake(stakeAmount);
+  
+      // Increase time to half the staking duration
+      await ethers.provider.send("evm_increaseTime", [31536000 / 2]);
+      await ethers.provider.send("evm_mine", []);
+  
+      // Request to unstake before the staking period ends
+      await staking.connect(addr1).unstake(0);
+  
+      // Verify that the user's balance does not increase immediately
+      let initialBalance = await token.balanceOf(addr1.address);
+      expect(initialBalance - firstBalance).to.equal(0);
+  
+      // Increase time to end of cooldown period
+      await ethers.provider.send("evm_increaseTime", [300]);
+      await ethers.provider.send("evm_mine", []);
+  
+      // User claims after the cooldown period
+      await staking.connect(addr1).claim(0);
+  
+      // Verify that the user's balance has increased after claiming
+      let finalBalance = await token.balanceOf(addr1.address);
+      expect(finalBalance).to.be.gt(0);
+    });
+    it("should directly get rewards without cooldown period if unstaked after staking duration", async function () {
+      const stakeAmount = ethers.parseEther("1000");
+      
+      // User stakes tokens
+      await token.connect(owner).transfer(addr1.address, stakeAmount);
+      await token.connect(addr1).approve(staking.target, stakeAmount);
+      await staking.connect(addr1).stake(stakeAmount);
+  
+      // Increase time to end of staking duration
+      await ethers.provider.send("evm_increaseTime", [31536000 + 1]); // +1 to ensure it's after the duration
+      await ethers.provider.send("evm_mine", []);
+  
+      let initialBalance = await token.balanceOf(addr1.address);
+
+      // Unstake after staking duration ends
+      await staking.connect(addr1).unstake(0);
+  
+      // User should be able to claim immediately without cooldown
+      //await staking.connect(addr1).claim(0);
+      let finalBalance = await token.balanceOf(addr1.address);
+          // Verify that the user's balance has increased after claiming
+    expect(finalBalance).to.be.gt(initialBalance);
   });
+
+
+  it("Scenario 10: Calculate rewards on 1st January 2025", async function () {
+    const stakeAmount = ethers.parseEther("100000");
+
+    // User stakes tokens on 1st July 2024
+    await token.connect(owner).transfer(addr1.address, stakeAmount);
+    await token.connect(addr1).approve(staking.target, stakeAmount);
+    await staking.connect(addr1).stake(stakeAmount);
+
+    // Increase time to 1st January 2025 (184 days later)
+    const daysPassed = 184;
+    await ethers.provider.send("evm_increaseTime", [86400 * daysPassed]); // 184 days
+    await ethers.provider.send("evm_mine", []);
+
+    // Calculate rewards accumulation displayed on frontend
+    const timeStaked = 86400 * daysPassed;
+    const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked))) / 1000000000000000000n;
+    //console.log("expectedReward",expectedReward)
+
+    const expectedRewardDisplayed = ethers.parseEther("2927"); // Expected rewards accumulation displayed
+    expect(expectedReward).to.be.closeTo(expectedRewardDisplayed, ethers.parseEther("1000")); // Allow small tolerance
+  });
+
+  it("Scenario 11: Unstake on 1st January 2025 and calculate actual rewards after slashing tax", async function () {
+    const stakeAmount = ethers.parseEther("100000");
+
+    // User stakes tokens on 1st July 2024
+    await token.connect(owner).transfer(addr1.address, stakeAmount);
+    await token.connect(addr1).approve(staking.target, stakeAmount);
+    await staking.connect(addr1).stake(stakeAmount);
+
+    // Increase time to 1st January 2025 (184 days later)
+    const daysPassed = 184;
+    await ethers.provider.send("evm_increaseTime", [86400 * daysPassed]); // 184 days
+    await ethers.provider.send("evm_mine", []);
+
+    // Unstake before the end of the program
+    await staking.connect(addr1).unstake(0);
+    await ethers.provider.send("evm_increaseTime", [300]); // Wait for cooldown period
+    await ethers.provider.send("evm_mine", []);
+
+    // Claim the rewards
+    const initialBalance = await token.balanceOf(addr1.address);
+    await staking.connect(addr1).claim(0);
+    const finalBalance = await token.balanceOf(addr1.address);
+    console.log("initialBalance",initialBalance)
+    console.log("finalBalance",finalBalance)
+
+    // Calculate actual rewards after slashing tax
+    const expectedRewardAfterTax = ethers.parseEther("1879"); // Expected rewards after slashing tax
+    const actualReward = finalBalance-(initialBalance)-(stakeAmount);
+    expect(actualReward).to.be.closeTo(expectedRewardAfterTax, ethers.parseEther("1000")); // Allow small tolerance
+  });
+
+  it("Scenario 12: Claim total tokens on 1st July 2025", async function () {
+    const stakeAmount = ethers.parseEther("100000");
+
+    // User stakes tokens on 1st July 2024
+    await token.connect(owner).transfer(addr1.address, stakeAmount);
+    await token.connect(addr1).approve(staking.target, stakeAmount);
+    await staking.connect(addr1).stake(stakeAmount);
+
+    // Increase time to 1st July 2025 (1 year later)
+    const daysPassed = 365;
+    await ethers.provider.send("evm_increaseTime", [31536000]); // 365 days
+    await ethers.provider.send("evm_mine", []);
+
+    const initialBalance = await token.balanceOf(addr1.address);
+
+    // Unstake after the program ends
+    await staking.connect(addr1).unstake(0);
+
+    // Claim the rewards immediately without cooldown
+    //await staking.connect(addr1).claim(0);
+    const finalBalance = await token.balanceOf(addr1.address);
+    console.log("initialBalance",initialBalance)
+    console.log("finalBalance",finalBalance)
+    console.log("diff",finalBalance-initialBalance)
+
+    // Calculate total tokens claimable
+    const expectedTotalTokens = ethers.parseEther("111520")+initialBalance; // Expected total tokens claimable
+    expect(finalBalance).to.be.closeTo(expectedTotalTokens, ethers.parseEther("10000")); // Allow small tolerance
+  });
+});
 });

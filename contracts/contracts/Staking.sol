@@ -1,22 +1,20 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/ReentrancyGuardUpgradeable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 /**
  * @title Staking Contract
  * @dev A contract for staking ERC20 tokens and earning rewards.
  */
-contract Staking is
-    Initializable,
-    OwnableUpgradeable,
-    PausableUpgradeable,
-    ReentrancyGuardUpgradeable
-{
+contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, ReentrancyGuardUpgradeable {
+    using SafeERC20 for IERC20;
+
     /// @notice The ERC20 token used for staking
     IERC20 public stakingToken;
 
@@ -47,96 +45,155 @@ contract Staking is
     /// @notice Indicates if whitelisting is enabled
     bool public whitelistEnabled;
 
+    /// @notice Structure representing a stake
     struct Stake {
         uint256 amount;
-        uint256 startTime;
-        uint256 requestUnstakeTime;
+        uint32 startTime;
+        uint32 requestUnstakeTime;
         bool unstakeRequested;
+        uint256 yieldConstant;
+        uint256 monthlyIncreasePercentage;
+        uint256 startingSlashingPoint;
+        uint32 stakingDuration;
     }
 
+    /// @notice Mapping of user addresses to their stakes
     mapping(address => mapping(uint256 => Stake)) public userStakes;
+
+    /// @notice Mapping of user addresses to their stake counters
     mapping(address => uint256) public userStakeCounter;
+
+    /// @notice Mapping of whitelisted addresses
     mapping(address => bool) public whitelistedAddresses;
+
+    /// @notice Total amount of tokens staked in the contract
     uint256 private _totalStaked;
+
+    /// @notice Total amount of tokens in the reward pool
     uint256 private _rewardPool;
+
+    /// @notice Total amount of pending rewards
     uint256 private _totalPendingRewards;
 
+    /// @notice Emitted when a user stakes tokens
     event Staked(address indexed user, uint256 amount);
+
+    /// @notice Emitted when a user requests to unstake tokens
     event UnstakeRequested(address indexed user, uint256 amount);
+
+    /// @notice Emitted when a user withdraws staked tokens
     event Withdrawn(address indexed user, uint256 amount);
+
+    /// @notice Emitted when rewards are paid to a user
     event RewardPaid(address indexed user, uint256 reward);
+
+    /// @notice Emitted when the whitelist status of a user changes
     event WhitelistStatusChanged(address indexed user, bool status);
+
+    /// @notice Emitted when tokens are deposited into the reward pool
     event Deposit(address indexed owner, uint256 amount);
+
+    /// @notice Emitted when tokens are withdrawn from the reward pool
     event Withdraw(address indexed owner, uint256 amount);
 
+    // Custom errors
+    error ZeroAmount();
+    error AmountBelowMinCap();
+    error AmountExceedsMaxCap();
+    error NotWhitelisted();
+    error UnstakeNotRequested();
+    error CooldownPeriodNotOver();
+    error NoStakedAmount();
+    error UnstakeAlreadyRequested();
+    error CannotDepositZero();
+    error InsufficientRewardPool();
+
+    /// @notice Modifier to check if the caller is whitelisted
     modifier onlyWhitelisted() {
-        require(
-            !whitelistEnabled || whitelistedAddresses[msg.sender],
-            "Address not whitelisted"
-        );
+        if (whitelistEnabled && !whitelistedAddresses[msg.sender]) {
+            revert NotWhitelisted();
+        }
         _;
     }
 
     /**
      * @notice Initializes the staking contract with the given parameters
+     * @param _owner The address of the contract owner
      * @param _stakingToken The address of the ERC20 token used for staking
      * @param _stakingDuration The duration for which tokens need to be staked to avoid slashing tax
      * @param _yieldConstant The constant used to calculate yield
      * @param _cooldownPeriod The cooldown period after unstake request
      * @param _startingSlashingPoint The starting point for slashing tax
      * @param _monthlyIncreasePercentage The monthly increase percentage for slashing tax
+     * @param _minCap The minimum amount of tokens that can be staked
+     * @param _maxCap The maximum amount of tokens that can be staked
+     * @param _whitelistEnabled Indicates if whitelisting is enabled
      */
     function initialize(
+        address _owner,
         address _stakingToken,
-        uint256 _stakingDuration,
+        uint32 _stakingDuration,
         uint256 _yieldConstant,
         uint256 _cooldownPeriod,
         uint256 _startingSlashingPoint,
-        uint256 _monthlyIncreasePercentage
+        uint256 _monthlyIncreasePercentage,
+        uint256 _minCap,
+        uint256 _maxCap,
+        bool _whitelistEnabled
     ) public initializer {
         __Ownable_init(msg.sender);
         __Pausable_init();
         __ReentrancyGuard_init();
+        transferOwnership(_owner);
 
         stakingToken = IERC20(_stakingToken);
         stakingDuration = _stakingDuration;
-        minCap = 0;
-        maxCap = 0;
         yieldConstant = _yieldConstant;
         cooldownPeriod = _cooldownPeriod;
         monthsInStakingPeriod = _stakingDuration / 30 days;
         startingSlashingPoint = _startingSlashingPoint;
         monthlyIncreasePercentage = _monthlyIncreasePercentage;
+        minCap = _minCap;
+        maxCap = _maxCap;
+        whitelistEnabled = _whitelistEnabled;
     }
 
     /**
      * @notice Stakes a specified amount of tokens
      * @param _amount The amount of tokens to stake
      */
-    function stake(
-        uint256 _amount
-    ) external nonReentrant whenNotPaused onlyWhitelisted {
-        require(_amount > 0, "Cannot stake 0");
-        if (minCap > 0) {
-            require(_amount >= minCap, "Amount below minimum cap");
+    function stake(uint256 _amount)
+        external
+        nonReentrant
+        whenNotPaused
+        onlyWhitelisted
+    {
+        if (_amount == 0) {
+            revert ZeroAmount();
         }
-        if (maxCap > 0) {
-            require(
-                _amount + getTotalStakedForUser(msg.sender) <= maxCap,
-                "Amount exceeds maximum cap"
-            );
+        if (minCap > 0 && _amount < minCap) {
+            revert AmountBelowMinCap();
+        }
+        if (maxCap > 0 && _amount + getTotalStakedForUser(msg.sender) > maxCap) {
+            revert AmountExceedsMaxCap();
         }
 
         uint256 stakeId = userStakeCounter[msg.sender];
-        Stake memory newStake = Stake(_amount, block.timestamp, 0, false);
-        userStakes[msg.sender][stakeId] = newStake;
+        userStakes[msg.sender][stakeId] = Stake(
+            _amount,
+            uint32(block.timestamp),
+            0,
+            false,
+            yieldConstant,
+            monthlyIncreasePercentage,
+            startingSlashingPoint,
+            uint32(stakingDuration)
+        );
         userStakeCounter[msg.sender]++;
         _totalStaked += _amount;
-        uint256 reward = (_amount * calculateYield(stakingDuration)) / 1e18;
+        _totalPendingRewards += (_amount * calculateYield(stakingDuration, yieldConstant, stakingDuration)) / 1e18;
 
-        _totalPendingRewards += reward;
-
-        stakingToken.transferFrom(msg.sender, address(this), _amount);
+        stakingToken.safeTransferFrom(msg.sender, address(this), _amount);
         emit Staked(msg.sender, _amount);
     }
 
@@ -146,63 +203,54 @@ contract Staking is
      */
     function unstake(uint256 stakeId) external nonReentrant {
         Stake storage stakeInfo = userStakes[msg.sender][stakeId];
-        require(stakeInfo.amount > 0, "No staked amount to request unstake");
-        require(!stakeInfo.unstakeRequested, "Unstake already requested");
+        if (stakeInfo.amount == 0) {
+            revert NoStakedAmount();
+        }
+        if (stakeInfo.unstakeRequested) {
+            revert UnstakeAlreadyRequested();
+        }
 
-        uint256 _amount = stakeInfo.amount;
-        uint256 totalAmount;
-
-        if (stakingDuration == 0) {
-            totalAmount = calculateTotalWithdraw(
-                _amount,
-                block.timestamp - stakeInfo.startTime
-            );
-        } else if (block.timestamp < stakeInfo.startTime + stakingDuration) {
-            stakeInfo.requestUnstakeTime = block.timestamp;
+        if (block.timestamp < stakeInfo.startTime + stakeInfo.stakingDuration) {
+            stakeInfo.requestUnstakeTime = uint32(block.timestamp);
             stakeInfo.unstakeRequested = true;
             emit UnstakeRequested(msg.sender, stakeInfo.amount);
             return;
-        } else {
-            totalAmount = calculateTotalWithdraw(
-                _amount,
-                block.timestamp - stakeInfo.startTime
-            );
-        }
+        } 
 
-        require(_totalStaked >= _amount, "Overflow: total staked amount");
-        _totalStaked -= _amount;
-
-        uint256 rewardAmount = totalAmount - _amount;
-
-        require(_rewardPool >= rewardAmount, "Overflow: reward pool amount");
-        _rewardPool -= rewardAmount;
-        _totalPendingRewards -= rewardAmount;
-
-        delete userStakes[msg.sender][stakeId];
-        stakingToken.transfer(msg.sender, totalAmount);
-        emit Withdrawn(msg.sender, totalAmount);
-
-        if (getTotalStakedForUser(msg.sender) == 0) {
-            delete userStakeCounter[msg.sender];
-        }
+        _processUnstake(msg.sender, stakeId);
     }
 
     /**
      * @notice Claims the tokens and rewards after the cooldown period
      * @param stakeId The ID of the stake to claim
      */
-    function claim(uint256 stakeId) external nonReentrant whenNotPaused {
+    function claim(uint256 stakeId) external nonReentrant {
         Stake storage stakeInfo = userStakes[msg.sender][stakeId];
-        require(stakeInfo.unstakeRequested, "Unstake not requested");
-        require(
-            block.timestamp >= stakeInfo.requestUnstakeTime + cooldownPeriod,
-            "Cooldown period not over"
-        );
+        if (!stakeInfo.unstakeRequested) {
+            revert UnstakeNotRequested();
+        }
+        if (block.timestamp < stakeInfo.requestUnstakeTime + cooldownPeriod) {
+            revert CooldownPeriodNotOver();
+        }
 
+        _processUnstake(msg.sender, stakeId);
+    }
+
+    /**
+     * @notice Internal function to process unstaking and reward calculation
+     * @param user The address of the user
+     * @param stakeId The ID of the stake to process
+     */
+    function _processUnstake(address user, uint256 stakeId) internal {
+        Stake storage stakeInfo = userStakes[user][stakeId];
         uint256 _amount = stakeInfo.amount;
         uint256 totalAmount = calculateTotalWithdraw(
             _amount,
-            block.timestamp - stakeInfo.startTime
+            block.timestamp - stakeInfo.startTime,
+            stakeInfo.yieldConstant,
+            stakeInfo.monthlyIncreasePercentage,
+            stakeInfo.startingSlashingPoint,
+            stakeInfo.stakingDuration
         );
 
         uint256 rewardAmount = totalAmount - _amount;
@@ -210,12 +258,13 @@ contract Staking is
         _totalStaked -= _amount;
         _rewardPool -= rewardAmount;
         _totalPendingRewards -= rewardAmount;
-        delete userStakes[msg.sender][stakeId];
-        stakingToken.transfer(msg.sender, totalAmount);
-        emit Withdrawn(msg.sender, totalAmount);
+        delete userStakes[user][stakeId];
+        stakingToken.safeTransfer(user, totalAmount);
+        emit Withdrawn(user, totalAmount);
+        emit RewardPaid(user, rewardAmount);
 
-        if (getTotalStakedForUser(msg.sender) == 0) {
-            delete userStakeCounter[msg.sender];
+        if (getTotalStakedForUser(user) == 0) {
+            delete userStakeCounter[user];
         }
     }
 
@@ -223,32 +272,31 @@ contract Staking is
      * @notice Calculates the total withdrawable amount including rewards and slashing tax
      * @param _amount The initial staked amount
      * @param timeStaked The duration for which the tokens were staked
+     * @param _yieldConstant The constant used to calculate yield
+     * @param _monthlyIncreasePercentage The monthly increase percentage for slashing tax
+     * @param _startingSlashingPoint The starting point for slashing tax
+     * @param _stakingDuration The duration for which tokens need to be staked to avoid slashing tax
      * @return The total withdrawable amount
      */
     function calculateTotalWithdraw(
         uint256 _amount,
-        uint256 timeStaked
-    ) public view returns (uint256) {
-        uint256 Y = calculateYield(timeStaked);
-        uint256 T = calculateTax(timeStaked);
+        uint256 timeStaked,
+        uint256 _yieldConstant,
+        uint256 _monthlyIncreasePercentage,
+        uint256 _startingSlashingPoint,
+        uint256 _stakingDuration
+    )
+        public
+        view
+        returns (uint256)
+    {
+        uint256 Y = calculateYield(timeStaked, _yieldConstant, _stakingDuration);
+        uint256 T = calculateTax(timeStaked, _monthlyIncreasePercentage, _startingSlashingPoint, _stakingDuration);
 
-        // Ensure that reward calculation does not overflow
         uint256 reward = (_amount * Y) / 1e18;
-
-        // Ensure that slashing tax calculation does not overflow
         uint256 slashingTax = (reward * T) / 1e18;
 
-        // Ensure that total withdraw amount does not overflow
-        require(
-            _amount + reward >= _amount,
-            "Overflow in total withdraw amount calculation"
-        );
         uint256 totalWithdrawAmount = _amount + reward - slashingTax;
-
-        require(
-            _rewardPool >= reward - slashingTax,
-            "Insufficient reward pool"
-        );
 
         return totalWithdrawAmount;
     }
@@ -262,7 +310,7 @@ contract Staking is
     }
 
     /**
-     * @notice Returns the total amount of pennding rewards  in the contract
+     * @notice Returns the total amount of pending rewards in the contract
      * @return The total pending rewards
      */
     function pendingRewards() external view returns (uint256) {
@@ -357,15 +405,15 @@ contract Staking is
     /**
      * @notice Calculates the yield based on the time staked
      * @param timeStaked The duration for which the tokens were staked
+     * @param _yieldConstant The constant used to calculate yield
      * @return The calculated yield
      */
-    function calculateYield(uint256 timeStaked) public view returns (uint256) {
-        if (timeStaked >= stakingDuration) {
-            return 144 * yieldConstant;
+    function calculateYield(uint256 timeStaked, uint256 _yieldConstant, uint256 _stakingDuration) public view returns (uint256) {
+        if (timeStaked >= _stakingDuration) {
+            return 144 * _yieldConstant;
         } else {
-            uint256 X = (monthsInStakingPeriod * timeStaked * 1e18) /
-                stakingDuration;
-            uint256 Y = (yieldConstant * X * X) / (1e18 * 1e18);
+            uint256 X = (monthsInStakingPeriod * timeStaked * 1e18) / _stakingDuration;
+            uint256 Y = (_yieldConstant * X * X) / (1e36);
             return Y;
         }
     }
@@ -373,16 +421,21 @@ contract Staking is
     /**
      * @notice Calculates the slashing tax based on the time staked
      * @param timeStaked The duration for which the tokens were staked
+     * @param _monthlyIncreasePercentage The monthly increase percentage for slashing tax
+     * @param _startingSlashingPoint The starting point for slashing tax
+     * @param _stakingDuration The duration for which tokens need to be staked to avoid slashing tax
      * @return The calculated slashing tax
      */
-    function calculateTax(uint256 timeStaked) public view returns (uint256) {
-        if (timeStaked >= stakingDuration) {
+    function calculateTax(
+        uint256 timeStaked,
+        uint256 _monthlyIncreasePercentage,
+        uint256 _startingSlashingPoint,
+        uint256 _stakingDuration
+    ) public pure returns (uint256) {
+        if (timeStaked >= _stakingDuration) {
             return 0;
         } else {
-            uint256 T = startingSlashingPoint -
-                (monthlyIncreasePercentage * timeStaked) /
-                stakingDuration;
-            require(T > 0, "Cannot slash a negative value");
+            uint256 T = _startingSlashingPoint - (_monthlyIncreasePercentage * timeStaked) / _stakingDuration;
             return T;
         }
     }
@@ -424,9 +477,11 @@ contract Staking is
      * @param _amount The amount of tokens to deposit
      */
     function depositRewardTokens(uint256 _amount) external onlyOwner {
-        require(_amount > 0, "Cannot deposit 0");
+        if (_amount == 0) {
+            revert CannotDepositZero();
+        }
         _rewardPool += _amount;
-        stakingToken.transferFrom(msg.sender, address(this), _amount);
+        stakingToken.safeTransferFrom(msg.sender, address(this), _amount);
         emit Deposit(msg.sender, _amount);
     }
 
@@ -435,13 +490,14 @@ contract Staking is
      * @param _amount The amount of tokens to withdraw
      */
     function withdrawRewardTokens(uint256 _amount) external onlyOwner {
-        require(_amount > 0, "Cannot withdraw 0");
-        require(
-            _rewardPool - _totalPendingRewards >= _amount,
-            "Not enough tokens in reward pool after accounting for pending rewards"
-        );
+        if (_amount == 0) {
+            revert ZeroAmount();
+        }
+        if (_rewardPool - _totalPendingRewards < _amount) {
+            revert InsufficientRewardPool();
+        }
         _rewardPool -= _amount;
-        stakingToken.transfer(msg.sender, _amount);
+        stakingToken.safeTransfer(msg.sender, _amount);
         emit Withdraw(msg.sender, _amount);
     }
 
@@ -452,13 +508,13 @@ contract Staking is
      */
     function getTotalStakedForUser(address user) public view returns (uint256) {
         uint256 totalStakedTokens = 0;
-        uint256 stakeCount = userStakeCounter[user]; // Read from storage only once
-        mapping(uint256 => Stake) storage stakes = userStakes[user]; // Cache the mapping
+        uint256 stakeCount = userStakeCounter[user];
+        mapping(uint256 => Stake) storage stakes = userStakes[user];
 
         for (uint256 i = 0; i < stakeCount; ) {
             totalStakedTokens += stakes[i].amount;
             unchecked {
-                i++;
+                ++i;
             }
         }
 
