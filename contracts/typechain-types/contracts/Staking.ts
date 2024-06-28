@@ -107,7 +107,7 @@ export interface StakingInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "calculateYield",
-    values: [BigNumberish, BigNumberish]
+    values: [BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "claim", values: [BigNumberish]): string;
   encodeFunctionData(
@@ -605,7 +605,11 @@ export interface Staking extends BaseContract {
   >;
 
   calculateYield: TypedContractMethod<
-    [timeStaked: BigNumberish, _yieldConstant: BigNumberish],
+    [
+      timeStaked: BigNumberish,
+      _yieldConstant: BigNumberish,
+      _stakingDuration: BigNumberish
+    ],
     [bigint],
     "view"
   >;
@@ -806,7 +810,11 @@ export interface Staking extends BaseContract {
   getFunction(
     nameOrSignature: "calculateYield"
   ): TypedContractMethod<
-    [timeStaked: BigNumberish, _yieldConstant: BigNumberish],
+    [
+      timeStaked: BigNumberish,
+      _yieldConstant: BigNumberish,
+      _stakingDuration: BigNumberish
+    ],
     [bigint],
     "view"
   >;

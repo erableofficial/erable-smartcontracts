@@ -191,7 +191,7 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         );
         userStakeCounter[msg.sender]++;
         _totalStaked += _amount;
-        _totalPendingRewards += (_amount * calculateYield(stakingDuration, yieldConstant)) / 1e18;
+        _totalPendingRewards += (_amount * calculateYield(stakingDuration, yieldConstant, stakingDuration)) / 1e18;
 
         stakingToken.safeTransferFrom(msg.sender, address(this), _amount);
         emit Staked(msg.sender, _amount);
@@ -290,7 +290,7 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         view
         returns (uint256)
     {
-        uint256 Y = calculateYield(timeStaked, _yieldConstant);
+        uint256 Y = calculateYield(timeStaked, _yieldConstant, _stakingDuration);
         uint256 T = calculateTax(timeStaked, _monthlyIncreasePercentage, _startingSlashingPoint, _stakingDuration);
 
         uint256 reward = (_amount * Y) / 1e18;
@@ -411,12 +411,12 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
      * @param _yieldConstant The constant used to calculate yield
      * @return The calculated yield
      */
-    function calculateYield(uint256 timeStaked, uint256 _yieldConstant) public view returns (uint256) {
-        if (timeStaked >= stakingDuration) {
+    function calculateYield(uint256 timeStaked, uint256 _yieldConstant, uint256 _stakingDuration) public view returns (uint256) {
+        if (timeStaked >= _stakingDuration) {
             return 144 * _yieldConstant;
         } else {
-            uint256 X = (monthsInStakingPeriod * timeStaked * 1e18) / stakingDuration;
-            uint256 Y = (_yieldConstant * X * X) / (1e18 * 1e18);
+            uint256 X = (monthsInStakingPeriod * timeStaked * 1e18) / _stakingDuration;
+            uint256 Y = (_yieldConstant * X * X) / (1e36);
             return Y;
         }
     }

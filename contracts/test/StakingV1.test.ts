@@ -310,7 +310,7 @@ describe("Staking Contract", function () {
       const finalBalance = await token.balanceOf(addr1.address);
 
       const timeStaked = 86400 * 50; // 50 days
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance = stakeAmount + (expectedReward) - (expectedTax) + (initialBalance);
 
@@ -355,7 +355,7 @@ describe("Staking Contract", function () {
         const newTotalPendingRewards = await staking.pendingRewards();
   
         const timeStaked = 30000n; 
-        const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+        const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
         const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
         const expectedFinalBalance = initialBalance+ totalStaked + (expectedReward) - (expectedTax);
   
@@ -442,7 +442,7 @@ describe("Staking Contract", function () {
       // Calculate expected rewards
       const timeStaked = 31536000; // 1 year
       const stakeInfo = await staking.userStakes(addr1.address, 0);
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
 
       const pendingRewardsAfterStake = await staking.pendingRewards();
       expect(pendingRewardsAfterStake).to.equal(expectedReward);
@@ -456,7 +456,7 @@ describe("Staking Contract", function () {
       // Calculate expected rewards
       const timeStaked = 31536000; // 1 year
       const stakeInfo = await staking.userStakes(addr1.address, 0);
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
 
       await ethers.provider.send("evm_increaseTime", [31536000]); // 1 year
       await ethers.provider.send("evm_mine", []);
@@ -583,7 +583,7 @@ describe("Staking Contract", function () {
       const timeStaked = 86400 * 107;
   
       // Calculate expected reward and tax using the stored parameters
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
 
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
 
@@ -618,7 +618,7 @@ describe("Staking Contract", function () {
       const timeStaked = 31536000;
   
       // Calculate expected reward using the stored parameters
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
   
       // Calculate the expected final balance
       const expectedFinalBalance = initialBalance + (stakeAmount) + (expectedReward);
@@ -649,7 +649,7 @@ describe("Staking Contract", function () {
       const timeStaked = 31536000;
   
       // Calculate expected reward and tax using the stored parameters
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance = initialBalance + (stakeAmount) + (expectedReward) - (expectedTax);
   
@@ -685,7 +685,7 @@ describe("Staking Contract", function () {
       const timeStaked = 86400 * 107;
   
       // Calculate expected reward and tax using the stored parameters
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance = initialBalance + (stakeAmount) + (expectedReward) - (expectedTax);
   
@@ -717,7 +717,7 @@ describe("Staking Contract", function () {
       const timeStaked = 31536000;
   
       // Calculate expected reward using the stored parameters
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
   
       // Calculate the expected final balance
       const expectedFinalBalance = initialBalance + (stakeAmount) + (expectedReward);
@@ -749,7 +749,7 @@ describe("Staking Contract", function () {
       const timeStaked = 31536000;
   
       // Calculate expected reward and tax using the stored parameters
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance = initialBalance + (stakeAmount) + (expectedReward) - (expectedTax);
   
@@ -800,14 +800,14 @@ describe("Staking Contract", function () {
   
       // Calculate expected rewards and final balance
       const timeStaked1 = 86400 * 180; // 180 days for the first stake
-      const expectedReward1 = (stakeAmount1 * (await staking.calculateYield(timeStaked1, stakeInfo1.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward1 = (stakeAmount1 * (await staking.calculateYield(timeStaked1, stakeInfo1.yieldConstant,stakeInfo1.stakingDuration))) / ethers.parseEther("1");
       const expectedTax1 = (expectedReward1 * (await staking.calculateTax(timeStaked1, stakeInfo1.monthlyIncreasePercentage, stakeInfo1.startingSlashingPoint, stakeInfo1.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance1 = initialBalance + (stakeAmount1) + (expectedReward1) - (expectedTax1);
   
       expect(balanceAfterFirstClaim).to.be.closeTo(expectedFinalBalance1, ethers.parseEther("10000"));
   
       const timeStaked2 = 86400 * 560; // 180 + 380 days
-      const expectedReward2 = (stakeAmount2 * (await staking.calculateYield(timeStaked2, stakeInfo2.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward2 = (stakeAmount2 * (await staking.calculateYield(timeStaked2, stakeInfo2.yieldConstant, stakeInfo2.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance2 = balanceAfterFirstClaim + (stakeAmount2) + (expectedReward2);
   
       expect(finalBalance).to.be.closeTo(expectedFinalBalance2, ethers.parseEther("10000"));
@@ -849,7 +849,7 @@ describe("Staking Contract", function () {
       const initialBalance = await token.balanceOf(addr1.address);
   
       const timeStaked1 = 86400 * 380; // 180 + 200 days
-      const expectedReward1 = (stakeAmount1 * (await staking.calculateYield(timeStaked1, stakeInfo1.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward1 = (stakeAmount1 * (await staking.calculateYield(timeStaked1, stakeInfo1.yieldConstant, stakeInfo1.stakingDuration))) / ethers.parseEther("1");
       const expectedTax1 = (expectedReward1 * (await staking.calculateTax(timeStaked1, stakeInfo1.monthlyIncreasePercentage, stakeInfo1.startingSlashingPoint, stakeInfo1.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance1 = initialBalance + (stakeAmount1) + (expectedReward1) - (expectedTax1);
   
@@ -887,7 +887,7 @@ describe("Staking Contract", function () {
   
       const finalBalance = await token.balanceOf(addr1.address);
       const timeStaked2 = 86400 * 580; // 180 + 400 days
-      const expectedReward2 = (stakeAmount2 * (await staking.calculateYield(timeStaked2, stakeInfo2.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward2 = (stakeAmount2 * (await staking.calculateYield(timeStaked2, stakeInfo2.yieldConstant, stakeInfo2.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance2 = initialBalance + (stakeAmount2) + (expectedReward2);
   
       expect(finalBalance).to.be.closeTo(expectedFinalBalance2, ethers.parseEther("0.1"));
@@ -971,9 +971,11 @@ describe("Staking Contract", function () {
   
       // Calculate rewards accumulation displayed on frontend
       const timeStaked = 86400 * daysPassed;
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant, stakeInfo.stakingDuration))) / ethers.parseEther("1");
+      console.log(expectedReward)
   
       const expectedRewardDisplayed = ethers.parseEther("2927"); // Expected rewards accumulation displayed
+      console.log(expectedRewardDisplayed)
       expect(expectedReward).to.be.closeTo(expectedRewardDisplayed, ethers.parseEther("1000")); // Allow small tolerance
     });
   });
@@ -1011,13 +1013,63 @@ describe("Staking Contract", function () {
   
       // Calculate actual rewards after slashing tax
       const timeStaked = 86400 * daysPassed;
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant, stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedRewardAfterTax = expectedReward - expectedTax;
       const actualReward = finalBalance - (initialBalance) - (stakeAmount);
+      console.log("expectedReward", expectedReward)
+      console.log("expectedTax", expectedTax)
+
+      console.log("expectedRewardAfterTax", expectedRewardAfterTax)
+
+      console.log("actualReward", actualReward)
+
+
   
       expect(actualReward).to.be.closeTo(expectedRewardAfterTax, ethers.parseEther("1000")); // Allow small tolerance
     });
+    it("Should unstake on 1st January 2025 and calculate actual rewards after slashing tax", async function () {
+        const stakeAmount = ethers.parseEther("100000");
+    
+        // User stakes tokens on 1st July 2024
+        await token.connect(owner).transfer(addr1.address, stakeAmount);
+        await token.connect(addr1).approve(staking.target, stakeAmount);
+        await staking.connect(addr1).stake(stakeAmount);
+        const stakeInfo = await staking.userStakes(addr1.address, 0);
+  
+        // Increase time to 1st January 2025 (184 days later)
+        const daysPassed = 184;
+        await ethers.provider.send("evm_increaseTime", [86400 * daysPassed]); // 184 days
+        await ethers.provider.send("evm_mine", []);
+    
+        // Unstake before the end of the program
+        await staking.connect(addr1).unstake(0);
+        await ethers.provider.send("evm_increaseTime", [300]); // Wait for cooldown period
+        await ethers.provider.send("evm_mine", []);
+    
+        // Claim the rewards
+        const initialBalance = await token.balanceOf(addr1.address);
+        await staking.connect(addr1).claim(0);
+        const finalBalance = await token.balanceOf(addr1.address);
+    
+        // Calculate actual rewards after slashing tax
+        const timeStaked = 86400 * daysPassed;
+        const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
+        const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
+        const expectedRewardAfterTax = expectedReward - expectedTax;
+        const actualReward = finalBalance - initialBalance - stakeAmount;
+        const expectedFinalBalance = ethers.parseEther("101879");
+    
+        // Log for debugging
+        console.log("expectedReward:", expectedReward.toString());
+        console.log("expectedTax:", expectedTax.toString());
+        console.log("expectedRewardAfterTax:", expectedRewardAfterTax.toString());
+        console.log("actualReward:", actualReward.toString());
+        console.log("finalBalance:", finalBalance.toString());
+    
+        // Check if the final balance is as expected
+        expect(finalBalance).to.be.closeTo(initialBalance + expectedFinalBalance, ethers.parseEther("1")); // Allow small tolerance
+      });
   });
   
   describe("Scenario 12: Claim total tokens on 1st July 2025", function () {
@@ -1047,10 +1099,12 @@ describe("Staking Contract", function () {
       const finalBalance = await token.balanceOf(addr1.address);
   
       // Calculate total tokens claimable
-      const expectedReward = (stakeAmount * (await staking.calculateYield(31536000, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(31536000, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedTotalTokens = initialBalance + (stakeAmount) + (expectedReward);
   
       expect(finalBalance).to.be.closeTo(expectedTotalTokens, ethers.parseEther("10000")); // Allow small tolerance
+      console.log('finalBalance',finalBalance)
+      console.log('expectedTotalTokens',expectedTotalTokens)
     });
   });
   describe("Scenario 13: Staking before parameter updates and ensuring calculations are correct", function () {
@@ -1089,7 +1143,7 @@ describe("Staking Contract", function () {
   
       // Verify that calculations used initial parameters stored in user stake info
       const timeStaked = 86400 * 100; // 100 days
-      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant))) / ethers.parseEther("1");
+      const expectedReward = (stakeAmount * (await staking.calculateYield(timeStaked, stakeInfo.yieldConstant,stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedTax = (expectedReward * (await staking.calculateTax(timeStaked, stakeInfo.monthlyIncreasePercentage, stakeInfo.startingSlashingPoint, stakeInfo.stakingDuration))) / ethers.parseEther("1");
       const expectedFinalBalance = initialBalance + (expectedReward) - (expectedTax);
   
@@ -1102,4 +1156,7 @@ describe("Staking Contract", function () {
 /*
 1000000004174815172771005
 1000000004259340075117411
+
+1101879483706151274175678
+1101879000000000000000000
 */
