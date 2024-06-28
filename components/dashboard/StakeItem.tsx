@@ -12,6 +12,7 @@ import CustomToast from "./CustomToast";
 import { formatEther } from "viem";
 import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
 import Tooltip from "./Tooltip";
+import { calculateTotalWithdraw } from "../../lib/utils";
 
 interface StakeItemProps {
   stake: TabItem;
@@ -28,17 +29,22 @@ const StakeItem: React.FC<StakeItemProps> = ({
 }) => {
   const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
     React.useState(false);
+  const [currentRewards, setCurrentRewards] = React.useState<bigint>(BigInt(0));
 
-  const { data: rewardAmount, error } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "calculateTotalWithdraw",
-    args: [stake.amount, BigInt(stake.startTime / 1000)],
-  });
+  React.useEffect(() => {
+    async function getCurrentRewards() {
+      const rewardAmount = await calculateTotalWithdraw(
+        stake.amount,
+        BigInt(stake.startTime)
+      );
+      const result = rewardAmount - stake.amount;
+      setCurrentRewards(result);
+    }
 
-  const currentRewards: bigint = rewardAmount
-    ? BigInt(rewardAmount.toString()) - BigInt(stake.amount)
-    : BigInt(0);
+    if (stake.amount && stake.startTime) {
+      getCurrentRewards();
+    }
+  }, [stake.amount, stake.startTime]);
 
   const {
     writeContract,

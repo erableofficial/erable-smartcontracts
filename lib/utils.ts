@@ -36,3 +36,22 @@ export async function getUserStakes(
   console.log("Result From getUserStakes: ", result);
   return result as StakeInfo[];
 }
+
+export async function calculateTotalWithdraw(
+  amount: bigint,
+  startTime: bigint
+): Promise<bigint> {
+  const currentTime = BigInt(new Date().getTime());
+  const timePassed = currentTime - startTime;
+  const timePassedInSeconds = timePassed / BigInt(1000);
+
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "calculateTotalWithdraw",
+    args: [amount, timePassedInSeconds],
+  });
+
+  console.log("Result From calculateTotalWithdraw: ", result);
+  return result as bigint;
+}
