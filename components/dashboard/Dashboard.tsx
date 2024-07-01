@@ -29,7 +29,7 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
   value,
 }) => (
   <div className="flex gap-4 justify-between mt-2 text-neutral-700 max-md:mr-1">
-    <div className="text-lg font-medium text-neutral-500">{title}</div>
+    <div className="text-base font-medium text-neutral-500">{title}</div>
     <div className=" text-[16px] font-medium ">{value}</div>
   </div>
 );
