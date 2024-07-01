@@ -29,6 +29,7 @@ import StakeForm from "../../components/test/stakeForm";
 import StakeControlSection from "../../components/test/StakeControlSection";
 import WhiteListSection from "../../components/test/whiteListSection";
 import AddToWhiteListForm from "../../components/test/addToWhiteListForm";
+import CreateAirdropCycle from "../../components/test/aridrop/CreateAirdropCycle";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -166,6 +167,10 @@ export default function TestPage() {
               <WidthdrawTokensForm />
               <TransferTokensForm />
               <UpdateStakeDurationForm />
+            </div>
+            <div>
+              <h2 className="text-3xl text-center"> Airdrop Owner Actions </h2>
+              <CreateAirdropCycle />
             </div>
           </>
         )}
