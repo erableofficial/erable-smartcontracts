@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, ArrowUpRight, Menu } from "lucide-react";
 import ConnectWalletButton from "../ui/connectWalletButton";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
   return (
     <header className="pt-10  pb-4 mx-auto  max-sm:mt-1 bg-neutral-50">
       <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid  bg-white px-4 py-3 max-md:mx-3">
@@ -71,7 +73,11 @@ export default function Header() {
             </li>
             <li className="min-w-[94px]">
               <Link
-                className="text-lg font-medium hover:font-semibold"
+                className={`text-lg font-medium ${
+                  router.pathname === "/dashboard"
+                    ? "font-semibold"
+                    : "hover:font-semibold"
+                }`}
                 href="/dashboard"
               >
                 Dashboard
