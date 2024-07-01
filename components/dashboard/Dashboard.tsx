@@ -170,20 +170,22 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     Buy $ERA
                   </button>
                 </div>
-                <div className="flex gap-0.5 self-start  text-neutral-700">
-                  <div className="text-4xl font-semibold">
-                    {myBalance
-                      ? Number(
-                          formatEther(BigInt(myBalance.toString()))
-                        ).toLocaleString()
-                      : "0"}
+                <div>
+                  <div className="flex gap-0.5 self-start  text-neutral-700">
+                    <div className="text-4xl font-semibold">
+                      {myBalance
+                        ? Number(
+                            formatEther(BigInt(myBalance.toString()))
+                          ).toLocaleString()
+                        : "0"}
+                    </div>
+                    <div className="flex items-center text-lg font-medium">
+                      $ERA = $1.50
+                    </div>
                   </div>
-                  <div className="self-start h-full flex items-center text-lg font-medium">
-                    $ERA = $1.50
+                  <div className="justify-center w-fit self-start px-2.5 py-[6px] mt-3 text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
+                    1 $ERA = price
                   </div>
-                </div>
-                <div className="justify-center self-start px-2.5 py-[6px] mt-4 text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
-                  1 $ERA = price
                 </div>
                 <div className="flex gap-2 justify-between  text-base">
                   <div className="my-auto font-medium text-neutral-700">
