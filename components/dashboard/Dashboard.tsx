@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 import BuySeraModal from "../ui/BuySeraModal";
 import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
@@ -189,13 +189,16 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 </div>
                 <div className="flex gap-2 justify-between  text-base">
                   <div className="my-auto font-medium text-neutral-700">
-                    *If you are a clap investor
+                    If you are a clap investor
                   </div>
                   <a
                     href="#"
-                    className="pb-1.5 font-semibold text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid"
+                    className="flex gap-1  pb-1.5 font-semibold text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid"
                   >
                     Bridge
+                    <div className="flex items-center">
+                      <ArrowUpRight width={20} height={20} />
+                    </div>
                   </a>
                 </div>
               </div>
