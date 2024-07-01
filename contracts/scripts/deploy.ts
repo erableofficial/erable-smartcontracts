@@ -16,18 +16,27 @@ async function main() {
   const staking = await upgrades.deployProxy(
     Staking,
     [
+      deployer.address,
       stakingToken.target,
-      31556926n, // 1 year in seconds
-      800000000000000n, // yield constant
-      300n, // cooldown period in seconds
-      600000000000000000n, // starting slashing point
-      480000000000000000n, // monthly increase percentage
+      false, // whitelistEnabled
+      31536000n, // stakingDuration (1 year)
+      ethers.parseEther("0.0008"), // yieldConstant
+      300, // cooldownPeriod (5 minutes)
+      ethers.parseEther("0.6"), // startingSlashingPoint
+      ethers.parseEther("0.48"), // monthlyIncreasePercentage
+      ethers.parseEther("0"), // minCap
+      ethers.parseEther("0"), // maxCap
     ],
     { initializer: "initialize" }
   );
 
   await staking.waitForDeployment();
   console.log("Staking contract deployed to:", staking.target);
+
+  // Fund the reward pool
+  const rewardPoolAmount = ethers.parseEther("500000");
+  
+
 }
 
 main().catch((error) => {
