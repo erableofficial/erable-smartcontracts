@@ -19,6 +19,8 @@ contract MerkleAirdrop is Ownable(msg.sender) {
     event AirdropCycleCreated(uint256 cycleIndex, bytes32 merkleRoot);
     event TokensClaimed(address indexed claimant, uint256 amount);
     event TokensDeposited(uint256 amount);
+    event LogLeaf(bytes32 leaf);
+    event LogMerkleRoot(bytes32 root);
 
     constructor(IERC20 _token) {
         token = _token;
@@ -36,9 +38,11 @@ contract MerkleAirdrop is Ownable(msg.sender) {
         require(cycleIndex < airdropCycles.length, "Invalid cycle index");
         require(!hasClaimed[cycleIndex][msg.sender], "Airdrop already claimed in this cycle");
         require(airdropCycles[cycleIndex].isActive, "Airdrop cycle is not active");
-        
+
         // Verify the merkle proof
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender, amount));
+        emit LogLeaf(leaf);
+        emit LogMerkleRoot(airdropCycles[cycleIndex].merkleRoot);
         require(MerkleProof.verify(proof, airdropCycles[cycleIndex].merkleRoot, leaf), "Invalid merkle proof");
 
         // Mark as claimed
@@ -68,4 +72,8 @@ contract MerkleAirdrop is Ownable(msg.sender) {
     function withdrawTokens(uint256 amount) external onlyOwner {
         require(token.transfer(msg.sender, amount), "Token transfer failed");
     }
+    function hasUserClaimed(uint256 cycleIndex, address user) external view returns (bool) {
+    return hasClaimed[cycleIndex][user];
+}
+
 }
