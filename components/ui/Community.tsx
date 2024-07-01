@@ -18,7 +18,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
   profilePics,
 }) => {
   return (
-    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-[20px] cursor-pointer border border-solid border-primary flex flex-col justify-between">
+    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-[20px] cursor-pointer border border-solid border-neutral-200 flex flex-col justify-between">
       <div className="flex gap-0 justify-between">
         {/* <div> */}
         <div className="flex-1 text-3xl font-semibold text-neutral-700">
@@ -82,7 +82,7 @@ const Community: React.FC = () => {
             />
             {/* </div>
         </div>
-        <div className="mt-6 bg-stone-50 flex flex-col max-md:max-w-full">
+        <div className="mt-6 bg-neutral-50 flex flex-col max-md:max-w-full">
           <div className="grid grid-cols-12 gap-5 w-full"> */}
             <SectionContent
               title="Impact Partners"

@@ -116,7 +116,7 @@ const OurPartners: React.FC = () => {
   ];
 
   return (
-    <section className="flex gap-5 justify-between pr-20 bg-stone-50 max-lg:flex-wrap max-lg:pr-0 max-lg:pb-9">
+    <section className="flex gap-5 justify-between pr-20 bg-neutral-50 max-lg:flex-wrap max-lg:pr-0 max-lg:pb-9">
       <div className="flex flex-col justify-center px-20 py-20 bg-surface-500 max-lg:px-5 max-lg:w-full">
         <div
           className="mx-2.5 max-lg:max-w-full"

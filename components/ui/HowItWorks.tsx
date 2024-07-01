@@ -56,7 +56,7 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
 const HowItWorks = () => {
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
   return (
-    <section className="self-stretch p-20 bg-stone-50 max-md:px-5">
+    <section className="self-stretch p-20 bg-neutral-50 max-md:px-5">
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}
