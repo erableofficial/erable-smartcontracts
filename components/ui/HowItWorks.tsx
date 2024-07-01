@@ -49,7 +49,7 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
         </div>
       </div>
     </div>
-    <div className="shrink-0 mt-8 h-px border border-solid bg-neutral-200 border-neutral-200 max-md:max-w-full" />
+    <div className="shrink-0 mt-8 h-px border border-solid bg-neutral-300  max-md:max-w-full" />
   </>
 );
 
