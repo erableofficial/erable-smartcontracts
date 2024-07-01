@@ -377,9 +377,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
                         LP Farming
                       </div>
-                      <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
-                        Airdrop
-                      </div>
+                      <Link href="/dashboard/airdrop">
+                        <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
+                          Airdrop
+                        </div>
+                      </Link>
                     </div>
                   )}
                 </div>
