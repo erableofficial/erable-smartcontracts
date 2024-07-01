@@ -31,7 +31,9 @@ export interface MerkleAirdropInterface extends Interface {
       | "claimTokens"
       | "createAirdropCycle"
       | "depositTokens"
+      | "disableAirdropCycle"
       | "hasClaimed"
+      | "hasUserClaimed"
       | "owner"
       | "renounceOwnership"
       | "token"
@@ -42,6 +44,9 @@ export interface MerkleAirdropInterface extends Interface {
   getEvent(
     nameOrSignatureOrTopic:
       | "AirdropCycleCreated"
+      | "AirdropCycleDisabled"
+      | "LogLeaf"
+      | "LogMerkleRoot"
       | "OwnershipTransferred"
       | "TokensClaimed"
       | "TokensDeposited"
@@ -68,7 +73,15 @@ export interface MerkleAirdropInterface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "disableAirdropCycle",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "hasClaimed",
+    values: [BigNumberish, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasUserClaimed",
     values: [BigNumberish, AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
@@ -106,7 +119,15 @@ export interface MerkleAirdropInterface extends Interface {
     functionFragment: "depositTokens",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "disableAirdropCycle",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "hasClaimed", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "hasUserClaimed",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceOwnership",
@@ -129,6 +150,42 @@ export namespace AirdropCycleCreatedEvent {
   export interface OutputObject {
     cycleIndex: bigint;
     merkleRoot: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AirdropCycleDisabledEvent {
+  export type InputTuple = [cycleIndex: BigNumberish];
+  export type OutputTuple = [cycleIndex: bigint];
+  export interface OutputObject {
+    cycleIndex: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LogLeafEvent {
+  export type InputTuple = [leaf: BytesLike];
+  export type OutputTuple = [leaf: string];
+  export interface OutputObject {
+    leaf: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LogMerkleRootEvent {
+  export type InputTuple = [root: BytesLike];
+  export type OutputTuple = [root: string];
+  export interface OutputObject {
+    root: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -252,8 +309,20 @@ export interface MerkleAirdrop extends BaseContract {
     "nonpayable"
   >;
 
+  disableAirdropCycle: TypedContractMethod<
+    [cycleIndex: BigNumberish],
+    [void],
+    "nonpayable"
+  >;
+
   hasClaimed: TypedContractMethod<
     [arg0: BigNumberish, arg1: AddressLike],
+    [boolean],
+    "view"
+  >;
+
+  hasUserClaimed: TypedContractMethod<
+    [cycleIndex: BigNumberish, user: AddressLike],
     [boolean],
     "view"
   >;
@@ -313,9 +382,19 @@ export interface MerkleAirdrop extends BaseContract {
     nameOrSignature: "depositTokens"
   ): TypedContractMethod<[amount: BigNumberish], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "disableAirdropCycle"
+  ): TypedContractMethod<[cycleIndex: BigNumberish], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "hasClaimed"
   ): TypedContractMethod<
     [arg0: BigNumberish, arg1: AddressLike],
+    [boolean],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "hasUserClaimed"
+  ): TypedContractMethod<
+    [cycleIndex: BigNumberish, user: AddressLike],
     [boolean],
     "view"
   >;
@@ -341,6 +420,27 @@ export interface MerkleAirdrop extends BaseContract {
     AirdropCycleCreatedEvent.InputTuple,
     AirdropCycleCreatedEvent.OutputTuple,
     AirdropCycleCreatedEvent.OutputObject
+  >;
+  getEvent(
+    key: "AirdropCycleDisabled"
+  ): TypedContractEvent<
+    AirdropCycleDisabledEvent.InputTuple,
+    AirdropCycleDisabledEvent.OutputTuple,
+    AirdropCycleDisabledEvent.OutputObject
+  >;
+  getEvent(
+    key: "LogLeaf"
+  ): TypedContractEvent<
+    LogLeafEvent.InputTuple,
+    LogLeafEvent.OutputTuple,
+    LogLeafEvent.OutputObject
+  >;
+  getEvent(
+    key: "LogMerkleRoot"
+  ): TypedContractEvent<
+    LogMerkleRootEvent.InputTuple,
+    LogMerkleRootEvent.OutputTuple,
+    LogMerkleRootEvent.OutputObject
   >;
   getEvent(
     key: "OwnershipTransferred"
@@ -374,6 +474,39 @@ export interface MerkleAirdrop extends BaseContract {
       AirdropCycleCreatedEvent.InputTuple,
       AirdropCycleCreatedEvent.OutputTuple,
       AirdropCycleCreatedEvent.OutputObject
+    >;
+
+    "AirdropCycleDisabled(uint256)": TypedContractEvent<
+      AirdropCycleDisabledEvent.InputTuple,
+      AirdropCycleDisabledEvent.OutputTuple,
+      AirdropCycleDisabledEvent.OutputObject
+    >;
+    AirdropCycleDisabled: TypedContractEvent<
+      AirdropCycleDisabledEvent.InputTuple,
+      AirdropCycleDisabledEvent.OutputTuple,
+      AirdropCycleDisabledEvent.OutputObject
+    >;
+
+    "LogLeaf(bytes32)": TypedContractEvent<
+      LogLeafEvent.InputTuple,
+      LogLeafEvent.OutputTuple,
+      LogLeafEvent.OutputObject
+    >;
+    LogLeaf: TypedContractEvent<
+      LogLeafEvent.InputTuple,
+      LogLeafEvent.OutputTuple,
+      LogLeafEvent.OutputObject
+    >;
+
+    "LogMerkleRoot(bytes32)": TypedContractEvent<
+      LogMerkleRootEvent.InputTuple,
+      LogMerkleRootEvent.OutputTuple,
+      LogMerkleRootEvent.OutputObject
+    >;
+    LogMerkleRoot: TypedContractEvent<
+      LogMerkleRootEvent.InputTuple,
+      LogMerkleRootEvent.OutputTuple,
+      LogMerkleRootEvent.OutputObject
     >;
 
     "OwnershipTransferred(address,address)": TypedContractEvent<

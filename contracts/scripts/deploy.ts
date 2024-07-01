@@ -33,10 +33,12 @@ async function main() {
   await staking.waitForDeployment();
   console.log("Staking contract deployed to:", staking.target);
 
-  // Fund the reward pool
-  const rewardPoolAmount = ethers.parseEther("500000");
+  // deploying airdrop smart contract
+  const MerkleAirdrop = await ethers.getContractFactory("MerkleAirdrop");
+  const merkleAirdrop = await MerkleAirdrop.deploy(stakingToken.target);
   
-
+  await merkleAirdrop.waitForDeployment();
+  console.log("MerkleAirdrop contract deployed to:", merkleAirdrop.target);
 }
 
 main().catch((error) => {
