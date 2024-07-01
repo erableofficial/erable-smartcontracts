@@ -49,7 +49,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
     <div className="mt-3 text-base font-medium text-neutral-700">
       {description}
     </div>
-    <div className="flex gap-3 justify-center mt-6">
+    <div className="flex gap-3 mt-6">
       <div className="flex flex-col justify-center">
         <div className="shrink-0 rounded-full border border-solid bg-zinc-300 border-neutral-500 h-[1.875rem] stroke-[0.769px] w-[1.875rem]" />
       </div>
