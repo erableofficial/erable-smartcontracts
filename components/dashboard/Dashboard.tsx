@@ -254,7 +254,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-col h-full mt-6 justify-between ">
                   <StatBlock title="Marketcap" value="$1,451,188" />
                   {/* <StatBlock title="Volume" value="xx" /> */}
                   <StatBlock title="Circulating supply" value="217,000,000" />
