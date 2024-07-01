@@ -21,6 +21,7 @@ contract MerkleAirdrop is Ownable(msg.sender) {
     event TokensDeposited(uint256 amount);
     event LogLeaf(bytes32 leaf);
     event LogMerkleRoot(bytes32 root);
+    event AirdropCycleDisabled(uint256 cycleIndex);
 
     constructor(IERC20 _token) {
         token = _token;
@@ -32,6 +33,16 @@ contract MerkleAirdrop is Ownable(msg.sender) {
             isActive: true
         }));
         emit AirdropCycleCreated(airdropCycles.length - 1, _merkleRoot);
+    }
+
+    /**
+     * @notice Disable an airdrop cycle
+     * @param cycleIndex The index of the airdrop cycle to disable
+     */
+    function disableAirdropCycle(uint256 cycleIndex) external onlyOwner {
+        require(cycleIndex < airdropCycles.length, "Invalid cycle index");
+        airdropCycles[cycleIndex].isActive = false;
+        emit AirdropCycleDisabled(cycleIndex);
     }
 
     function claimTokens(uint256 cycleIndex, uint256 amount, bytes32[] calldata proof) external {

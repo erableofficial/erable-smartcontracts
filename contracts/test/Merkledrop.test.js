@@ -9,6 +9,7 @@ describe("MerkleAirdrop", function () {
     let owner;
     let addr1;
     let addr2;
+    let nonOwner;
     let addr3;
     let addr4;
     let merkleTree;
@@ -16,7 +17,7 @@ describe("MerkleAirdrop", function () {
     const initialSupply = ethers.parseEther("1000000");
 
     before(async function () {
-        [owner, addr1, addr2, addr3, addr4] = await ethers.getSigners();
+        [owner, addr1, addr2, nonOwner, addr3, addr4] = await ethers.getSigners();
     });
 
     beforeEach(async function () {
@@ -110,5 +111,27 @@ describe("MerkleAirdrop", function () {
         await merkleAirdrop.withdrawTokens(ethers.parseEther("500"));
         const balance = await token.balanceOf(owner.address);
         expect(balance).to.equal(ethers.parseEther("500") + balance1);
+    });
+
+    it("Should revert if non-owner tries to create a new airdrop cycle", async function () {
+        await expect(merkleAirdrop.connect(nonOwner).createAirdropCycle(root)).to.be.reverted;
+    });
+
+    it("Should revert if cycleIndex > airdropCycles.length", async function () {
+        const invalidCycleIndex = 1;
+        await expect(merkleAirdrop.claimTokens(invalidCycleIndex, ethers.parseEther("10"), [])).to.be.revertedWith("Invalid cycle index");
+    });
+
+    it("Should revert if airdrop cycle is not active", async function () {
+        await merkleAirdrop.createAirdropCycle(root);
+        await merkleAirdrop.connect(owner).disableAirdropCycle(0); // Assuming a function to disable cycle
+        const proof = merkleTree.getHexProof(keccak256(ethers.solidityPacked(["address", "uint256"], [addr1.address, ethers.parseEther("10")])));
+        await expect(merkleAirdrop.connect(addr1).claimTokens(0, ethers.parseEther("10"), proof)).to.be.revertedWith("Airdrop cycle is not active");
+    });
+
+    it("Should revert if Merkle proof is invalid", async function () {
+        await merkleAirdrop.createAirdropCycle(root);
+        const invalidProof = merkleTree.getHexProof(keccak256(ethers.solidityPacked(["address", "uint256"], [addr1.address, ethers.parseEther("999")])));
+        await expect(merkleAirdrop.connect(addr1).claimTokens(0, ethers.parseEther("10"), invalidProof)).to.be.revertedWith("Invalid merkle proof");
     });
 });
