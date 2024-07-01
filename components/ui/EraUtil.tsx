@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
 const EraUtil: React.FC = () => {
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
   return (
-    <section className="flex flex-col justify-center py-20 bg-stone-50">
+    <section className="flex flex-col justify-center py-20 bg-neutral-50">
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}

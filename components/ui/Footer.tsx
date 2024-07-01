@@ -10,7 +10,11 @@ type SolutionItemProps = {
 
 const SolutionItem: React.FC<SolutionItemProps> = ({ text, soon }) => (
   <div className="flex gap-2.5 mt-4 whitespace-nowrap cursor-pointer">
-    <div className="text-base tracking-tight leading-5 text-stone-900">
+    <div
+      className={`text-base tracking-tight leading-5 text-stone-900 ${
+        soon ? "flex items-center" : ""
+      }`}
+    >
       {text}
     </div>
     {soon && (
@@ -61,7 +65,8 @@ const Footer: React.FC = () => {
             height={19}
           />
           <div className="mt-7 text-[26px] font-semibold tracking-wide leading-8 text-stone-900">
-            Enable a new era of impact investing
+            Enable a new era of
+            <br /> impact investing
           </div>
           <p className="mt-14 text-sm leading-5 text-stone-900 max-md:mt-10">
             ©{new Date().getFullYear()} Erable. All rights reserved

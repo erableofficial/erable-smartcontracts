@@ -56,10 +56,9 @@ contract MerkleAirdrop is Ownable(msg.sender) {
      * @param _merkleRoot The Merkle root of the airdrop data
      */
     function createAirdropCycle(bytes32 _merkleRoot) external onlyOwner {
-        airdropCycles.push(AirdropCycle({
-            merkleRoot: _merkleRoot,
-            isActive: true
-        }));
+        airdropCycles.push(
+            AirdropCycle({merkleRoot: _merkleRoot, isActive: true})
+        );
         emit AirdropCycleCreated(airdropCycles.length - 1, _merkleRoot);
     }
 
@@ -138,7 +137,11 @@ contract MerkleAirdrop is Ownable(msg.sender) {
 
         // Verify the merkle proof
         bytes32 leaf = keccak256(abi.encodePacked(wallet, amount));
-        bool isValidProof = MerkleProof.verify(proof, airdropCycles[cycleIndex].merkleRoot, leaf);
+        bool isValidProof = MerkleProof.verify(
+            proof,
+            airdropCycles[cycleIndex].merkleRoot,
+            leaf
+        );
         return isValidProof && !hasClaimed[cycleIndex][wallet];
     }
 

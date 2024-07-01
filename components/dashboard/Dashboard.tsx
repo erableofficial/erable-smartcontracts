@@ -30,7 +30,7 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
   value,
 }) => (
   <div className="flex gap-4 justify-between mt-2 text-neutral-700 max-md:mr-1">
-    <div className="text-lg font-medium text-neutral-500">{title}</div>
+    <div className="text-base font-medium text-neutral-500">{title}</div>
     <div className=" text-[16px] font-medium ">{value}</div>
   </div>
 );
@@ -208,14 +208,16 @@ const Dashboard: React.FC<DashboardProps> = () => {
       {!isConnected && <ConnectWalletModal />}
 
       <div
-        className={`flex flex-col items-center ${isConnected ? "" : " blur"}  `}
+        className={`flex flex-col items-center ${
+          isConnected ? "" : " blur pointer-events-none"
+        }  `}
       >
         <BuySeraModal
           toggleBuyEraModal={toggleBuyEraModal}
           setToggleBuyEraModal={setToggleBuyEraModal}
         />
         <div className="flex justify-center self-stretch  mt-14 w-full max-md:px-5 max-md:max-w-full">
-          <div className="flex gap-5 max-w-[1259px] w-full max-md:flex-col max-md:gap-0">
+          <div className="flex gap-6 max-w-[1259px] w-full max-md:flex-col max-md:gap-0">
             <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
                 <div className="flex gap-2 justify-between font-semibold">
@@ -241,7 +243,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     $ERA = $1.50
                   </div>
                 </div>
-                <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-neutral-700 bg-surface-500 border border-black border-solid rounded-[38px]">
+                <div className="justify-center self-start px-2.5 py-[6px] mt-4 text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
                   1 $ERA = price
                 </div>
                 <div className="flex gap-2 justify-between  text-base">

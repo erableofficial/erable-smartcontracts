@@ -105,7 +105,7 @@ const Roadmap: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col self-stretch p-20 bg-stone-50 max-md:px-5">
+    <div className="flex flex-col self-stretch p-20 bg-neutral-50 max-md:px-5">
       <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-neutral-700 whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
       </div>
