@@ -16,12 +16,16 @@ async function main() {
   const staking = await upgrades.deployProxy(
     Staking,
     [
+      deployer.address,
       stakingToken.target,
       31556926n, // 1 year in seconds
       800000000000000n, // yield constant
       300n, // cooldown period in seconds
       600000000000000000n, // starting slashing point
       480000000000000000n, // monthly increase percentage
+      0n,
+      0n,
+      false,
     ],
     { initializer: "initialize" }
   );

@@ -147,7 +147,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
       {!isConnected && <ConnectWalletModal />}
 
       <div
-        className={`flex flex-col items-center ${isConnected ? "" : " blur"}  `}
+        className={`flex flex-col items-center ${
+          isConnected ? "" : " blur pointer-events-none"
+        }  `}
       >
         <BuySeraModal
           toggleBuyEraModal={toggleBuyEraModal}

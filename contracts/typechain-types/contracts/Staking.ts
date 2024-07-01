@@ -29,18 +29,30 @@ export declare namespace Staking {
     startTime: BigNumberish;
     requestUnstakeTime: BigNumberish;
     unstakeRequested: boolean;
+    yieldConstant: BigNumberish;
+    monthlyIncreasePercentage: BigNumberish;
+    startingSlashingPoint: BigNumberish;
+    stakingDuration: BigNumberish;
   };
 
   export type StakeStructOutput = [
     amount: bigint,
     startTime: bigint,
     requestUnstakeTime: bigint,
-    unstakeRequested: boolean
+    unstakeRequested: boolean,
+    yieldConstant: bigint,
+    monthlyIncreasePercentage: bigint,
+    startingSlashingPoint: bigint,
+    stakingDuration: bigint
   ] & {
     amount: bigint;
     startTime: bigint;
     requestUnstakeTime: bigint;
     unstakeRequested: boolean;
+    yieldConstant: bigint;
+    monthlyIncreasePercentage: bigint;
+    startingSlashingPoint: bigint;
+    stakingDuration: bigint;
   };
 }
 

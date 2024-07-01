@@ -52,6 +52,12 @@ export type { SafeERC20 } from "./@openzeppelin/contracts/token/ERC20/utils/Safe
 export { SafeERC20__factory } from "./factories/@openzeppelin/contracts/token/ERC20/utils/SafeERC20__factory";
 export type { Address } from "./@openzeppelin/contracts/utils/Address";
 export { Address__factory } from "./factories/@openzeppelin/contracts/utils/Address__factory";
+export type { MerkleProof } from "./@openzeppelin/contracts/utils/cryptography/MerkleProof";
+export { MerkleProof__factory } from "./factories/@openzeppelin/contracts/utils/cryptography/MerkleProof__factory";
+export type { MerkleAirdrop } from "./contracts/airdrop.sol/MerkleAirdrop";
+export { MerkleAirdrop__factory } from "./factories/contracts/airdrop.sol/MerkleAirdrop__factory";
+export type { TamkinToken } from "./contracts/EraTolen.sol/TamkinToken";
+export { TamkinToken__factory } from "./factories/contracts/EraTolen.sol/TamkinToken__factory";
 export type { MyProxyAdmin } from "./contracts/MyProxyAdmin";
 export { MyProxyAdmin__factory } from "./factories/contracts/MyProxyAdmin__factory";
 export type { MyTransparentUpgradeableProxy } from "./contracts/MyTransparentUpgradeableProxy";
