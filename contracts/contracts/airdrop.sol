@@ -3,17 +3,29 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
+/**
+ * @title MerkleAirdrop
+ * @dev A contract for distributing ERC20 tokens via Merkle tree airdrops.
+ */
 contract MerkleAirdrop is Ownable(msg.sender) {
+    using SafeERC20 for IERC20;
+
+    /// @notice The ERC20 token to be airdropped
     IERC20 public token;
 
+    /// @notice Represents an airdrop cycle
     struct AirdropCycle {
         bytes32 merkleRoot;
         bool isActive;
     }
 
+    /// @notice List of airdrop cycles
     AirdropCycle[] public airdropCycles;
+
+    /// @notice Tracks whether an address has claimed tokens in a specific cycle
     mapping(uint256 => mapping(address => bool)) public hasClaimed;
 
     event AirdropCycleCreated(uint256 cycleIndex, bytes32 merkleRoot);
@@ -23,10 +35,26 @@ contract MerkleAirdrop is Ownable(msg.sender) {
     event LogMerkleRoot(bytes32 root);
     event AirdropCycleDisabled(uint256 cycleIndex);
 
+    // Custom errors
+    error InvalidCycleIndex();
+    error AirdropAlreadyClaimed();
+    error AirdropNotActive();
+    error InvalidMerkleProof();
+    error TokenTransferFailed();
+    error CannotDepositZero();
+
+    /**
+     * @dev Sets the token to be airdropped.
+     * @param _token The ERC20 token address.
+     */
     constructor(IERC20 _token) {
         token = _token;
     }
 
+    /**
+     * @notice Create a new airdrop cycle
+     * @param _merkleRoot The Merkle root of the airdrop data
+     */
     function createAirdropCycle(bytes32 _merkleRoot) external onlyOwner {
         airdropCycles.push(AirdropCycle({
             merkleRoot: _merkleRoot,
@@ -40,39 +68,73 @@ contract MerkleAirdrop is Ownable(msg.sender) {
      * @param cycleIndex The index of the airdrop cycle to disable
      */
     function disableAirdropCycle(uint256 cycleIndex) external onlyOwner {
-        require(cycleIndex < airdropCycles.length, "Invalid cycle index");
+        if (cycleIndex >= airdropCycles.length) {
+            revert InvalidCycleIndex();
+        }
         airdropCycles[cycleIndex].isActive = false;
         emit AirdropCycleDisabled(cycleIndex);
     }
 
+    /**
+     * @notice Claim tokens in a specific airdrop cycle
+     * @param cycleIndex The index of the airdrop cycle
+     * @param amount The amount of tokens to claim
+     * @param proof The Merkle proof
+     */
     function claimTokens(uint256 cycleIndex, uint256 amount, bytes32[] calldata proof) external {
-        require(cycleIndex < airdropCycles.length, "Invalid cycle index");
-        require(!hasClaimed[cycleIndex][msg.sender], "Airdrop already claimed in this cycle");
-        require(airdropCycles[cycleIndex].isActive, "Airdrop cycle is not active");
+        if (cycleIndex >= airdropCycles.length) {
+            revert InvalidCycleIndex();
+        }
+        if (hasClaimed[cycleIndex][msg.sender]) {
+            revert AirdropAlreadyClaimed();
+        }
+        if (!airdropCycles[cycleIndex].isActive) {
+            revert AirdropNotActive();
+        }
 
         // Verify the merkle proof
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender, amount));
         emit LogLeaf(leaf);
         emit LogMerkleRoot(airdropCycles[cycleIndex].merkleRoot);
-        require(MerkleProof.verify(proof, airdropCycles[cycleIndex].merkleRoot, leaf), "Invalid merkle proof");
+        if (!MerkleProof.verify(proof, airdropCycles[cycleIndex].merkleRoot, leaf)) {
+            revert InvalidMerkleProof();
+        }
 
         // Mark as claimed
         hasClaimed[cycleIndex][msg.sender] = true;
 
         // Transfer the tokens
-        require(token.transfer(msg.sender, amount), "Token transfer failed");
-
+        token.safeTransfer(msg.sender, amount);
         emit TokensClaimed(msg.sender, amount);
     }
 
+    /**
+     * @notice Deposit tokens to the contract
+     * @param amount The amount of tokens to deposit
+     */
     function depositTokens(uint256 amount) external onlyOwner {
-        require(token.transferFrom(msg.sender, address(this), amount), "Token transfer failed");
+        if (amount == 0) {
+            revert CannotDepositZero();
+        }
+        token.safeTransferFrom(msg.sender, address(this), amount);
         emit TokensDeposited(amount);
     }
 
+    /**
+     * @notice Check if an address can claim tokens
+     * @param cycleIndex The index of the airdrop cycle
+     * @param wallet The address to check
+     * @param amount The amount of tokens to check
+     * @param proof The Merkle proof
+     * @return bool True if the address can claim tokens, otherwise false
+     */
     function checkClaimable(uint256 cycleIndex, address wallet, uint256 amount, bytes32[] calldata proof) external view returns (bool) {
-        require(cycleIndex < airdropCycles.length, "Invalid cycle index");
-        require(airdropCycles[cycleIndex].isActive, "Airdrop cycle is not active");
+        if (cycleIndex >= airdropCycles.length) {
+            revert InvalidCycleIndex();
+        }
+        if (!airdropCycles[cycleIndex].isActive) {
+            revert AirdropNotActive();
+        }
 
         // Verify the merkle proof
         bytes32 leaf = keccak256(abi.encodePacked(wallet, amount));
@@ -80,11 +142,21 @@ contract MerkleAirdrop is Ownable(msg.sender) {
         return isValidProof && !hasClaimed[cycleIndex][wallet];
     }
 
+    /**
+     * @notice Withdraw tokens from the contract
+     * @param amount The amount of tokens to withdraw
+     */
     function withdrawTokens(uint256 amount) external onlyOwner {
-        require(token.transfer(msg.sender, amount), "Token transfer failed");
+        token.safeTransfer(msg.sender, amount);
     }
-    function hasUserClaimed(uint256 cycleIndex, address user) external view returns (bool) {
-    return hasClaimed[cycleIndex][user];
-}
 
+    /**
+     * @notice Check if a user has claimed in a specific cycle
+     * @param cycleIndex The index of the airdrop cycle
+     * @param user The address of the user
+     * @return bool True if the user has claimed, otherwise false
+     */
+    function hasUserClaimed(uint256 cycleIndex, address user) external view returns (bool) {
+        return hasClaimed[cycleIndex][user];
+    }
 }
