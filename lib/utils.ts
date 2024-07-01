@@ -109,3 +109,111 @@ export async function getTotalStakedForUser(
   console.log("Result From getTotalStakedForUser: ", result);
   return result as bigint;
 }
+
+export async function getStakingDuration(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "stakingDuration",
+    args: [],
+  });
+
+  console.log("Result From getStakingDuration: ", result);
+  return result as bigint;
+}
+
+export async function getCooldownPeriod(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "cooldownPeriod",
+    args: [],
+  });
+
+  console.log("Result From getCooldownPeriod: ", result);
+  return result as bigint;
+}
+
+export async function getMonthlyIncreasePercentage(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthlyIncreasePercentage",
+    args: [],
+  });
+
+  console.log("Result From getMonthlyIncreasePercentage: ", result);
+  return result as bigint;
+}
+
+export async function getMonthsInStakingPeriod(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthsInStakingPeriod",
+    args: [],
+  });
+
+  console.log("Result From getMonthsInStakingPeriod: ", result);
+  return result as bigint;
+}
+
+export async function getStartingSlashingPoint(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "startingSlashingPoint",
+    args: [],
+  });
+
+  console.log("Result From getStartingSlashingPoint: ", result);
+  return result as bigint;
+}
+
+export async function getMaxCap(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "maxCap",
+    args: [],
+  });
+
+  console.log("Result From getMaxCap: ", result);
+  return result as bigint;
+}
+
+export async function getMinCap(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "minCap",
+    args: [],
+  });
+
+  console.log("Result From getMinCap: ", result);
+  return result as bigint;
+}
+
+export async function getYieldConstant(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "yieldConstant",
+    args: [],
+  });
+
+  console.log("Result From getYieldConstant: ", result);
+  return result as bigint;
+}
+
+export async function getWhiteListEnabled(): Promise<boolean> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "whitelistEnabled",
+    args: [],
+  });
+
+  console.log("Result From getWhiteListEnabled: ", result);
+  return result as boolean;
+}

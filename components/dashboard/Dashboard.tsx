@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -21,6 +21,7 @@ import {
   getUserBalance,
   getUserStakes,
 } from "../../lib/utils";
+import { useStakingContractData } from "../../context/stakingContractData";
 
 interface DashboardProps {}
 
@@ -35,6 +36,8 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
 );
 
 const Dashboard: React.FC<DashboardProps> = () => {
+  const { stakingContractData, setStakingContractData } =
+    useStakingContractData();
   const [selected, setSelected] = useState<string>("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [toggleBuyEraModal, setToggleBuyEraModal] =
@@ -54,11 +57,39 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   const { isConnected, address: currentAddress } = useAccount();
 
-  const { data: stakedDuration, error: stakedDurationError } = useReadContract({
+  const { data: stakingDuration, error: stakingDurationError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "stakingDuration",
+      args: [],
+    });
+
+  const {
+    data: yieldConstant,
+    error: yieldConstantError,
+    isLoading: yieldConstantLoading,
+  } = useReadContract({
     abi: contractABI,
     address: contractAddress,
-    functionName: "stakingDuration",
-    args: [],
+    functionName: "yieldConstant",
+  });
+
+  const {
+    data: monthlyIncreasePercentage,
+    error: monthlyIncreasePercentageError,
+    isLoading: monthlyIncreasePercentageLoading,
+  } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthlyIncreasePercentage",
+  });
+
+  // startingSlashingPoint
+  const { data: startingSlashingPoint } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "startingSlashingPoint",
   });
 
   const { data: coolDownPeriod, error: coolDownPeriodError } = useReadContract({
@@ -67,7 +98,34 @@ const Dashboard: React.FC<DashboardProps> = () => {
     functionName: "cooldownPeriod",
     args: [],
   });
-  
+
+  useEffect(() => {
+    if (
+      totalStaked &&
+      stakingDuration &&
+      coolDownPeriod &&
+      yieldConstant &&
+      monthlyIncreasePercentage &&
+      startingSlashingPoint
+    ) {
+      setStakingContractData({
+        ...stakingContractData,
+        stakingDuration: stakingDuration as bigint,
+        cooldownPeriod: coolDownPeriod as bigint,
+        totalStaked: totalStaked as bigint,
+        yieldConstant: yieldConstant as bigint,
+        monthlyIncreasePercentage: monthlyIncreasePercentage as bigint,
+        startingSlashingPoint: startingSlashingPoint as bigint,
+      });
+    }
+  }, [
+    stakingDuration,
+    coolDownPeriod,
+    totalStaked,
+    yieldConstant,
+    monthlyIncreasePercentage,
+    startingSlashingPoint,
+  ]);
 
   React.useEffect(() => {
     async function updateUserStakes() {
@@ -88,7 +146,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           startTime: Number(startTime) * 1000,
           amount: amount,
           currentRewards: "xxx",
-          endTime: (Number(startTime) + Number(stakedDuration)) * 1000,
+          endTime: (Number(startTime) + Number(stakingDuration)) * 1000,
           requestUnstakeTime: requestUnstakeTime.toString(),
           unstakeRequested: unstakeRequested,
           action: unstakeRequested ? "Claim" : "Unstake",
@@ -118,13 +176,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
       setUserStakingBalance(userStakingBalance);
     }
 
-    if (currentAddress && stakedDuration) {
+    if (currentAddress && stakingDuration) {
       updateUserStakes();
       updateUserBalnce();
       updateUserStaked();
       updateUserTotalStaked();
     }
-  }, [currentAddress, stakedDuration, transactionSuccess]);
+  }, [currentAddress, stakingDuration, transactionSuccess]);
+
+  console.log("StakingContractData: ", stakingContractData);
 
   const buttons = [
     { name: "All", qt: allItems?.length },

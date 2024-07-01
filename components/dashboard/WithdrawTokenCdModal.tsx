@@ -5,6 +5,7 @@ import CustomToast from "./CustomToast";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { contractABI, contractAddress } from "../../lib/blockchain-config";
 import { TabItem } from "../../lib/types";
+import { useStakingContractData } from "../../context/stakingContractData";
 
 interface WithdrawTokenCdModalModal {
   toggleWithdrawTokenCdModalModal: boolean;
@@ -19,6 +20,7 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
   stake,
   setTransactionSuccess,
 }) => {
+  const { stakingContractData } = useStakingContractData();
   const {
     writeContract,
     data: hash,
@@ -139,7 +141,7 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
             Withdraw your tokens and rewards
           </div>
           <span className="justify-center flex items-center text-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-            7 Days cooldown
+            {Number(stakingContractData.cooldownPeriod)} secs cooldown
           </span>
         </div>
         <div className="flex flex-row self-stretch p-5 mb-6 bg-white rounded-xl border-2 border-solid border-warning-200 max-w-[720px]">
@@ -161,11 +163,11 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
         </div>
         <span className=" font-semibold text-lg mb-3">
           {" "}
-          7-day cooldown period:
+          {Number(stakingContractData.cooldownPeriod)}-sec cooldown period:
         </span>
         <p className="self-stretch mb-4 text-base font-medium text-left text-neutral-600 max-md:max-w-full">
           You are currently in the process of unstaking your tokens. During the
-          <span className=" font-semibold"> 7-day cooldown period</span>, your
+          <span className=" font-semibold"> {Number(stakingContractData.cooldownPeriod)}-sec cooldown period</span>, your
           tokens are being prepared for withdrawal. Once this period ends, you
           can return to the platform to claim your tokens and any associated
           rewards.

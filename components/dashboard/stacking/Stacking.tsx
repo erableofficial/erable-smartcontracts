@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import StackingStepsHeader from "./StackingStepsHeader";
 import StackStepOneBody from "./StackStepOneBody";
 import StackStepTwoBody from "./StackStepTwoBody";
@@ -12,8 +12,11 @@ import {
   stakingTokenAddress,
 } from "../../../lib/blockchain-config";
 import { approximateTime } from "../../../lib/utils";
+import { useStakingContractData } from "../../../context/stakingContractData";
 
 const Stacking: React.FC = () => {
+  const { stakingContractData, setStakingContractData } =
+    useStakingContractData();
   const [steps, setSteps] = React.useState([
     {
       number: "1",
@@ -46,14 +49,72 @@ const Stacking: React.FC = () => {
     args: [currentAddress],
   });
 
-  const { data: stakedDuration, error: stakedDurationError } = useReadContract({
+  const { data: stakingDuration, error: stakingDurationError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "stakingDuration",
+      args: [],
+    });
+
+  const {
+    data: yieldConstant,
+    error: yieldConstantError,
+    isLoading: yieldConstantLoading,
+  } = useReadContract({
     abi: contractABI,
     address: contractAddress,
-    functionName: "stakingDuration",
+    functionName: "yieldConstant",
+  });
+
+  const {
+    data: monthlyIncreasePercentage,
+    error: monthlyIncreasePercentageError,
+    isLoading: monthlyIncreasePercentageLoading,
+  } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthlyIncreasePercentage",
+  });
+
+  // startingSlashingPoint
+  const { data: startingSlashingPoint } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "startingSlashingPoint",
+  });
+
+  const { data: coolDownPeriod, error: coolDownPeriodError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "cooldownPeriod",
     args: [],
   });
 
-  console.log("stakedDuration", stakedDuration);
+  useEffect(() => {
+    if (
+      stakingDuration &&
+      coolDownPeriod &&
+      yieldConstant &&
+      monthlyIncreasePercentage &&
+      startingSlashingPoint
+    ) {
+      setStakingContractData({
+        ...stakingContractData,
+        stakingDuration: stakingDuration as bigint,
+        cooldownPeriod: coolDownPeriod as bigint,
+        yieldConstant: yieldConstant as bigint,
+        monthlyIncreasePercentage: monthlyIncreasePercentage as bigint,
+        startingSlashingPoint: startingSlashingPoint as bigint,
+      });
+    }
+  }, [
+    stakingDuration,
+    coolDownPeriod,
+    yieldConstant,
+    monthlyIncreasePercentage,
+    startingSlashingPoint,
+  ]);
 
   const infoCards = [
     {
@@ -65,7 +126,7 @@ const Stacking: React.FC = () => {
     {
       title: "Staking Duration",
       description: "The total length of time the staking program will run.",
-      value: approximateTime(Number(stakedDuration)) || "xx",
+      value: approximateTime(Number(stakingDuration)) || "xx",
     },
 
     {
@@ -78,7 +139,7 @@ const Stacking: React.FC = () => {
       description: "The date when the staking program concludes.",
       value:
         new Date(
-          new Date().getTime() + Number(stakedDuration) * 1000
+          new Date().getTime() + Number(stakingDuration) * 1000
         ).toLocaleDateString() || "xx",
     },
   ];
@@ -94,7 +155,7 @@ const Stacking: React.FC = () => {
           amount={amount}
           setAmount={setAmount}
           myBalance={myBalance as bigint}
-          stakingDuration={stakedDuration as bigint}
+          stakingDuration={stakingDuration as bigint}
         />
       )}
       {steps[1].isActive && (

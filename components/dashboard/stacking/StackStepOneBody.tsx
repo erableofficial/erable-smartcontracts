@@ -226,10 +226,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           <div className="flex items-center">
             <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
           </div>
-          <EstimatedWithdrawTokens
-            amount={amount}
-            stakingDuration={stakingDuration}
-          />
+          <EstimatedWithdrawTokens amount={amount} />
         </div>
         <div className="flex gap-5 justify-between text-base font-medium whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:max-w-full">
           <div>=$250.000</div>

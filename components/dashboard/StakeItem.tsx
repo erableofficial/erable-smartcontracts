@@ -13,6 +13,7 @@ import { formatEther } from "viem";
 import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
 import Tooltip from "./Tooltip";
 import { calculateTotalWithdraw } from "../../lib/utils";
+import { useStakingContractData } from "../../context/stakingContractData";
 
 interface StakeItemProps {
   stake: TabItem;
@@ -30,43 +31,13 @@ const StakeItem: React.FC<StakeItemProps> = ({
   const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
     React.useState(false);
   const [currentRewards, setCurrentRewards] = React.useState<bigint>(BigInt(0));
-
+  const { stakingContractData } = useStakingContractData();
   const {
-    data: stakingDuration,
-    error: stakingDurationError,
-    isLoading: stakingDurationLoading,
-  } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "stakingDuration",
-  });
-
-  const {
-    data: yieldConstant,
-    error: yieldConstantError,
-    isLoading: yieldConstantLoading,
-  } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "yieldConstant",
-  });
-
-  const {
-    data: monthlyIncreasePercentage,
-    error: monthlyIncreasePercentageError,
-    isLoading: monthlyIncreasePercentageLoading,
-  } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "monthlyIncreasePercentage",
-  });
-
-  // startingSlashingPoint
-  const { data: startingSlashingPoint } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "startingSlashingPoint",
-  });
+    yieldConstant,
+    monthlyIncreasePercentage,
+    startingSlashingPoint,
+    stakingDuration,
+  } = stakingContractData;
 
   React.useEffect(() => {
     async function getCurrentRewards() {

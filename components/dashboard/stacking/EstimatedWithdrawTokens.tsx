@@ -2,45 +2,25 @@ import { useReadContract } from "wagmi";
 import { contractABI, contractAddress } from "../../../lib/blockchain-config";
 import { formatEther, parseEther } from "viem";
 import React from "react";
+import { useStakingContractData } from "../../../context/stakingContractData";
 
 interface EstimatedWithdrawTokensProps {
   amount: number;
-  stakingDuration: bigint;
 }
 
 const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
   amount,
-  stakingDuration,
 }) => {
   const [withdrawEstimetedAmount, setWithdrawEstimetedAmount] =
     React.useState<number>(amount);
+  const { stakingContractData } = useStakingContractData();
 
   const {
-    data: yieldConstant,
-    error: yieldConstantError,
-    isLoading: yieldConstantLoading,
-  } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "yieldConstant",
-  });
-
-  const {
-    data: monthlyIncreasePercentage,
-    error: monthlyIncreasePercentageError,
-    isLoading: monthlyIncreasePercentageLoading,
-  } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "monthlyIncreasePercentage",
-  });
-
-  // startingSlashingPoint
-  const { data: startingSlashingPoint } = useReadContract({
-    abi: contractABI,
-    address: contractAddress,
-    functionName: "startingSlashingPoint",
-  });
+    stakingDuration,
+    yieldConstant,
+    monthlyIncreasePercentage,
+    startingSlashingPoint,
+  } = stakingContractData;
 
   const {
     data: totalEstimatedWithdraw,
