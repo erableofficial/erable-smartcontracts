@@ -182,7 +182,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     $ERA = $1.50
                   </div>
                 </div>
-                <div className="justify-center self-start px-2.5 py-1 mt-4 text-xs font-medium text-neutral-700 bg-surface-500 border border-black border-solid rounded-[38px]">
+                <div className="justify-center self-start px-2.5 py-[6px] mt-4 text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
                   1 $ERA = price
                 </div>
                 <div className="flex gap-2 justify-between  text-base">
