@@ -14,6 +14,34 @@ const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
 }) => {
   const [withdrawEstimetedAmount, setWithdrawEstimetedAmount] =
     React.useState<number>(amount);
+
+  const {
+    data: yieldConstant,
+    error: yieldConstantError,
+    isLoading: yieldConstantLoading,
+  } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "yieldConstant",
+  });
+
+  const {
+    data: monthlyIncreasePercentage,
+    error: monthlyIncreasePercentageError,
+    isLoading: monthlyIncreasePercentageLoading,
+  } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthlyIncreasePercentage",
+  });
+
+  // startingSlashingPoint
+  const { data: startingSlashingPoint } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "startingSlashingPoint",
+  });
+
   const {
     data: totalEstimatedWithdraw,
     error: totalEstimatedWithdrawError,
@@ -22,7 +50,14 @@ const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
     abi: contractABI,
     address: contractAddress,
     functionName: "calculateTotalWithdraw",
-    args: [parseEther(amount.toString()), stakingDuration],
+    args: [
+      parseEther(amount.toString()),
+      stakingDuration,
+      yieldConstant,
+      monthlyIncreasePercentage,
+      startingSlashingPoint,
+      stakingDuration,
+    ],
   });
 
   return (

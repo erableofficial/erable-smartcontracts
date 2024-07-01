@@ -67,6 +67,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     functionName: "cooldownPeriod",
     args: [],
   });
+  
 
   React.useEffect(() => {
     async function updateUserStakes() {

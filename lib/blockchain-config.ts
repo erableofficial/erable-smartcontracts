@@ -2,6 +2,48 @@ import { Address } from "viem";
 
 const contractABI = [
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "target",
+        type: "address",
+      },
+    ],
+    name: "AddressEmptyCode",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "AddressInsufficientBalance",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AmountBelowMinCap",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AmountExceedsMaxCap",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "CannotDepositZero",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "CooldownPeriodNotOver",
+    type: "error",
+  },
+  {
     inputs: [],
     name: "EnforcedPause",
     type: "error",
@@ -13,12 +55,32 @@ const contractABI = [
   },
   {
     inputs: [],
+    name: "FailedInnerCall",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InsufficientRewardPool",
+    type: "error",
+  },
+  {
+    inputs: [],
     name: "InvalidInitialization",
     type: "error",
   },
   {
     inputs: [],
+    name: "NoStakedAmount",
+    type: "error",
+  },
+  {
+    inputs: [],
     name: "NotInitializing",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "NotWhitelisted",
     type: "error",
   },
   {
@@ -46,6 +108,32 @@ const contractABI = [
   {
     inputs: [],
     name: "ReentrancyGuardReentrantCall",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+    ],
+    name: "SafeERC20FailedOperation",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UnstakeAlreadyRequested",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UnstakeNotRequested",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ZeroAmount",
     type: "error",
   },
   {
@@ -259,6 +347,21 @@ const contractABI = [
         name: "timeStaked",
         type: "uint256",
       },
+      {
+        internalType: "uint256",
+        name: "_monthlyIncreasePercentage",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_startingSlashingPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_stakingDuration",
+        type: "uint256",
+      },
     ],
     name: "calculateTax",
     outputs: [
@@ -268,7 +371,7 @@ const contractABI = [
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    stateMutability: "pure",
     type: "function",
   },
   {
@@ -281,6 +384,26 @@ const contractABI = [
       {
         internalType: "uint256",
         name: "timeStaked",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_yieldConstant",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_monthlyIncreasePercentage",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_startingSlashingPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_stakingDuration",
         type: "uint256",
       },
     ],
@@ -300,6 +423,16 @@ const contractABI = [
       {
         internalType: "uint256",
         name: "timeStaked",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_yieldConstant",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_stakingDuration",
         type: "uint256",
       },
     ],
@@ -404,19 +537,39 @@ const contractABI = [
             type: "uint256",
           },
           {
-            internalType: "uint256",
+            internalType: "uint32",
             name: "startTime",
-            type: "uint256",
+            type: "uint32",
           },
           {
-            internalType: "uint256",
+            internalType: "uint32",
+            name: "stakingDuration",
+            type: "uint32",
+          },
+          {
+            internalType: "uint32",
             name: "requestUnstakeTime",
-            type: "uint256",
+            type: "uint32",
           },
           {
             internalType: "bool",
             name: "unstakeRequested",
             type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "yieldConstant",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "monthlyIncreasePercentage",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "startingSlashingPoint",
+            type: "uint256",
           },
         ],
         internalType: "struct Staking.Stake[]",
@@ -431,13 +584,23 @@ const contractABI = [
     inputs: [
       {
         internalType: "address",
+        name: "_owner",
+        type: "address",
+      },
+      {
+        internalType: "address",
         name: "_stakingToken",
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "bool",
+        name: "_whitelistEnabled",
+        type: "bool",
+      },
+      {
+        internalType: "uint32",
         name: "_stakingDuration",
-        type: "uint256",
+        type: "uint32",
       },
       {
         internalType: "uint256",
@@ -457,6 +620,16 @@ const contractABI = [
       {
         internalType: "uint256",
         name: "_monthlyIncreasePercentage",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_minCap",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_maxCap",
         type: "uint256",
       },
     ],
@@ -650,6 +823,19 @@ const contractABI = [
   },
   {
     inputs: [],
+    name: "totalPendingRewards",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "totalStaked",
     outputs: [
       {
@@ -825,19 +1011,39 @@ const contractABI = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
+        internalType: "uint32",
         name: "startTime",
-        type: "uint256",
+        type: "uint32",
       },
       {
-        internalType: "uint256",
+        internalType: "uint32",
+        name: "stakingDuration",
+        type: "uint32",
+      },
+      {
+        internalType: "uint32",
         name: "requestUnstakeTime",
-        type: "uint256",
+        type: "uint32",
       },
       {
         internalType: "bool",
         name: "unstakeRequested",
         type: "bool",
+      },
+      {
+        internalType: "uint256",
+        name: "yieldConstant",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "monthlyIncreasePercentage",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "startingSlashingPoint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",

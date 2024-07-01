@@ -31,20 +31,68 @@ const StakeItem: React.FC<StakeItemProps> = ({
     React.useState(false);
   const [currentRewards, setCurrentRewards] = React.useState<bigint>(BigInt(0));
 
+  const {
+    data: stakingDuration,
+    error: stakingDurationError,
+    isLoading: stakingDurationLoading,
+  } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "stakingDuration",
+  });
+
+  const {
+    data: yieldConstant,
+    error: yieldConstantError,
+    isLoading: yieldConstantLoading,
+  } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "yieldConstant",
+  });
+
+  const {
+    data: monthlyIncreasePercentage,
+    error: monthlyIncreasePercentageError,
+    isLoading: monthlyIncreasePercentageLoading,
+  } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthlyIncreasePercentage",
+  });
+
+  // startingSlashingPoint
+  const { data: startingSlashingPoint } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "startingSlashingPoint",
+  });
+
   React.useEffect(() => {
     async function getCurrentRewards() {
       const rewardAmount = await calculateTotalWithdraw(
         stake.amount,
-        BigInt(stake.startTime)
+        BigInt(stake.startTime),
+        yieldConstant as bigint,
+        monthlyIncreasePercentage as bigint,
+        startingSlashingPoint as bigint,
+        stakingDuration as bigint
       );
       const result = rewardAmount - stake.amount;
       setCurrentRewards(result);
     }
 
-    if (stake.amount && stake.startTime) {
+    if (
+      stake.amount &&
+      stake.startTime &&
+      yieldConstant &&
+      monthlyIncreasePercentage &&
+      startingSlashingPoint &&
+      stakingDuration
+    ) {
       getCurrentRewards();
     }
-  }, [stake.amount, stake.startTime]);
+  }, [stake.amount, stake.startTime, yieldConstant, monthlyIncreasePercentage]);
 
   const {
     writeContract,

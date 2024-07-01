@@ -44,7 +44,11 @@ export async function getUserStakes(
 
 export async function calculateTotalWithdraw(
   amount: bigint,
-  startTime: bigint
+  startTime: bigint,
+  yieldConstant: bigint,
+  monthlyIncreasePercentage: bigint,
+  startingSlashingPoint: bigint,
+  stakingDuration: bigint
 ): Promise<bigint> {
   const currentTime = BigInt(new Date().getTime());
   const timePassed = currentTime - startTime;
@@ -54,7 +58,14 @@ export async function calculateTotalWithdraw(
     abi: contractABI,
     address: contractAddress,
     functionName: "calculateTotalWithdraw",
-    args: [amount, timePassedInSeconds],
+    args: [
+      amount,
+      timePassedInSeconds,
+      yieldConstant,
+      monthlyIncreasePercentage,
+      startingSlashingPoint,
+      stakingDuration,
+    ],
   });
 
   console.log("Result From calculateTotalWithdraw: ", result);
