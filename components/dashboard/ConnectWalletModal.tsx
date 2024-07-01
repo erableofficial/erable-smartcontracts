@@ -1,35 +1,31 @@
 import * as React from "react";
-import Image from "next/image";
 import ConnectWalletButton from "../ui/connectWalletButton";
+import { LoaderCircle, TriangleAlert } from "lucide-react";
+import InfoText from "../ui/InfoText";
 
 const ConnectWalletModal: React.FC = () => {
   return (
-    <div className="flex flex-col items-center px-10 pt-6 pb-10 bg-white rounded-3xl border border-solid border-stone-300 max-w-[515px] max-md:px-5 absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] z-[49] max-md:w-full">
-      <Image
-        src="/images/close.svg"
-        alt=""
-        width={14}
-        height={14}
-        className="self-end w-3.5 aspect-square"
-      />
-      <div className="flex justify-center items-center px-4 bg-surface-500 h-[4.19rem] rounded-[3.49rem] w-[4.19rem]">
-        <Image
-          src="/images/credit-card.svg"
-          alt=""
-          width={67}
-          height={67}
-          className="w-full aspect-square"
-        />
+    <div className="flex flex-col items-center px-10 py-10 bg-white rounded-3xl border border-solid border-stone-300 max-w-[650px] max-md:px-5 absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] z-[49] max-md:w-full">
+      <div className="flex justify-center items-center px-4">
+        <LoaderCircle width={43} height={43} className="animate-spin" />
       </div>
       <h1 className="mt-10 text-3xl font-semibold text-neutral-700">
-        Open Dashboard
+        Connect wallet
       </h1>
-      <p className="justify-center self-stretch px-2.5 py-1 mt-5 text-lg font-medium text-neutral-700 bg-surface-500 rounded max-md:max-w-full">
+      {/* <p className="justify-center self-stretch px-2.5 py-1 mt-5 text-lg font-medium text-neutral-700 bg-surface-500 rounded max-md:max-w-full">
         Please connect your wallet to access to your dashboard
-      </p>
+      </p> */}
+      <div className="py-10">
+        <InfoText
+          bgColor="bg-danger-200"
+          text="Please connect your wallet to access to your dashboard"
+          Icon={<TriangleAlert width={17} height={17} />}
+        />
+      </div>
+
       <ConnectWalletButton
         text="Connect your wallet"
-        className="justify-center px-5 py-3 mt-10 text-base font-semibold text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid"
+        className=" primary-button-sm text-base font-semibold"
       />
     </div>
   );
