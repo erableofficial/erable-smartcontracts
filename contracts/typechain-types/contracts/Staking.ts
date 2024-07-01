@@ -27,20 +27,32 @@ export declare namespace Staking {
   export type StakeStruct = {
     amount: BigNumberish;
     startTime: BigNumberish;
+    stakingDuration: BigNumberish;
     requestUnstakeTime: BigNumberish;
     unstakeRequested: boolean;
+    yieldConstant: BigNumberish;
+    monthlyIncreasePercentage: BigNumberish;
+    startingSlashingPoint: BigNumberish;
   };
 
   export type StakeStructOutput = [
     amount: bigint,
     startTime: bigint,
+    stakingDuration: bigint,
     requestUnstakeTime: bigint,
-    unstakeRequested: boolean
+    unstakeRequested: boolean,
+    yieldConstant: bigint,
+    monthlyIncreasePercentage: bigint,
+    startingSlashingPoint: bigint
   ] & {
     amount: bigint;
     startTime: bigint;
+    stakingDuration: bigint;
     requestUnstakeTime: bigint;
     unstakeRequested: boolean;
+    yieldConstant: bigint;
+    monthlyIncreasePercentage: bigint;
+    startingSlashingPoint: bigint;
   };
 }
 
@@ -74,6 +86,7 @@ export interface StakingInterface extends Interface {
       | "stakingDuration"
       | "stakingToken"
       | "startingSlashingPoint"
+      | "totalPendingRewards"
       | "totalStaked"
       | "transferOwnership"
       | "unpause"
@@ -161,14 +174,14 @@ export interface StakingInterface extends Interface {
     values: [
       AddressLike,
       AddressLike,
+      boolean,
       BigNumberish,
       BigNumberish,
       BigNumberish,
       BigNumberish,
       BigNumberish,
       BigNumberish,
-      BigNumberish,
-      boolean
+      BigNumberish
     ]
   ): string;
   encodeFunctionData(functionFragment: "maxCap", values?: undefined): string;
@@ -211,6 +224,10 @@ export interface StakingInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "startingSlashingPoint",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "totalPendingRewards",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -358,6 +375,10 @@ export interface StakingInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "startingSlashingPoint",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "totalPendingRewards",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -674,14 +695,14 @@ export interface Staking extends BaseContract {
     [
       _owner: AddressLike,
       _stakingToken: AddressLike,
+      _whitelistEnabled: boolean,
       _stakingDuration: BigNumberish,
       _yieldConstant: BigNumberish,
       _cooldownPeriod: BigNumberish,
       _startingSlashingPoint: BigNumberish,
       _monthlyIncreasePercentage: BigNumberish,
       _minCap: BigNumberish,
-      _maxCap: BigNumberish,
-      _whitelistEnabled: boolean
+      _maxCap: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -720,6 +741,8 @@ export interface Staking extends BaseContract {
   stakingToken: TypedContractMethod<[], [string], "view">;
 
   startingSlashingPoint: TypedContractMethod<[], [bigint], "view">;
+
+  totalPendingRewards: TypedContractMethod<[], [bigint], "view">;
 
   totalStaked: TypedContractMethod<[], [bigint], "view">;
 
@@ -780,15 +803,15 @@ export interface Staking extends BaseContract {
   userStakes: TypedContractMethod<
     [arg0: AddressLike, arg1: BigNumberish],
     [
-      [bigint, bigint, bigint, boolean, bigint, bigint, bigint, bigint] & {
+      [bigint, bigint, bigint, bigint, boolean, bigint, bigint, bigint] & {
         amount: bigint;
         startTime: bigint;
+        stakingDuration: bigint;
         requestUnstakeTime: bigint;
         unstakeRequested: boolean;
         yieldConstant: bigint;
         monthlyIncreasePercentage: bigint;
         startingSlashingPoint: bigint;
-        stakingDuration: bigint;
       }
     ],
     "view"
@@ -885,14 +908,14 @@ export interface Staking extends BaseContract {
     [
       _owner: AddressLike,
       _stakingToken: AddressLike,
+      _whitelistEnabled: boolean,
       _stakingDuration: BigNumberish,
       _yieldConstant: BigNumberish,
       _cooldownPeriod: BigNumberish,
       _startingSlashingPoint: BigNumberish,
       _monthlyIncreasePercentage: BigNumberish,
       _minCap: BigNumberish,
-      _maxCap: BigNumberish,
-      _whitelistEnabled: boolean
+      _maxCap: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -941,6 +964,9 @@ export interface Staking extends BaseContract {
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "startingSlashingPoint"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "totalPendingRewards"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "totalStaked"
@@ -995,15 +1021,15 @@ export interface Staking extends BaseContract {
   ): TypedContractMethod<
     [arg0: AddressLike, arg1: BigNumberish],
     [
-      [bigint, bigint, bigint, boolean, bigint, bigint, bigint, bigint] & {
+      [bigint, bigint, bigint, bigint, boolean, bigint, bigint, bigint] & {
         amount: bigint;
         startTime: bigint;
+        stakingDuration: bigint;
         requestUnstakeTime: bigint;
         unstakeRequested: boolean;
         yieldConstant: bigint;
         monthlyIncreasePercentage: bigint;
         startingSlashingPoint: bigint;
-        stakingDuration: bigint;
       }
     ],
     "view"

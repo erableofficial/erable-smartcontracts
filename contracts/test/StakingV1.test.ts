@@ -24,14 +24,14 @@ describe("Staking Contract", function () {
     staking = (await upgrades.deployProxy(Staking, [
         owner.address,
       token.target,
+      false, // whitelistEnabled
       31536000n, // stakingDuration (1 year)
       ethers.parseEther("0.0008"), // yieldConstant
       300, // cooldownPeriod (5 minutes)
       ethers.parseEther("0.6"), // startingSlashingPoint
       ethers.parseEther("0.48"), // monthlyIncreasePercentage
       ethers.parseEther("0"), // minCap
-      ethers.parseEther("0"), // maxCap
-      false // whitelistEnabled
+      ethers.parseEther("0") // maxCap
     ], { initializer: 'initialize' }) as any);
     await staking.waitForDeployment();
   
