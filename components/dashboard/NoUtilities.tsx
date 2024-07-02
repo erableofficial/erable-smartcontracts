@@ -42,7 +42,7 @@ const NoUtilities = () => {
       </div>
       <div className="flex justify-center">
         <main className="flex flex-col mt-8 justify-center p-6 rounded-3xl border border-solid bg-stone-50 border-stone-300 max-w-[404px]">
-          <div className="flex gap-1.5 px-[9px] py-1 text-lg font-medium text-black bg-orange-100 rounded w-max">
+          <div className="flex gap-1.5 pl-[9px] pr-[7px] py-1 text-lg font-medium text-black bg-orange-100 rounded">
             <div className="flex items-center">
               <Info width={17} height={17} />
             </div>
