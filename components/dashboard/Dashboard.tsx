@@ -215,7 +215,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex gap-1 justify-between mt-8">
+                <div className="flex gap-1 justify-between mt-6">
                   <div className="text-lg font-semibold text-neutral-700">
                     Staking
                   </div>
@@ -236,7 +236,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </span>
                 </div>
 
-                <div className="flex gap-1 justify-between mt-8">
+                <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-md:max-w-full" />
+
+                <div className="flex gap-1 justify-between ">
                   <div className="text-lg font-semibold text-neutral-700">
                     LP Farming
                   </div>
