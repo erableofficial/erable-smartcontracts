@@ -1,7 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
-import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  ChevronUp,
+  TriangleAlert,
+} from "lucide-react";
 import BuySeraModal from "../ui/BuySeraModal";
 import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
@@ -192,23 +197,34 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     Buy $ERA
                   </button>
                 </div>
-                <div>
-                  <div className="flex gap-0.5 self-start  text-neutral-700">
-                    <div className="text-4xl font-semibold">
-                      {myBalance
-                        ? Number(
-                            formatEther(BigInt(myBalance.toString()))
-                          ).toLocaleString()
-                        : "0"}
+                <div className="flex flex-col">
+                  <div className={`${myBalance == BigInt(0) ? "flex" : ""} `}>
+                    <div className="flex gap-0.5 self-start  text-neutral-700 mb-3">
+                      <div className="text-4xl font-semibold">
+                        {myBalance
+                          ? Number(
+                              formatEther(BigInt(myBalance.toString()))
+                            ).toLocaleString()
+                          : "0"}
+                      </div>
+                      <div className="flex items-center text-lg font-medium">
+                        $ERA = $1.50
+                      </div>
                     </div>
-                    <div className="flex items-center text-lg font-medium">
-                      $ERA = $1.50
+                    <div className="flex items-center ml-1">
+                      <div className="justify-center w-fit self-start px-2.5 py-[6px] text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
+                        1 $ERA = price
+                      </div>
                     </div>
                   </div>
-                  <div className="justify-center w-fit self-start px-2.5 py-[6px] mt-3 text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
-                    1 $ERA = price
-                  </div>
+                  {myBalance == BigInt(0) && (
+                    <div className="flex gap-1.5 px-2.5 items-center py-1 text-base font-medium text-neutral-700 bg-danger-200 rounded w-fit">
+                      <TriangleAlert width={17} height={17} />
+                      <p>You don’t have $ERA</p>
+                    </div>
+                  )}
                 </div>
+
                 <div className="flex gap-2 justify-between  text-base">
                   <div className="my-auto font-medium text-neutral-700">
                     If you are a clap investor
