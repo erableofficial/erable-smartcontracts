@@ -106,7 +106,7 @@ const Roadmap: React.FC = () => {
 
   return (
     <div className="flex flex-col self-stretch p-20 bg-neutral-50 max-md:px-5">
-      <div className="justify-center self-start px-2.5 ml-2.5 text-5xl font-extrabold text-neutral-700 whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
+      <div className="justify-center self-start font-friends px-2.5 ml-2.5 text-5xl font-extrabold text-neutral-700 whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
       </div>
       <hr className="shrink-0  mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-full mx-auto" />
