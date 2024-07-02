@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
 import { ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
@@ -37,6 +37,8 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
 const Dashboard: React.FC<DashboardProps> = () => {
   const [selected, setSelected] = useState<string>("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const [toggleBuyEraModal, setToggleBuyEraModal] =
     React.useState<boolean>(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -51,6 +53,26 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [userStakingBalance, setUserStakingBalance] = React.useState<bigint>(
     BigInt(0)
   );
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   const { isConnected, address: currentAddress } = useAccount();
 
@@ -302,6 +324,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   <button
                     className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
                     onClick={toggleDropdown}
+                    ref={toggleButtonRef}
                   >
                     <span className="my-auto">Start a new program</span>
                     {isDropdownOpen ? (
@@ -312,7 +335,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                   {isDropdownOpen && (
                     <div
-                      className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute`}
+                      ref={dropdownRef}
+                      className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
                     >
                       {/* Dropdown items here */}
                       <Link href="/dashboard/stacking">
@@ -322,9 +346,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       </Link>
                       <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
                         LP Farming
-                      </div>
-                      <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
-                        Airdrop
                       </div>
                     </div>
                   )}
