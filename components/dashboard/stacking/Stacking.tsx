@@ -2,7 +2,6 @@ import React from "react";
 import StackingStepsHeader from "./StackingStepsHeader";
 import StackStepOneBody from "./StackStepOneBody";
 import StackStepTwoBody from "./StackStepTwoBody";
-import StackingLoadingModal from "../StackingLoadingModal";
 import StackStepThreeBody from "./StackStepThreeBody";
 import { useAccount, useReadContract } from "wagmi";
 import {
@@ -34,7 +33,6 @@ const Stacking: React.FC = () => {
       isActive: false,
     },
   ]);
-  const [showStackingModal, setShowStackingModal] = React.useState(false);
   const [amount, setAmount] = React.useState(2);
 
   const { address: currentAddress } = useAccount();

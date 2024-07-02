@@ -35,15 +35,15 @@ export default function Header() {
                 <ChevronDown className="icon-chevron-down" />
               </button>
               <div
-                className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute`}
+                className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute`}
               >
-                <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
                   Staking
                 </div>
-                <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
                   LP Farming
                 </div>
-                <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
                   Airdrop
                 </div>
               </div>
@@ -56,17 +56,17 @@ export default function Header() {
                 <ChevronDown className="icon-chevron-down" />
               </button>
               <div
-                className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute`}
+                className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute`}
               >
                 <Link href="/">
-                  <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
+                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer  ">
                     How to stake
                   </div>
                 </Link>
-                <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
                   How to LP Farm
                 </div>
-                <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
                   Whitepaper
                 </div>
               </div>
