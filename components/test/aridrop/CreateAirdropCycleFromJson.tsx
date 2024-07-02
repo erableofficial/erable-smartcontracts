@@ -1,6 +1,4 @@
-import MerkleTree from "merkletreejs";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import {
   Address,
   encodePacked,
@@ -8,19 +6,21 @@ import {
   keccak256,
   parseEther,
 } from "viem";
+import { IMerkleTreeElement } from "../../../lib/types";
+import { toast } from "react-toastify";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import MerkleTree from "merkletreejs";
 import {
   airdropContractABI,
   airdropContractAddress,
 } from "../../../lib/blockchain-config";
-import { IMerkleTreeElement } from "../../../lib/types";
 
+interface IJsonData {
+  address: Address;
+  amount: number;
+}
 
-
-export default function CreateAirdropCycle() {
-  const [addAddressForm, setAddAddressForm] = useState<boolean>(false);
-  const [addr, setAddr] = useState<Address>();
-  const [amount, setAmount] = useState<number>(0);
+export default function CreateAirdropCycleFromJson() {
   const [merkleTreeElements, setMerkleTreeElements] = useState<
     IMerkleTreeElement[]
   >([]);
@@ -34,8 +34,11 @@ export default function CreateAirdropCycle() {
 
   useEffect(() => {
     if (isConfirmed) {
-      setAmount(100);
       toast.success("Transaction confirmed.");
+      // refresh the page after 1000 sec
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   }, [isConfirmed]);
 
@@ -57,28 +60,29 @@ export default function CreateAirdropCycle() {
     }
   }, [hash]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!addr || !amount) return;
-    // add address to merkle tree
-    setMerkleTreeElements([
-      ...merkleTreeElements,
-      {
-        address: addr,
-        amount: parseEther(amount.toString()),
-      },
-    ]);
-    setAddAddressForm(false);
-    setAddr(undefined);
-    setAmount(0);
-  };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
-  const handleDeleteAddressFromMerkelTree = (index: number) => {
-    // delete address from merkle tree
-    setMerkleTreeElements([
-      ...merkleTreeElements.slice(0, index),
-      ...merkleTreeElements.slice(index + 1),
-    ]);
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      try {
+        const jsonData = JSON.parse(e.target?.result?.toString() || "{}");
+
+        const formattedData: IMerkleTreeElement[] = jsonData.map(
+          (item: IJsonData) => ({
+            ...item,
+            amount: item.amount
+              ? parseEther(item.amount.toString())
+              : undefined,
+          })
+        );
+        setMerkleTreeElements(formattedData);
+      } catch (error) {
+        console.error("Error parsing JSON:", error);
+      }
+    };
+    reader.readAsText(file);
   };
 
   const handleCreateAirdropCycle = async () => {
@@ -114,7 +118,7 @@ export default function CreateAirdropCycle() {
     <div className="flex items-center justify-center my-8 bg-surface-primary py-4 rounded-xl max-w-[60%] mx-auto ">
       <div className="min-w-[60%] mx-auto">
         <h2 className="text-2xl tracking-wide font-friends font-bold text-gray-800 text-center pb-4  ">
-          Create Airdrop Cycle
+          Create Airdrop Cycle from JSON
         </h2>
         <p className="text-center text-gray-600">
           Create a new airdrop cycle by providing the address and amount.
@@ -134,92 +138,23 @@ export default function CreateAirdropCycle() {
                 >
                   <p>{element.address}</p>
                   <p>{element.amount && formatEther(element.amount)}</p>
-                  <button
-                    onClick={() => {
-                      handleDeleteAddressFromMerkelTree(index);
-                    }}
-                    className="bg-warning-500 p-2 rounded-lg  font-friends font-medium text-lg"
-                  >
-                    Delete
-                  </button>
                 </div>
               ))}
             </div>
             <hr className="my-4" />
           </div>
         )}
+        <div className="flex justify-center items-center">
+          <input type="file" onChange={handleFileChange} />
+        </div>
+        <hr className="my-4" />
+
         <div className="flex items-center justify-around">
           <button onClick={handleCreateAirdropCycle} className="primary-button">
             Create Airdrop Cycle
           </button>
-          <button
-            onClick={() => {
-              setAddAddressForm(true);
-              setAddr(undefined);
-              setAmount(0);
-            }}
-            className="secondary-button"
-          >
-            Add Address To Cycle
-          </button>
         </div>
         <hr className="my-4" />
-
-        {addAddressForm && (
-          <form
-            className="gap-5 items-center flex flex-col space-y-2  "
-            onSubmit={handleSubmit}
-          >
-            <div className="w-full">
-              <label
-                className="text-xl tracking-wide font-friends font-medium"
-                htmlFor="address"
-              >
-                Address :
-              </label>
-              <input
-                type="string"
-                name="address"
-                id="address"
-                placeholder="0x*****"
-                className="p-3 ml-2 border rounded w-[70%] "
-                value={addr}
-                onChange={(e) => setAddr(e.target.value as Address)}
-              />
-            </div>
-            <div className="w-full">
-              <label
-                className="text-xl tracking-wide font-friends font-medium"
-                htmlFor="amount"
-              >
-                Amount :
-              </label>
-              <input
-                type="string"
-                name="amount"
-                id="amount"
-                placeholder="100"
-                className="p-3 ml-2 border rounded w-[70%]"
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
-              />
-            </div>
-
-            {/* <button
-              disabled={isPending}
-              type="submit"
-              className="secondary-button"
-            >
-              {isPending ? "Confirming..." : "Create Airdrop Cycle"}
-            </button> */}
-            <button type="submit" className="secondary-button">
-              Add Address To Cycle
-            </button>
-
-            {/* {error && <p>Error: {error.message}</p>} */}
-            {/* {hash && <p>Hash: {hash}</p>} */}
-          </form>
-        )}
       </div>
     </div>
   );

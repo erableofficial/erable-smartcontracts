@@ -1,3 +1,5 @@
+import { Address } from "viem";
+
 export interface StakeInfo {
   amount: bigint;
   startTime: bigint;
@@ -16,4 +18,9 @@ export interface TabItem {
   unstakeRequested: boolean;
   action: "Claim" | "Unstake";
   daysLeft?: string | null;
+}
+
+export interface IMerkleTreeElement {
+  address: Address;
+  amount: bigint;
 }

@@ -30,6 +30,7 @@ import StakeControlSection from "../../components/test/StakeControlSection";
 import WhiteListSection from "../../components/test/whiteListSection";
 import AddToWhiteListForm from "../../components/test/addToWhiteListForm";
 import CreateAirdropCycle from "../../components/test/aridrop/CreateAirdropCycle";
+import CreateAirdropCycleFromJson from "../../components/test/aridrop/CreateAirdropCycleFromJson";
 
 export default function TestPage() {
   // getting current address from metamask using rainbowkit
@@ -171,6 +172,7 @@ export default function TestPage() {
             <div>
               <h2 className="text-3xl text-center"> Airdrop Owner Actions </h2>
               <CreateAirdropCycle />
+              <CreateAirdropCycleFromJson />
             </div>
           </>
         )}
