@@ -24,3 +24,8 @@ export interface IMerkleTreeElement {
   address: Address;
   amount: bigint;
 }
+
+export interface IAirdropCycleInfo {
+  merkleRoot: Address;
+  isActive: boolean;
+}

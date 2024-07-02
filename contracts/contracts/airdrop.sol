@@ -80,7 +80,11 @@ contract MerkleAirdrop is Ownable(msg.sender) {
      * @param amount The amount of tokens to claim
      * @param proof The Merkle proof
      */
-    function claimTokens(uint256 cycleIndex, uint256 amount, bytes32[] calldata proof) external {
+    function claimTokens(
+        uint256 cycleIndex,
+        uint256 amount,
+        bytes32[] calldata proof
+    ) external {
         if (cycleIndex >= airdropCycles.length) {
             revert InvalidCycleIndex();
         }
@@ -95,7 +99,13 @@ contract MerkleAirdrop is Ownable(msg.sender) {
         bytes32 leaf = keccak256(abi.encodePacked(msg.sender, amount));
         emit LogLeaf(leaf);
         emit LogMerkleRoot(airdropCycles[cycleIndex].merkleRoot);
-        if (!MerkleProof.verify(proof, airdropCycles[cycleIndex].merkleRoot, leaf)) {
+        if (
+            !MerkleProof.verify(
+                proof,
+                airdropCycles[cycleIndex].merkleRoot,
+                leaf
+            )
+        ) {
             revert InvalidMerkleProof();
         }
 
@@ -127,7 +137,12 @@ contract MerkleAirdrop is Ownable(msg.sender) {
      * @param proof The Merkle proof
      * @return bool True if the address can claim tokens, otherwise false
      */
-    function checkClaimable(uint256 cycleIndex, address wallet, uint256 amount, bytes32[] calldata proof) external view returns (bool) {
+    function checkClaimable(
+        uint256 cycleIndex,
+        address wallet,
+        uint256 amount,
+        bytes32[] calldata proof
+    ) external view returns (bool) {
         if (cycleIndex >= airdropCycles.length) {
             revert InvalidCycleIndex();
         }
@@ -159,7 +174,49 @@ contract MerkleAirdrop is Ownable(msg.sender) {
      * @param user The address of the user
      * @return bool True if the user has claimed, otherwise false
      */
-    function hasUserClaimed(uint256 cycleIndex, address user) external view returns (bool) {
+    function hasUserClaimed(
+        uint256 cycleIndex,
+        address user
+    ) external view returns (bool) {
         return hasClaimed[cycleIndex][user];
+    }
+
+    /**
+     * @notice Get the number of airdrop cycles
+     * @return uint256 The number of airdrop cycles
+     */
+    function getAirdropCycleCount() external view returns (uint256) {
+        return airdropCycles.length;
+    }
+
+    /**
+     * @notice Get the airdrop cycle data
+     * @param cycleIndex The index of the airdrop cycle
+     * @return bytes32 The Merkle root of the airdrop cycle
+     * @return bool True if the airdrop cycle is active, otherwise false
+     */
+
+    function getAirdropCycle(
+        uint256 cycleIndex
+    ) external view returns (bytes32, bool) {
+        if (cycleIndex >= airdropCycles.length) {
+            revert InvalidCycleIndex();
+        }
+        return (
+            airdropCycles[cycleIndex].merkleRoot,
+            airdropCycles[cycleIndex].isActive
+        );
+    }
+
+    /**
+     * @notice Get all the airdrop cycles
+     * @return  AirdropCycle[] The list of airdrop cycles
+     */
+    function getAllAirdropCycles()
+        external
+        view
+        returns (AirdropCycle[] memory)
+    {
+        return airdropCycles;
     }
 }

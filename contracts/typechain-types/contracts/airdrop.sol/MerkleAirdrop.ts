@@ -23,6 +23,15 @@ import type {
   TypedContractMethod,
 } from "../../common";
 
+export declare namespace MerkleAirdrop {
+  export type AirdropCycleStruct = { merkleRoot: BytesLike; isActive: boolean };
+
+  export type AirdropCycleStructOutput = [
+    merkleRoot: string,
+    isActive: boolean
+  ] & { merkleRoot: string; isActive: boolean };
+}
+
 export interface MerkleAirdropInterface extends Interface {
   getFunction(
     nameOrSignature:
@@ -32,6 +41,9 @@ export interface MerkleAirdropInterface extends Interface {
       | "createAirdropCycle"
       | "depositTokens"
       | "disableAirdropCycle"
+      | "getAirdropCycle"
+      | "getAirdropCycleCount"
+      | "getAllAirdropCycles"
       | "hasClaimed"
       | "hasUserClaimed"
       | "owner"
@@ -75,6 +87,18 @@ export interface MerkleAirdropInterface extends Interface {
   encodeFunctionData(
     functionFragment: "disableAirdropCycle",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAirdropCycle",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAirdropCycleCount",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAllAirdropCycles",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "hasClaimed",
@@ -121,6 +145,18 @@ export interface MerkleAirdropInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "disableAirdropCycle",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getAirdropCycle",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getAirdropCycleCount",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getAllAirdropCycles",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "hasClaimed", data: BytesLike): Result;
@@ -315,6 +351,20 @@ export interface MerkleAirdrop extends BaseContract {
     "nonpayable"
   >;
 
+  getAirdropCycle: TypedContractMethod<
+    [cycleIndex: BigNumberish],
+    [[string, boolean]],
+    "view"
+  >;
+
+  getAirdropCycleCount: TypedContractMethod<[], [bigint], "view">;
+
+  getAllAirdropCycles: TypedContractMethod<
+    [],
+    [MerkleAirdrop.AirdropCycleStructOutput[]],
+    "view"
+  >;
+
   hasClaimed: TypedContractMethod<
     [arg0: BigNumberish, arg1: AddressLike],
     [boolean],
@@ -384,6 +434,23 @@ export interface MerkleAirdrop extends BaseContract {
   getFunction(
     nameOrSignature: "disableAirdropCycle"
   ): TypedContractMethod<[cycleIndex: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "getAirdropCycle"
+  ): TypedContractMethod<
+    [cycleIndex: BigNumberish],
+    [[string, boolean]],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "getAirdropCycleCount"
+  ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "getAllAirdropCycles"
+  ): TypedContractMethod<
+    [],
+    [MerkleAirdrop.AirdropCycleStructOutput[]],
+    "view"
+  >;
   getFunction(
     nameOrSignature: "hasClaimed"
   ): TypedContractMethod<
