@@ -13,8 +13,8 @@ export default function Header() {
           <Link href="/" className="w-[40%] h-auto">
             <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
           </Link>
-          <button className="lg:hidden bg-surface-500 py-1.5 px-3 rounded-full border-2 border-black border-solid">
-            <Menu />
+          <button className="lg:hidden bg-surface-500 py-[10.5px] px-[10.5px] rounded-full border-2 border-black border-solid">
+            <Menu width={25} height={24} strokeWidth={2.67} />
           </button>
           <button className="bg-surface-500 py-1.5 px-3 rounded-full border-2 font-medium hover:font-bold border-black border-solid hidden lg:flex items-center gap-0.5 ">
             <span className="text-base  text-left text-nowrap ">
