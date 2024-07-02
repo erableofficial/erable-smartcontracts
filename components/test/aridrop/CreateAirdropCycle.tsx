@@ -1,7 +1,13 @@
 import MerkleTree from "merkletreejs";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Address, encodePacked, keccak256, parseEther } from "viem";
+import {
+  Address,
+  encodePacked,
+  formatEther,
+  keccak256,
+  parseEther,
+} from "viem";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import {
   airdropContractABI,
@@ -129,7 +135,7 @@ export default function CreateAirdropCycle() {
                   className="flex items-center justify-between gap-5"
                 >
                   <p>{element.address}</p>
-                  <p>{element.amount}</p>
+                  <p>{element.amount && formatEther(element.amount)}</p>
                   <button
                     onClick={() => {
                       handleDeleteAddressFromMerkelTree(index);
