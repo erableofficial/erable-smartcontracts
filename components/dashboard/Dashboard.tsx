@@ -193,11 +193,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </div>
                   <a
                     href="#"
-                    className="flex gap-1  pb-1.5 font-semibold text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid"
+                    className="flex gap-1  pb-1.5 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
                   >
                     Bridge
                     <div className="flex items-center">
-                      <ArrowUpRight width={20} height={20} />
+                      <ArrowUpRight width={18} height={19} strokeWidth={1.5} />
                     </div>
                   </a>
                 </div>
