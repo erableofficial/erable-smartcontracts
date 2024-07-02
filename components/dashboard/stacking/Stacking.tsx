@@ -17,7 +17,7 @@ const Stacking: React.FC = () => {
   const [steps, setSteps] = React.useState([
     {
       number: "1",
-      title: "Staking Process",
+      title: "Start Your Staking",
       text: "Set Up Staking",
       isActive: true,
     },

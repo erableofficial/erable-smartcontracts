@@ -21,7 +21,7 @@ type StepProps = {
 const Step: React.FC<StepProps> = ({ number, text, isActive }) => (
   <div className="flex gap-2.5 justify-center">
     <div
-      className={`justify-center flex items-center px-5 py-3 w-11 h-11 font-semibold whitespace-nowrap ${
+      className={`justify-center flex items-center px-[18px] py-[11px] w-11 h-11 font-semibold whitespace-nowrap ${
         isActive
           ? "bg-surface-500 border-black text-neutral-700"
           : "bg-white border-stone-300"
