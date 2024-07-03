@@ -47,9 +47,9 @@ export default function CreateAirdropCycleFromJson() {
     if (isConfirmed) {
       toast.success("Transaction confirmed.");
       // refresh the page after 1000 sec
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 1000);
     }
   }, [isConfirmed]);
 
@@ -106,8 +106,17 @@ export default function CreateAirdropCycleFromJson() {
       console.log("No addresses to airdrop.");
       return;
     }
-    console.log("Merkle Tree Elements:", merkleTreeElements);
-    const leaves = merkleTreeElements.map((element) =>
+
+    // sort merkleTreeElements by address
+    const sortedMerkleTreeElements = merkleTreeElements.sort((a, b) => {
+      if (a.address < b.address) return -1;
+      if (a.address > b.address) return 1;
+      return 0;
+    });
+
+    console.log("Sorted Merkle Tree Elements:", sortedMerkleTreeElements);
+
+    const leaves = sortedMerkleTreeElements.map((element) =>
       keccak256(
         encodePacked(["address", "uint256"], [element.address, element.amount])
       )
