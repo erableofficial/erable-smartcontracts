@@ -130,6 +130,7 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
         toggleClaimAirdropModal={toggleClaimAirdropModal}
         setToggleClaimAirdropModal={setToggleClaimAirdropModal}
         handleClaimAirdrop= {handleClaim}
+        airdrop={airdrop}
       />
       <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
         <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">

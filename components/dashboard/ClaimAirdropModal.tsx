@@ -1,16 +1,19 @@
 import * as React from "react";
 import { Cake, Sparkles, X } from "lucide-react";
+import { TabItem } from "../../lib/types";
 
 interface ClaimAirdropModalProps {
   toggleClaimAirdropModal: boolean;
   setToggleClaimAirdropModal: (value: boolean) => void;
   handleClaimAirdrop: () => void;
+  airdrop: TabItem;
 }
 
 const ClaimAirdropModal: React.FC<ClaimAirdropModalProps> = ({
   toggleClaimAirdropModal,
   setToggleClaimAirdropModal,
   handleClaimAirdrop,
+  airdrop,
 }) => {
   if (!toggleClaimAirdropModal) return null;
   const closeModal = () => {
@@ -56,7 +59,7 @@ const ClaimAirdropModal: React.FC<ClaimAirdropModalProps> = ({
           </div>
           <div className="flex flex-col">
             <div className="flex-1 my-auto text-xl font-bold text-neutral-700 max-md:max-w-full">
-              xx.xx $ERA earned
+              {Number(airdrop.amount)} $ERA earned
             </div>
             <div className="self-start text-base font-medium text-neutral-700 max-md:max-w-full">
               Congratulations! You have successfully earned $ERA by contributing
