@@ -13,6 +13,7 @@ import HowItWorks from "../components/ui/HowItWorks";
 import { useEffect } from "react";
 import sal, { Options } from "sal.js";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -27,6 +28,9 @@ const Home: NextPage = () => {
   }, []);
   return (
     <>
+      <Head>
+        <title>Eratoken</title>
+      </Head>
       <Header />
       <HeroSection />
       <EraUtil />

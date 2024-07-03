@@ -67,10 +67,10 @@ const RewardSystem: React.FC = () => {
 
   return (
     <div className="flex flex-col items-start self-stretch p-20 bg-white max-md:px-5">
-      <div className="mt-2.5 ml-2.5 text-5xl font-semibold text-black max-md:max-w-full max-md:text-4xl">
+      <div className="mt-2.5 ml-2.5 text-5xl font-extrabold text-black max-md:max-w-full max-md:text-4xl font-friends">
         Discover
       </div>
-      <div className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-semibold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl">
+      <div className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl font-friends">
         Our Reward Systems
       </div>
       <section className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full">

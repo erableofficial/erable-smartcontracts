@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  ChevronUp,
+  TriangleAlert,
+} from "lucide-react";
 import BuySeraModal from "../ui/BuySeraModal";
 import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
@@ -12,7 +17,6 @@ import {
   stakingTokenABI,
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
-import { formatEther } from "viem";
 import { StakeInfo, TabItem } from "../../lib/types";
 import NoUtilities from "./NoUtilities";
 import {
@@ -21,25 +25,18 @@ import {
   getUserBalance,
   getUserStakes,
 } from "../../lib/utils";
+import CardsSection from "./CardsSection";
 import { useStakingContractData } from "../../context/stakingContractData";
 
 interface DashboardProps {}
-
-const StatBlock: React.FC<{ title: string; value: string }> = ({
-  title,
-  value,
-}) => (
-  <div className="flex gap-4 justify-between mt-2 text-neutral-700 max-md:mr-1">
-    <div className="text-base font-medium text-neutral-500">{title}</div>
-    <div className=" text-[16px] font-medium ">{value}</div>
-  </div>
-);
 
 const Dashboard: React.FC<DashboardProps> = () => {
   const { stakingContractData, setStakingContractData } =
     useStakingContractData();
   const [selected, setSelected] = useState<string>("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const [toggleBuyEraModal, setToggleBuyEraModal] =
     React.useState<boolean>(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -54,6 +51,26 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [userStakingBalance, setUserStakingBalance] = React.useState<bigint>(
     BigInt(0)
   );
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   const { isConnected, address: currentAddress } = useAccount();
 
@@ -216,119 +233,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
           toggleBuyEraModal={toggleBuyEraModal}
           setToggleBuyEraModal={setToggleBuyEraModal}
         />
-        <div className="flex justify-center self-stretch  mt-14 w-full max-md:px-5 max-md:max-w-full">
-          <div className="flex gap-6 max-w-[1259px] w-full max-md:flex-col max-md:gap-0">
-            <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
-                <div className="flex gap-2 justify-between font-semibold">
-                  <div className="my-auto text-2xl text-neutral-700">
-                    My $ERA Wallet
-                  </div>
-                  <button
-                    className="primary-button-sm  justify-center px-6 py-3 text-base text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid max-md:px-5"
-                    onClick={() => setToggleBuyEraModal(true)}
-                  >
-                    Buy $ERA
-                  </button>
-                </div>
-                <div className="flex gap-0.5 self-start  text-neutral-700">
-                  <div className="text-4xl font-semibold">
-                    {myBalance
-                      ? Number(
-                          formatEther(BigInt(myBalance.toString()))
-                        ).toLocaleString()
-                      : "0"}
-                  </div>
-                  <div className="self-start h-full flex items-center text-lg font-medium">
-                    $ERA = $1.50
-                  </div>
-                </div>
-                <div className="justify-center self-start px-2.5 py-[6px] mt-4 text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
-                  1 $ERA = price
-                </div>
-                <div className="flex gap-2 justify-between  text-base">
-                  <div className="my-auto font-medium text-neutral-700">
-                    *If you are a clap investor
-                  </div>
-                  <a
-                    href="#"
-                    className="pb-1.5 font-semibold text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid"
-                  >
-                    Bridge
-                  </a>
-                </div>
-              </div>
-            </section>
-            <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
-                <div className="flex gap-5 justify-between font-semibold">
-                  <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
-                    <div className="text-2xl text-neutral-700">
-                      Total Rewards
-                    </div>
-                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
-                      View history
-                    </div>
-                  </div>
-                </div>
-                <div className="flex gap-1 justify-between mt-8">
-                  <div className="text-lg font-semibold text-neutral-700">
-                    Staking
-                  </div>
-                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-                    {userStakingBalance
-                      ? formatEther(BigInt(userStakingBalance.toString()))
-                      : "0"}{" "}
-                    $ERA
-                  </span>
-                </div>
-                <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
-                  Total staked{" "}
-                  <span>
-                    {totalStaked
-                      ? formatEther(BigInt(totalStaked.toString()))
-                      : "0"}{" "}
-                    $ERA
-                  </span>
-                </div>
-
-                <div className="flex gap-1 justify-between mt-8">
-                  <div className="text-lg font-semibold text-neutral-700">
-                    LP Farming
-                  </div>
-                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-                    200,870 $ERA
-                  </span>
-                </div>
-                <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
-                  Total liquidity provided <span>200,870 $ERA</span>
-                </div>
-              </div>
-            </section>
-            <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col justify-between grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
-                <div className="flex gap-5 justify-between font-semibold">
-                  <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
-                    <div className="text-2xl text-neutral-700">$ERA stats</div>
-                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
-                      Whitepaper
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <StatBlock title="Marketcap" value="$1,451,188" />
-                  {/* <StatBlock title="Volume" value="xx" /> */}
-                  <StatBlock title="Circulating supply" value="217,000,000" />
-                  <StatBlock title="Total supply" value="1,000,000,000" />
-                  <StatBlock
-                    title="Fully diluted market cap"
-                    value="$6,951,110"
-                  />
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
+        <CardsSection
+          userStakingBalance={userStakingBalance}
+          totalStaked={totalStaked}
+          myBalance={myBalance}
+          setToggleBuyEraModal={setToggleBuyEraModal}
+        />
 
         <OfficialLinks />
         <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full">
@@ -356,6 +266,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   <button
                     className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
                     onClick={toggleDropdown}
+                    ref={toggleButtonRef}
                   >
                     <span className="my-auto">Start a new program</span>
                     {isDropdownOpen ? (
@@ -366,7 +277,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </button>
                   {isDropdownOpen && (
                     <div
-                      className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute`}
+                      ref={dropdownRef}
+                      className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
                     >
                       {/* Dropdown items here */}
                       <Link href="/dashboard/stacking">
@@ -377,11 +289,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
                         LP Farming
                       </div>
-                      <Link href="/dashboard/airdrop">
-                        <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
-                          Airdrop
-                        </div>
-                      </Link>
                     </div>
                   )}
                 </div>

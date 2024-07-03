@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import StackingStepsHeader from "./StackingStepsHeader";
 import StackStepOneBody from "./StackStepOneBody";
 import StackStepTwoBody from "./StackStepTwoBody";
-import StackingLoadingModal from "../StackingLoadingModal";
 import StackStepThreeBody from "./StackStepThreeBody";
 import { useAccount, useReadContract } from "wagmi";
 import {
@@ -20,7 +19,7 @@ const Stacking: React.FC = () => {
   const [steps, setSteps] = React.useState([
     {
       number: "1",
-      title: "Staking Process",
+      title: "Start Your Staking",
       text: "Set Up Staking",
       isActive: true,
     },
@@ -37,7 +36,6 @@ const Stacking: React.FC = () => {
       isActive: false,
     },
   ]);
-  const [showStackingModal, setShowStackingModal] = React.useState(false);
   const [amount, setAmount] = React.useState(2);
 
   const { address: currentAddress } = useAccount();
