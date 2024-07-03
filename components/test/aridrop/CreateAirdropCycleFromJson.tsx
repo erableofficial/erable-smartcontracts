@@ -8,7 +8,11 @@ import {
 } from "viem";
 import { IMerkleTreeElement } from "../../../lib/types";
 import { toast } from "react-toastify";
-import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
+import {
+  useReadContract,
+  useWaitForTransactionReceipt,
+  useWriteContract,
+} from "wagmi";
 import MerkleTree from "merkletreejs";
 import {
   airdropContractABI,
@@ -24,6 +28,13 @@ export default function CreateAirdropCycleFromJson() {
   const [merkleTreeElements, setMerkleTreeElements] = useState<
     IMerkleTreeElement[]
   >([]);
+
+  const { data: airdropCycleCount, error: airdropCycleCountError } =
+    useReadContract({
+      abi: airdropContractABI,
+      address: airdropContractAddress,
+      functionName: "getAirdropCycleCount",
+    });
 
   const { writeContract, data: hash, error, isPending } = useWriteContract();
 
@@ -85,6 +96,8 @@ export default function CreateAirdropCycleFromJson() {
     reader.readAsText(file);
   };
 
+  console.log("AirdopCycle : ", Number(airdropCycleCount as bigint));
+
   const handleCreateAirdropCycle = async () => {
     // create airdrop cycle
     console.log("Creating Airdrop Cycle...");
@@ -106,6 +119,61 @@ export default function CreateAirdropCycleFromJson() {
     console.log("Merkle Tree :", merkleTree);
     console.log("Merkle Tree Root:", root);
 
+    // convert merkleTreeElements.amount to number ans store them int new variable elements
+    const elements = merkleTreeElements.map((element) => ({
+      cycle: Number(airdropCycleCount as bigint),
+      address: element.address,
+      amount: formatEther(element.amount),
+    }));
+
+    console.log("Elements:", elements);
+
+    const loadingToast = toast.loading("Saving Airdrop Cycle To Redis...");
+
+    // call /api/airdrop/create-cycle endpoint
+    const response = await fetch("/api/airdrop/create-cycle", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        elements,
+      }),
+    });
+
+    if (!response.ok) {
+      // toast.error("Failed to register airdrop cycle to db.");
+      toast.update(loadingToast, {
+        render: "Failed to save airdrop cycle to Redis.",
+        type: "error",
+        isLoading: false,
+        autoClose: 5000,
+      });
+
+      return;
+    }
+
+    const { success, message } = await response.json();
+
+    if (!success) {
+      // toast.error(message);
+      toast.update(loadingToast, {
+        render: message,
+        type: "error",
+        isLoading: false,
+        autoClose: 5000,
+      });
+      return;
+    }
+
+    toast.update(loadingToast, {
+      render: message,
+      type: "success",
+      isLoading: false,
+      autoClose: 3000,
+    });
+
+    // create airdrop cycle
     writeContract({
       abi: airdropContractABI,
       address: airdropContractAddress,
