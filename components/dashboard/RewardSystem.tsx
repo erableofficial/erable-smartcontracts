@@ -66,28 +66,30 @@ const RewardSystem: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-start self-stretch p-20 bg-white max-md:px-5">
-      <div className="mt-2.5 ml-2.5 text-5xl font-extrabold text-black max-md:max-w-full max-md:text-4xl font-friends">
-        Discover
-      </div>
-      <div className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl font-friends">
-        Our Reward Systems
-      </div>
-      <section className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full">
-        <div className="flex gap-5 max-lg:flex-col max-md:gap-0">
-          {rewardSystems.map((system, index) => (
-            <div
-              key={index}
-              className="flex flex-col w-[33%] max-md:ml-0 max-lg:w-full"
-            >
-              <RewardOption {...system} />
-            </div>
-          ))}
+    <div className="flex justify-center">
+      <div className="flex flex-col items-start self-stretch py-20 max-w-[1260px] bg-white max-md:px-5">
+        <div className="mt-2.5 ml-2.5 text-5xl font-extrabold text-black max-md:max-w-full max-md:text-4xl font-friends">
+          Discover
         </div>
-      </section>
-      <button className="primary-button-sm justify-center px-7 py-4 mt-10 ml-2.5 text-lg font-semibold  max-md:px-5">
-        Learn more
-      </button>
+        <div className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl font-friends">
+          Our Reward Systems
+        </div>
+        <section className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full">
+          <div className="flex gap-5 max-lg:flex-col max-md:gap-0">
+            {rewardSystems.map((system, index) => (
+              <div
+                key={index}
+                className="flex flex-col w-[33%] max-md:ml-0 max-lg:w-full"
+              >
+                <RewardOption {...system} />
+              </div>
+            ))}
+          </div>
+        </section>
+        <button className="primary-button-sm justify-center px-7 py-4 mt-10 ml-2.5 text-lg font-semibold  max-md:px-5">
+          Learn more
+        </button>
+      </div>
     </div>
   );
 };

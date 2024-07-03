@@ -90,7 +90,7 @@ const TabContent: React.FC<TabContentProps> = ({
             </div>
             {/* <div className="mt-8 text-lg text-neutral-700">JJ/MM/AAAA</div> */}
           </div>
-          <div className="flex flex-col justify-between p-2.5 text-base">
+          <div className="flex flex-col justify-between p-2.5 text-base min-w-[124px]">
             <div className="flex items-center gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
               <div>Action</div>
               <Tooltip message="The option available for managing the reward program (e.g., Unstake to claim rewards).">

@@ -200,7 +200,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
           {new Date(stake.endTime).toLocaleDateString()}
         </div>
-        <div className="flex flex-col self-stretch px-2.5">
+        <div className="flex flex-col self-stretch px-2.5 min-w-[124px]">
           {stake.daysLeft && (
             <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
               <div>{stake.daysLeft}</div>
