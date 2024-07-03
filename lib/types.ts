@@ -18,6 +18,7 @@ export interface TabItem {
   unstakeRequested: boolean;
   action: "Claim" | "Unstake";
   daysLeft?: string | null;
+  airdropCycleIndex?: number;
 }
 
 export interface IMerkleTreeElement {

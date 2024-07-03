@@ -6,16 +6,24 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { contractABI, contractAddress } from "../../lib/blockchain-config";
+import {
+  airdropContractABI,
+  airdropContractAddress,
+  contractABI,
+  contractAddress,
+} from "../../lib/blockchain-config";
 import { toast } from "react-toastify";
 import CustomToast from "./CustomToast";
-import { formatEther } from "viem";
+import { encodePacked, formatEther, keccak256 } from "viem";
 import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
 import Tooltip from "./Tooltip";
 import { calculateTotalWithdraw } from "../../lib/utils";
 import { useStakingContractData } from "../../context/stakingContractData";
 import EndStackingModal from "./EndStackingModal";
 import ClaimAirdropModal from "./ClaimAirdropModal";
+import MerkleTree from "merkletreejs";
+import { useAirdropCycles } from "../../context/airdropCycles";
+import { useCurrentUser } from "../../context/currentUser";
 
 interface AirdropItemProps {
   airdrop: TabItem;
@@ -30,6 +38,8 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
   itemsCounter,
   setTransactionSuccess,
 }) => {
+  const { currentUser, setCurrentUser } = useCurrentUser();
+  const { airdropCycles, setAirdropCycles } = useAirdropCycles();
   const [toggleClaimAirdropModal, setToggleClaimAirdropModal] =
     React.useState<boolean>(false);
   const [itemId, setItemId] = React.useState<number>(0);
@@ -116,20 +126,66 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
   }, [hash]);
 
   const handleClaim = () => {
+    if (!currentUser.address) {
+      toast.error("Please connect your wallet to claim airdrop.");
+      return;
+    }
+
+    if (!airdrop.amount || !airdrop.airdropCycleIndex) {
+      toast.error("Invalid airdrop data.");
+      return;
+    }
+
+    // get all airdrops from context that cycle === airdrop.airdropCycleIndex and remove cycle fiedl from them then create a merkle tree
+    const airdrops = airdropCycles.filter(
+      (airCycle: any) => Number(airCycle.cycle) === airdrop.airdropCycleIndex
+    );
+
+    console.log("airdrops: ", airdrops);
+
+    const leaves = airdrops.map((aird) => {
+      return keccak256(
+        encodePacked(
+          ["address", "uint256"],
+          [aird.address, BigInt(aird.amount)]
+        )
+      );
+    });
+
+    const merkleTree = new MerkleTree(leaves, keccak256, { sortPairs: true });
+
+    const root = merkleTree.getHexRoot();
+
+    console.log("Merkle Tree Root: ", root);
+
+    // proof of the claim
+    const proof = merkleTree.getHexProof(
+      keccak256(
+        encodePacked(
+          ["address", "uint256"],
+          [currentUser.address, airdrop.amount]
+        )
+      )
+    );
+
+    console.log("Proof: ", proof);
+
     writeContract({
-      abi: contractABI,
-      address: contractAddress,
-      functionName: "claim",
-    //   args: [stakeId],
+      abi: airdropContractABI,
+      address: airdropContractAddress,
+      functionName: "claimTokens",
+      args: [BigInt(airdrop.airdropCycleIndex), airdrop.amount, proof],
     });
   };
+
+  console.log("Airdrops Cycles From context: ", airdropCycles);
 
   return (
     <React.Fragment>
       <ClaimAirdropModal
         toggleClaimAirdropModal={toggleClaimAirdropModal}
         setToggleClaimAirdropModal={setToggleClaimAirdropModal}
-        handleClaimAirdrop= {handleClaim}
+        handleClaimAirdrop={handleClaim}
         airdrop={airdrop}
       />
       <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">

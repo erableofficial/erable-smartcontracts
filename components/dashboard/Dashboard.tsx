@@ -29,12 +29,16 @@ import CardsSection from "./CardsSection";
 import { useStakingContractData } from "../../context/stakingContractData";
 import EndStackingModal from "./EndStackingModal";
 import { parseEther } from "viem";
+import { useCurrentUser } from "../../context/currentUser";
+import { useAirdropCycles } from "../../context/airdropCycles";
 
 interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = () => {
+  const { currentUser, setCurrentUser } = useCurrentUser();
   const { stakingContractData, setStakingContractData } =
     useStakingContractData();
+  const { airdropCycles, setAirdropCycles } = useAirdropCycles();
   const [selected, setSelected] = useState<string>("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -75,7 +79,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
     };
   }, [isDropdownOpen]);
 
-  const { isConnected, address: currentAddress } = useAccount();
+  const {
+    isConnected,
+    address: currentAddress,
+    chain,
+    connector,
+  } = useAccount();
 
   const { data: stakingDuration, error: stakingDurationError } =
     useReadContract({
@@ -202,6 +211,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
       const airdropsData = await airdrops.json();
       console.log("Airdrops Data : ", airdropsData);
 
+      setAirdropCycles(airdropsData.data);
+
       const userAirdrops = airdropsData.data.filter(
         (airdrop: IRedisAirdop) => airdrop.address === currentAddress
       );
@@ -215,6 +226,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
             amount: BigInt(airdrop.amount),
             endTime: (Number(airdrop.cycle) + Number(1)) * 1000,
             action: "Claim",
+            airdropCycleIndex: Number(airdrop.cycle),
           };
         }
       );
@@ -222,11 +234,20 @@ const Dashboard: React.FC<DashboardProps> = () => {
       setAirdropItems(items);
     }
 
-    if (currentAddress && stakingDuration) {
-      updateUserStakes();
-      updateUserBalnce();
-      updateUserStaked();
-      updateUserTotalStaked();
+    if (currentAddress) {
+      setCurrentUser({
+        ...currentUser,
+        address: currentAddress,
+        chain: chain,
+        connector: connector,
+      });
+
+      if (stakingDuration) {
+        updateUserStakes();
+        updateUserBalnce();
+        updateUserStaked();
+        updateUserTotalStaked();
+      }
 
       // airdrop functions
       getUserAirdrops();
