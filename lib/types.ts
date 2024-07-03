@@ -16,7 +16,7 @@ export interface TabItem {
   endTime: number;
   requestUnstakeTime: string;
   unstakeRequested: boolean;
-  action: "Claim" | "Unstake";
+  action: "Claim" | "Unstake" | "Claimed";
   daysLeft?: string | null;
   airdropCycleIndex?: number;
 }

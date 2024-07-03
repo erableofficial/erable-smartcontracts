@@ -12,6 +12,8 @@ import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
 import Link from "next/link";
 import {
+  airdropContractABI,
+  airdropContractAddress,
   contractABI,
   contractAddress,
   stakingTokenABI,
@@ -23,6 +25,7 @@ import {
   getTotalStaked,
   getTotalStakedForUser,
   getUserBalance,
+  getUserHasClaimedAirdrop,
   getUserStakes,
 } from "../../lib/utils";
 import CardsSection from "./CardsSection";
@@ -31,6 +34,8 @@ import EndStackingModal from "./EndStackingModal";
 import { parseEther } from "viem";
 import { useCurrentUser } from "../../context/currentUser";
 import { useAirdropCycles } from "../../context/airdropCycles";
+import { readContract } from "@wagmi/core";
+import { config } from "../../lib/wagmi/config";
 
 interface DashboardProps {}
 
@@ -85,6 +90,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
     chain,
     connector,
   } = useAccount();
+
+  const {
+    data: airdropCyclesFromBlockchain,
+    error: airdropCyclesFromBlockchainError,
+  } = useReadContract({
+    abi: airdropContractABI,
+    address: airdropContractAddress,
+    functionName: "getAllAirdropCycles",
+  });
 
   const { data: stakingDuration, error: stakingDurationError } =
     useReadContract({
@@ -213,22 +227,27 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
       setAirdropCycles(airdropsData.data);
 
-      const userAirdrops = airdropsData.data.filter(
+      const userAirdrops = await airdropsData.data.filter(
         (airdrop: IRedisAirdop) => airdrop.address === currentAddress
       );
 
-      const items: TabItem[] = userAirdrops.map(
-        (airdrop: IRedisAirdop, index: number) => {
+      const items: TabItem[] = await Promise.all(
+        userAirdrops.map(async (airdrop: IRedisAirdop, index: number) => {
+          const isClaimed = await getUserHasClaimedAirdrop(
+            airdrop.cycle,
+            currentAddress
+          );
+
           return {
             type: "Airdrop",
             id: index,
             startTime: Number(airdrop.cycle) * 1000,
             amount: BigInt(airdrop.amount),
-            endTime: (Number(airdrop.cycle) + Number(1)) * 1000,
-            action: "Claim",
+            endTime: (Number(airdrop.cycle) + 1) * 1000,
+            action: isClaimed ? "Claimed" : "Claim",
             airdropCycleIndex: Number(airdrop.cycle),
           };
-        }
+        })
       );
 
       setAirdropItems(items);
@@ -250,9 +269,16 @@ const Dashboard: React.FC<DashboardProps> = () => {
       }
 
       // airdrop functions
-      getUserAirdrops();
+      if (airdropCyclesFromBlockchain) {
+        getUserAirdrops();
+      }
     }
-  }, [currentAddress, stakingDuration, transactionSuccess]);
+  }, [
+    currentAddress,
+    stakingDuration,
+    airdropCyclesFromBlockchain,
+    transactionSuccess,
+  ]);
 
   console.log("StakingContractData: ", stakingContractData);
 

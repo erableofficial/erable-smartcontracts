@@ -157,19 +157,13 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
 
     const root = merkleTree.getHexRoot();
 
-    console.log("Merkle Tree Root: ", root);
-
     const amountWei = parseEther(Number(airdrop.amount).toString());
 
-    // proof of the claim
-    console.log("Claiming airdrop for: ", currentUser.address, amountWei);
     const proof = merkleTree.getHexProof(
       keccak256(
         encodePacked(["address", "uint256"], [currentUser.address, amountWei])
       )
     );
-
-    console.log("Proof: ", proof);
 
     writeContract({
       abi: airdropContractABI,
@@ -178,8 +172,6 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       args: [BigInt(airdrop.airdropCycleIndex), amountWei, proof],
     });
   };
-
-  // console.log("Airdrops Cycles From context: ", airdropCycles);
 
   return (
     <React.Fragment>
@@ -209,10 +201,15 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
         </div>
         <div className="flex flex-col self-stretch px-2.5">
           <button
+            disabled={airdrop.action === "Claimed"}
             onClick={() => {
               setToggleClaimAirdropModal(true);
             }}
-            className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap primary-button-sm`}
+            className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
+              airdrop.action === "Claimed"
+                ? "secondary-button-sm"
+                : "primary-button-sm"
+            } `}
           >
             {airdrop.action}
           </button>

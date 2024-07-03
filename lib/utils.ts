@@ -2,6 +2,8 @@ import { readContract } from "@wagmi/core";
 import { Address } from "viem";
 import { config } from "./wagmi/config";
 import {
+  airdropContractABI,
+  airdropContractAddress,
   contractABI,
   contractAddress,
   stakingTokenABI,
@@ -215,5 +217,18 @@ export async function getWhiteListEnabled(): Promise<boolean> {
   });
 
   console.log("Result From getWhiteListEnabled: ", result);
+  return result as boolean;
+}
+
+export async function getUserHasClaimedAirdrop(
+  cycleIndex: string,
+  address: Address | undefined
+): Promise<boolean> {
+  const result = await readContract(config, {
+    abi: airdropContractABI,
+    address: airdropContractAddress,
+    functionName: "hasUserClaimed",
+    args: [BigInt(cycleIndex), address],
+  });
   return result as boolean;
 }
