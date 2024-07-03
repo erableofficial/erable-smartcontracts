@@ -125,14 +125,16 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
     }
   }, [hash]);
 
-  const handleClaim = () => {
+  const handleClaim = async () => {
     if (!currentUser.address) {
       toast.error("Please connect your wallet to claim airdrop.");
       return;
     }
 
-    if (!airdrop.amount || !airdrop.airdropCycleIndex) {
+    if (!airdrop.amount || typeof airdrop.airdropCycleIndex === undefined) {
       toast.error("Invalid airdrop data.");
+      console.error("Invalid airdrop data.");
+      console.log("Airdrop: ", airdrop);
       return;
     }
 
@@ -144,8 +146,17 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
     );
 
     console.log("airdrops: ", airdrops);
+    // console.log("airdrops from blockchain: ", airdropCyclesFromBlockchain);
 
-    const leaves = airdrops.map((aird) => {
+    const sortedAirdrops = airdrops.sort((a, b) => {
+      if (a.address < b.address) return -1;
+      if (a.address > b.address) return 1;
+      return 0;
+    });
+
+    console.log("sorted airdrops: ", sortedAirdrops);
+
+    const leaves = sortedAirdrops.map((aird) => {
       const amountWei = parseEther(Number(aird.amount).toString());
 
       return keccak256(
@@ -153,9 +164,12 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       );
     });
 
+    console.log("leaves: ", leaves);
+
     const merkleTree = new MerkleTree(leaves, keccak256, { sortPairs: true });
 
     const root = merkleTree.getHexRoot();
+    console.log("root: ", root);
 
     const amountWei = parseEther(Number(airdrop.amount).toString());
 
@@ -165,11 +179,13 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       )
     );
 
+    console.log("proof: ", proof);
+
     writeContract({
       abi: airdropContractABI,
       address: airdropContractAddress,
       functionName: "claimTokens",
-      args: [BigInt(airdrop.airdropCycleIndex), amountWei, proof],
+      args: [BigInt(airdrop.airdropCycleIndex || 0), amountWei, proof],
     });
   };
 
