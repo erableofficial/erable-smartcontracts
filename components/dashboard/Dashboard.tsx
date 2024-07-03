@@ -170,7 +170,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     startingSlashingPoint,
   ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function updateUserStakes() {
       const stakes = await getUserStakes(currentAddress);
       console.log("All Stakes  : ", stakes);
@@ -200,7 +200,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       const filteredItems = items.filter((item) => item.amount !== BigInt(0));
 
       setStakingItems(filteredItems);
-      setAllItems(filteredItems);
       console.log("Staking Items from inside: ", filteredItems);
 
       setTransactionSuccess(false);
@@ -273,6 +272,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
         getUserAirdrops();
       }
     }
+
+    // claeinning after unmount useEffect
+    return () => {
+      setAllItems([]);
+      setFarmingItems([]);
+      setStakingItems([]);
+      setAirdropItems([]);
+    };
   }, [
     currentAddress,
     stakingDuration,
@@ -280,7 +287,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
     transactionSuccess,
   ]);
 
-  console.log("StakingContractData: ", stakingContractData);
+  useEffect(() => {
+    if (stakingItems.length && airdropItems.length) {
+      const allItems = [...stakingItems, ...airdropItems];
+      setAllItems(allItems);
+    }
+  }, [stakingItems, airdropItems]);
+
+  // console.log("StakingContractData: ", stakingContractData);
 
   const buttons = [
     { name: "All", qt: allItems?.length },
