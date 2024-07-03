@@ -14,7 +14,7 @@ import {
 } from "../../lib/blockchain-config";
 import { toast } from "react-toastify";
 import CustomToast from "./CustomToast";
-import { encodePacked, formatEther, keccak256 } from "viem";
+import { encodePacked, formatEther, keccak256, parseEther } from "viem";
 import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
 import Tooltip from "./Tooltip";
 import { calculateTotalWithdraw } from "../../lib/utils";
@@ -136,6 +136,8 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       return;
     }
 
+    // console.log("Airdrop from blockchain : ", airdropCyclesFromBlockchain);
+
     // get all airdrops from context that cycle === airdrop.airdropCycleIndex and remove cycle fiedl from them then create a merkle tree
     const airdrops = airdropCycles.filter(
       (airCycle: any) => Number(airCycle.cycle) === airdrop.airdropCycleIndex
@@ -144,11 +146,10 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
     console.log("airdrops: ", airdrops);
 
     const leaves = airdrops.map((aird) => {
+      const amountWei = parseEther(Number(aird.amount).toString());
+
       return keccak256(
-        encodePacked(
-          ["address", "uint256"],
-          [aird.address, BigInt(aird.amount)]
-        )
+        encodePacked(["address", "uint256"], [aird.address, amountWei])
       );
     });
 
@@ -158,13 +159,13 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
 
     console.log("Merkle Tree Root: ", root);
 
+    const amountWei = parseEther(Number(airdrop.amount).toString());
+
     // proof of the claim
+    console.log("Claiming airdrop for: ", currentUser.address, amountWei);
     const proof = merkleTree.getHexProof(
       keccak256(
-        encodePacked(
-          ["address", "uint256"],
-          [currentUser.address, airdrop.amount]
-        )
+        encodePacked(["address", "uint256"], [currentUser.address, amountWei])
       )
     );
 
@@ -174,11 +175,11 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       abi: airdropContractABI,
       address: airdropContractAddress,
       functionName: "claimTokens",
-      args: [BigInt(airdrop.airdropCycleIndex), airdrop.amount, proof],
+      args: [BigInt(airdrop.airdropCycleIndex), amountWei, proof],
     });
   };
 
-  console.log("Airdrops Cycles From context: ", airdropCycles);
+  // console.log("Airdrops Cycles From context: ", airdropCycles);
 
   return (
     <React.Fragment>
