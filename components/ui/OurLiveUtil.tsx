@@ -52,7 +52,7 @@ const OurLiveUtil: React.FC = () => {
         <h3 className="text-2xl text-neutral-700">{title}</h3>
         <Link
           href={link}
-          className="pb-1.5 cursor-pointer my-auto text-base text-neutral-700 border-b-2 border-black border-solid"
+          className="pb-1.5 cursor-pointer my-auto text-lg text-neutral-700 border-b-2 border-black border-solid"
         >
           {btnText}
         </Link>
