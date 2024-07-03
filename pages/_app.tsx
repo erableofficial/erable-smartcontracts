@@ -15,6 +15,8 @@ import {
   useStakingContractData,
 } from "../context/stakingContractData";
 import { getStakingDuration } from "../lib/utils";
+import { CurrentUserProvider } from "../context/currentUser";
+import { AirdropCyclesProvider } from "../context/airdropCycles";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -36,8 +38,12 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <QueryClientProvider client={client}>
         <RainbowKitProvider>
           <StakingContractDataProvider>
-            <ToastContainer />
-            {getLayout(<Component {...pageProps} />)}
+            <AirdropCyclesProvider>
+              <CurrentUserProvider>
+                <ToastContainer />
+                {getLayout(<Component {...pageProps} />)}
+              </CurrentUserProvider>
+            </AirdropCyclesProvider>
           </StakingContractDataProvider>
         </RainbowKitProvider>
       </QueryClientProvider>
