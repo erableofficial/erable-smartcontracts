@@ -4,11 +4,13 @@ import { Cake, Sparkles, X } from "lucide-react";
 interface ClaimAirdropModalProps {
   toggleClaimAirdropModal: boolean;
   setToggleClaimAirdropModal: (value: boolean) => void;
+  handleClaimAirdrop: () => void;
 }
 
 const ClaimAirdropModal: React.FC<ClaimAirdropModalProps> = ({
   toggleClaimAirdropModal,
   setToggleClaimAirdropModal,
+  handleClaimAirdrop,
 }) => {
   if (!toggleClaimAirdropModal) return null;
   const closeModal = () => {
@@ -73,7 +75,9 @@ const ClaimAirdropModal: React.FC<ClaimAirdropModalProps> = ({
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
           <button className="secondary-button-sm">Read tutorial</button>
-          <button className="primary-button-sm">Claim my airdrop</button>
+          <button onClick={handleClaimAirdrop} className="primary-button-sm">
+            Claim my airdrop
+          </button>
         </div>
       </div>
     </div>

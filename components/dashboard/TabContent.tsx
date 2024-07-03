@@ -3,6 +3,7 @@ import React from "react";
 import { TabItem } from "../../lib/types";
 import StakeItem from "./StakeItem";
 import Tooltip from "./Tooltip";
+import AirdropItem from "./AirdropItem";
 
 type TabContentProps = {
   Items: TabItem[];
@@ -107,15 +108,31 @@ const TabContent: React.FC<TabContentProps> = ({
           </div>
         </section>
         <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
-        {Items.map((item, index) => (
-          <StakeItem
-            key={index}
-            index={index}
-            stake={item}
-            itemsCounter={Items.length - 1}
-            setTransactionSuccess={setTransactionSuccess}
-          />
-        ))}
+
+        {Items.map((item, index) => {
+          if (item.type === "Staking") {
+            return (
+              <StakeItem
+                key={index}
+                index={index}
+                stake={item}
+                itemsCounter={Items.length - 1}
+                setTransactionSuccess={setTransactionSuccess}
+              />
+            );
+          }
+          if (item.type === "Airdrop") {
+            return (
+              <AirdropItem
+                key={index}
+                index={index}
+                airdrop={item}
+                itemsCounter={Items.length - 1}
+                setTransactionSuccess={setTransactionSuccess}
+              />
+            );
+          }
+        })}
       </div>
     </div>
   );

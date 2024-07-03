@@ -17,7 +17,7 @@ import {
   stakingTokenABI,
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
-import { StakeInfo, TabItem } from "../../lib/types";
+import { IRedisAirdop, StakeInfo, TabItem } from "../../lib/types";
 import NoUtilities from "./NoUtilities";
 import {
   getTotalStaked,
@@ -28,6 +28,7 @@ import {
 import CardsSection from "./CardsSection";
 import { useStakingContractData } from "../../context/stakingContractData";
 import EndStackingModal from "./EndStackingModal";
+import { parseEther } from "viem";
 
 interface DashboardProps {}
 
@@ -194,11 +195,41 @@ const Dashboard: React.FC<DashboardProps> = () => {
       setUserStakingBalance(userStakingBalance);
     }
 
+    async function getUserAirdrops() {
+      // get all airdrops for the user
+      const airdrops = await fetch("/api/airdrop/getAll");
+
+      const airdropsData = await airdrops.json();
+      console.log("Airdrops Data : ", airdropsData);
+
+      const userAirdrops = airdropsData.data.filter(
+        (airdrop: IRedisAirdop) => airdrop.address === currentAddress
+      );
+
+      const items: TabItem[] = userAirdrops.map(
+        (airdrop: IRedisAirdop, index: number) => {
+          return {
+            type: "Airdrop",
+            id: index,
+            startTime: Number(airdrop.cycle) * 1000,
+            amount: BigInt(airdrop.amount),
+            endTime: (Number(airdrop.cycle) + Number(1)) * 1000,
+            action: "Claim",
+          };
+        }
+      );
+
+      setAirdropItems(items);
+    }
+
     if (currentAddress && stakingDuration) {
       updateUserStakes();
       updateUserBalnce();
       updateUserStaked();
       updateUserTotalStaked();
+
+      // airdrop functions
+      getUserAirdrops();
     }
   }, [currentAddress, stakingDuration, transactionSuccess]);
 

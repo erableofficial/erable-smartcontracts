@@ -29,3 +29,9 @@ export interface IAirdropCycleInfo {
   merkleRoot: Address;
   isActive: boolean;
 }
+
+export interface IRedisAirdop {
+  cycle: string;
+  address: Address;
+  amount: string;
+}
