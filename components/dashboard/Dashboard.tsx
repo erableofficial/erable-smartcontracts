@@ -164,7 +164,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
           id: index,
           startTime: Number(startTime) * 1000,
           amount: amount,
-          currentRewards: "xxx",
           endTime: (Number(startTime) + Number(stakingDuration)) * 1000,
           requestUnstakeTime: requestUnstakeTime.toString(),
           unstakeRequested: unstakeRequested,
