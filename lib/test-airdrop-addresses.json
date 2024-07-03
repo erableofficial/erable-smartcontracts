@@ -1,10 +1,14 @@
 [
     {
         "address": "0x5BEEf9a732BCC5d5c5626919d5Ab952e91F2F474",
-        "amount": 20
+        "amount": 5
     },
     {
         "address": "0x78471f5704a4C335ae7a3E592ed37DAEBff68962",
-        "amount": 30
+        "amount": 4
+    },
+    {
+        "address": "0x1556A67c507840c20BD981105B8C461C618aC3CA",
+        "amount": 5
     }
 ]
