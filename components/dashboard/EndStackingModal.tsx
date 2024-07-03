@@ -1,11 +1,16 @@
 import { Cake, X } from "lucide-react";
 import * as React from "react";
+import { useStakingContractData } from "../../context/stakingContractData";
+import { approximateTime } from "../../lib/utils";
+import { TabItem } from "../../lib/types";
+import { formatEther } from "viem";
 
 type EndStackingModalProps = {
   toggleEndStackingModal: boolean;
   setToggleEndStackingModal: (value: boolean) => void;
   stakeId: number;
   handleClaim: (stakeId: number) => void;
+  stake: TabItem;
 };
 
 type StakingInfoProps = {
@@ -25,7 +30,9 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
   setToggleEndStackingModal,
   stakeId,
   handleClaim,
+  stake,
 }) => {
+  const { stakingContractData } = useStakingContractData();
   if (!toggleEndStackingModal) return null;
   const closeModal = () => setToggleEndStackingModal(false);
   const stopPropagation = (event: React.MouseEvent) => {
@@ -64,7 +71,10 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
             Total claimable
           </div>
           <p className="self-start  text-[32px] font-semibold text-black">
-            xx.xxx $ERA
+            {stake.currentRewards
+              ? formatEther(stake.currentRewards + stake.amount)
+              : formatEther(stake.amount)}{" "}
+            $ERA
           </p>
         </div>
         <hr className="shrink-0 mt-6 mb-6 h-px border border-solid  border-neutral-300 max-md:max-w-full" />
@@ -76,12 +86,23 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
             <div className="flex flex-col w-full">
               <div className="flex justify-between">
                 <div>Initial Staking</div>
-                <div>xx.xxx $ERA</div>
+                <div>{formatEther(stake.amount)} $ERA</div>
               </div>
               <StakingInfo label="Total APR" value={"00"} />
-              <StakingInfo label="Duration" value={"1 year"} />
-              <StakingInfo label="Start Date" value={"15th July 2024"} />
-              <StakingInfo label="End Date" value={"15th July 2025"} />
+              <StakingInfo
+                label="Duration"
+                value={approximateTime(
+                  Number(stakingContractData.stakingDuration)
+                )}
+              />
+              <StakingInfo
+                label="Start Date"
+                value={new Date(stake.startTime).toLocaleDateString()}
+              />
+              <StakingInfo
+                label="End Date"
+                value={new Date(stake.endTime).toLocaleDateString()}
+              />
             </div>
           </div>
         </div>

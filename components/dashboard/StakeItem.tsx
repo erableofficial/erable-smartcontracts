@@ -32,7 +32,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
   const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
     React.useState(false);
   const [toggleEndStackingModal, setToggleEndStackingModal] =
-    React.useState<boolean>(true);
+    React.useState<boolean>(false);
   const [itemId, setItemId] = React.useState<number>(0);
   const [currentRewards, setCurrentRewards] = React.useState<bigint>(BigInt(0));
   const { stakingContractData } = useStakingContractData();
@@ -55,6 +55,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
       );
       const result = rewardAmount - stake.amount;
       setCurrentRewards(result);
+      stake.currentRewards = result;
     }
 
     if (
@@ -96,6 +97,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
         }
       );
       setTransactionSuccess(true);
+      setToggleEndStackingModal(false);
     }
   }, [isConfirmed]);
 
@@ -178,6 +180,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
         setToggleEndStackingModal={setToggleEndStackingModal}
         stakeId={itemId}
         handleClaim={handleClaim}
+        stake={stake}
       />
       <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
         <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">

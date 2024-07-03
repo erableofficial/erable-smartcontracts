@@ -12,7 +12,7 @@ export interface TabItem {
   id: number;
   startTime: number;
   amount: bigint;
-  currentRewards?: string;
+  currentRewards?: bigint;
   endTime: number;
   requestUnstakeTime: string;
   unstakeRequested: boolean;
