@@ -6,7 +6,6 @@ import Tooltip from "./Tooltip";
 
 type TabContentProps = {
   Items: TabItem[];
-
   setTransactionSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

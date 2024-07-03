@@ -27,6 +27,7 @@ import {
 } from "../../lib/utils";
 import CardsSection from "./CardsSection";
 import { useStakingContractData } from "../../context/stakingContractData";
+import EndStackingModal from "./EndStackingModal";
 
 interface DashboardProps {}
 
@@ -39,6 +40,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const [toggleBuyEraModal, setToggleBuyEraModal] =
     React.useState<boolean>(false);
+
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const [allItems, setAllItems] = useState<Array<TabItem>>([]);
   const [farmingItems, setFarmingItems] = useState<Array<TabItem>>([]);
@@ -233,6 +235,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           toggleBuyEraModal={toggleBuyEraModal}
           setToggleBuyEraModal={setToggleBuyEraModal}
         />
+
         <CardsSection
           userStakingBalance={userStakingBalance}
           totalStaked={totalStaked}
