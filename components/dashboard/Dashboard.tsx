@@ -12,28 +12,38 @@ import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
 import Link from "next/link";
 import {
+  airdropContractABI,
+  airdropContractAddress,
   contractABI,
   contractAddress,
   stakingTokenABI,
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
-import { StakeInfo, TabItem } from "../../lib/types";
+import { IRedisAirdop, StakeInfo, TabItem } from "../../lib/types";
 import NoUtilities from "./NoUtilities";
 import {
   getTotalStaked,
   getTotalStakedForUser,
   getUserBalance,
+  getUserHasClaimedAirdrop,
   getUserStakes,
 } from "../../lib/utils";
 import CardsSection from "./CardsSection";
 import { useStakingContractData } from "../../context/stakingContractData";
 import EndStackingModal from "./EndStackingModal";
+import { parseEther } from "viem";
+import { useCurrentUser } from "../../context/currentUser";
+import { useAirdropCycles } from "../../context/airdropCycles";
+import { readContract } from "@wagmi/core";
+import { config } from "../../lib/wagmi/config";
 
 interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = () => {
+  const { currentUser, setCurrentUser } = useCurrentUser();
   const { stakingContractData, setStakingContractData } =
     useStakingContractData();
+  const { airdropCycles, setAirdropCycles } = useAirdropCycles();
   const [selected, setSelected] = useState<string>("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -74,7 +84,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
     };
   }, [isDropdownOpen]);
 
-  const { isConnected, address: currentAddress } = useAccount();
+  const {
+    isConnected,
+    address: currentAddress,
+    chain,
+    connector,
+  } = useAccount();
+
+  const {
+    data: airdropCyclesFromBlockchain,
+    error: airdropCyclesFromBlockchainError,
+  } = useReadContract({
+    abi: airdropContractABI,
+    address: airdropContractAddress,
+    functionName: "getAllAirdropCycles",
+  });
 
   const { data: stakingDuration, error: stakingDurationError } =
     useReadContract({
@@ -146,7 +170,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     startingSlashingPoint,
   ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function updateUserStakes() {
       const stakes = await getUserStakes(currentAddress);
       console.log("All Stakes  : ", stakes);
@@ -176,7 +200,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       const filteredItems = items.filter((item) => item.amount !== BigInt(0));
 
       setStakingItems(filteredItems);
-      setAllItems(filteredItems);
       console.log("Staking Items from inside: ", filteredItems);
 
       setTransactionSuccess(false);
@@ -194,15 +217,84 @@ const Dashboard: React.FC<DashboardProps> = () => {
       setUserStakingBalance(userStakingBalance);
     }
 
-    if (currentAddress && stakingDuration) {
-      updateUserStakes();
-      updateUserBalnce();
-      updateUserStaked();
-      updateUserTotalStaked();
-    }
-  }, [currentAddress, stakingDuration, transactionSuccess]);
+    async function getUserAirdrops() {
+      // get all airdrops for the user
+      const airdrops = await fetch("/api/airdrop/getAll");
 
-  console.log("StakingContractData: ", stakingContractData);
+      const airdropsData = await airdrops.json();
+      console.log("Airdrops Data : ", airdropsData);
+
+      setAirdropCycles(airdropsData.data);
+
+      const userAirdrops = await airdropsData.data.filter(
+        (airdrop: IRedisAirdop) => airdrop.address === currentAddress
+      );
+
+      const items: TabItem[] = await Promise.all(
+        userAirdrops.map(async (airdrop: IRedisAirdop, index: number) => {
+          const isClaimed = await getUserHasClaimedAirdrop(
+            airdrop.cycle,
+            currentAddress
+          );
+
+          return {
+            type: "Airdrop",
+            id: index,
+            startTime: Number(airdrop.cycle) * 1000,
+            amount: BigInt(airdrop.amount),
+            endTime: (Number(airdrop.cycle) + 1) * 1000,
+            action: isClaimed ? "Claimed" : "Claim",
+            airdropCycleIndex: Number(airdrop.cycle),
+          };
+        })
+      );
+
+      setAirdropItems(items);
+    }
+
+    if (currentAddress) {
+      setCurrentUser({
+        ...currentUser,
+        address: currentAddress,
+        chain: chain,
+        connector: connector,
+      });
+
+      if (stakingDuration) {
+        updateUserStakes();
+        updateUserBalnce();
+        updateUserStaked();
+        updateUserTotalStaked();
+      }
+
+      // airdrop functions
+      if (airdropCyclesFromBlockchain) {
+        getUserAirdrops();
+      }
+    }
+
+    // claeinning after unmount useEffect
+    return () => {
+      setAllItems([]);
+      setFarmingItems([]);
+      setStakingItems([]);
+      setAirdropItems([]);
+    };
+  }, [
+    currentAddress,
+    stakingDuration,
+    airdropCyclesFromBlockchain,
+    transactionSuccess,
+  ]);
+
+  useEffect(() => {
+    if (stakingItems.length && airdropItems.length) {
+      const allItems = [...stakingItems, ...airdropItems];
+      setAllItems(allItems);
+    }
+  }, [stakingItems, airdropItems]);
+
+  // console.log("StakingContractData: ", stakingContractData);
 
   const buttons = [
     { name: "All", qt: allItems?.length },

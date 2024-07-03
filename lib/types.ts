@@ -16,8 +16,9 @@ export interface TabItem {
   endTime: number;
   requestUnstakeTime: string;
   unstakeRequested: boolean;
-  action: "Claim" | "Unstake";
+  action: "Claim" | "Unstake" | "Claimed";
   daysLeft?: string | null;
+  airdropCycleIndex?: number;
 }
 
 export interface IMerkleTreeElement {
@@ -28,4 +29,10 @@ export interface IMerkleTreeElement {
 export interface IAirdropCycleInfo {
   merkleRoot: Address;
   isActive: boolean;
+}
+
+export interface IRedisAirdop {
+  cycle: string;
+  address: Address;
+  amount: string;
 }
