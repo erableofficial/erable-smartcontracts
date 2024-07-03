@@ -40,8 +40,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const [toggleBuyEraModal, setToggleBuyEraModal] =
     React.useState<boolean>(false);
-  const [toggleEndStackingModal, setToggleEndStackingModal] =
-    useState<boolean>(true);
+
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const [allItems, setAllItems] = useState<Array<TabItem>>([]);
   const [farmingItems, setFarmingItems] = useState<Array<TabItem>>([]);
@@ -236,10 +235,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           toggleBuyEraModal={toggleBuyEraModal}
           setToggleBuyEraModal={setToggleBuyEraModal}
         />
-        <EndStackingModal
-          toggleEndStackingModal={toggleEndStackingModal}
-          setToggleEndStackingModal={setToggleEndStackingModal}
-        />
+
         <CardsSection
           userStakingBalance={userStakingBalance}
           totalStaked={totalStaked}

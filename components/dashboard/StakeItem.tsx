@@ -14,6 +14,7 @@ import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
 import Tooltip from "./Tooltip";
 import { calculateTotalWithdraw } from "../../lib/utils";
 import { useStakingContractData } from "../../context/stakingContractData";
+import EndStackingModal from "./EndStackingModal";
 
 interface StakeItemProps {
   stake: TabItem;
@@ -30,6 +31,9 @@ const StakeItem: React.FC<StakeItemProps> = ({
 }) => {
   const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
     React.useState(false);
+  const [toggleEndStackingModal, setToggleEndStackingModal] =
+    React.useState<boolean>(true);
+  const [itemId, setItemId] = React.useState<number>(0);
   const [currentRewards, setCurrentRewards] = React.useState<bigint>(BigInt(0));
   const { stakingContractData } = useStakingContractData();
   const {
@@ -137,6 +141,21 @@ const StakeItem: React.FC<StakeItemProps> = ({
     }
   }, [hash]);
 
+  const handleItemAction = (stakeId: number, action: string, type: string) => {
+    if (action === "Claim" && type === "Staking") {
+      setToggleEndStackingModal(true);
+      setItemId(stakeId);
+    }
+    // if (action === "Claim" && type == "Airdrop") {
+    //   // instruction to open  airdrop modal
+    // if (action === "Claim" && type == "LP Farming") {
+    //   // instruction to open  LP Farming modal
+    // }
+    if (action == "Unstake") {
+      setToggleWithdrawTokenCdModalModal(true);
+    }
+  };
+
   const handleClaim = (stakeId: number) => {
     writeContract({
       abi: contractABI,
@@ -153,6 +172,12 @@ const StakeItem: React.FC<StakeItemProps> = ({
         setToggleWithdrawTokenCdModalModal={setToggleWithdrawTokenCdModalModal}
         stake={stake}
         setTransactionSuccess={setTransactionSuccess}
+      />
+      <EndStackingModal
+        toggleEndStackingModal={toggleEndStackingModal}
+        setToggleEndStackingModal={setToggleEndStackingModal}
+        stakeId={itemId}
+        handleClaim={handleClaim}
       />
       <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
         <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
@@ -190,15 +215,17 @@ Once this period ends, you can return to the platform to claim your tokens and a
             </div>
           )}
           <button
-            onClick={
-              stake.action === "Claim"
-                ? () => {
-                    handleClaim(stake.id);
-                  }
-                : () => {
-                    setToggleWithdrawTokenCdModalModal(true);
-                  }
-            }
+            onClick={() => {
+              handleItemAction(stake.id, stake.action, stake.type);
+            }}
+            //   stake.action === "Claim"&&stake.type=="Staking"
+            //     ? () => {
+            //         handleClaim(stake.id);
+            //       }
+            //     : () => {
+            //         setToggleWithdrawTokenCdModalModal(true);
+            //       }
+            // }
             className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
               stake.action === "Claim" && stake.daysLeft == null
                 ? "bg-surface-primary"

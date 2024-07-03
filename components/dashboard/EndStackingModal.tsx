@@ -4,6 +4,8 @@ import * as React from "react";
 type EndStackingModalProps = {
   toggleEndStackingModal: boolean;
   setToggleEndStackingModal: (value: boolean) => void;
+  stakeId: number;
+  handleClaim: (stakeId: number) => void;
 };
 
 type StakingInfoProps = {
@@ -21,12 +23,15 @@ const StakingInfo: React.FC<StakingInfoProps> = ({ label, value }) => (
 const EndStackingModal: React.FC<EndStackingModalProps> = ({
   toggleEndStackingModal,
   setToggleEndStackingModal,
+  stakeId,
+  handleClaim,
 }) => {
   if (!toggleEndStackingModal) return null;
   const closeModal = () => setToggleEndStackingModal(false);
   const stopPropagation = (event: React.MouseEvent) => {
     event.stopPropagation();
   };
+
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-40 z-[100] flex justify-center items-center"
@@ -86,7 +91,12 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
           <br />
           The process can take a few minutes.
         </p>
-        <button className="primary-button-sm justify-center self-start px-5 py-3 mt-10 text-base font-semibold ">
+        <button
+          className="primary-button-sm justify-center self-start px-5 py-3 mt-10 text-base font-semibold "
+          onClick={() => {
+            handleClaim(stakeId);
+          }}
+        >
           Claim my tokens
         </button>
       </div>
