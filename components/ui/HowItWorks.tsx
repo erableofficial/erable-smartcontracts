@@ -38,7 +38,7 @@ const steps: Step[] = [
 
 const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   <>
-    <div className="flex items-start gap-4 mt-8 max-md:flex-wrap">
+    <div className="flex items-center gap-4 mt-8 max-md:flex-wrap">
       <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-neutral-700 whitespace-nowrap bg-surface-500 border border-solid border-neutral-300 h-[2.688rem] rounded-full w-[2.688rem]">
         {stepNumber}
       </div>
