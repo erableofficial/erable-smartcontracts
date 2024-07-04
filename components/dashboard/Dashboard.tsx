@@ -346,6 +346,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
           <CardsSection
             userStakingBalance={userStakingBalance}
+            userFarmingBalance={BigInt(0)}
             totalStaked={totalStaked}
             myBalance={myBalance}
             setToggleBuyEraModal={setToggleBuyEraModal}
