@@ -240,9 +240,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
           return {
             type: "Airdrop",
             id: index,
-            startTime: Number(airdrop.cycle) * 1000,
+            startTime: "--",
             amount: BigInt(airdrop.amount),
-            endTime: (Number(airdrop.cycle) + 1) * 1000,
+            endTime: "--",
             action: isClaimed ? "Claimed" : "Claim",
             airdropCycleIndex: Number(airdrop.cycle),
           };
