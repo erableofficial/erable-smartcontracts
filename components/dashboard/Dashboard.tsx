@@ -346,6 +346,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
           <CardsSection
             userStakingBalance={userStakingBalance}
+            userFarmingBalance={BigInt(0)}
             totalStaked={totalStaked}
             myBalance={myBalance}
             setToggleBuyEraModal={setToggleBuyEraModal}
@@ -417,7 +418,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 {selected === "All" && (
                   <>
                     {allItems?.length === 0 ? (
-                      <NoUtilities />
+                      <NoUtilities
+                        myBalance={myBalance}
+                        setToggleBuyEraModal={setToggleBuyEraModal}
+                      />
                     ) : (
                       <TabContent
                         setTransactionSuccess={setTransactionSuccess}
@@ -429,7 +433,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 {selected === "Staking" && (
                   <>
                     {stakingItems?.length === 0 ? (
-                      <NoUtilities />
+                      <NoUtilities
+                        myBalance={myBalance}
+                        setToggleBuyEraModal={setToggleBuyEraModal}
+                      />
                     ) : (
                       <TabContent
                         setTransactionSuccess={setTransactionSuccess}
@@ -442,7 +449,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 {selected === "Your Farming" && (
                   <>
                     {farmingItems?.length === 0 ? (
-                      <NoUtilities />
+                      <NoUtilities
+                        myBalance={myBalance}
+                        setToggleBuyEraModal={setToggleBuyEraModal}
+                      />
                     ) : (
                       <TabContent
                         setTransactionSuccess={setTransactionSuccess}
@@ -455,7 +465,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 {selected === "Airdrop" && (
                   <>
                     {airdropItems?.length === 0 ? (
-                      <NoUtilities />
+                      <NoUtilities
+                        myBalance={myBalance}
+                        setToggleBuyEraModal={setToggleBuyEraModal}
+                      />
                     ) : (
                       <TabContent
                         setTransactionSuccess={setTransactionSuccess}

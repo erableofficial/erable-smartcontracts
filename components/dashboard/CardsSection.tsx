@@ -5,6 +5,7 @@ import { formatEther } from "viem";
 type CardsSectionProps = {
   myBalance: BigInt;
   userStakingBalance: BigInt;
+  userFarmingBalance: BigInt;
   totalStaked: BigInt;
   setToggleBuyEraModal: (value: boolean) => void;
 };
@@ -22,6 +23,7 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
 const CardsSection: React.FC<CardsSectionProps> = ({
   myBalance,
   userStakingBalance,
+  userFarmingBalance,
   totalStaked,
   setToggleBuyEraModal,
 }) => {
@@ -57,7 +59,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     </div>
                   </div>
                   <div className="flex items-center ml-1">
-                    <div className="justify-center w-fit self-start px-2.5 py-[6px] text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
+                    <div className="justify-center w-fit self-start px-2.5 py-[6px] text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px] mt-1">
                       1 $ERA = price
                     </div>
                   </div>
@@ -86,52 +88,118 @@ const CardsSection: React.FC<CardsSectionProps> = ({
               </div>
             </div>
           </section>
-          <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
-              <div className="flex gap-5 justify-between font-semibold">
-                <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
-                  <div className="text-2xl text-neutral-700">Total Rewards</div>
-                  <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
+          {userFarmingBalance == BigInt(0) &&
+          userStakingBalance == BigInt(0) ? (
+            <>
+              <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+                <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+                  <div className="flex gap-5 justify-between font-semibold">
+                    <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
+                      <div className="text-2xl text-neutral-700">
+                        Earn rewards
+                      </div>
+                      {/* <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
                     View history
+                  </div> */}
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="flex gap-1 justify-between mt-6">
-                <div className="text-lg font-semibold text-neutral-700">
-                  Staking
-                </div>
-                <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+                  <div className="flex gap-1 justify-between mt-6">
+                    <div className="text-lg font-semibold text-neutral-700">
+                      Staking
+                    </div>
+                    {/* <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                   {userStakingBalance
                     ? formatEther(BigInt(userStakingBalance.toString()))
                     : "0"}{" "}
                   $ERA
-                </span>
-              </div>
-              <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
-                Total staked{" "}
-                <span>
-                  {totalStaked
-                    ? formatEther(BigInt(totalStaked.toString()))
-                    : "0"}{" "}
-                  $ERA
-                </span>
-              </div>
+                </span> */}
+                  </div>
+                  <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
+                    No rewards available
+                    <span>
+                      <a
+                        href="#"
+                        className="flex gap-1  pb-1.5 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
+                      >
+                        Discover
+                      </a>
+                    </span>
+                  </div>
 
-              <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-md:max-w-full" />
+                  <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-md:max-w-full" />
 
-              <div className="flex gap-1 justify-between ">
-                <div className="text-lg font-semibold text-neutral-700">
-                  LP Farming
+                  <div className="flex gap-1 justify-between ">
+                    <div className="text-lg font-semibold text-neutral-700">
+                      LP Farming
+                    </div>
+                    {/* <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+                      No rewards available
+                    </span> */}
+                  </div>
+                  <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
+                    No rewards available
+                    <span>
+                      <a
+                        href="#"
+                        className="flex gap-1  pb-1.5 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
+                      >
+                        Discover
+                      </a>
+                    </span>
+                  </div>
                 </div>
-                <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-                  200,870 $ERA
-                </span>
               </div>
-              <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
-                Total liquidity provided <span>200,870 $ERA</span>
+            </>
+          ) : (
+            <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+                <div className="flex gap-5 justify-between font-semibold">
+                  <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
+                    <div className="text-2xl text-neutral-700">
+                      Total Rewards
+                    </div>
+                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
+                      View history
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-1 justify-between mt-6">
+                  <div className="text-lg font-semibold text-neutral-700">
+                    Staking
+                  </div>
+                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+                    {userStakingBalance
+                      ? formatEther(BigInt(userStakingBalance.toString()))
+                      : "0"}{" "}
+                    $ERA
+                  </span>
+                </div>
+                <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
+                  Total staked{" "}
+                  <span>
+                    {totalStaked
+                      ? formatEther(BigInt(totalStaked.toString()))
+                      : "0"}{" "}
+                    $ERA
+                  </span>
+                </div>
+
+                <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-md:max-w-full" />
+
+                <div className="flex gap-1 justify-between ">
+                  <div className="text-lg font-semibold text-neutral-700">
+                    LP Farming
+                  </div>
+                  <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
+                    200,870 $ERA
+                  </span>
+                </div>
+                <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
+                  Total liquidity provided <span>200,870 $ERA</span>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
           <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col justify-between grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
               <div className="flex gap-5 justify-between font-semibold">
