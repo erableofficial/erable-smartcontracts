@@ -83,7 +83,7 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
     },
   ];
   return (
-    <div className="max-md:px-5 w-full flex justify-center">
+    <div className="max-[1281px]:px-5 w-full flex justify-center">
       <div
         className="flex flex-col cursor-pointer justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full"
         onClick={toggleOpen}

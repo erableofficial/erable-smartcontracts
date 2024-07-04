@@ -8,7 +8,7 @@ export default function Header() {
   const router = useRouter();
   return (
     <header className="pt-10  pb-4 mx-auto  max-sm:mt-1 bg-neutral-50">
-      <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid  bg-white px-4 py-3 max-md:mx-3">
+      <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid  bg-white px-4 py-3 max-[1281px]:mx-3">
         <div className="flex items-center justify-around gap-4 max-lg:w-full max-lg:justify-between">
           <Link href="/" className="w-[40%] h-auto">
             <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
