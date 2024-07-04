@@ -1,8 +1,8 @@
 import React from "react";
 import HeaderDashboard from "./HeaderDashboard";
 import RewardSystem from "./RewardSystem";
-import Faq from "../ui/Faq";
 import Footer from "../ui/Footer";
+import FaqDashboard from "./FaqDashboard";
 
 type LayoutDashboardProps = {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ const LayoutDashboard = ({ children }: LayoutDashboardProps) => {
       <HeaderDashboard />
       {children}
       <RewardSystem />
-      <Faq />
+      <FaqDashboard />
       <Footer />
     </>
   );
