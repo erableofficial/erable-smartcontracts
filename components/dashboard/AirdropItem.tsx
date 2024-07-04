@@ -203,19 +203,19 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
             {airdrop.type}
           </div>
         </div>
-        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5">
           {new Date(airdrop.startTime).toLocaleDateString()}
         </div>
-        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5">
           {Number(airdrop.amount)}
         </div>
-        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5 min-w-[222px]">
           {Number(airdrop.amount)}
         </div>
-        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
+        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-neutral-700 max-md:pr-5 max-w-[171px]">
           {new Date(airdrop.endTime).toLocaleDateString()}
         </div>
-        <div className="flex flex-col self-stretch px-2.5">
+        <div className="flex flex-col self-stretch px-2.5 min-w-[150px]">
           <button
             disabled={airdrop.action === "Claimed"}
             onClick={() => {

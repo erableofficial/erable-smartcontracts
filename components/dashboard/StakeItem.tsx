@@ -188,23 +188,23 @@ const StakeItem: React.FC<StakeItemProps> = ({
             {stake.type}
           </div>
         </div>
-        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5">
           {new Date(stake.startTime).toLocaleDateString()}
         </div>
-        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5">
           {formatEther(stake.amount)}
         </div>
-        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-stone-300 max-md:pr-5">
+        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5 min-w-[222px]">
           {formatEther(currentRewards)}
         </div>
-        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-stone-300 max-md:pr-5">
+        <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-neutral-700 max-md:pr-5 max-w-[171px]">
           {new Date(stake.endTime).toLocaleDateString()}
         </div>
-        <div className="flex flex-col self-stretch px-2.5 min-w-[124px]">
+        <div className="flex flex-col self-stretch px-2.5 min-w-[150px]">
           {stake.daysLeft && (
             <div className="flex gap-1 pr-1.5 text-sm text-neutral-400">
               <div>{stake.daysLeft}</div>
-              <Tooltip
+              {/* <Tooltip
                 message="You are currently in the process of unstaking your tokens. During this cooldown period, your tokens are being prepared for withdrawal. 
 Once this period ends, you can return to the platform to claim your tokens and any associated rewards."
               >
@@ -214,7 +214,23 @@ Once this period ends, you can return to the platform to claim your tokens and a
                   color="#7C7C7C"
                   cursor={"pointer"}
                 />
-              </Tooltip>
+              </Tooltip> */}
+              <div className="group relative  overflow-visible flex">
+                <Info
+                  width={15}
+                  height={15}
+                  color="#7C7C7C"
+                  cursor={"pointer"}
+                />
+                <span className="absolute top-5 right-0 scale-0 transition-all rounded-xl group-hover:scale-100 break-words whitespace-normal justify-center p-3.5 text-base font-medium text-black bg-white  border border-solid shadow-sm border-stone-300 max-w-60 ">
+                  <p className=" min-w-48">
+                    You are currently in the process of unstaking your tokens.
+                    During this cooldown period, your tokens are being prepared
+                    for withdrawal. Once this period ends, you can return to the
+                    platform to claim your tokens and any associated rewards.
+                  </p>
+                </span>
+              </div>
             </div>
           )}
           <button
