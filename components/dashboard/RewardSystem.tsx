@@ -71,9 +71,9 @@ const RewardSystem: React.FC = () => {
         <div className="mt-2.5 ml-2.5 text-5xl font-extrabold text-black max-md:max-w-full max-md:text-4xl font-friends">
           Discover
         </div>
-        <div className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl font-friends">
+        <span className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl font-friends">
           Our Reward Systems
-        </div>
+        </span>
         <section className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full">
           <div className="flex gap-5 max-lg:flex-col max-md:gap-0">
             {rewardSystems.map((system, index) => (
