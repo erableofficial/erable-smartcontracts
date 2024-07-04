@@ -48,6 +48,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
+  const toggleButtonRef2 = useRef<HTMLButtonElement | null>(null);
   const [toggleBuyEraModal, setToggleBuyEraModal] =
     React.useState<boolean>(false);
 
@@ -69,7 +70,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node) &&
         toggleButtonRef.current &&
-        !toggleButtonRef.current.contains(event.target as Node)
+        toggleButtonRef2.current &&
+        !toggleButtonRef.current.contains(event.target as Node) &&
+        !toggleButtonRef2.current.contains(event.target as Node)
       ) {
         setIsDropdownOpen(false);
       }
@@ -489,7 +492,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
             <button
               className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
               onClick={toggleDropdown}
-              ref={toggleButtonRef}
+              ref={toggleButtonRef2}
             >
               <span className="my-auto">Start a new program</span>
               {isDropdownOpen ? (
