@@ -57,7 +57,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     </div>
                   </div>
                   <div className="flex items-center ml-1">
-                    <div className="justify-center w-fit self-start px-2.5 py-[6px] text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px]">
+                    <div className="justify-center w-fit self-start px-2.5 py-[6px] text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px] mt-1">
                       1 $ERA = price
                     </div>
                   </div>
