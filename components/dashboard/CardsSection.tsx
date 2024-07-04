@@ -89,7 +89,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
           <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
               <div className="flex gap-5 justify-between font-semibold">
-                <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
+                <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
                   <div className="text-2xl text-neutral-700">Total Rewards</div>
                   <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
                     View history
@@ -135,7 +135,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
           <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col justify-between grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
               <div className="flex gap-5 justify-between font-semibold">
-                <div className="flex w-full gap-5 justify-between self-stretch font-semibold max-w-[356px]">
+                <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
                   <div className="text-2xl text-neutral-700">$ERA stats</div>
                   <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
                     Whitepaper

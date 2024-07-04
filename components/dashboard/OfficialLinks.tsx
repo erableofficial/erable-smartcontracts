@@ -83,38 +83,40 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
     },
   ];
   return (
-    <div
-      className="flex flex-col cursor-pointer justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full"
-      onClick={toggleOpen}
-    >
-      <div className="flex flex-col  justify-between max-md:flex-wrap max-md:max-w-full">
-        <div className="flex justify-between">
-          <div className="my-auto text-2xl font-semibold text-neutral-700 max-md:max-w-full">
-            Official links
+    <div className="max-md:px-5 w-full flex justify-center">
+      <div
+        className="flex flex-col cursor-pointer justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full"
+        onClick={toggleOpen}
+      >
+        <div className="flex flex-col  justify-between max-md:flex-wrap max-md:max-w-full">
+          <div className="flex justify-between">
+            <div className="my-auto text-2xl font-semibold text-neutral-700 max-md:max-w-full">
+              Official links
+            </div>
+            <div
+              className={` cursor-pointer flex justify-center items-center p-3 ${
+                isOpen ? "bg-surface-500" : ""
+              }  border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]`}
+              onClick={toggleOpen}
+            >
+              {isOpen ? <Minus /> : <Plus />}
+            </div>
           </div>
           <div
-            className={` cursor-pointer flex justify-center items-center p-3 ${
-              isOpen ? "bg-surface-500" : ""
-            }  border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]`}
-            onClick={toggleOpen}
+            ref={contentRef}
+            className="overflow-hidden transition-max-height duration-500 ease-in-out"
+            style={{ maxHeight: "0" }}
           >
-            {isOpen ? <Minus /> : <Plus />}
+            <main className="mt-6 max-md:max-w-full">
+              {linkSections.map((section, index) => (
+                <LinkSection
+                  key={index}
+                  title={section.title}
+                  links={section.links}
+                />
+              ))}
+            </main>
           </div>
-        </div>
-        <div
-          ref={contentRef}
-          className="overflow-hidden transition-max-height duration-500 ease-in-out"
-          style={{ maxHeight: "0" }}
-        >
-          <main className="mt-6 max-md:max-w-full">
-            {linkSections.map((section, index) => (
-              <LinkSection
-                key={index}
-                title={section.title}
-                links={section.links}
-              />
-            ))}
-          </main>
         </div>
       </div>
     </div>

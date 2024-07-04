@@ -335,112 +335,114 @@ const Dashboard: React.FC<DashboardProps> = () => {
         />
 
         <OfficialLinks />
-        <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full">
-          <div className="flex flex-col justify-center mb-6 pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">
-            <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-              <nav className="flex gap-5 justify-between items-center my-auto text-lg font-medium text-neutral-700">
-                {buttons.map((label) => (
-                  <button
-                    key={label.name}
-                    className={getButtonClass(label.name)}
-                    onClick={() => {
-                      handleTabClick(label.name);
-                      console.log("selected", label.name);
-                    }}
-                  >
-                    {label.name} ({label.qt})
-                  </button>
-                ))}
-              </nav>
-              <div className="flex gap-4 pl-20 text-base font-semibold text-neutral-700 max-md:flex-wrap">
-                <button className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
-                  Help ?
-                </button>
-                <div>
-                  <button
-                    className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
-                    onClick={toggleDropdown}
-                    ref={toggleButtonRef}
-                  >
-                    <span className="my-auto">Start a new program</span>
-                    {isDropdownOpen ? (
-                      <ChevronUp height={24} width={24} color="#1F1F1F" />
-                    ) : (
-                      <ChevronDown height={24} width={24} color="#1F1F1F" />
-                    )}
-                  </button>
-                  {isDropdownOpen && (
-                    <div
-                      ref={dropdownRef}
-                      className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
+        <div className="w-full max-md:px-5 flex justify-center">
+          <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full">
+            <div className="flex flex-col justify-center mb-6 pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">
+              <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
+                <nav className="flex gap-5 justify-between items-center my-auto text-lg font-medium text-neutral-700">
+                  {buttons.map((label) => (
+                    <button
+                      key={label.name}
+                      className={getButtonClass(label.name)}
+                      onClick={() => {
+                        handleTabClick(label.name);
+                        console.log("selected", label.name);
+                      }}
                     >
-                      {/* Dropdown items here */}
-                      <Link href="/dashboard/stacking">
-                        <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
-                          Staking
+                      {label.name} ({label.qt})
+                    </button>
+                  ))}
+                </nav>
+                <div className="flex gap-4 pl-20 text-base font-semibold text-neutral-700 max-md:flex-wrap">
+                  <button className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
+                    Help ?
+                  </button>
+                  <div>
+                    <button
+                      className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
+                      onClick={toggleDropdown}
+                      ref={toggleButtonRef}
+                    >
+                      <span className="my-auto">Start a new program</span>
+                      {isDropdownOpen ? (
+                        <ChevronUp height={24} width={24} color="#1F1F1F" />
+                      ) : (
+                        <ChevronDown height={24} width={24} color="#1F1F1F" />
+                      )}
+                    </button>
+                    {isDropdownOpen && (
+                      <div
+                        ref={dropdownRef}
+                        className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
+                      >
+                        {/* Dropdown items here */}
+                        <Link href="/dashboard/stacking">
+                          <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
+                            Staking
+                          </div>
+                        </Link>
+                        <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                          LP Farming
                         </div>
-                      </Link>
-                      <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
-                        LP Farming
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {selected === "All" && (
-            <>
-              {allItems?.length === 0 ? (
-                <NoUtilities />
-              ) : (
-                <TabContent
-                  setTransactionSuccess={setTransactionSuccess}
-                  Items={allItems}
-                />
-              )}
-            </>
-          )}
-          {selected === "Staking" && (
-            <>
-              {stakingItems?.length === 0 ? (
-                <NoUtilities />
-              ) : (
-                <TabContent
-                  setTransactionSuccess={setTransactionSuccess}
-                  Items={stakingItems}
-                />
-              )}
-            </>
-          )}
+            {selected === "All" && (
+              <>
+                {allItems?.length === 0 ? (
+                  <NoUtilities />
+                ) : (
+                  <TabContent
+                    setTransactionSuccess={setTransactionSuccess}
+                    Items={allItems}
+                  />
+                )}
+              </>
+            )}
+            {selected === "Staking" && (
+              <>
+                {stakingItems?.length === 0 ? (
+                  <NoUtilities />
+                ) : (
+                  <TabContent
+                    setTransactionSuccess={setTransactionSuccess}
+                    Items={stakingItems}
+                  />
+                )}
+              </>
+            )}
 
-          {selected === "Your Farming" && (
-            <>
-              {farmingItems?.length === 0 ? (
-                <NoUtilities />
-              ) : (
-                <TabContent
-                  setTransactionSuccess={setTransactionSuccess}
-                  Items={farmingItems}
-                />
-              )}
-            </>
-          )}
+            {selected === "Your Farming" && (
+              <>
+                {farmingItems?.length === 0 ? (
+                  <NoUtilities />
+                ) : (
+                  <TabContent
+                    setTransactionSuccess={setTransactionSuccess}
+                    Items={farmingItems}
+                  />
+                )}
+              </>
+            )}
 
-          {selected === "Airdrop" && (
-            <>
-              {airdropItems?.length === 0 ? (
-                <NoUtilities />
-              ) : (
-                <TabContent
-                  setTransactionSuccess={setTransactionSuccess}
-                  Items={airdropItems}
-                />
-              )}
-            </>
-          )}
-        </section>
+            {selected === "Airdrop" && (
+              <>
+                {airdropItems?.length === 0 ? (
+                  <NoUtilities />
+                ) : (
+                  <TabContent
+                    setTransactionSuccess={setTransactionSuccess}
+                    Items={airdropItems}
+                  />
+                )}
+              </>
+            )}
+          </section>
+        </div>
       </div>
     </div>
   );
