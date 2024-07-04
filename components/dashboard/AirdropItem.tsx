@@ -221,10 +221,10 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
             onClick={() => {
               setToggleClaimAirdropModal(true);
             }}
-            className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
+            className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap rounded-lg border-2 border-solid ${
               airdrop.action === "Claimed"
-                ? "secondary-button-sm"
-                : "primary-button-sm"
+                ? "border-stone-300 text-stone-300"
+                : "bg-surface-primary border-black text-black"
             } `}
           >
             {airdrop.action}
