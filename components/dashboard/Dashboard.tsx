@@ -384,7 +384,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                         <button
                           className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
                           onClick={toggleDropdown}
-                          ref={toggleButtonRef}
+                          ref={toggleButtonRef2}
                         >
                           <span className="my-auto">Start a new program</span>
                           {isDropdownOpen ? (
