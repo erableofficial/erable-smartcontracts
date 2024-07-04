@@ -97,7 +97,7 @@ const Faq: React.FC = () => {
             <h1 className="max-lg:text-4xl">
               Frequently
               <div className="justify-center font-friends w-fit px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-lg:text-4xl">
-                Asked Questions:
+                Asked Questions
               </div>
             </h1>
             <div className="flex gap-5 justify-center mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-lg:mt-10">
