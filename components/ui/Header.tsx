@@ -3,10 +3,10 @@ import Link from "next/link";
 import { ChevronDown, ArrowUpRight, Menu } from "lucide-react";
 import ConnectWalletButton from "./connectWalletButton";
 import React from "react";
-import OffCanvas from "./off-canvas";
+// import OffCanvas from "./off-canvas";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = React.useState(false);
+  // const [isOpen, setIsOpen] = React.useState(false);
   return (
     <header className="container  py-4 mx-auto mt-12 max-sm:mt-1 sticky top-0 z-50">
       <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3 max-lg:mx-3">
@@ -16,7 +16,7 @@ export default function Header() {
           </Link>
           <button
             className="lg:hidden bg-surface-500 py-[10.5px] px-[10.5px] rounded-full border-2 border-black border-solid"
-            onClick={() => setIsOpen(true)}
+            // onClick={() => setIsOpen(true)}
           >
             <Menu width={25} height={24} strokeWidth={2.67} />
           </button>
@@ -92,7 +92,7 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-      <OffCanvas isOpen={isOpen} setIsOpen={setIsOpen} />
+      {/* <OffCanvas isOpen={isOpen} setIsOpen={setIsOpen} /> */}
     </header>
   );
 }
