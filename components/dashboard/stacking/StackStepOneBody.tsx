@@ -1,5 +1,5 @@
 import { ArrowLeftRight, Check, Info, TriangleAlert } from "lucide-react";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { formatEther, parseEther } from "viem";
 import {
   useReadContract,
@@ -160,6 +160,21 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     }
   }, [hash]);
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current && amount !== 0) {
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(inputRef.current);
+      range.collapse(false);
+      if (sel) {
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    }
+  }, [amount]);
+
   const handleApproveStacking = async () => {
     writeContract({
       abi: stakingTokenABI,
@@ -169,13 +184,26 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     });
   };
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const amountVal = Number(e.target.value);
-    setAmount(amountVal);
-    if (parseEther(amountVal.toString()) > myBalance) {
-      setLessBalanceError(true);
+  const handleAmountChange = (amount: string) => {
+    console.log("Amount getting changed by conditable element : ", amount);
+
+    // Clean up the input by removing non-numeric characters except for dot (.)
+    let cleanedAmount = amount.replace(/[^0-9.]/g, "");
+
+    console.log("Cleaned Amount:", cleanedAmount);
+
+    const amountVal = Number(amount);
+
+    if (!isNaN(amountVal)) {
+      setAmount(amountVal);
+      if (parseEther(amountVal.toString()) > myBalance) {
+        setLessBalanceError(true);
+      } else {
+        setLessBalanceError(false);
+      }
     } else {
-      setLessBalanceError(false);
+      toast.error("Invalid number format");
+      console.error("Invalid number format"); // Debugging line
     }
   };
 
@@ -215,11 +243,16 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
           <div className="flex gap-1.5 max-w-[40%]">
             <div className="flex text-5xl font-semibold">
-              <input
-                className={`text-[32px] font-semibold outline-none w-[80%] overflow-auto `}
-                value={amount}
-                onChange={handleAmountChange}
-              />
+              <div
+                ref={inputRef}
+                contentEditable={true}
+                className={`text-5xl font-semibold outline-none  overflow-auto px-2 `}
+                onInput={(e) =>
+                  handleAmountChange(e.currentTarget.textContent as string)
+                }
+              >
+                {amount}
+              </div>
               <div className="my-auto text-xl font-bold">$ERA</div>
             </div>
           </div>
