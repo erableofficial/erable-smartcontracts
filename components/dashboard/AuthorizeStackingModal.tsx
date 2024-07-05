@@ -66,11 +66,11 @@ const AuthorizeStackingModal: React.FC<SignLoadingModalProps> = ({
             <div className="text-xl font-semibold">
               Authorize this staking contract
             </div>
-            <div className="text-base font-medium">
+            <p className="text-base font-medium">
               By approving, you enable the contract to enroll your tokens in the
               staking program, allowing you to earn rewards. <br />
               This is just a permission step and no funds will be moved yet.
-            </div>
+            </p>
           </div>
         </div>
 

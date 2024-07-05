@@ -237,7 +237,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         <div className="flex gap-5 justify-between font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
           <div className="my-auto text-lg">Enter Amount to Stake:</div>
           <div className="justify-center px-4 py-2 text-base bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-            Total staked + rewards:
+            Projected earning after one year
           </div>
         </div>
         <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
