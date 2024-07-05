@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
   return (
     <div className="flex flex-col pt-16 bg-surface-500">
       <div className="flex gap-5 justify-between px-20 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
-        <div className="flex flex-col py-0.5">
+        <div className="flex flex-col py-0.5 min-w-[233px]">
           <Image
             src="/images/erable footer.svg"
             alt=""
@@ -73,8 +73,8 @@ const Footer: React.FC = () => {
           </p>
         </div>
         <div className="max-md:w-full">
-          <div className="flex gap-5  max-md:gap-0 max-[483px]:flex-col">
-            <section className="flex flex-col w-[41%] max-md:ml-0 max-md:w-full">
+          <div className="flex gap-5  max-md:gap-0  max-sm:flex-wrap">
+            <section className="flex flex-col w-[41%] max-md:ml-0 max-md:w-[50%]">
               <div className="flex flex-col grow font-medium max-md:mt-10">
                 <div className="text-xl font-semibold tracking-tight  text-stone-900">
                   $ERA Utilities
@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
                 ))}
               </div>
             </section>
-            <section className="flex flex-col ml-5 w-[30%] max-md:ml-0 max-md:w-full">
+            <section className="flex flex-col ml-5 w-[30%] max-md:ml-0 max-md:w-[50%]">
               <div className="flex flex-col grow text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10">
                 <div className="text-xl font-semibold tracking-tight leading-7">
                   Ressources
@@ -97,13 +97,15 @@ const Footer: React.FC = () => {
               </div>
             </section>
             <section className="flex flex-col ml-5 w-[29%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow self-stretch pb-20 text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10 w-max">
+              <div className="flex flex-col grow self-stretch pb-20 text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10 w-max max-sm:w-full">
                 <div className="text-xl font-semibold tracking-tight leading-7">
                   Social media
                 </div>
-                {socialMediaItems.map((item, index) => (
-                  <SocialMediaItem key={index} name={item} />
-                ))}
+                <div className="flex flex-col max-sm:flex-row max-sm:justify-between">
+                  {socialMediaItems.map((item, index) => (
+                    <SocialMediaItem key={index} name={item} />
+                  ))}
+                </div>
               </div>
             </section>
           </div>
