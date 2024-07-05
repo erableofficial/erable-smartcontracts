@@ -53,7 +53,7 @@ const AuthorizeStackingModal: React.FC<SignLoadingModalProps> = ({
         {isConfirming && (
           <LoaderCircle width={43} height={43} className="animate-spin" />
         )}
-        <h1 className="mt-10 mb-10 text-3xl">Authorize Staking Contract</h1>
+        <div className="mt-10 mb-10 text-3xl">Authorize Staking Contract</div>
         <InfoBox
           text="Authorize this staking contract to securely manage your tokens. By approving, you enable the contract to enroll your tokens in the staking program, allowing you to earn rewards. This is just a permission step and no funds will be moved yet. "
           bgColor="bg-surface-500"

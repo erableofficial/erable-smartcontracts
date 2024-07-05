@@ -246,7 +246,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
               <div
                 ref={inputRef}
                 contentEditable={true}
-                className={`text-5xl font-semibold outline-none  overflow-auto px-2 `}
+                className={`text-[32px] flex items-center font-semibold outline-none  overflow-auto px-2 `}
                 onInput={(e) =>
                   handleAmountChange(e.currentTarget.textContent as string)
                 }
