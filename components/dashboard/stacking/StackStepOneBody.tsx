@@ -44,9 +44,9 @@ type StackStepOneBodyProps = {
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
-  <div className="col-span-12 md:col-span-6 lg:col-span-3">
+  <div className="col-span-12 md:col-span-6 lg:col-span-3 h-full">
     <div className="flex flex-col grow h-full justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
-      <div className="flex gap-1 pr-5 text-lg">
+      <div className="flex gap-1 pr-5 text-lg font-medium">
         <div>{title}</div>
         <Tooltip message={description}>
           <div className="flex items-center cursor-pointer">
@@ -57,7 +57,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
       {/* <div className="mt-1 text-base font-medium text-neutral-500">
         {description}
       </div> */}
-      <div className="mt-6 text-4xl">{value}</div>
+      <div className="mt-6 text-2xl font-semibold">{value}</div>
     </div>
   </div>
 );
@@ -216,7 +216,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           <div className="flex gap-1.5 max-w-[40%]">
             <div className="flex text-5xl font-semibold">
               <input
-                className={`text-5xl font-semibold outline-none w-[80%] overflow-auto `}
+                className={`text-[32px] font-semibold outline-none w-[80%] overflow-auto `}
                 value={amount}
                 onChange={handleAmountChange}
               />
