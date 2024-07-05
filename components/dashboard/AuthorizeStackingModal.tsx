@@ -21,7 +21,7 @@ export const InfoBox: React.FC<InfoBoxProps> = ({ text, bgColor }) => (
     <div>
       <Info width={17} height={17} color="#000000" />
     </div>
-    <div>{text}</div>
+    <p>{text}</p>
   </div>
 );
 

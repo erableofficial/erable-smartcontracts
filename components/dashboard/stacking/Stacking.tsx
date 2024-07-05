@@ -144,7 +144,7 @@ const Stacking: React.FC = () => {
 
   return (
     <div className="flex w-full justify-center bg-neutral-50">
-      <div className=" relative flex pb-20 pt-20  flex-col max-w-[1260px] max-lg:px-5 max-md:pt-7">
+      <div className=" relative flex pb-20 pt-20  flex-col max-w-[1260px] max-lg:px-5 max-md:pt-7 w-full">
         <StackingStepsHeader steps={steps} />
 
         {steps[0].isActive && (
