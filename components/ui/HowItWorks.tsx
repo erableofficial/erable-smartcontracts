@@ -38,7 +38,7 @@ const steps: Step[] = [
 
 const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   <>
-    <div className="flex items-center gap-4 mt-8 max-md:flex-wrap max-sm:items-start">
+    <div className="flex items-center gap-4 mt-8 max-md:flex-wrap max-sm:items-start max-sm:mt-5">
       <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-neutral-700 whitespace-nowrap bg-surface-500 border border-solid border-neutral-300 h-[2.688rem] rounded-full w-[2.688rem]">
         {stepNumber}
       </div>
@@ -51,7 +51,7 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
         </p>
       </div>
     </div>
-    <div className="shrink-0 mt-8 h-px border border-solid bg-neutral-300  max-md:max-w-full" />
+    <div className="shrink-0 mt-8 h-px border border-solid bg-neutral-300  max-md:max-w-full max-sm:mt-5" />
   </>
 );
 
@@ -65,7 +65,7 @@ const HowItWorks = () => {
       />
       <div className="flex gap-5 max-md:flex-col max-md:gap-0">
         <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
-          <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
+          <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full max-sm:mt-0">
             <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full max-sm:flex-col-reverse">
               <h1 className="justify-center px-2.5 text-5xl font-extrabold  text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem] max-xl:w-min max-md:w-fit">
                 How it Works
