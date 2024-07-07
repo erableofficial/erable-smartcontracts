@@ -38,15 +38,17 @@ const steps: Step[] = [
 
 const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
   <>
-    <div className="flex items-center gap-4 mt-8 max-md:flex-wrap">
+    <div className="flex items-center gap-4 mt-8 max-md:flex-wrap max-sm:items-start">
       <div className="flex justify-center items-center px-5 py-2.5 text-lg font-semibold text-neutral-700 whitespace-nowrap bg-surface-500 border border-solid border-neutral-300 h-[2.688rem] rounded-full w-[2.688rem]">
         {stepNumber}
       </div>
       <div className="flex flex-col flex-1 justify-center text-neutral-700 max-md:max-w-full">
-        <div className="text-2xl font-semibold max-md:max-w-full">{title}</div>
-        <div className="mt-1 text-sm font-medium max-md:max-w-full">
-          {description}
+        <div className="text-2xl font-semibold max-md:max-w-full max-sm:text-xl">
+          {title}
         </div>
+        <p className="mt-1 text-sm font-medium max-md:max-w-full max-sm:mt-2">
+          {description}
+        </p>
       </div>
     </div>
     <div className="shrink-0 mt-8 h-px border border-solid bg-neutral-300  max-md:max-w-full" />
@@ -56,7 +58,7 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
 const HowItWorks = () => {
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
   return (
-    <section className="self-stretch p-20 bg-neutral-50 max-md:px-5">
+    <section className="self-stretch p-20 bg-neutral-50 max-md:px-5 max-sm:pt-10">
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}
@@ -64,11 +66,11 @@ const HowItWorks = () => {
       <div className="flex gap-5 max-md:flex-col max-md:gap-0">
         <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
           <div className="flex flex-col mt-2.5 max-md:mt-10 max-md:max-w-full">
-            <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full">
+            <div className="flex gap-5 justify-between max-md:flex-wrap max-md:max-w-full max-sm:flex-col-reverse">
               <h1 className="justify-center px-2.5 text-5xl font-extrabold  text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl leading-[4.641rem] max-xl:w-min max-md:w-fit">
                 How it Works
               </h1>
-              <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary">
+              <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary max-sm:w-fit max-sm:ml-auto">
                 <Link
                   href={"/"}
                   className="justify-center py-1 border-b-2 border-solid border-primary"
@@ -87,14 +89,14 @@ const HowItWorks = () => {
             ))}
             <div className="flex justify-center self-start gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-md:mt-10">
               <button
-                className="px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
+                className="px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button max-sm:p-3"
                 onClick={() => setToggleBuyEraModal(true)}
               >
                 Buy $ERA
               </button>
               <Link
                 href={"/dashboard"}
-                className="px-7 py-4 rounded-xl border-solid  border-[3px] border-primary max-md:px-5 secondary-button "
+                className="px-7 py-4 rounded-xl border-solid  border-[3px] border-primary max-md:px-5 secondary-button max-sm:p-3 "
               >
                 Open dashboard
               </Link>
