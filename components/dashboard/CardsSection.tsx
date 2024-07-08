@@ -1,6 +1,7 @@
 import { ArrowUpRight, TriangleAlert } from "lucide-react";
 import React from "react";
 import { formatEther } from "viem";
+import BridgeProcessModal from "../ui/BridgeProcessModal";
 
 type CardsSectionProps = {
   myBalance: BigInt;
@@ -27,9 +28,15 @@ const CardsSection: React.FC<CardsSectionProps> = ({
   totalStaked,
   setToggleBuyEraModal,
 }) => {
+  const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
+    React.useState(false);
   return (
     <>
       <div className="flex justify-center self-stretch  mt-14 w-full max-[1281px]:px-5 max-md:max-w-full">
+        <BridgeProcessModal
+          toggleBridgeProcessModal={toggleBridgeProcessModal}
+          setToggleBridgeProcessModal={setToggleBridgeProcessModal}
+        />
         <div className="flex gap-6 max-w-[1259px] w-full max-md:flex-col max-md:gap-0">
           <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
@@ -79,6 +86,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                 <a
                   href="#"
                   className="flex gap-1  pb-1.5 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
+                  onClick={() => setToggleBridgeProcessModal(true)}
                 >
                   Bridge
                   <div className="flex items-center">
