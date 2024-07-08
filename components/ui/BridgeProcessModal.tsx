@@ -67,8 +67,8 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
             </div>
             <div className="self-start text-base font-medium text-neutral-700 max-md:max-w-full">
               To bridge your $CLAP tokens, you’ll need to follow the
-              instructions provided by Chainport, our bridge partner.
-              <br /> Click &quot;Bridge my $CLAP&quot; to start the process.
+              instructions provided by Chainport, our bridge partner. Click
+              &quot;Bridge my $CLAP&quot; to start the process.
             </div>
           </div>
         </div>
