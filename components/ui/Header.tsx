@@ -20,7 +20,7 @@ export default function Header() {
         toggleBridgeProcessModal={toggleBridgeProcessModal}
         setToggleBridgeProcessModal={setToggleBridgeProcessModal}
       />
-      <div className="flex justify-between  mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3 ">
+      <div className="flex justify-between min-h-[86px]  mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3 ">
         <div className="flex items-center justify-around gap-4 max-lg:w-full max-lg:justify-between">
           <Link href="/" className="w-[40%] h-auto">
             <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
