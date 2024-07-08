@@ -219,7 +219,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
       />
 
       {/* info cards section */}
-      <div className="mx-2.5 mt-14 max-md:mt-10 max-md:max-w-full">
+      <div className="mt-14 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           {infoCards.map((card, index) => (
             <div
@@ -233,7 +233,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
       </div>
       {/* end info cards section */}
 
-      <div className="flex flex-col p-6 mx-2.5 mt-5 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
+      <div className="flex flex-col p-6  mt-5 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:max-w-full">
         <div className="flex gap-5 justify-between font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
           <div className="my-auto text-lg">Enter Amount to Stake:</div>
           <div className="justify-center px-4 py-2 text-base bg-surface-500 border-2 border-black border-solid rounded-[38px]">
@@ -293,7 +293,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-col p-5 mx-2.5 mt-5 bg-white rounded-xl border-2 border-orange-200 border-solid max-md:max-w-full">
+      <div className="flex flex-col p-5  mt-5 bg-white rounded-xl border-2 border-orange-200 border-solid max-md:max-w-full">
         <div className="flex gap-3.5 max-md:flex-wrap">
           <div className="flex justify-center items-center p-2 bg-orange-200 h-[35px] rounded-[29.167px] w-[35px]">
             <TriangleAlert width={18} height={18} color="#000000" />
