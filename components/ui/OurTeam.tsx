@@ -53,7 +53,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
       <div className="flex flex-col justify-center">
         <div className="shrink-0 rounded-full border border-solid bg-zinc-300 border-neutral-500 h-[1.875rem] stroke-[0.769px] w-[1.875rem]" />
       </div>
-      <div className="my-auto text-lg font-medium text-neutral-700">
+      <div className="my-auto text-lg font-medium text-neutral-700 max-sm:text-base">
         {contact}
       </div>
     </div>
