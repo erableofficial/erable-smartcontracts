@@ -18,6 +18,7 @@ import {
   airdropContractABI,
   airdropContractAddress,
 } from "../../../lib/blockchain-config";
+import { useCurrentUser } from "../../../context/currentUser";
 
 interface IJsonData {
   address: Address;
@@ -28,6 +29,7 @@ export default function CreateAirdropCycleFromJson() {
   const [merkleTreeElements, setMerkleTreeElements] = useState<
     IMerkleTreeElement[]
   >([]);
+  const { currentUser, setCurrentUser } = useCurrentUser();
 
   const { data: airdropCycleCount, error: airdropCycleCountError } =
     useReadContract({
@@ -36,7 +38,7 @@ export default function CreateAirdropCycleFromJson() {
       functionName: "getAirdropCycleCount",
     });
 
-  const { writeContract, data: hash, error, isPending } = useWriteContract();
+  const { writeContract, data: hash, error } = useWriteContract();
 
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
     useWaitForTransactionReceipt({
@@ -55,10 +57,59 @@ export default function CreateAirdropCycleFromJson() {
 
   // error
   useEffect(() => {
-    if (error) {
-      toast.error("Something went wrong.");
-      console.error(error);
-    }
+    (async () => {
+      async function deleteAirdropCycle() {
+        const loadingToast = toast.loading(
+          "Deleting Airdrop Cycle From Redis..."
+        );
+        const response = await fetch("/api/airdrop/delete-cycle", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cycleId: Number(airdropCycleCount),
+          }),
+        });
+
+        if (!response.ok) {
+          toast.update(loadingToast, {
+            render: "Failed to delete airdrop cycle from redis.",
+            type: "error",
+            isLoading: false,
+            autoClose: 3000,
+          });
+          console.error("Failed to delete airdrop cycle from redis.");
+
+          return;
+        }
+
+        const { success, message } = await response.json();
+        if (!success) {
+          toast.update(loadingToast, {
+            render: message,
+            type: "error",
+            isLoading: false,
+            autoClose: 3000,
+          });
+          return;
+        }
+
+        toast.update(loadingToast, {
+          render: message,
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      }
+      if (error) {
+        toast.error("Something went wrong.", {
+          autoClose: 3000,
+        });
+        console.error(error);
+        await deleteAirdropCycle();
+      }
+    })();
   }, [error]);
 
   // hash
