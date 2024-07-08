@@ -291,9 +291,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
   ]);
 
   useEffect(() => {
-    if (stakingItems.length && airdropItems.length) {
+    if (stakingItems.length > 0 && airdropItems.length > 0) {
       const allItems = [...stakingItems, ...airdropItems];
       setAllItems(allItems);
+    } else if (stakingItems.length > 0) {
+      setAllItems(stakingItems);
+    } else if (airdropItems.length > 0) {
+      setAllItems(airdropItems);
     }
   }, [stakingItems, airdropItems]);
 
