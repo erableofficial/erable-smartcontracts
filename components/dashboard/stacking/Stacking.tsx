@@ -116,13 +116,13 @@ const Stacking: React.FC = () => {
 
   const infoCards = [
     {
-      title: "Reward Rate (APR)",
+      title: "Reward Rate (APR)*",
       description:
         "The annual percentage rate currently being earned in the staking program.",
       value: "xx",
     },
     {
-      title: "Staking Duration",
+      title: "Staking Duration*",
       description: "The total length of time the staking program will run.",
       value: approximateTime(Number(stakingDuration)) || "xx",
     },
