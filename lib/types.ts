@@ -35,4 +35,5 @@ export interface IRedisAirdop {
   cycle: string;
   address: Address;
   amount: string;
+  created_at?: string;
 }

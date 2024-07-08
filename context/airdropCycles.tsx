@@ -5,6 +5,7 @@ interface IAirdropCycle {
   cycle: string;
   address: Address;
   amount: string;
+  created_at?: string;
 }
 
 interface IAirdropCycleContext {
