@@ -325,8 +325,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
   const getButtonClass = (label: string): string => {
     return label === selected
-      ? "justify-center self-stretch px-4 py-2 font-semibold whitespace-nowrap bg-surface-500 border-2 border-black border-solid rounded-[38px]"
-      : "self-stretch my-auto";
+      ? "justify-center self-stretch px-4 py-2 font-semibold whitespace-nowrap bg-surface-500 border-2 border-black border-solid rounded-[38px] max-sm:text-sm max-sm:font-bold"
+      : "self-stretch my-auto max-sm:text-base";
   };
 
   return (

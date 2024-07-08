@@ -17,7 +17,7 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
 }) => (
   <div className="flex gap-4 justify-between mt-2 text-neutral-700 max-md:mr-1">
     <div className="text-base font-medium text-neutral-500">{title}</div>
-    <div className=" text-[16px] font-medium ">{value}</div>
+    <div className=" text-base font-medium ">{value}</div>
   </div>
 );
 
@@ -32,7 +32,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
     React.useState(false);
   return (
     <>
-      <div className="flex justify-center self-stretch  mt-14 w-full max-[1281px]:px-5 max-md:max-w-full">
+      <div className="flex justify-center self-stretch  mt-14 w-full max-[1281px]:px-5 max-md:max-w-full max-sm:mt-4">
         <BridgeProcessModal
           toggleBridgeProcessModal={toggleBridgeProcessModal}
           setToggleBridgeProcessModal={setToggleBridgeProcessModal}
@@ -61,7 +61,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                           ).toLocaleString()
                         : "0"}
                     </div>
-                    <div className="flex items-center text-lg font-medium">
+                    <div className="flex items-center text-lg font-medium max-sm:text-sm">
                       $ERA = $1.50
                     </div>
                   </div>
@@ -80,7 +80,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
               </div>
 
               <div className="flex gap-2 justify-between  text-base">
-                <div className="my-auto font-medium text-neutral-700">
+                <div className="my-auto font-medium text-neutral-700 max-sm:text-sm max-sm:mt-[14px]">
                   If you are a clap investor
                 </div>
                 <a
@@ -111,8 +111,8 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                   </div> */}
                     </div>
                   </div>
-                  <div className="flex gap-1 justify-between mt-6">
-                    <div className="text-lg font-semibold text-neutral-700">
+                  <div className="flex gap-1 justify-between mt-6 max-sm:mt-5">
+                    <div className="text-lg font-semibold text-neutral-700 max-sm:text-base">
                       Staking
                     </div>
                     {/* <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
@@ -122,7 +122,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                   $ERA
                 </span> */}
                   </div>
-                  <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
+                  <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500 max-sm:text-sm">
                     No rewards available
                     <span>
                       <a
@@ -137,14 +137,14 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                   <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-md:max-w-full" />
 
                   <div className="flex gap-1 justify-between ">
-                    <div className="text-lg font-semibold text-neutral-700">
+                    <div className="text-lg font-semibold text-neutral-700 max-sm:text-base">
                       LP Farming
                     </div>
                     {/* <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
                       No rewards available
                     </span> */}
                   </div>
-                  <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
+                  <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500 max-sm:text-sm">
                     No rewards available
                     <span>
                       <a
@@ -166,7 +166,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     <div className="text-2xl text-neutral-700">
                       Total Rewards
                     </div>
-                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
+                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
                       View history
                     </div>
                   </div>
@@ -213,12 +213,12 @@ const CardsSection: React.FC<CardsSectionProps> = ({
               <div className="flex gap-5 justify-between font-semibold">
                 <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
                   <div className="text-2xl text-neutral-700">$ERA stats</div>
-                  <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid">
+                  <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
                     Whitepaper
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col h-full mt-6 justify-between ">
+              <div className="flex flex-col h-full mt-6 justify-between max-sm:mt-5 ">
                 <StatBlock title="Marketcap" value="$1,451,188" />
                 {/* <StatBlock title="Volume" value="xx" /> */}
                 <StatBlock title="Circulating supply" value="217,000,000" />
