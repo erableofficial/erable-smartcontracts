@@ -182,7 +182,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
         handleClaim={handleClaim}
         stake={stake}
       />
-      <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full">
+      <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full max-sm:mt-4">
         <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">
           <div className="justify-center px-4 py-2 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
             {stake.type}

@@ -15,11 +15,11 @@ const TabContent: React.FC<TabContentProps> = ({
   setTransactionSuccess,
 }) => {
   return (
-    <div className="min-w-[920px] flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5">
+    <div className="min-w-[920px] flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-sm:py-[10px]">
       <section className="flex gap-0 max-md:flex-wrap max-md:max-w-full">
-        <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5 max-w-[206px]">
+        <div className="flex flex-col flex-1 items-start p-2.5 text-base font-medium whitespace-nowrap max-md:pr-5 max-w-[206px] max-sm:text-sm">
           <div className="flex items-center gap-1 pr-2.5 text-neutral-500">
-            <div>Type</div>
+            <div className="max-sm:text-sm">Type</div>
             <Tooltip message="The kind of reward program being performed (e.g., Staking, LP Farming, Earn).">
               <Info width={15} height={15} color="#7C7C7C" cursor={"pointer"} />
             </Tooltip>
@@ -28,45 +28,45 @@ const TabContent: React.FC<TabContentProps> = ({
         Staking
       </div> */}
         </div>
-        <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5 max-w-[220px]">
+        <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5 max-w-[220px] max-sm:text-sm">
           <div className="flex gap-1 items-center px-0.5 text-base text-neutral-500">
-            <div>Start Date</div>
+            <div className="max-sm:text-sm">Start Date</div>
             <Tooltip message="The date on which the reward program started.">
               <Info width={15} height={15} color="#7C7C7C" cursor={"pointer"} />
             </Tooltip>
           </div>
           {/* <div className="mt-8 text-lg text-neutral-700">JJ/MM/AAAA</div> */}
         </div>
-        <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5">
+        <div className="flex flex-col flex-1 items-start p-2.5 font-medium whitespace-nowrap max-md:pr-5 max-sm:text-sm">
           <div className="flex items-center gap-1 pr-2 text-base text-neutral-500">
-            <div>Amount</div>
+            <div className="max-sm:text-sm">Amount</div>
             <Tooltip message="The total quantity of $ERA involved in the reward program.">
               <Info width={15} height={15} color="#7C7C7C" cursor={"pointer"} />
             </Tooltip>
           </div>
           {/* <div className="mt-8 text-lg text-neutral-700">XXX,XXX.XXX</div> */}
         </div>
-        <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5 min-w-[222px]">
+        <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5 min-w-[222px] max-sm:text-sm">
           <div className="flex items-center gap-1 text-base text-neutral-500">
-            <div>Current Rewards</div>
+            <div className="max-sm:text-sm">Current Rewards</div>
             <Tooltip message="The rewards accumulated so far from the program.">
               <Info width={15} height={15} color="#7C7C7C" cursor={"pointer"} />
             </Tooltip>
           </div>
           {/* <div className="mt-8 text-lg text-neutral-700">XXX,XXX.XXX</div> */}
         </div>
-        <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5 max-w-[171px]">
+        <div className="flex flex-col flex-1 items-start p-2.5 font-medium max-md:pr-5 max-w-[171px] max-sm:text-sm">
           <div className="flex items-center gap-1 pr-1.5 text-base text-neutral-500">
-            <div>End date</div>
+            <div className="max-sm:text-sm">End date</div>
             <Tooltip message="The date on which the reward program is scheduled to conclude.">
               <Info width={15} height={15} color="#7C7C7C" cursor={"pointer"} />
             </Tooltip>
           </div>
           {/* <div className="mt-8 text-lg text-neutral-700">JJ/MM/AAAA</div> */}
         </div>
-        <div className="flex flex-col justify-between p-2.5 text-base min-w-[150px]">
+        <div className="flex flex-col justify-between p-2.5 text-base min-w-[150px] max-sm:text-sm">
           <div className="flex items-center gap-1 pr-2.5 font-medium whitespace-nowrap text-neutral-500">
-            <div>Action</div>
+            <div className="max-sm:text-sm">Action</div>
 
             <div className="group relative  overflow-visible flex">
               <Info width={15} height={15} color="#7C7C7C" cursor={"pointer"} />
@@ -83,7 +83,7 @@ const TabContent: React.FC<TabContentProps> = ({
       </button> */}
         </div>
       </section>
-      <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+      <hr className="shrink-0 mt-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full max-sm:mt-4" />
 
       {Items.map((item, index) => {
         if (item.type === "Staking") {

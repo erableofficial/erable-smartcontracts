@@ -13,7 +13,7 @@ export default function Header() {
     React.useState(false);
   const router = useRouter();
   return (
-    <header className="pt-10  pb-4 mx-auto  max-sm:mt-1 bg-neutral-50 max-[1281px]:px-5">
+    <header className="pt-10  pb-4 mx-auto  max-sm:mt-1 bg-neutral-50 max-[1281px]:px-5 max-sm:pb-0">
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}

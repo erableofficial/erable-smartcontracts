@@ -14,7 +14,7 @@ const steps: Step[] = [
     stepNumber: 1,
     title: "Learn about erable° and our token $ERA",
     description:
-      "Discover the mission behind erable° and understand how our $ERA token works. Hyperlink Whitepaper",
+      "Discover the mission behind erable° and understand how our $ERA token works. ",
   },
   {
     stepNumber: 2,
@@ -48,6 +48,11 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
         </div>
         <p className="mt-1 text-sm font-medium max-md:max-w-full max-sm:mt-2">
           {description}
+          {stepNumber === 1 && (
+            <Link href={"/"} className="text-primary underline">
+              See Whitepaper
+            </Link>
+          )}
         </p>
       </div>
     </div>
