@@ -195,7 +195,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
           {formatEther(stake.amount)}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5 min-w-[222px]">
-          {Number(formatEther(currentRewards))}
+          {Number(formatEther(currentRewards)).toExponential()}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-neutral-700 max-md:pr-5 max-w-[171px]">
           {new Date(stake.endTime).toLocaleDateString()}
