@@ -26,7 +26,7 @@ export function approximateTime(seconds: number): string {
   } else if (seconds < year) {
     return `${Math.round(seconds / day)} days`;
   } else {
-    return `${Math.round(seconds / year)} years`;
+    return `${Math.round(seconds / year)} year`;
   }
 }
 

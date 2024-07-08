@@ -39,10 +39,10 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
     React.useState(false);
 
   const items = [
-    { label: "Total APR:", value: "00" },
-    { label: "Duration:", value: infoCards[1].value },
-    { label: "Start date:", value: infoCards[2].value },
-    { label: "End date:", value: infoCards[3].value },
+    { label: "Total APR", value: "00" },
+    { label: "Duration", value: infoCards[1].value },
+    { label: "Start date", value: infoCards[2].value },
+    { label: "End date", value: infoCards[3].value },
   ];
   const { writeContract, data: hash, error, isPending } = useWriteContract();
 
@@ -69,19 +69,19 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
       setSteps([
         {
           number: "1",
-          title: "Stake your token : Informations",
-          text: "Staking Informations",
+          title: "Start Your Staking",
+          text: "Set Up Staking",
           isActive: false,
         },
         {
           number: "2",
-          title: "Send funds",
-          text: "Send funds",
+          title: "Transfer Funds",
+          text: "Transfer Funds",
           isActive: false,
         },
         {
           number: "3",
-          title: "You staked sucessfully",
+          title: "Staking Successful",
           text: "Confirmation",
           isActive: true,
         },
@@ -157,7 +157,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
         />
 
         <div className="mt-10 text-xl font-bold text-neutral-700 max-md:max-w-full">
-          Your staking:
+          Your staking
         </div>
         <section className="flex gap-5 justify-between mt-2.5 max-md:flex-wrap max-md:max-w-full">
           <div className="text-3xl font-semibold text-neutral-700">
@@ -169,7 +169,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
         </section>
         <hr className="shrink-0 mt-6 h-px border border-solid bg-neutral-300 border-neutral-300 max-md:max-w-full" />
         <div className="mt-6 text-xl font-bold text-neutral-700 max-md:max-w-full">
-          Staking key informations:
+          Staking key informations
         </div>
         <section className="flex gap-5 justify-between mt-6 text-lg font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
           <div className="flex flex-col">
