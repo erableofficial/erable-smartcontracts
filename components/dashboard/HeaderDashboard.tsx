@@ -3,12 +3,26 @@ import Link from "next/link";
 import { ChevronDown, ArrowUpRight, Menu } from "lucide-react";
 import ConnectWalletButton from "../ui/connectWalletButton";
 import { useRouter } from "next/router";
+import React from "react";
+import BuySeraModal from "../ui/BuySeraModal";
+import BridgeProcessModal from "../ui/BridgeProcessModal";
 
 export default function Header() {
+  const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
+  const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
+    React.useState(false);
   const router = useRouter();
   return (
-    <header className="pt-10  pb-4 mx-auto  max-sm:mt-1 bg-neutral-50">
-      <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid  bg-white px-4 py-3 max-[1281px]:mx-3">
+    <header className="pt-10  pb-4 mx-auto  max-sm:mt-1 bg-neutral-50 max-[1281px]:px-5">
+      <BuySeraModal
+        toggleBuyEraModal={toggleBuyEraModal}
+        setToggleBuyEraModal={setToggleBuyEraModal}
+      />
+      <BridgeProcessModal
+        toggleBridgeProcessModal={toggleBridgeProcessModal}
+        setToggleBridgeProcessModal={setToggleBridgeProcessModal}
+      />
+      <div className="flex justify-between min-h-[86px] max-w-[1259px] mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid  bg-white px-4 py-3 ">
         <div className="flex items-center justify-around gap-4 max-lg:w-full max-lg:justify-between">
           <Link href="/" className="w-[40%] h-auto">
             <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
@@ -16,13 +30,19 @@ export default function Header() {
           <button className="lg:hidden bg-surface-500 py-[10.5px] px-[10.5px] rounded-full border-2 border-black border-solid">
             <Menu width={25} height={24} strokeWidth={2.67} />
           </button>
-          <button className="bg-surface-500 py-1.5 px-3 rounded-full border-2 font-medium hover:font-bold border-black border-solid hidden lg:flex items-center gap-0.5 ">
+          <button
+            className="bg-surface-500 py-1.5 px-3 rounded-full border-2 font-medium hover:font-bold border-black border-solid hidden lg:flex items-center gap-0.5 "
+            onClick={() => setToggleBridgeProcessModal(true)}
+          >
             <span className="text-base  text-left text-nowrap ">
               Bridge $CLAP
             </span>
             <ArrowUpRight />
           </button>
-          <button className="bg-surface-500 py-1.5 px-3 rounded-full  font-medium hover:font-bold border-2 border-black border-solid hidden lg:flex items-center gap-0.5">
+          <button
+            className="bg-surface-500 py-1.5 px-3 rounded-full  font-medium hover:font-bold border-2 border-black border-solid hidden lg:flex items-center gap-0.5"
+            onClick={() => setToggleBuyEraModal(true)}
+          >
             <span className="text-base  text-left text-nowrap ">Buy $ERA</span>
             <ArrowUpRight />
           </button>

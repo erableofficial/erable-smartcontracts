@@ -28,7 +28,7 @@ const FeatureBlock: React.FC<FeatureBlockProps> = ({ title, text }) => (
         tech
       </div>
     </div>
-    <div className="mt-6 text-lg font-medium">{text}</div>
+    <div className="mt-6 text-lg font-medium max-sm:mt-5">{text}</div>
   </div>
 );
 
@@ -37,14 +37,14 @@ const RoadmapSection: React.FC<RoadmapSectionProps> = ({
   features,
 }) => (
   <section className="col-span-12 md:col-span-6 lg:col-span-3">
-    <header className="flex flex-col grow text-neutral-700 max-md:mt-6">
-      <h2 className="justify-center px-5 py-1.5 text-2xl font-semibold text-neutral-700 bg-surface-500 rounded-lg">
+    <div className="flex flex-col grow text-neutral-700 max-md:mt-6">
+      <div className="justify-center px-5 py-1.5 text-2xl font-semibold text-neutral-700 bg-surface-500 rounded-lg max-sm:w-fit max-sm:py-[2px] max-sm:px-2">
         {period}
-      </h2>
+      </div>
       {features.map((feature, index) => (
         <FeatureBlock key={index} title={feature.title} text={feature.text} />
       ))}
-    </header>
+    </div>
   </section>
 );
 
@@ -105,12 +105,12 @@ const Roadmap: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col self-stretch p-20 bg-neutral-50 max-md:px-5">
+    <div className="flex flex-col self-stretch p-20 bg-neutral-50 max-md:px-5 max-sm:py-10">
       <div className="justify-center self-start font-friends px-2.5 ml-2.5 text-5xl font-extrabold text-neutral-700 whitespace-nowrap bg-surface-500 rounded-xl max-md:text-4xl">
         Roadmap
       </div>
-      <hr className="shrink-0  mt-10 max-w-full h-px border border-solid bg-neutral-300 border-neutral-300 w-full mx-auto" />
-      <main className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full">
+      <hr className="shrink-0  mt-10 max-w-full h-px border  bg-neutral-300  w-full mx-auto max-sm:mt-5" />
+      <div className="justify-center px-9 mx-2.5 mt-10 max-md:px-5 max-md:max-w-full max-sm:mt-4 max-sm:mx-0 max-sm:px-0">
         <div className="grid grid-cols-12 gap-5 max-md:grid-cols-1">
           {roadmapData.map((section, index) => (
             <RoadmapSection
@@ -120,13 +120,13 @@ const Roadmap: React.FC = () => {
             />
           ))}
         </div>
-      </main>
-      <nav className="flex justify-center items-center px-16 mx-2.5 mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:px-5 max-md:mt-10 max-md:max-w-full">
+      </div>
+      <div className="flex justify-center items-center px-16 mx-2.5 mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:px-5 max-md:mt-10 max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-wrap">
           <button className="primary-button">Read Whitepaper</button>
           {/* <button className="secondary-button">Our Community Manifesto</button> */}
         </div>
-      </nav>
+      </div>
     </div>
   );
 };

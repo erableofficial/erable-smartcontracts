@@ -44,9 +44,9 @@ type StackStepOneBodyProps = {
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
-  <div className="col-span-12 md:col-span-6 lg:col-span-3">
+  <div className="col-span-12 md:col-span-6 lg:col-span-3 h-full">
     <div className="flex flex-col grow h-full justify-center p-6 mx-auto w-full font-semibold text-neutral-700 bg-white rounded-xl border border-solid border-stone-300 max-md:px-5 max-md:mt-5">
-      <div className="flex gap-1 pr-5 text-lg">
+      <div className="flex gap-1 pr-5 text-lg font-medium">
         <div>{title}</div>
         <Tooltip message={description}>
           <div className="flex items-center cursor-pointer">
@@ -57,7 +57,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
       {/* <div className="mt-1 text-base font-medium text-neutral-500">
         {description}
       </div> */}
-      <div className="mt-6 text-4xl">{value}</div>
+      <div className="mt-6 text-2xl font-semibold">{value}</div>
     </div>
   </div>
 );
@@ -237,7 +237,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         <div className="flex gap-5 justify-between font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
           <div className="my-auto text-lg">Enter Amount to Stake:</div>
           <div className="justify-center px-4 py-2 text-base bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-            Total staked + rewards:
+            Projected earning after one year
           </div>
         </div>
         <div className="flex gap-5 justify-between mt-6 w-full text-neutral-700 whitespace-nowrap max-md:flex-wrap max-md:max-w-full">
@@ -246,7 +246,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
               <div
                 ref={inputRef}
                 contentEditable={true}
-                className={`text-5xl font-semibold outline-none  overflow-auto px-2 `}
+                className={`text-[32px] flex items-center font-semibold outline-none  overflow-auto px-2 `}
                 onInput={(e) =>
                   handleAmountChange(e.currentTarget.textContent as string)
                 }

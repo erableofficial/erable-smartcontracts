@@ -44,14 +44,18 @@ const Step: React.FC<StepProps> = ({ number, text, isActive }) => (
 const StackingStepsHeader: React.FC<StackingStepsHeaderProps> = ({ steps }) => {
   return (
     <>
-      <div className="text-5xl text-center font-semibold text-neutral-700 max-md:max-w-full max-md:text-4xl">
-        {steps.filter((step) => step.isActive)[0].title}
-      </div>
-      <div className="flex gap-3.5 justify-between pl-20 mx-2.5 max-w-full font-semibold w-[1260px] max-md:flex-wrap max-md:pl-5">
-        <div className="pb-1.5 my-auto text-lg text-neutral-700 border-b-2 border-black border-solid">
-          View tuto
+      <div className="flex w-full justify-center">
+        <div className="text-5xl flex justify-between font-semibold text-neutral-700 w-full max-w-[1260px] max-md:text-4xl flex-wrap">
+          <div></div>
+          {steps.filter((step) => step.isActive)[0].title}
+          <div className="flex items-center justify-between cursor-pointer   ">
+            <div className="pb-1.5 my-auto text-lg text-neutral-700 border-b-2 border-black border-solid font-semibold">
+              View tuto
+            </div>
+          </div>
         </div>
       </div>
+
       <section className="flex justify-center items-center px-16 mx-2.5 mt-3.5 text-lg text-neutral-400 max-md:px-5 max-md:max-w-full">
         <div className="flex gap-5 justify-between max-md:flex-wrap">
           {steps.map((step, index) => (

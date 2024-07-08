@@ -42,7 +42,7 @@ const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
 
   return (
     <div className="flex gap-1.5">
-      <div className="text-5xl font-semibold">
+      <div className="text-[32px] font-semibold">
         =
         {totalEstimatedWithdraw
           ? Number(formatEther(totalEstimatedWithdraw as bigint))

@@ -116,13 +116,13 @@ const Stacking: React.FC = () => {
 
   const infoCards = [
     {
-      title: "Reward Rate (APR)",
+      title: "Reward Rate (APR)*",
       description:
         "The annual percentage rate currently being earned in the staking program.",
       value: "xx",
     },
     {
-      title: "Staking Duration",
+      title: "Staking Duration*",
       description: "The total length of time the staking program will run.",
       value: approximateTime(Number(stakingDuration)) || "xx",
     },
@@ -143,28 +143,30 @@ const Stacking: React.FC = () => {
   ];
 
   return (
-    <div className=" relative flex pb-20 pt-20 bg-neutral-50 flex-col px-20 max-md:px-5 max-md:pt-7">
-      <StackingStepsHeader steps={steps} />
+    <div className="flex w-full justify-center bg-neutral-50">
+      <div className=" relative flex pb-20 pt-20  flex-col max-w-[1260px] max-lg:px-5 max-md:pt-7 w-full">
+        <StackingStepsHeader steps={steps} />
 
-      {steps[0].isActive && (
-        <StackStepOneBody
-          infoCards={infoCards}
-          setSteps={setSteps}
-          amount={amount}
-          setAmount={setAmount}
-          myBalance={myBalance as bigint}
-          stakingDuration={stakingDuration as bigint}
-        />
-      )}
-      {steps[1].isActive && (
-        <StackStepTwoBody
-          setSteps={setSteps}
-          infoCards={infoCards}
-          amount={amount}
-        />
-      )}
+        {steps[0].isActive && (
+          <StackStepOneBody
+            infoCards={infoCards}
+            setSteps={setSteps}
+            amount={amount}
+            setAmount={setAmount}
+            myBalance={myBalance as bigint}
+            stakingDuration={stakingDuration as bigint}
+          />
+        )}
+        {steps[1].isActive && (
+          <StackStepTwoBody
+            setSteps={setSteps}
+            infoCards={infoCards}
+            amount={amount}
+          />
+        )}
 
-      {steps[2].isActive && <StackStepThreeBody amount={amount} />}
+        {steps[2].isActive && <StackStepThreeBody amount={amount} />}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { Info, LoaderCircle } from "lucide-react";
+import { Info, LoaderCircle, File } from "lucide-react";
 import React from "react";
 import { Address } from "viem";
 
@@ -21,7 +21,7 @@ export const InfoBox: React.FC<InfoBoxProps> = ({ text, bgColor }) => (
     <div>
       <Info width={17} height={17} color="#000000" />
     </div>
-    <div>{text}</div>
+    <p>{text}</p>
   </div>
 );
 
@@ -53,11 +53,27 @@ const AuthorizeStackingModal: React.FC<SignLoadingModalProps> = ({
         {isConfirming && (
           <LoaderCircle width={43} height={43} className="animate-spin" />
         )}
-        <h1 className="mt-10 mb-10 text-3xl">Authorize Staking Contract</h1>
-        <InfoBox
+        <div className="mt-10 mb-10 text-3xl">Authorize Staking Contract</div>
+        {/* <InfoBox
           text="Authorize this staking contract to securely manage your tokens. By approving, you enable the contract to enroll your tokens in the staking program, allowing you to earn rewards. This is just a permission step and no funds will be moved yet. "
           bgColor="bg-surface-500"
-        />
+        /> */}
+        <div className="p-5 flex border-[1.5px] border-warning-200 rounded-xl ">
+          <div className="flex justify-center mr-3 items-center p-2 bg-warning-200 h-[35px] rounded-[29.167px] w-[35px]">
+            <File width={19} height={20} strokeWidth={2.5} />
+          </div>
+          <div className="flex flex-col">
+            <div className="text-xl font-semibold">
+              Authorize this staking contract
+            </div>
+            <p className="text-base font-medium">
+              By approving, you enable the contract to enroll your tokens in the
+              staking program, allowing you to earn rewards. <br />
+              This is just a permission step and no funds will be moved yet.
+            </p>
+          </div>
+        </div>
+
         {isConfirming && (
           <p className="self-stretch mt-5 font-medium text-center max-md:max-w-full">
             Please wait a moment. This can take a few minutes.
