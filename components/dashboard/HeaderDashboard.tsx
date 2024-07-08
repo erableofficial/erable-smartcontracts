@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ArrowUpRight, Menu } from "lucide-react";
+import { ChevronDown, ArrowUpRight, Menu, X } from "lucide-react";
 import ConnectWalletButton from "../ui/connectWalletButton";
 import { useRouter } from "next/router";
 import React from "react";
@@ -12,6 +12,24 @@ export default function Header() {
   const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
     React.useState(false);
   const router = useRouter();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const contentRef = React.useRef<HTMLDivElement>(null);
+  const toggleOpen = () => {
+    console.log("isOpen fired");
+    setIsOpen(!isOpen);
+  };
+  React.useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.style.maxHeight = isOpen
+        ? `${contentRef.current.scrollHeight}px`
+        : "0";
+    }
+  }, [isOpen]);
+  React.useEffect(() => {
+    console.log("isOpen", isOpen);
+  }, [isOpen]);
+  const utilities = ["Staking", "LP Farming", "Airdrop"];
+  const docs = ["How to stake", "How to LP", "White paper"];
   return (
     <header className="pt-10  pb-4 mx-auto  max-sm:mt-1 bg-neutral-50 max-[1281px]:px-5 max-sm:pb-0">
       <BuySeraModal
@@ -27,8 +45,15 @@ export default function Header() {
           <Link href="/" className="w-[40%] h-auto">
             <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
           </Link>
-          <button className="lg:hidden bg-surface-500 py-[10.5px] px-[10.5px] rounded-full border-2 border-black border-solid">
-            <Menu width={25} height={24} strokeWidth={2.67} />
+          <button
+            className="lg:hidden bg-surface-500 py-[10.5px] px-[10.5px] rounded-full border-2 border-black border-solid"
+            onClick={toggleOpen}
+          >
+            {isOpen ? (
+              <X width={25} height={24} strokeWidth={2.67} />
+            ) : (
+              <Menu width={25} height={24} strokeWidth={2.67} />
+            )}
           </button>
           <button
             className="bg-surface-500 py-1.5 px-3 rounded-full border-2 font-medium hover:font-bold border-black border-solid hidden lg:flex items-center gap-0.5 "
@@ -111,6 +136,61 @@ export default function Header() {
             </li>
           </ul>
         </nav>
+        <div
+          ref={contentRef}
+          className="overflow-hidden transition-max-height duration-500 ease-in-out w-full lg:hidden"
+          style={{ maxHeight: "0" }}
+        >
+          <div className="flex flex-col justify-center self-stretch text-base font-medium text-black w-full">
+            <hr className="shrink-0 my-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+            <button
+              className="items-center hover:font-bold flex justify-center px-2.5 py-1.5 w-fit text-sm bg-surface-500 border-2 border-black border-solid rounded-[38px]"
+              onClick={() => setToggleBridgeProcessModal(true)}
+            >
+              <span className="text-sm  text-left text-nowrap ">
+                Bridge $CLAP
+              </span>
+              <ArrowUpRight />
+            </button>
+            <button
+              className="items-center hover:font-bold flex justify-center px-2.5 py-1.5 w-fit text-sm bg-surface-500 border-2 border-black border-solid rounded-[38px] mt-4"
+              onClick={() => setToggleBuyEraModal(true)}
+            >
+              <span className="text-sm  text-left text-nowrap ">Buy $ERA</span>
+              <ArrowUpRight />
+            </button>
+            <hr className="shrink-0 my-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+            <div className="w-full text-lg font-semibold">Utilities:</div>
+            <ul>
+              {utilities.map((item, index) => (
+                <li className="mt-2.5 w-full" key={index}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5 w-full text-lg font-semibold">Docs:</div>
+            <ul>
+              {docs.map((item, index) => (
+                <li className="mt-2.5 w-full" key={index}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <Link
+              className="mt-5 w-full text-lg font-semibold cursor-pointer"
+              href="/dashboard"
+            >
+              Dashboard
+            </Link>
+            <hr className="shrink-0 my-5 h-px border border-solid bg-stone-300 border-stone-300 max-md:max-w-full" />
+            <div className="flex justify-center w-full pb-1 ">
+              <ConnectWalletButton
+                text="Connect Wallet"
+                className="secondary-button-sm font-semibold text-lg text-primary tracking-[2%] border-[2.5px] border-black border-solid px-4 py-2 rounded-xl max-lg:px-5"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );
