@@ -7,7 +7,7 @@ type ErrorBoxProps = {
 
 const ErrorBox: React.FC<ErrorBoxProps> = ({ text, bgColor }) => (
   <div
-    className={`flex gap-1.5 px-2.5 py-1 font-medium ${bgColor} rounded font-NeueHaas text-lg leading-[21.6px] `}
+    className={`flex gap-1.5 px-2.5 py-1 font-medium ${bgColor} rounded font-NeueHaas text-lg leading-[21.6px] max-sm:text-base`}
   >
     <div>
       <TriangleAlert width={17} height={17} color="#000000" />
@@ -15,6 +15,5 @@ const ErrorBox: React.FC<ErrorBoxProps> = ({ text, bgColor }) => (
     <div>{text}</div>
   </div>
 );
-
 
 export default ErrorBox;
