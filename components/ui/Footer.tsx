@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
     { text: "Staking" },
     { text: "LP Farming" },
     { text: "Airdrop" },
-    { text: "Gouvernance", soon: true },
+    { text: "Governance", soon: true },
   ];
 
   const resourceItems = [
@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
             <section className="flex flex-col ml-5 w-[30%] max-md:ml-0 max-md:w-[50%]">
               <div className="flex flex-col grow text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10">
                 <div className="text-xl font-semibold tracking-tight leading-7">
-                  Ressources
+                  Resources
                 </div>
                 {resourceItems.map((item, index) => (
                   <div key={index} className="mt-4 cursor-pointer">
@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
             <section className="flex flex-col ml-5 w-[29%] max-md:ml-0 max-md:w-full">
               <div className="flex flex-col grow self-stretch pb-20 text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10 w-max max-sm:w-full">
                 <div className="text-xl font-semibold tracking-tight leading-7">
-                  Social media
+                  Social Media
                 </div>
                 <div className="flex flex-col max-sm:flex-row max-sm:justify-between">
                   {socialMediaItems.map((item, index) => (
