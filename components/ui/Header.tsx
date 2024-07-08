@@ -3,30 +3,44 @@ import Link from "next/link";
 import { ChevronDown, ArrowUpRight, Menu } from "lucide-react";
 import ConnectWalletButton from "./connectWalletButton";
 import React from "react";
-// import OffCanvas from "./off-canvas";
+import BuySeraModal from "./BuySeraModal";
+import BridgeProcessModal from "./BridgeProcessModal";
 
 export default function Header() {
-  // const [isOpen, setIsOpen] = React.useState(false);
+  const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
+  const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
+    React.useState(false);
   return (
-    <header className="container  py-4 mx-auto mt-12 max-sm:mt-1 sticky top-0 z-50">
-      <div className="flex justify-between max-w-[1295px] mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3 max-lg:mx-3">
+    <header className="py-4 mt-12 max-sm:mt-1  px-20 max-md:px-5">
+      <BuySeraModal
+        toggleBuyEraModal={toggleBuyEraModal}
+        setToggleBuyEraModal={setToggleBuyEraModal}
+      />
+      <BridgeProcessModal
+        toggleBridgeProcessModal={toggleBridgeProcessModal}
+        setToggleBridgeProcessModal={setToggleBridgeProcessModal}
+      />
+      <div className="flex justify-between  mx-auto  flex-wrap items-center text-neutral-700 border-[3px] rounded-2xl border-black border-solid bg-zinc-50 px-4 py-3 ">
         <div className="flex items-center justify-around gap-4 max-lg:w-full max-lg:justify-between">
           <Link href="/" className="w-[40%] h-auto">
             <Image src="/images/logo.svg" alt="logo" width={100} height={100} />
           </Link>
-          <button
-            className="lg:hidden bg-surface-500 py-[10.5px] px-[10.5px] rounded-full border-2 border-black border-solid"
-            // onClick={() => setIsOpen(true)}
-          >
+          <button className="lg:hidden bg-surface-500 py-[10.5px] px-[10.5px] rounded-full border-2 border-black border-solid">
             <Menu width={25} height={24} strokeWidth={2.67} />
           </button>
-          <button className="bg-surface-500 py-1.5 px-3 rounded-full border-2 font-medium hover:font-bold border-black border-solid hidden lg:flex items-center gap-0.5 ">
+          <button
+            className="bg-surface-500 py-1.5 px-3 rounded-full border-2 font-medium hover:font-bold border-black border-solid hidden lg:flex items-center gap-0.5 "
+            onClick={() => setToggleBridgeProcessModal(true)}
+          >
             <span className="text-base  text-left text-nowrap ">
               Bridge $CLAP
             </span>
             <ArrowUpRight />
           </button>
-          <button className="bg-surface-500 py-1.5 px-3 rounded-full  font-medium hover:font-bold border-2 border-black border-solid hidden lg:flex items-center gap-0.5">
+          <button
+            className="bg-surface-500 py-1.5 px-3 rounded-full  font-medium hover:font-bold border-2 border-black border-solid hidden lg:flex items-center gap-0.5"
+            onClick={() => setToggleBuyEraModal(true)}
+          >
             <span className="text-base  text-left text-nowrap ">Buy $ERA</span>
             <ArrowUpRight />
           </button>
@@ -92,7 +106,6 @@ export default function Header() {
           </ul>
         </nav>
       </div>
-      {/* <OffCanvas isOpen={isOpen} setIsOpen={setIsOpen} /> */}
     </header>
   );
 }
