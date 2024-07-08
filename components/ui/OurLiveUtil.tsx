@@ -54,12 +54,18 @@ const OurLiveUtil: React.FC = () => {
     >
       <div className="flex gap-5 justify-between font-semibold">
         <h3 className="text-2xl text-neutral-700 max-sm:text-xl">{title}</h3>
-        <Link
-          href={link}
-          className="pb-1.5 cursor-pointer my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
-        >
-          {btnText}
-        </Link>
+        {link === "no link" ? (
+          <p className="pb-1.5 my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0">
+            Coming soon
+          </p>
+        ) : (
+          <Link
+            href={link}
+            className="pb-1.5 cursor-pointer my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
+          >
+            {btnText}
+          </Link>
+        )}
       </div>
       <p className="mt-6 text-lg font-medium text-neutral-500 max-sm:mt-5 max-sm:text-base">
         {description}
@@ -104,7 +110,7 @@ const OurLiveUtil: React.FC = () => {
         "Hold $ERA tokens and vote on key decisions including project funding, strategic directions, and community proposals. ",
       imageUrl: "/images/placeholder.png",
       btnText: "Coming soon",
-      link: "/",
+      link: "no link",
     },
   ];
 
