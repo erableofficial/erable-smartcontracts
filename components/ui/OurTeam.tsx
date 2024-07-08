@@ -22,7 +22,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
 }) => (
   <div className="flex flex-col grow mx-auto w-full bg-white rounded-[1.875rem] max-md:mt-6">
     {bgYellow ? (
-      <div className="border border-solid border-neutral-400 bg-surface-500 rounded-2xl w-full h-full flex items-center justify-center">
+      <div className="border border-solid border-neutral-400 bg-surface-500 rounded-2xl w-full h-full flex items-center justify-center max-sm:h-[271px]">
         <Image
           src={imgSrc}
           alt={imgAlt}
@@ -64,8 +64,8 @@ const members = [
   {
     imgSrc: "/images/logo.svg",
     imgAlt: "Image of Team Member 1",
-    title: "erable.com",
-    tag: "tech",
+    title: "erable°",
+    tag: "business & product",
     description:
       "Massa gravida quam massa gravida quam massa gravida quam massa",
     contact: "Personne à contacter + contact",
@@ -74,7 +74,7 @@ const members = [
   {
     imgSrc: "/images/placeholder.png",
     imgAlt: "Image of Team Member 2",
-    title: "erable.com",
+    title: "Dar Blockchain",
     tag: "tech",
     description:
       "Massa gravida quam massa gravida quam massa gravida quam massa",
@@ -104,11 +104,11 @@ const members = [
 ];
 
 const OurTeam: React.FC = () => (
-  <section className="flex flex-col justify-center p-20 bg-white max-md:px-5">
-    <div className="self-start px-2.5 mt-2.5 ml-2.5 font-friends text-5xl font-extrabold leading-[4.254rem] text-neutral-700 bg-surface-500 rounded-xl">
+  <section className="flex flex-col justify-center p-20 bg-white max-md:px-5 max-sm:py-10">
+    <div className="self-start px-2.5  ml-2.5 font-friends text-5xl font-extrabold leading-[4.254rem] text-neutral-700 bg-surface-500 rounded-xl max-sm:text-4xl">
       Our Team
     </div>
-    <div className="mx-2.5 mt-12 max-md:mt-10 max-md:max-w-full">
+    <div className="mx-2.5 mt-12 max-md:mt-10 max-md:max-w-full max-sm:mx-0 max-sm:mt-4">
       <div className="flex gap-5 max-md:flex-col max-md:gap-0">
         {members.map((member) => (
           <div
