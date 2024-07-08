@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
 
   return (
     <div className="flex flex-col pt-16 bg-surface-500">
-      <div className="flex gap-5 justify-between px-20 w-full max-md:flex-wrap max-md:px-5 max-md:max-w-full">
+      <div className="flex gap-5 justify-between px-20 w-full flex-wrap max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col py-0.5 min-w-[233px]">
           <Image
             src="/images/erable footer.svg"
@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
           </p>
         </div>
         <div className="max-md:w-full">
-          <div className="flex gap-5  max-md:gap-0  max-sm:flex-wrap">
+          <div className="flex gap-[70px]  max-md:gap-0  max-sm:flex-wrap">
             <section className="flex flex-col w-[41%] max-md:ml-0 max-md:w-[50%]">
               <div className="flex flex-col grow font-medium max-md:mt-10">
                 <div className="text-xl font-semibold tracking-tight  text-stone-900">
@@ -84,7 +84,7 @@ const Footer: React.FC = () => {
                 ))}
               </div>
             </section>
-            <section className="flex flex-col ml-5 w-[30%] max-md:ml-0 max-md:w-[50%]">
+            <section className="flex flex-col ml-5 w-[31%] max-md:ml-0 max-md:w-[50%]">
               <div className="flex flex-col grow text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10">
                 <div className="text-xl font-semibold tracking-tight leading-7">
                   Resources
@@ -96,7 +96,7 @@ const Footer: React.FC = () => {
                 ))}
               </div>
             </section>
-            <section className="flex flex-col ml-5 w-[29%] max-md:ml-0 max-md:w-full">
+            <section className="flex flex-col ml-5 w-[29%] max-md:ml-0 max-sm:w-full max-md:w-[34%]">
               <div className="flex flex-col grow self-stretch pb-20 text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10 w-max max-sm:w-full">
                 <div className="text-xl font-semibold tracking-tight leading-7">
                   Social Media
