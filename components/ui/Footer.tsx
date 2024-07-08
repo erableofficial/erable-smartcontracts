@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
   const socialMediaItems = ["Discord", "Twitter", "Medium"];
 
   return (
-    <div className="flex flex-col pt-16 bg-surface-500">
+    <div className="flex flex-col pt-16 bg-surface-500 max-sm:pt-6">
       <div className="flex gap-5 justify-between px-20 w-full flex-wrap max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col py-0.5 min-w-[233px]">
           <Image
@@ -64,11 +64,11 @@ const Footer: React.FC = () => {
             width={106}
             height={19}
           />
-          <div className="mt-7 text-[26px] font-semibold tracking-wide leading-8 text-stone-900">
+          <div className="mt-7 text-[26px] font-semibold tracking-wide leading-8 text-stone-900 max-sm:text-xl max-sm:mt-6">
             Enable a new era of
             <br /> impact investing
           </div>
-          <p className="mt-14 text-sm leading-5 text-stone-900 max-md:mt-10">
+          <p className="mt-14 text-sm leading-5 text-stone-900 max-md:mt-10 max-sm:mt-4">
             ©{new Date().getFullYear()} Erable. All rights reserved
           </p>
         </div>
@@ -97,7 +97,7 @@ const Footer: React.FC = () => {
               </div>
             </section>
             <section className="flex flex-col ml-5 w-[29%] max-md:ml-0 max-sm:w-full max-md:w-[34%]">
-              <div className="flex flex-col grow self-stretch pb-20 text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10 w-max max-sm:w-full">
+              <div className="flex flex-col grow self-stretch pb-20 text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10 w-max max-sm:w-full max-sm:pb-10">
                 <div className="text-xl font-semibold tracking-tight leading-7">
                   Social Media
                 </div>
@@ -114,7 +114,7 @@ const Footer: React.FC = () => {
       <Image
         src="/images/big erable footer.svg"
         alt="erable"
-        className="mt-7 w-full max-md:max-w-full"
+        className="mt-7 w-full max-md:max-w-full max-sm:mt-0"
         width={1290}
         height={258}
       />
