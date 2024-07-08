@@ -243,7 +243,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
           return {
             type: "Airdrop",
             id: index,
-            startTime: "--",
+            startTime: airdrop.created_at
+              ? new Date(airdrop.created_at).toLocaleDateString()
+              : "--",
             amount: BigInt(airdrop.amount),
             endTime: "--",
             action: isClaimed ? "Claimed" : "Claim",

@@ -34,6 +34,7 @@ export default async function handler(
         cycle: element.cycle.toString(),
         address: element.address,
         amount: element.amount.toString(),
+        created_at: new Date().getTime().toString(),
       });
 
       // Add to a sorted set for easy retrieval by cycle

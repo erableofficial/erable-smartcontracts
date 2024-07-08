@@ -204,16 +204,16 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
           </div>
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5">
-          XXXXX
+          {airdrop.startTime}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5">
           {Number(airdrop.amount)}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5 min-w-[222px]">
-          XXXXX
+          --
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-neutral-700 max-md:pr-5 max-w-[171px]">
-          XXXXX
+          {airdrop.endTime}
         </div>
         <div className="flex flex-col self-stretch px-2.5 min-w-[150px]">
           <button
