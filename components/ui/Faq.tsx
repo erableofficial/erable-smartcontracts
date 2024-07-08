@@ -15,7 +15,6 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
     setIsOpen(!isOpen);
   };
 
-  // This useEffect ensures that updates to isOpen appropriately adjust maxHeight
   React.useEffect(() => {
     if (contentRef.current) {
       contentRef.current.style.maxHeight = isOpen
