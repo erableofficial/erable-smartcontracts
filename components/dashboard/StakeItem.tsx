@@ -195,7 +195,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
           {formatEther(stake.amount)}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium whitespace-nowrap text-neutral-700 max-md:pr-5 min-w-[222px]">
-          {formatEther(currentRewards)}
+          {Number(formatEther(currentRewards))}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-neutral-700 max-md:pr-5 max-w-[171px]">
           {new Date(stake.endTime).toLocaleDateString()}
@@ -237,14 +237,6 @@ Once this period ends, you can return to the platform to claim your tokens and a
             onClick={() => {
               handleItemAction(stake.id, stake.action, stake.type);
             }}
-            //   stake.action === "Claim"&&stake.type=="Staking"
-            //     ? () => {
-            //         handleClaim(stake.id);
-            //       }
-            //     : () => {
-            //         setToggleWithdrawTokenCdModalModal(true);
-            //       }
-            // }
             className={`justify-center px-5 py-3 mt-2 text-base font-semibold whitespace-nowrap ${
               stake.action === "Claim" && stake.daysLeft == null
                 ? "bg-surface-primary"
