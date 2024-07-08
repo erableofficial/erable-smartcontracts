@@ -36,6 +36,7 @@ import { useCurrentUser } from "../../context/currentUser";
 import { useAirdropCycles } from "../../context/airdropCycles";
 import { readContract } from "@wagmi/core";
 import { config } from "../../lib/wagmi/config";
+import Loading from "../ui/loading";
 
 interface DashboardProps {}
 
@@ -64,6 +65,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [userStakingBalance, setUserStakingBalance] = React.useState<bigint>(
     BigInt(0)
   );
+  const [tabLoading, setTabLoading] = useState<boolean>(true);
+
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -266,6 +269,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       });
 
       if (stakingDuration) {
+        setTabLoading(true);
         updateUserStakes();
         updateUserBalnce();
         updateUserStaked();
@@ -296,10 +300,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
     if (stakingItems.length > 0 && airdropItems.length > 0) {
       const allItems = [...stakingItems, ...airdropItems];
       setAllItems(allItems);
+      setTabLoading(false);
     } else if (stakingItems.length > 0) {
       setAllItems(stakingItems);
+      setTabLoading(false);
     } else if (airdropItems.length > 0) {
       setAllItems(airdropItems);
+      setTabLoading(false);
     }
   }, [stakingItems, airdropItems]);
 
@@ -424,7 +431,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </div>
                 </div>
 
-                {selected === "All" && (
+                {tabLoading && (
+                  <div className="flex justify-center items-center py-5">
+                    <Loading />
+                  </div>
+                )}
+
+                {selected === "All" && !tabLoading && (
                   <>
                     {allItems?.length === 0 ? (
                       <NoUtilities
@@ -439,7 +452,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     )}
                   </>
                 )}
-                {selected === "Staking" && (
+                {selected === "Staking" && !tabLoading && (
                   <>
                     {stakingItems?.length === 0 ? (
                       <NoUtilities
@@ -455,7 +468,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </>
                 )}
 
-                {selected === "Your Farming" && (
+                {selected === "Your Farming" && !tabLoading && (
                   <>
                     {farmingItems?.length === 0 ? (
                       <NoUtilities
@@ -471,7 +484,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </>
                 )}
 
-                {selected === "Airdrop" && (
+                {selected === "Airdrop" && !tabLoading && (
                   <>
                     {airdropItems?.length === 0 ? (
                       <NoUtilities
