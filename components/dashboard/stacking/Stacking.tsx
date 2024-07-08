@@ -25,14 +25,14 @@ const Stacking: React.FC = () => {
     },
     {
       number: "2",
-      title: "Staking Process",
+      title: "Transfer Funds",
       text: "Transfer Funds",
       isActive: false,
     },
     {
       number: "3",
-      title: "Staking Process",
-      text: "Start Earning",
+      title: "Staking Successful",
+      text: "Confirmation",
       isActive: false,
     },
   ]);

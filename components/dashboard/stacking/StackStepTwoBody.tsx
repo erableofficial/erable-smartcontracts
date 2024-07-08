@@ -69,19 +69,19 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
       setSteps([
         {
           number: "1",
-          title: "Stake your token : Informations",
-          text: "Staking Informations",
+          title: "Start Your Staking",
+          text: "Set Up Staking",
           isActive: false,
         },
         {
           number: "2",
-          title: "Send funds",
-          text: "Send funds",
+          title: "Transfer Funds",
+          text: "Transfer Funds",
           isActive: false,
         },
         {
           number: "3",
-          title: "You staked sucessfully",
+          title: "Staking Successful",
           text: "Confirmation",
           isActive: true,
         },
