@@ -93,7 +93,7 @@ const Faq: React.FC = () => {
     <section className="self-stretch p-[90px] max-lg:px-5 max-sm:py-10 ">
       <div className="flex gap-5 max-lg:flex-col max-lg:gap-0">
         <div className="flex flex-col w-6/12 max-lg:ml-0 max-lg:w-full">
-          <div className="flex flex-col px-5 text-5xl font-extrabold text-neutral-700 leading-[3.3rem] max-lg:mt-10 maxlg:text-4xl max-sm:mt-0 max-sm:px-0 max-sm:w-max">
+          <div className="flex flex-col px-5 text-5xl font-extrabold text-neutral-700 leading-[3.3rem] max-lg:mt-10 max-lg:text-4xl max-sm:mt-0 max-sm:px-0 max-sm:w-max">
             <h1 className="max-lg:text-4xl">
               Frequently
               <div className="justify-center font-friends w-fit px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-lg:text-4xl max-sm:w-min">
