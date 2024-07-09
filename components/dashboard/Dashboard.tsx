@@ -40,6 +40,7 @@ import Loading from "../ui/loading";
 import NoFarmingUtilities from "./NoFarmingUtilities";
 import NoAirdropUtilities from "./NoAirdropUtilities";
 import NoStakingUtilities from "./NoStakingUtilities";
+import LpFarmingModal from "./LpFarmingModal";
 
 interface DashboardProps {}
 
@@ -54,6 +55,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const toggleButtonRef2 = useRef<HTMLButtonElement | null>(null);
   const [toggleBuyEraModal, setToggleBuyEraModal] =
+    React.useState<boolean>(false);
+  const [toggleLpFarmingModal, setToggleLpFarmingModal] =
     React.useState<boolean>(false);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -362,6 +365,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
             toggleBuyEraModal={toggleBuyEraModal}
             setToggleBuyEraModal={setToggleBuyEraModal}
           />
+          <LpFarmingModal
+            setToggleLpFarmingModal={setToggleLpFarmingModal}
+            toggleLpFarmingModal={toggleLpFarmingModal}
+          />
 
           <CardsSection
             userStakingBalance={userStakingBalance}
@@ -424,7 +431,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                                 Staking
                               </div>
                             </Link>
-                            <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                            <div
+                              className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer "
+                              onClick={() => setToggleLpFarmingModal(true)}
+                            >
                               LP Farming
                             </div>
                           </div>
@@ -517,7 +527,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 <ChevronDown height={24} width={24} color="#1F1F1F" />
               )}
             </button>
-            {isDropdownOpen && (
+            {isDropdownOpen && isConnected && (
               <div
                 ref={dropdownRef}
                 className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
@@ -528,7 +538,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     Staking
                   </div>
                 </Link>
-                <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                <div
+                  className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer "
+                  onClick={() => setToggleLpFarmingModal(true)}
+                >
                   LP Farming
                 </div>
               </div>
