@@ -55,13 +55,13 @@ const OurLiveUtil: React.FC = () => {
       <div className="flex gap-5 justify-between font-semibold">
         <h3 className="text-2xl text-neutral-700 max-sm:text-xl">{title}</h3>
         {link === "no link" ? (
-          <p className="pb-1.5 my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0">
+          <p className=" my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0">
             Coming soon
           </p>
         ) : (
           <Link
             href={link}
-            className="pb-1.5 cursor-pointer my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
+            className="cursor-pointer my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
           >
             {btnText}
           </Link>

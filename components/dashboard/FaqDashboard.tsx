@@ -4,7 +4,7 @@ import * as React from "react";
 
 type FAQItemProps = {
   question: string;
-  answer: string;
+  answer: React.ReactNode;
   link?: string;
 };
 
@@ -49,10 +49,10 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
       >
         <div className="mt-4 text-sm text-gray-700">{answer}</div>
         {link && (
-          <div className="self-start pb-1.5 mt-6 text-lg font-semibold text-neutral-700 ">
+          <div className="self-start mt-6 text-lg font-semibold text-neutral-700 ">
             <Link
               href={link}
-              className="pb-1.5 mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
+              className="mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
             >
               Read more
             </Link>
@@ -66,27 +66,168 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
 const Faq: React.FC = () => {
   const faqItems = [
     {
-      question: "Lorem ipsum dolor sit amet consectetu or sit?",
-      answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      question: "What is erable°?",
+      answer: (
+        <>
+          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+            <p>
+              erable° is an impact{" "}
+              <span className="font-semibold">
+                investment fintech and financial
+              </span>{" "}
+              innovation lab dedicated to creating transformative financial
+              products that drive social and environmental change.
+            </p>
+            <p className="mt-7">
+              At the intersection of impact, technology, and collaboration, we
+              believe the challenge isn't finding the funds but{" "}
+              <span className="font-semibold">
+                redirecting them toward impactful projects.
+              </span>{" "}
+              Traditional views on charity and profitability hinder this flow.
+              We advocate for{" "}
+              <span className="font-semibold">new financial products</span> and
+              profitability avenues, leveraging technologies like blockchain as
+              key enablers.
+            </p>
+            <ul className="ml-5 list-disc">
+              <li className="mt-3">
+                <span className="font-semibold">
+                  Core Activity: Impact Crowdfunding Platform (Web2 + Web3)
+                </span>
+                Our emphasis is on revenue-based models in Europe. These link
+                repayments to a project's revenue, aligning investor interests
+                with business success.
+              </li>
+              <li className="mt-5">
+                Other Notable Activities Collaborating with corporations to
+                explore innovative financing methods, and launching an impact
+                investment fund (≈ 18 months)
+              </li>
+            </ul>
+            <p className="mt-7">
+              We achieve this through our vibrant community, powered by our
+              utility token $ERA, which fuels our ecosystem and aligns the
+              interests of all stakeholders towards a common goal of impactful
+              change.
+            </p>
+          </div>
+        </>
+      ),
       link: "#",
     },
     {
-      question: "Lorem ipsum dolor sit amet consectetu or sit?",
-      answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      question: "What is the $ERA token?",
+      answer: (
+        <>
+          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+            <p>
+              $ERA is{" "}
+              <span className="font-semibold">
+                the utility token at the heart of the erable°
+              </span>{" "}
+              business model. Here’s what it brings to the table:
+            </p>
+            <ul className="list-disc ml-5">
+              <li className="mt-7">
+                <span className="font-semibold">Access Services:</span> Hold
+                $ERA to unlock all our products & services, whether you're an
+                investor, project, or partner.
+              </li>
+              <li className="mt-7">
+                <span className="font-semibold">Earn $ERA:</span> Get rewarded
+                for ecosystem growth through contributions, LP farming, staking,
+                and platform perks.
+              </li>
+              <li className="mt-7">
+                <span className="font-semibold">Govern with $ERA:</span> Have a
+                say in our strategic directions and supported projects, ensuring
+                we stay true to our shared values.
+              </li>
+            </ul>
+            <p className="mt-7">
+              $ERA embodies our commitment to fair value redistribution across
+              erable° and its brands.
+            </p>
+          </div>
+        </>
+      ),
       link: "#",
     },
     {
-      question: "Lorem ipsum dolor sit amet consectetu or sit?",
-      answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      question: "Where to get $ERA?",
+      answer: (
+        <>
+          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+            <p>
+              You can acquire $ERA on Uniswap, a leading decentralized exchange
+              (DeX) known for its ease of use and robust security features.
+            </p>
+            <p className="mt-7">Steps to Acquire $ERA:</p>
+            <ul className="list-decimal ml-6">
+              <li>Set Up a Wallet (full list here)</li>
+              <li>Connect to Uniswap</li>
+              <li>Find $ERA</li>
+              <li>Swap $USDC for $ERA</li>
+              <li>View $ERA in Your Wallet</li>
+            </ul>
+          </div>
+        </>
+      ),
       link: "#",
     },
     {
-      question: "Lorem ipsum dolor sit amet consectetu or sit?",
-      answer:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      question: "How to bridge as a $CLAP holder?",
+      answer: (
+        <>
+          <div className="font-medium text-lg">
+            <p>
+              The $CLAP token bridge allows holders to bridge their $CLAP tokens
+              from the Cardano blockchain to the Polygon blockchain.
+            </p>
+            <p className="mt-7">
+              The bridge is opened with our partner Chainport, a fully-audited
+              bridging platform specializing in altcoins. The Chainport bridge
+              already supported the bridging of Cardano Native Tokens such as
+              $COPI, $NMKR or $MELD.
+            </p>
+            <p className="mt-7">
+              To{" "}
+              <span className="font-semibold">
+                bridge your $CLAP tokens to Polygon, you must go to the
+                Chainport
+              </span>{" "}
+              application and follow the process. To do this, you'll need your
+              wallets:
+            </p>
+            <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
+              <li className="mt-7">
+                <span className="font-semibold">Cardano: a Nami wallet</span>
+                (Chainport's only Cardano wallet today) holding your $CLAP
+                tokens.
+              </li>
+              <li>
+                <span className="font-semibold">
+                  Polygon: a compatible EVM wallet{" "}
+                </span>{" "}
+                (full list here)
+              </li>
+            </ul>
+            <p className="mt-7">
+              The whole process{" "}
+              <span className="font-semibold">takes at most 4 minutes</span>,
+              including transaction times. You'll need to pay the Cardano
+              transaction fee and the Chainport platform fee of 0.3% of the
+              total $CLAP you wish to bridge.
+            </p>
+            <p className="mt-7">
+              Example: $100,000CLAP to bridge with 0.3% fee $99,700CLAP on
+              Polygon These fees will be more than covered by the incentives
+              offered to early $CLAP holders.
+            </p>
+          </div>
+        </>
+      ),
       link: "#",
     },
   ];
