@@ -79,7 +79,7 @@ const Faq: React.FC = () => {
             </p>
             <p className="mt-7">
               At the intersection of impact, technology, and collaboration, we
-              believe the challenge isn't finding the funds but{" "}
+              believe the challenge isn&apos;t finding the funds but{" "}
               <span className="font-semibold">
                 redirecting them toward impactful projects.
               </span>{" "}
@@ -95,7 +95,7 @@ const Faq: React.FC = () => {
                   Core Activity: Impact Crowdfunding Platform (Web2 + Web3)
                 </span>
                 Our emphasis is on revenue-based models in Europe. These link
-                repayments to a project's revenue, aligning investor interests
+                repayments to a project&apos;s revenue, aligning investor interests
                 with business success.
               </li>
               <li className="mt-5">
@@ -130,7 +130,7 @@ const Faq: React.FC = () => {
             <ul className="list-disc ml-5">
               <li className="mt-7">
                 <span className="font-semibold">Access Services:</span> Hold
-                $ERA to unlock all our products & services, whether you're an
+                $ERA to unlock all our products & services, whether you&apos;re an
                 investor, project, or partner.
               </li>
               <li className="mt-7">
@@ -196,13 +196,13 @@ const Faq: React.FC = () => {
                 bridge your $CLAP tokens to Polygon, you must go to the
                 Chainport
               </span>{" "}
-              application and follow the process. To do this, you'll need your
+              application and follow the process. To do this, you&apos;ll need your
               wallets:
             </p>
             <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
               <li className="mt-7">
                 <span className="font-semibold">Cardano: a Nami wallet</span>
-                (Chainport's only Cardano wallet today) holding your $CLAP
+                (Chainport&apos;s only Cardano wallet today) holding your $CLAP
                 tokens.
               </li>
               <li>
@@ -215,7 +215,7 @@ const Faq: React.FC = () => {
             <p className="mt-7">
               The whole process{" "}
               <span className="font-semibold">takes at most 4 minutes</span>,
-              including transaction times. You'll need to pay the Cardano
+              including transaction times. You&apos;ll need to pay the Cardano
               transaction fee and the Chainport platform fee of 0.3% of the
               total $CLAP you wish to bridge.
             </p>
