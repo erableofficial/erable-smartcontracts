@@ -40,6 +40,7 @@ import Loading from "../ui/loading";
 import NoFarmingUtilities from "./NoFarmingUtilities";
 import NoAirdropUtilities from "./NoAirdropUtilities";
 import NoStakingUtilities from "./NoStakingUtilities";
+import LpFarmingModal from "./LpFarmingModal";
 
 interface DashboardProps {}
 
@@ -50,13 +51,18 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const { airdropCycles, setAirdropCycles } = useAirdropCycles();
   const [selected, setSelected] = useState<string>("All");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isDropdownOpen2, setIsDropdownOpen2] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const dropdownRef2 = useRef<HTMLDivElement | null>(null);
   const toggleButtonRef = useRef<HTMLButtonElement | null>(null);
   const toggleButtonRef2 = useRef<HTMLButtonElement | null>(null);
   const [toggleBuyEraModal, setToggleBuyEraModal] =
     React.useState<boolean>(false);
+  const [toggleLpFarmingModal, setToggleLpFarmingModal] =
+    React.useState<boolean>(false);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+  const toggleDropdown2 = () => setIsDropdownOpen2(!isDropdownOpen2);
   const [allItems, setAllItems] = useState<Array<TabItem>>([]);
   const [farmingItems, setFarmingItems] = useState<Array<TabItem>>([]);
   const [airdropItems, setAirdropItems] = useState<Array<TabItem>>([]);
@@ -76,9 +82,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node) &&
         toggleButtonRef.current &&
-        toggleButtonRef2.current &&
-        !toggleButtonRef.current.contains(event.target as Node) &&
-        !toggleButtonRef2.current.contains(event.target as Node)
+        !toggleButtonRef.current.contains(event.target as Node)
       ) {
         setIsDropdownOpen(false);
       }
@@ -92,6 +96,26 @@ const Dashboard: React.FC<DashboardProps> = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDropdownOpen]);
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef2.current &&
+        !dropdownRef2.current.contains(event.target as Node) &&
+        toggleButtonRef2.current &&
+        !toggleButtonRef2.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen2(false);
+      }
+    };
+
+    if (isDropdownOpen2) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen2]);
 
   const {
     isConnected,
@@ -362,6 +386,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
             toggleBuyEraModal={toggleBuyEraModal}
             setToggleBuyEraModal={setToggleBuyEraModal}
           />
+          <LpFarmingModal
+            setToggleLpFarmingModal={setToggleLpFarmingModal}
+            toggleLpFarmingModal={toggleLpFarmingModal}
+          />
 
           <CardsSection
             userStakingBalance={userStakingBalance}
@@ -400,7 +428,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                         <button
                           className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
                           onClick={toggleDropdown}
-                          ref={toggleButtonRef2}
+                          ref={toggleButtonRef}
                         >
                           <span className="my-auto">Start a new program</span>
                           {isDropdownOpen ? (
@@ -424,7 +452,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                                 Staking
                               </div>
                             </Link>
-                            <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                            <div
+                              className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer "
+                              onClick={() => setToggleLpFarmingModal(true)}
+                            >
                               LP Farming
                             </div>
                           </div>
@@ -507,19 +538,19 @@ const Dashboard: React.FC<DashboardProps> = () => {
           <div>
             <button
               className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
-              onClick={toggleDropdown}
+              onClick={toggleDropdown2}
               ref={toggleButtonRef2}
             >
               <span className="my-auto">Start a new program</span>
-              {isDropdownOpen ? (
+              {isDropdownOpen2 ? (
                 <ChevronUp height={24} width={24} color="#1F1F1F" />
               ) : (
                 <ChevronDown height={24} width={24} color="#1F1F1F" />
               )}
             </button>
-            {isDropdownOpen && (
+            {isDropdownOpen2 && isConnected && (
               <div
-                ref={dropdownRef}
+                ref={dropdownRef2}
                 className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
               >
                 {/* Dropdown items here */}
@@ -528,7 +559,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                     Staking
                   </div>
                 </Link>
-                <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer ">
+                <div
+                  className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer "
+                  onClick={() => setToggleLpFarmingModal(true)}
+                >
                   LP Farming
                 </div>
               </div>
