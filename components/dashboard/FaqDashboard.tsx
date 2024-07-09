@@ -33,12 +33,14 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
         <div className="my-auto text-xl font-bold text-primary max-lg:max-w-full">
           {question}
         </div>
-        <button
-          className="flex justify-center items-center p-3 hover:bg-surface-500 border border-solid border-zinc-300 h-[2.813rem] rounded-[2.344rem] w-[2.813rem]"
+        <div
+          className={` cursor-pointer flex justify-center items-center p-3 ${
+            isOpen ? "bg-surface-500" : ""
+          }  border border-solid border-zinc-300 h-[45px] rounded-[37.5px] w-[45px]`}
           onClick={toggleOpen}
         >
           {isOpen ? <Minus /> : <Plus />}
-        </button>
+        </div>
       </div>
       <div
         ref={contentRef}
