@@ -27,7 +27,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
       <Image
         src={imgSrc}
         alt={imgAlt}
-        className="w-full border border-solid aspect-[1.1] object-none border-neutral-400 rounded-2xl"
+        className="w-full aspect-[3/2] object-none border-neutral-400 rounded-2xl"
         width={300}
         height={300}
       />
