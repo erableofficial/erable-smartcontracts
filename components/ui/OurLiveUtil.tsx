@@ -55,13 +55,17 @@ const OurLiveUtil: React.FC = () => {
       <div className="flex gap-5 justify-between font-semibold">
         <h3 className="text-2xl text-neutral-700 max-sm:text-xl">{title}</h3>
         {link === "no link" ? (
-          <p className="pb-1.5 my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0">
+          <p
+            className={`${
+              index === activeIndex ? "bg-surface-300 font-semibold" : "bg-surface-500"
+            }  py-1.5 px-2.5 font-NeueHaas text-sm font-medium rounded-full text-neutral-700 border-[1.5px] border-black border-solid max-sm:text-base max-sm:border max-sm:font-medium max-sm:p-0.5`}
+          >
             Coming soon
           </p>
         ) : (
           <Link
             href={link}
-            className="pb-1.5 cursor-pointer my-auto text-lg text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
+            className="pb-1.5 cursor-pointer my-auto font-medium font-NeueHaas text-base text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
           >
             {btnText}
           </Link>
@@ -73,8 +77,8 @@ const OurLiveUtil: React.FC = () => {
       <Image
         src={imageUrl}
         alt={`${title} illustration`}
-        className="mt-16 w-full aspect-[1.15] max-md:mt-10"
-        width={300}
+        className="mt-16 w-full h-full aspect-[1.15] object-fill max-md:mt-10"
+        width={400}
         height={345}
       />
     </div>
@@ -84,7 +88,7 @@ const OurLiveUtil: React.FC = () => {
       title: "Staking",
       description:
         "Earn rewards by locking $ERA tokens in a secure contract, showing your commitment to the ecosystem.",
-      imageUrl: "/images/placeholder.png",
+      imageUrl: "/images/live-utils-staking.png",
       btnText: "Learn more",
       link: "/",
     },
@@ -92,7 +96,7 @@ const OurLiveUtil: React.FC = () => {
       title: "LP Farming",
       description:
         "Provide liquidity to the $ERA pool on Uniswap and lock it into our farming contract to earn $ERA.",
-      imageUrl: "/images/placeholder.png",
+      imageUrl: "/images/live-utils-farming.png",
       btnText: "Learn more",
       link: "/",
     },
@@ -100,15 +104,15 @@ const OurLiveUtil: React.FC = () => {
       title: "Engage to Earn",
       description:
         "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
-      imageUrl: "/images/placeholder.png",
-      btnText: "Learn more",
+      imageUrl: "/images/live-utils-earn.png",
+      btnText: "How to stake LP",
       link: "/",
     },
     {
       title: "Governance",
       description:
         "Hold $ERA tokens and vote on key decisions including project funding, strategic directions, and community proposals. ",
-      imageUrl: "/images/placeholder.png",
+      imageUrl: "/images/live-utils-governance.png",
       btnText: "Coming soon",
       link: "no link",
     },
