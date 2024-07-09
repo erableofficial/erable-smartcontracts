@@ -45,7 +45,7 @@ const StackingStepsHeader: React.FC<StackingStepsHeaderProps> = ({ steps }) => {
   return (
     <>
       <div className="flex w-full justify-center">
-        <div className="text-5xl flex justify-between font-semibold text-neutral-700 w-full max-w-[1260px] max-md:text-4xl flex-wrap max-sm:justify-center">
+        <div className="text-5xl flex justify-between font-semibold text-neutral-700 w-full max-w-[1260px] max-md:text-4xl flex-wrap max-sm:justify-center max-sm:flex-col max-sm:items-center">
           <div></div>
           {steps.filter((step) => step.isActive)[0].title}
           <div className="flex items-center justify-between cursor-pointer   ">
