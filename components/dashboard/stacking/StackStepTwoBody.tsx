@@ -38,15 +38,18 @@ const WithdrawDetailsBox: React.FC<WithdrawDetailsBoxProps> = ({ text }) => (
   <div
     className={`p-5 rounded-xl font-NeueHaas border-[1.5px] border-solid border-[#BDBDBD]`}
   >
-    <div className="flex items-center gap-4">
+    <div className="flex gap-4 items-start">
       <div className="bg-surface-500 p-2 rounded-full ">
         <Info width={17} height={17} color="#000000" />
       </div>
-      <h4 className="text-xl font-NeueHaas font-semibold leading-6 text-neutral-700">
-        Withdrawing details
-      </h4>
+      <div className="flex flex-col">
+        <h4 className="text-xl font-NeueHaas font-semibold leading-6 text-neutral-700 max-sm:text-lg">
+          Withdrawing details
+        </h4>
+
+        <p className="font-medium text-neutral-700">{text}</p>
+      </div>
     </div>
-    <p className="ml-[7.5%] font-medium text-neutral-700">{text}</p>
   </div>
 );
 
@@ -167,7 +170,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
         <StackingLoadingModal
           toggleStackingLoadingModal={toggleStackingLoadingModal}
         />
-        <div className="text-3xl mb-3 font-NeueHaas font-semibold text-neutral-700 max-md:max-w-full">
+        <div className="text-3xl mb-3 font-NeueHaas font-semibold text-neutral-700 max-md:max-w-full max-sm:text-2xl">
           Confirm Fund Transfer
         </div>
 
@@ -180,19 +183,19 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
           </div>
         )}
 
-        <div className="flex flex-col mt-3 text-neutral-700 font-NeueHaas font-semibold text-lg leading-[1.35rem]">
+        <p className="flex flex-col mt-3 text-neutral-700 font-NeueHaas font-semibold text-lg leading-[1.35rem] max-sm:text-base">
           Please confirm the transfer of your tokens into the staking contract.
-          <span className="font-medium">
+          <span className="font-medium max-sm:text-base">
             This action will lock your tokens for one year, starting your
             earnings.
           </span>
-        </div>
+        </p>
 
-        <div className="mt-10 text-xl font-semibold text-neutral-700 max-md:max-w-full">
+        <div className="mt-10 text-xl font-semibold text-neutral-700 max-md:max-w-full max-sm:text-lg">
           Your staking
         </div>
         <section className="flex gap-5 justify-between mt-2.5 max-md:flex-wrap max-md:max-w-full">
-          <div className="text-3xl font-semibold text-neutral-700">
+          <div className="text-3xl font-semibold text-neutral-700 max-sm:text-2xl">
             {amount} $ERA
           </div>
           <div className="my-auto text-base font-medium text-neutral-500">
@@ -200,18 +203,18 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
           </div>
         </section>
         <hr className="shrink-0 mt-6 h-px border border-solid bg-neutral-300 border-neutral-300 max-md:max-w-full" />
-        <div className="mt-6 text-xl font-semibold text-neutral-700 max-md:max-w-full">
+        <div className="mt-6 text-xl font-semibold text-neutral-700 max-md:max-w-full max-sm:text-lg">
           Staking key informations
         </div>
         <section className="flex gap-5 justify-between mt-6 text-lg font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
-          <div className="flex flex-col">
+          <div className="flex flex-col max-sm:text-base">
             {items.map((item, index) => (
               <div key={index} className={index > 0 ? "mt-5" : ""}>
                 {item.label}
               </div>
             ))}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col max-sm:text-base">
             {items.map((item, index) => (
               <div key={index} className={index > 0 ? "mt-5" : ""}>
                 {item.value}
