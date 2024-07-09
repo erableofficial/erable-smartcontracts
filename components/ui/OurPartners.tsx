@@ -100,20 +100,20 @@ const OurPartners: React.FC = () => {
     },
   ];
 
-  const logos4 = [
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 12",
-    },
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 13",
-    },
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 14",
-    },
-  ];
+  // const logos4 = [
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 12",
+  //   },
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 13",
+  //   },
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 14",
+  //   },
+  // ];
 
   return (
     <section className="flex gap-5 justify-between pr-20 bg-neutral-50 max-lg:flex-col-reverse max-lg:pr-0">
@@ -144,7 +144,7 @@ const OurPartners: React.FC = () => {
         >
           <PartnerLogosRow logos={logos3} />
         </div>
-        <div
+        {/* <div
           className="flex gap-5 justify-between self-center mt-3.5 max-lg:w-[70%] max-sm:w-[80%]"
           data-sal-delay="400"
           data-sal="slide-up"
@@ -153,7 +153,7 @@ const OurPartners: React.FC = () => {
           {logos4.map((logo, index) => (
             <PartnerLogo key={index} {...logo} />
           ))}
-        </div>
+        </div> */}
       </div>
       <div
         className="flex flex-col my-auto text-neutral-700 max-lg:pt-10 max-lg:pb-5 max-lg:px-[15.5px]"
