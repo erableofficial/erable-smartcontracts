@@ -1,38 +1,42 @@
 import { Info, TriangleAlert } from "lucide-react";
+import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/router";
+import { useStakingContractData } from "../../context/stakingContractData";
+import { formatEther } from "viem";
+import { approximateTime } from "../../lib/utils";
 
-type NoUtilitiesProps = {
+type NoStakingUtilitiesProps = {
   myBalance: BigInt;
   setToggleBuyEraModal: (value: boolean) => void;
 };
 
-const NoUtilities: React.FC<NoUtilitiesProps> = ({
+const NoStakingUtilities: React.FC<NoStakingUtilitiesProps> = ({
   myBalance,
   setToggleBuyEraModal,
 }) => {
-  const Router = useRouter();
+  const { stakingContractData } = useStakingContractData();
+
   return (
     <>
-      <div className="flex justify-center items-center px-16  text-lg text-neutral-700 max-md:px-5 max-md:max-w-full">
+      <div className="flex justify-center items-center px-16 font-NeueHaas  text-lg text-neutral-700 max-md:px-5 max-md:max-w-full">
         <div className="flex gap-5 justify-between max-md:flex-wrap">
           <div className="flex gap-2.5 justify-center">
             <div className=" flex justify-center items-center px-[18px] py-[11px] font-semibold whitespace-nowrap bg-surface-500 border border-solid border-neutral-700 h-[44px] rounded-[38.095px] w-[44px]">
               1
             </div>
-            <p className="my-auto font-medium">Buy $ERA on uniswap.org</p>
+            <p className="my-auto font-medium capitalize">Set Up Staking</p>
           </div>
           <div className="flex gap-2.5 justify-center">
             <div className=" flex justify-center items-center px-[18px] py-[11px] font-semibold whitespace-nowrap bg-surface-500 border border-solid border-neutral-700 h-[44px] rounded-[38.095px] w-[44px]">
               2
             </div>
-            <p className="my-auto font-medium">Choose an utility</p>
+            <p className="my-auto font-medium capitalize">Transfer Funds</p>
           </div>
           <div className="flex gap-2.5 justify-center">
             <div className="flex justify-center items-center px-[18px] py-[11px] font-semibold whitespace-nowrap bg-surface-500 border border-solid border-neutral-700 h-[44px] rounded-[38.095px] w-[44px]">
               3
             </div>
-            <p className="my-auto font-medium">Get rewards</p>
+            <p className="my-auto font-medium capitalize">Confirmation</p>
           </div>
         </div>
       </div>
@@ -67,15 +71,20 @@ const NoUtilities: React.FC<NoUtilitiesProps> = ({
               </div>
               <div className="flex gap-2 justify-between mt-2 text-base font-medium text-black">
                 <p>APR: xx</p>
-                <p>Program duration: 1 year</p>
+                <p>
+                  Program duration:{" "}
+                  {stakingContractData?.stakingDuration
+                    ? approximateTime(Number(stakingContractData?.stakingDuration))
+                    : "0 year"}
+                </p>
               </div>
             </section>
-            <button
-              className=" primary-button-sm justify-center self-start px-5 py-3 mt-6 text-base font-semibold   "
-              onClick={() => Router.push("/dashboard/stacking")}
+            <Link
+              href="/dashboard/stacking"
+              className="primary-button-sm justify-center self-start px-5 py-3 mt-6 text-base font-semibold   "
             >
               Start staking
-            </button>
+            </Link>
           </main>
         )}
       </div>
@@ -83,4 +92,4 @@ const NoUtilities: React.FC<NoUtilitiesProps> = ({
   );
 };
 
-export default NoUtilities;
+export default NoStakingUtilities;
