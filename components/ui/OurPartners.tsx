@@ -49,49 +49,49 @@ const PartnerLogosRow: React.FC<{ logos: PartnerLogoProps[] }> = ({
 const OurPartners: React.FC = () => {
   const logos1 = [
     {
-      src: "/images/partner-logo.png",
+      src: "/images/fipto.png",
       alt: "Partner Logo 1",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/mintero.png",
       alt: "Partner Logo 2",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/inatba.png",
       alt: "Partner Logo 3",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/trusted-seed.png",
       alt: "Partner Logo 4",
     },
   ];
 
   const logos2 = [
     {
-      src: "/images/partner-logo.png",
+      src: "/images/orange-dao.png",
       alt: "Partner Logo 5",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/chainport.png",
       alt: "Partner Logo 6",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/landx.png",
       alt: "Partner Logo 7",
     },
   ];
 
   const logos3 = [
     {
-      src: "/images/partner-logo.png",
+      src: "/images/dieldfisher.png",
       alt: "Partner Logo 8",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/keenest.png",
       alt: "Partner Logo 9",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/d&a-partners.png",
       alt: "Partner Logo 10",
     },
     {
