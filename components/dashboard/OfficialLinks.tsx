@@ -47,7 +47,7 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
 
   const linkSections = [
     {
-      title: "",
+      title: "Main links",
       links: [
         { label: "Website", url: "https://www.erable.com/" },
         { label: "Whitepaper", url: "NO LINK" },
@@ -55,7 +55,7 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
       ],
     },
     {
-      title: "$ERA INFOS",
+      title: "$ERA Infos",
       links: [
         { label: "ERC20 contract on PolygonScan", url: "NO LINK" },
         { label: "$ERA on CoinMarketCap", url: "NO LINK" },
@@ -63,24 +63,24 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
       ],
     },
     {
-      title: "IMPACT FUNDING PLATFORMS",
+      title: "Impact funding platforms",
       links: [
         { label: "era°app", url: "https://app.erable.com/" },
         { label: "WE DO GOOD", url: "https://wedogood.co/" },
         { label: "Keenest", url: "https://www.keenest.co/" },
       ],
     },
-    {
-      title: "SOCIAL MEDIA",
-      links: [
-        { label: "Discord", url: "PLACEHOLDER" },
-        { label: "Twitter", url: "https://twitter.com/erableofficial" },
-        { label: "LinkedIn", url: "https://www.linkedin.com/company/erable/" },
-        { label: "YouTube", url: "https://www.youtube.com/@erableofficial" },
-        { label: "Medium", url: "https://erableofficial.medium.com/" },
-        { label: "Newsletter", url: "https://urlz.fr/o1BO" },
-      ],
-    },
+    // {
+    //   title: "SOCIAL MEDIA",
+    //   links: [
+    //     { label: "Discord", url: "PLACEHOLDER" },
+    //     { label: "Twitter", url: "https://twitter.com/erableofficial" },
+    //     { label: "LinkedIn", url: "https://www.linkedin.com/company/erable/" },
+    //     { label: "YouTube", url: "https://www.youtube.com/@erableofficial" },
+    //     { label: "Medium", url: "https://erableofficial.medium.com/" },
+    //     { label: "Newsletter", url: "https://urlz.fr/o1BO" },
+    //   ],
+    // },
   ];
   return (
     <div className="max-[1281px]:px-5 w-full flex justify-center">

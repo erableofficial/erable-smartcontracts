@@ -531,44 +531,46 @@ const Dashboard: React.FC<DashboardProps> = () => {
             </div>
           </div>
         </div>
-        <div className="flex gap-4 pl-5 py-10 text-base font-semibold text-neutral-700 max-md:flex-wrap lg:hidden">
-          <button className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
-            Help ?
-          </button>
-          <div>
-            <button
-              className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
-              onClick={toggleDropdown2}
-              ref={toggleButtonRef2}
-            >
-              <span className="my-auto">Start a new program</span>
-              {isDropdownOpen2 ? (
-                <ChevronUp height={24} width={24} color="#1F1F1F" />
-              ) : (
-                <ChevronDown height={24} width={24} color="#1F1F1F" />
-              )}
+        {isConnected && (
+          <div className="flex gap-4 pl-5 py-10 text-base font-semibold text-neutral-700 max-md:flex-wrap lg:hidden">
+            <button className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
+              Help ?
             </button>
-            {isDropdownOpen2 && isConnected && (
-              <div
-                ref={dropdownRef2}
-                className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
+            <div>
+              <button
+                className="primary-button-sm flex gap-0.5 px-5 py-3 bg-surface-primary rounded-lg border-[1px] border-black border-solid"
+                onClick={toggleDropdown2}
+                ref={toggleButtonRef2}
               >
-                {/* Dropdown items here */}
-                <Link href="/dashboard/stacking">
-                  <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
-                    Staking
-                  </div>
-                </Link>
+                <span className="my-auto">Start a new program</span>
+                {isDropdownOpen2 ? (
+                  <ChevronUp height={24} width={24} color="#1F1F1F" />
+                ) : (
+                  <ChevronDown height={24} width={24} color="#1F1F1F" />
+                )}
+              </button>
+              {isDropdownOpen2 && isConnected && (
                 <div
-                  className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer "
-                  onClick={() => setToggleLpFarmingModal(true)}
+                  ref={dropdownRef2}
+                  className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
                 >
-                  LP Farming
+                  {/* Dropdown items here */}
+                  <Link href="/dashboard/stacking">
+                    <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
+                      Staking
+                    </div>
+                  </Link>
+                  <div
+                    className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer "
+                    onClick={() => setToggleLpFarmingModal(true)}
+                  >
+                    LP Farming
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

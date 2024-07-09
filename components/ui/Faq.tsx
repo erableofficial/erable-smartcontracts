@@ -48,10 +48,10 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
       >
         <div className="mt-6 text-sm text-gray-700">{answer}</div>
         {link && (
-          <div className="self-start pb-1.5 mt-6 text-lg font-semibold text-neutral-700 ">
+          <div className="self-start mt-6 text-lg font-semibold text-neutral-700 ">
             <Link
               href={link}
-              className="pb-1.5 mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
+              className="mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
             >
               Learn More
             </Link>

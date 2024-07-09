@@ -11,12 +11,14 @@ const RewardOption: React.FC<RewardOptionProps> = ({
   description,
   steps,
 }) => (
-  <article className="flex flex-col grow p-6 w-full text-lg font-semibold text-black bg-white rounded-3xl border border-gray-200 border-solid max-md:px-5 max-md:mt-8">
-    <h3 className="text-2xl text-black">{title}</h3>
+  <div className="flex flex-col grow p-6 w-full text-lg font-semibold text-black bg-white rounded-3xl border border-gray-200 border-solid max-md:px-5 max-md:mt-8">
+    <h3 className="text-2xl text-black max-sm:text-xl">{title}</h3>
     <div className="flex flex-col h-full justify-between">
-      <p className="mt-10 font-medium">{description}</p>
+      <p className="mt-10 font-medium max-sm:mt-5 max-sm:text-base">
+        {description}
+      </p>
       <ul
-        className="mt-6"
+        className="mt-6 max-sm:text-base"
         style={{ listStyleType: "disc", marginLeft: "15px" }}
       >
         {steps.map((step, index) => (
@@ -28,11 +30,11 @@ const RewardOption: React.FC<RewardOptionProps> = ({
     </div>
     <a
       href="#"
-      className="self-start pb-1.5 mt-10 text-black border-b-2 border-black border-solid"
+      className="self-start mt-10 text-black border-b-2 border-black border-solid max-sm:mt-[22px]"
     >
       View tuto
     </a>
-  </article>
+  </div>
 );
 
 const RewardSystem: React.FC = () => {
@@ -67,14 +69,14 @@ const RewardSystem: React.FC = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col items-start self-stretch py-20 max-w-[1260px] bg-white max-md:px-5">
-        <div className="mt-2.5 ml-2.5 text-5xl font-extrabold text-black max-md:max-w-full max-md:text-4xl font-friends">
+      <div className="flex flex-col items-start self-stretch py-20 max-w-[1260px] bg-white max-md:px-5 max-sm:py-5">
+        <div className="mt-2.5 ml-2.5 text-5xl font-extrabold text-black max-md:max-w-full max-md:text-4xl font-friends max-sm:mx-0">
           Discover
         </div>
-        <span className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl font-friends">
+        <span className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl font-friends max-sm:mx-0 max-[423px]:w-[223px]">
           Our Reward Systems
         </span>
-        <section className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full">
+        <section className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full max-sm:mt-0 max-sm:mx-0">
           <div className="flex gap-5 max-lg:flex-col max-md:gap-0">
             {rewardSystems.map((system, index) => (
               <div

@@ -49,7 +49,7 @@ const StackingStepsHeader: React.FC<StackingStepsHeaderProps> = ({ steps }) => {
           <div></div>
           {steps.filter((step) => step.isActive)[0].title}
           <div className="flex items-center justify-between cursor-pointer   ">
-            <div className="pb-1.5 my-auto text-lg text-neutral-700 border-b-2 border-black border-solid font-semibold">
+            <div className=" my-auto text-lg text-neutral-700 border-b-2 border-black border-solid font-semibold">
               View tuto
             </div>
           </div>
