@@ -30,6 +30,26 @@ type StackStepTwoBodyProps = {
   amount: number;
 };
 
+interface WithdrawDetailsBoxProps {
+  text: string;
+}
+
+const WithdrawDetailsBox: React.FC<WithdrawDetailsBoxProps> = ({ text }) => (
+  <div
+    className={`p-5 rounded-xl font-NeueHaas border-[1.5px] border-solid border-[#BDBDBD]`}
+  >
+    <div className="flex items-center gap-4">
+      <div className="bg-surface-500 p-2 rounded-full ">
+        <Info width={17} height={17} color="#000000" />
+      </div>
+      <h4 className="text-xl font-NeueHaas font-semibold leading-6 text-neutral-700">
+        Withdrawing details
+      </h4>
+    </div>
+    <p className="ml-[7.5%] font-medium text-neutral-700">{text}</p>
+  </div>
+);
+
 const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   setSteps,
   infoCards,
@@ -147,16 +167,28 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
         <StackingLoadingModal
           toggleStackingLoadingModal={toggleStackingLoadingModal}
         />
-        <div className="text-3xl mb-3 font-semibold text-neutral-700 max-md:max-w-full">
+        <div className="text-3xl mb-3 font-NeueHaas font-semibold text-neutral-700 max-md:max-w-full">
           Confirm Fund Transfer
         </div>
 
-        <InfoBox
-          text="Now, let’s secure your rewards! Please confirm the transfer of your tokens into the staking contract. This action will lock your tokens for one year, starting your earnings."
-          bgColor="bg-surface-500"
-        />
+        {error && (
+          <div className="flex max-w-fit py-4">
+            <ErrorBox
+              text="Transaction faliled, try again !"
+              bgColor="bg-[#FFD4D4]"
+            />
+          </div>
+        )}
 
-        <div className="mt-10 text-xl font-bold text-neutral-700 max-md:max-w-full">
+        <div className="flex flex-col mt-3 text-neutral-700 font-NeueHaas font-semibold text-lg leading-[1.35rem]">
+          Please confirm the transfer of your tokens into the staking contract.
+          <span className="font-medium">
+            This action will lock your tokens for one year, starting your
+            earnings.
+          </span>
+        </div>
+
+        <div className="mt-10 text-xl font-semibold text-neutral-700 max-md:max-w-full">
           Your staking
         </div>
         <section className="flex gap-5 justify-between mt-2.5 max-md:flex-wrap max-md:max-w-full">
@@ -168,7 +200,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
           </div>
         </section>
         <hr className="shrink-0 mt-6 h-px border border-solid bg-neutral-300 border-neutral-300 max-md:max-w-full" />
-        <div className="mt-6 text-xl font-bold text-neutral-700 max-md:max-w-full">
+        <div className="mt-6 text-xl font-semibold text-neutral-700 max-md:max-w-full">
           Staking key informations
         </div>
         <section className="flex gap-5 justify-between mt-6 text-lg font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
@@ -188,19 +220,9 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
           </div>
         </section>
         <div className=" py-10">
-          <InfoBox
-            text="Remember, withdrawing funds before the term ends may result in penalties. This transfer might take a few moments."
-            bgColor="bg-warning-200"
-          />
+          <WithdrawDetailsBox text="Remember, withdrawing funds before the term ends may result in penalties. This transfer might take a few moments." />
         </div>
-        {error && (
-          <div className="flex justify-center items-center pb-4">
-            <ErrorBox
-              text="Transaction faliled, try again !"
-              bgColor="bg-[#FFD4D4]"
-            />
-          </div>
-        )}
+
         <button
           className="primary-button justify-center self-center px-7 py-4 text-lg font-semibold text-neutral-700 rounded-xl border-black border-solid border-[3px] max-md:px-5"
           onClick={() => {
