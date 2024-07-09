@@ -85,7 +85,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                 </div>
                 <a
                   href="#"
-                  className="flex gap-1  pb-1.5 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
+                  className="flex gap-1 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
                   onClick={() => setToggleBridgeProcessModal(true)}
                 >
                   Bridge
@@ -127,7 +127,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     <span>
                       <a
                         href="#"
-                        className="flex gap-1  pb-1.5 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
+                        className="flex gap-1 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
                       >
                         Discover
                       </a>
@@ -149,7 +149,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     <span>
                       <a
                         href="#"
-                        className="flex gap-1  pb-1.5 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
+                        className="flex gap-1  font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
                       >
                         Discover
                       </a>
@@ -166,7 +166,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     <div className="text-2xl text-neutral-700">
                       Total Rewards
                     </div>
-                    <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
+                    <div className=" cursor-pointer self-start  text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
                       View history
                     </div>
                   </div>
@@ -213,7 +213,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
               <div className="flex gap-5 justify-between font-semibold">
                 <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
                   <div className="text-2xl text-neutral-700">$ERA stats</div>
-                  <div className=" cursor-pointer self-start pb-1.5 text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
+                  <div className=" cursor-pointer self-start text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
                     Whitepaper
                   </div>
                 </div>
