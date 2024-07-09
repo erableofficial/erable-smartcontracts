@@ -2,14 +2,19 @@ import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
+import LpFarmingModal from "../dashboard/LpFarmingModal";
 
 type SolutionItemProps = {
   text: string;
   soon?: boolean;
+  onClick?: () => void;
 };
 
-const SolutionItem: React.FC<SolutionItemProps> = ({ text, soon }) => (
-  <div className="flex gap-2.5 mt-4 whitespace-nowrap cursor-pointer">
+const SolutionItem: React.FC<SolutionItemProps> = ({ text, soon, onClick }) => (
+  <div
+    className="flex gap-2.5 mt-4 whitespace-nowrap cursor-pointer"
+    onClick={onClick}
+  >
     <div
       className={`text-base tracking-tight leading-5 text-stone-900 ${
         soon ? "flex items-center" : ""
@@ -37,9 +42,12 @@ const SocialMediaItem: React.FC<SocialMediaItemProps> = ({ name }) => (
 );
 
 const Footer: React.FC = () => {
+  const [toggleLpFarmingModal, setToggleLpFarmingModal] =
+    React.useState<boolean>(false);
+
   const solutionItems = [
     { text: "Staking" },
-    { text: "LP Farming" },
+    { text: "LP Farming", onClick: () => setToggleLpFarmingModal(true) },
     { text: "Airdrop" },
     { text: "Governance", soon: true },
   ];
@@ -55,6 +63,10 @@ const Footer: React.FC = () => {
 
   return (
     <div className="flex flex-col pt-16 bg-surface-500 max-sm:pt-6">
+      <LpFarmingModal
+        setToggleLpFarmingModal={setToggleLpFarmingModal}
+        toggleLpFarmingModal={toggleLpFarmingModal}
+      />
       <div className="flex gap-5 justify-between px-20 w-full flex-wrap max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col py-0.5 min-w-[233px]">
           <Image
@@ -80,7 +92,12 @@ const Footer: React.FC = () => {
                   $ERA Utilities
                 </div>
                 {solutionItems.map((item, index) => (
-                  <SolutionItem key={index} text={item.text} soon={item.soon} />
+                  <SolutionItem
+                    key={index}
+                    text={item.text}
+                    soon={item.soon}
+                    onClick={item.onClick}
+                  />
                 ))}
               </div>
             </section>
