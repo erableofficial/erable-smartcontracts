@@ -20,7 +20,7 @@ import {
   stakingTokenAddress,
 } from "../../lib/blockchain-config";
 import { IRedisAirdop, StakeInfo, TabItem } from "../../lib/types";
-import NoUtilities from "./NoUtilities";
+import NoUtilities from "./NoStakingUtilities";
 import {
   getTotalStaked,
   getTotalStakedForUser,
@@ -37,6 +37,9 @@ import { useAirdropCycles } from "../../context/airdropCycles";
 import { readContract } from "@wagmi/core";
 import { config } from "../../lib/wagmi/config";
 import Loading from "../ui/loading";
+import NoFarmingUtilities from "./NoFarmingUtilities";
+import NoAirdropUtilities from "./NoAirdropUtilities";
+import NoStakingUtilities from "./NoStakingUtilities";
 
 interface DashboardProps {}
 
@@ -455,7 +458,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 {selected === "Staking" && !tabLoading && (
                   <>
                     {stakingItems?.length === 0 ? (
-                      <NoUtilities
+                      <NoStakingUtilities
                         myBalance={myBalance}
                         setToggleBuyEraModal={setToggleBuyEraModal}
                       />
@@ -471,10 +474,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 {selected === "Your Farming" && !tabLoading && (
                   <>
                     {farmingItems?.length === 0 ? (
-                      <NoUtilities
-                        myBalance={myBalance}
-                        setToggleBuyEraModal={setToggleBuyEraModal}
-                      />
+                      <NoFarmingUtilities />
                     ) : (
                       <TabContent
                         setTransactionSuccess={setTransactionSuccess}
@@ -487,10 +487,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 {selected === "Airdrop" && !tabLoading && (
                   <>
                     {airdropItems?.length === 0 ? (
-                      <NoUtilities
-                        myBalance={myBalance}
-                        setToggleBuyEraModal={setToggleBuyEraModal}
-                      />
+                      <NoAirdropUtilities />
                     ) : (
                       <TabContent
                         setTransactionSuccess={setTransactionSuccess}
