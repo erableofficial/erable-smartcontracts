@@ -59,7 +59,13 @@ const Footer: React.FC = () => {
     "Contact us",
   ];
 
-  const socialMediaItems = ["Discord", "Twitter", "Medium"];
+  const socialMediaItems = [
+    "Discord",
+    "Twitter",
+    "Medium",
+    "Youtube",
+    "Newsletter",
+  ];
 
   return (
     <div className="flex flex-col pt-16 bg-surface-500 max-sm:pt-6">
@@ -118,7 +124,7 @@ const Footer: React.FC = () => {
                 <div className="text-xl font-semibold tracking-tight leading-7">
                   Social Media
                 </div>
-                <div className="flex flex-col max-sm:flex-row max-sm:justify-between">
+                <div className="flex flex-col max-sm:flex-row max-sm:justify-between max-sm:flex-wrap">
                   {socialMediaItems.map((item, index) => (
                     <SocialMediaItem key={index} name={item} />
                   ))}
