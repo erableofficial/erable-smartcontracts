@@ -100,20 +100,20 @@ const OurPartners: React.FC = () => {
     },
   ];
 
-  const logos4 = [
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 12",
-    },
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 13",
-    },
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 14",
-    },
-  ];
+  // const logos4 = [
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 12",
+  //   },
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 13",
+  //   },
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 14",
+  //   },
+  // ];
 
   return (
     <section className="flex gap-5 justify-between pr-20 bg-neutral-50 max-lg:flex-col-reverse max-lg:pr-0">
