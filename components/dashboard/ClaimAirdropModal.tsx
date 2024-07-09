@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Cake, Sparkles, X } from "lucide-react";
+import { Gift, Sparkles, X } from "lucide-react";
 import { TabItem } from "../../lib/types";
 
 interface ClaimAirdropModalProps {
@@ -46,7 +46,7 @@ const ClaimAirdropModal: React.FC<ClaimAirdropModalProps> = ({
         <div className=" flex items-center justify-between mt-3 text-3xl font-semibold mb-10 text-neutral-700">
           <div className="flex gap-3 items-center">
             <span className="flex justify-center items-center px-3  bg-surface-500 h-[45px] rounded-[37.5px] w-[45px]">
-              <Cake size={32} width={24} height={24} />
+              <Gift size={32} width={24} height={24} />
             </span>
             Claim your $ERA
           </div>
