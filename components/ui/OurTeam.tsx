@@ -7,8 +7,8 @@ interface MemberCardProps {
   title: string;
   tag: string;
   description: string;
-  contact: string;
   bgYellow: boolean;
+  bgColor: string;
 }
 
 const MemberCard: React.FC<MemberCardProps> = ({
@@ -17,28 +17,30 @@ const MemberCard: React.FC<MemberCardProps> = ({
   title,
   tag,
   description,
-  contact,
   bgYellow,
+  bgColor,
 }) => (
   <div className="flex flex-col grow mx-auto w-full bg-white rounded-[1.875rem] max-md:mt-6">
-    {bgYellow ? (
+    {bgColor === "bg-surface-500" ? (
       <div className="border border-solid border-neutral-400 bg-surface-500 rounded-2xl w-full h-full flex items-center justify-center max-sm:h-[271px]">
         <Image
           src={imgSrc}
           alt={imgAlt}
-          className="w-1/2 aspect-[1.1]  rounded-2xl"
+          className="w-1/2 aspect-[1.1] object-none  rounded-2xl"
           width={300}
           height={300}
         />
       </div>
     ) : (
-      <Image
-        src={imgSrc}
-        alt={imgAlt}
-        className="w-full border border-solid aspect-[1.1] border-neutral-400 rounded-2xl"
-        width={300}
-        height={300}
-      />
+      <div className={`${bgColor} border border-solid border-neutral-400 rounded-2xl w-full h-full flex items-center justify-center max-sm:h-[271px]`}>
+        <Image
+          src={imgSrc}
+          alt={imgAlt}
+          className="w-full border border-solid aspect-[1.1] object-none border-neutral-400 rounded-2xl"
+          width={300}
+          height={300}
+        />
+      </div>
     )}
     <div className="flex gap-2 justify-between mt-6 text-neutral-700 whitespace-nowrap">
       <div className="text-2xl font-semibold">{title}</div>
@@ -49,57 +51,39 @@ const MemberCard: React.FC<MemberCardProps> = ({
     <div className="mt-3 text-base font-medium text-neutral-700">
       {description}
     </div>
-    <div className="flex gap-3 mt-6">
-      <div className="flex flex-col justify-center">
-        <div className="shrink-0 rounded-full border border-solid bg-zinc-300 border-neutral-500 h-[1.875rem] stroke-[0.769px] w-[1.875rem]" />
-      </div>
-      <div className="my-auto text-lg font-medium text-neutral-700 max-sm:text-base">
-        {contact}
-      </div>
-    </div>
   </div>
 );
 
 const members = [
   {
-    imgSrc: "/images/logo.svg",
+    imgSrc: "/images/erable-logo.png",
     imgAlt: "Image of Team Member 1",
     title: "erable°",
     tag: "business & product",
     description:
-      "Massa gravida quam massa gravida quam massa gravida quam massa",
-    contact: "Personne à contacter + contact",
+      "Erable° is a fintech lab that uses traditional finance and blockchain to support social and environmental progress.",
     bgYellow: true,
+    bgColor: "bg-surface-500",
   },
   {
-    imgSrc: "/images/placeholder.png",
+    imgSrc: "/images/darblockchain-logo.png",
     imgAlt: "Image of Team Member 2",
     title: "Dar Blockchain",
     tag: "tech",
     description:
-      "Massa gravida quam massa gravida quam massa gravida quam massa",
-    contact: "Personne à contacter + contact",
+      "Dar Blockchain is an innovative web 3.0 hub that supports actively developing decentralized solutions.",
     bgYellow: false,
+    bgColor: "bg-black",
   },
   {
-    imgSrc: "/images/placeholder.png",
+    imgSrc: "/images/smartchain-logo.png",
     imgAlt: "Image of Team Member 3",
-    title: "erable.com",
-    tag: "tech",
+    title: "Smartchain",
+    tag: "finance",
     description:
-      "Massa gravida quam massa gravida quam massa gravida quam massa",
-    contact: "Personne à contacter + contact",
+      "Smartchain is a 360° web 3.0 expertise cabinet. They have been the historic partner of erable° since its inception.",
     bgYellow: false,
-  },
-  {
-    imgSrc: "/images/placeholder.png",
-    imgAlt: "Image of Team Member 4",
-    title: "erable.com",
-    tag: "tech",
-    description:
-      "Massa gravida quam massa gravida quam massa gravida quam massa",
-    contact: "Personne à contacter + contact",
-    bgYellow: false,
+    bgColor: "white",
   },
 ];
 
@@ -113,7 +97,7 @@ const OurTeam: React.FC = () => (
         {members.map((member) => (
           <div
             key={member.imgSrc}
-            className="flex flex-col w-3/12 max-md:w-full"
+            className="flex flex-col w-1/3 max-md:w-full"
           >
             <MemberCard
               imgSrc={member.imgSrc}
@@ -121,8 +105,8 @@ const OurTeam: React.FC = () => (
               title={member.title}
               tag={member.tag}
               description={member.description}
-              contact={member.contact}
               bgYellow={member.bgYellow}
+              bgColor={member.bgColor}
             />
           </div>
         ))}
