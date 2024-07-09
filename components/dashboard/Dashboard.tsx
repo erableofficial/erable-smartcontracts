@@ -236,6 +236,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       console.log("Staking Items from inside: ", filteredItems);
 
       setTransactionSuccess(false);
+      setTabLoading(false);
     }
     async function updateUserBalnce() {
       const balance = await getUserBalance(currentAddress);
@@ -285,6 +286,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       );
 
       setAirdropItems(items);
+      setTabLoading(false);
     }
 
     if (currentAddress) {
@@ -308,6 +310,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
         getUserAirdrops();
       }
     }
+    
 
     // claeinning after unmount useEffect
     return () => {
@@ -335,6 +338,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
       setAllItems(airdropItems);
       setTabLoading(false);
     }
+
+    return () => {
+      setAllItems([]);
+      
+    };
   }, [stakingItems, airdropItems]);
 
   // console.log("StakingContractData: ", stakingContractData);
