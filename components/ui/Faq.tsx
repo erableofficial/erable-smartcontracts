@@ -53,9 +53,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
               href={link}
               className="pb-1.5 mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
             >
-              {question === "Where to get $ERA?"
-                ? "View tutorial"
-                : "Read more"}
+              Learn More
             </Link>
           </div>
         )}
@@ -70,32 +68,47 @@ const Faq: React.FC = () => {
       question: "What is erable°?",
       answer: (
         <>
-          <div className="font-medium text-lg">
+          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
             <p>
-              erable° is an
-              <span className="font-semibold">impact investment fintech</span>
-              and financial innovation lab dedicated to creating transformative
-              financial products that drive social and environmental change.
+              erable° is an impact{" "}
+              <span className="font-semibold">
+                investment fintech and financial
+              </span>{" "}
+              innovation lab dedicated to creating transformative financial
+              products that drive social and environmental change.
             </p>
             <p className="mt-7">
               At the intersection of impact, technology, and collaboration, we
-              believe the challenge isn't finding the funds but redirecting them
-              toward<span className="font-semibold"> impactful projects.</span>{" "}
+              believe the challenge isn't finding the funds but{" "}
+              <span className="font-semibold">
+                redirecting them toward impactful projects.
+              </span>{" "}
               Traditional views on charity and profitability hinder this flow.
-              We advocate for
-              <span className="font-semibold">
-                new financial products and profitability avenues,
-              </span>
-              leveraging technologies like blockchain as key enablers.
+              We advocate for{" "}
+              <span className="font-semibold">new financial products</span> and
+              profitability avenues, leveraging technologies like blockchain as
+              key enablers.
             </p>
+            <ul className="ml-5 list-disc">
+              <li className="mt-3">
+                <span className="font-semibold">
+                  Core Activity: Impact Crowdfunding Platform (Web2 + Web3)
+                </span>
+                Our emphasis is on revenue-based models in Europe. These link
+                repayments to a project's revenue, aligning investor interests
+                with business success.
+              </li>
+              <li className="mt-5">
+                Other Notable Activities Collaborating with corporations to
+                explore innovative financing methods, and launching an impact
+                investment fund (≈ 18 months)
+              </li>
+            </ul>
             <p className="mt-7">
-              $ERA token:
-              <br /> We achieve this through our vibrant community, powered by
-              our utility token $ERA, which fuels
-              <span className="font-semibold">
-                our ecosystem and aligns the interests of all stakeholders
-                towards a common goal of impactful change.
-              </span>
+              We achieve this through our vibrant community, powered by our
+              utility token $ERA, which fuels our ecosystem and aligns the
+              interests of all stakeholders towards a common goal of impactful
+              change.
             </p>
           </div>
         </>
@@ -106,12 +119,15 @@ const Faq: React.FC = () => {
       question: "What is the $ERA token?",
       answer: (
         <>
-          <div className="font-medium text-lg">
+          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
             <p>
-              $ERA is the utility token at the heart of the erable° business
-              model. Here’s what it brings to the table:
+              $ERA is{" "}
+              <span className="font-semibold">
+                the utility token at the heart of the erable°
+              </span>{" "}
+              business model. Here’s what it brings to the table:
             </p>
-            <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
+            <ul className="list-disc ml-5">
               <li className="mt-7">
                 <span className="font-semibold">Access Services:</span> Hold
                 $ERA to unlock all our products & services, whether you're an
@@ -141,17 +157,19 @@ const Faq: React.FC = () => {
       question: "Where to get $ERA?",
       answer: (
         <>
-          <div className="font-medium text-lg">
+          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
             <p>
-              The $CLAP token bridge allows holders to bridge their $CLAP tokens
-              from the Cardano blockchain to the Polygon blockchain.
+              You can acquire $ERA on Uniswap, a leading decentralized exchange
+              (DeX) known for its ease of use and robust security features.
             </p>
-            <p className="mt-7">
-              The bridge is opened with our partner Chainport, a fully-audited
-              bridging platform specializing in altcoins. The Chainport bridge
-              already supported the bridging of Cardano Native Tokens such as
-              $COPI, $NMKR or $MELD.
-            </p>
+            <p className="mt-7">Steps to Acquire $ERA:</p>
+            <ul className="list-decimal ml-6">
+              <li>Set Up a Wallet (full list here)</li>
+              <li>Connect to Uniswap</li>
+              <li>Find $ERA</li>
+              <li>Swap $USDC for $ERA</li>
+              <li>View $ERA in Your Wallet</li>
+            </ul>
           </div>
         </>
       ),
@@ -195,10 +213,11 @@ const Faq: React.FC = () => {
               </li>
             </ul>
             <p className="mt-7">
-              The whole process <span className="font-semibold">takes at most 4 minutes</span>, including
-              transaction times. You'll need to pay the Cardano transaction fee
-              and the Chainport platform fee of 0.3% of the total $CLAP you wish
-              to bridge.
+              The whole process{" "}
+              <span className="font-semibold">takes at most 4 minutes</span>,
+              including transaction times. You'll need to pay the Cardano
+              transaction fee and the Chainport platform fee of 0.3% of the
+              total $CLAP you wish to bridge.
             </p>
             <p className="mt-7">
               Example: $100,000CLAP to bridge with 0.3% fee $99,700CLAP on
