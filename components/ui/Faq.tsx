@@ -41,14 +41,64 @@ const faqItems = [
   },
   {
     question: "What is the $ERA token?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    answer: (
+      <>
+        <div className="font-medium text-lg">
+          <p>
+            $ERA is the utility token at the heart of the erable° business
+            model. Here’s what it brings to the table:
+          </p>
+          <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
+            <li className="mt-7">
+              <span className="font-semibold">Access Services:</span> Hold $ERA
+              to unlock all our products & services, whether you're an investor,
+              project, or partner.
+            </li>
+            <li className="mt-7">
+              <span className="font-semibold">Earn $ERA:</span> Get rewarded for
+              ecosystem growth through contributions, LP farming, staking, and
+              platform perks.
+            </li>
+            <li className="mt-7">
+              <span className="font-semibold">Govern with $ERA:</span> Have a
+              say in our strategic directions and supported projects, ensuring
+              we stay true to our shared values.
+            </li>
+          </ul>
+          <p className="mt-7">
+            $ERA embodies our commitment to fair value redistribution across
+            erable° and its brands.
+          </p>
+        </div>
+      </>
+    ),
     link: "#",
   },
   {
     question: "Where to get $ERA?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    answer: (
+      <>
+        <div className="font-medium text-lg">
+          <p>
+            You can{" "}
+            <span className="font-semibold">
+              acquire $ERA on Uniswap, a leading decentralized exchange{" "}
+            </span>
+            (DeX) known for its ease of use and robust security features.
+          </p>
+          <p className="mt-7">
+            Steps to Acquire $ERA:
+            <ol style={{ listStyleType: "decimal", marginLeft: "20px" }}>
+              <li>Set Up a Wallet (full list here)</li>
+              <li>Connect to Uniswap</li>
+              <li>Find $ERA</li>
+              <li>Swap $USDC for $ERA</li>
+              <li>View $ERA in Your Wallet</li>
+            </ol>
+          </p>
+        </div>
+      </>
+    ),
     link: "#",
   },
   {
@@ -110,7 +160,9 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
               href={link}
               className="pb-1.5 mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
             >
-              Read more
+              {question === "Where to get $ERA?"
+                ? "View tutorial"
+                : "Read more"}
             </Link>
           </div>
         )}
