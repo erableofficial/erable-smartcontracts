@@ -85,7 +85,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                 </div>
                 <a
                   href="#"
-                  className="flex gap-1 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
+                  className="flex gap-1 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid max-sm:h-fit max-sm:mt-auto"
                   onClick={() => setToggleBridgeProcessModal(true)}
                 >
                   Bridge
