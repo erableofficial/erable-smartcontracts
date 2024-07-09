@@ -21,27 +21,18 @@ const MemberCard: React.FC<MemberCardProps> = ({
   bgColor,
 }) => (
   <div className="flex flex-col grow mx-auto w-full bg-white rounded-[1.875rem] max-md:mt-6">
-    {bgColor === "bg-surface-500" ? (
-      <div className="border border-solid border-neutral-400 bg-surface-500 rounded-2xl w-full h-full flex items-center justify-center max-sm:h-[271px]">
-        <Image
-          src={imgSrc}
-          alt={imgAlt}
-          className="w-1/2 aspect-[1.1] object-none  rounded-2xl"
-          width={300}
-          height={300}
-        />
-      </div>
-    ) : (
-      <div className={`${bgColor} border border-solid border-neutral-400 rounded-2xl w-full h-full flex items-center justify-center max-sm:h-[271px]`}>
-        <Image
-          src={imgSrc}
-          alt={imgAlt}
-          className="w-full border border-solid aspect-[1.1] object-none border-neutral-400 rounded-2xl"
-          width={300}
-          height={300}
-        />
-      </div>
-    )}
+    <div
+      className={`${bgColor} border border-solid border-neutral-400 rounded-2xl w-full h-full flex items-center justify-center max-sm:h-[271px]`}
+    >
+      <Image
+        src={imgSrc}
+        alt={imgAlt}
+        className="w-full border border-solid aspect-[1.1] object-none border-neutral-400 rounded-2xl"
+        width={300}
+        height={300}
+      />
+    </div>
+
     <div className="flex gap-2 justify-between mt-6 text-neutral-700 whitespace-nowrap">
       <div className="text-2xl font-semibold">{title}</div>
       <div className="justify-center px-2.5 py-1 my-auto text-xs font-medium bg-surface-500 border border-black border-solid rounded-[2.375rem]">
