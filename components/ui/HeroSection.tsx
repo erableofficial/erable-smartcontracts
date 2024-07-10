@@ -103,8 +103,9 @@ const HeroSection = () => {
         >
           <Image
             src="/images/image 2838.png"
-            className="w-full  aspect-[2.5] max-md:max-w-full"
-            alt="Descriptive text about the image"
+            className="w-full   max-md:max-w-full"
+            alt="Dashboard"
+            layout="responsive"
             width={2560}
             height={1029}
           />
