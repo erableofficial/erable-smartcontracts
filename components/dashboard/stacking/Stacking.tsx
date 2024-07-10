@@ -92,12 +92,6 @@ const Stacking: React.FC = () => {
   });
 
   useEffect(() => {
-    if (!isConnected) {
-      router.push("/dashboard");
-    }
-  }, [isConnected]);
-
-  useEffect(() => {
     if (
       stakingDuration &&
       coolDownPeriod &&
@@ -113,6 +107,9 @@ const Stacking: React.FC = () => {
         monthlyIncreasePercentage: monthlyIncreasePercentage as bigint,
         startingSlashingPoint: startingSlashingPoint as bigint,
       });
+      if (!isConnected) {
+        router.push("/dashboard");
+      }
     }
   }, [
     stakingDuration,
@@ -120,6 +117,7 @@ const Stacking: React.FC = () => {
     yieldConstant,
     monthlyIncreasePercentage,
     startingSlashingPoint,
+    isConnected,
   ]);
 
   const infoCards = [
