@@ -12,6 +12,7 @@ import {
 } from "../../../lib/blockchain-config";
 import { approximateTime } from "../../../lib/utils";
 import { useStakingContractData } from "../../../context/stakingContractData";
+import { useRouter } from "next/router";
 
 const Stacking: React.FC = () => {
   const { stakingContractData, setStakingContractData } =
@@ -38,7 +39,8 @@ const Stacking: React.FC = () => {
   ]);
   const [amount, setAmount] = React.useState(2);
 
-  const { address: currentAddress } = useAccount();
+  const { address: currentAddress, isConnected } = useAccount();
+  const router = useRouter();
 
   const { data: myBalance, error: myBalanceError } = useReadContract({
     abi: stakingTokenABI,
@@ -88,6 +90,12 @@ const Stacking: React.FC = () => {
     functionName: "cooldownPeriod",
     args: [],
   });
+
+  useEffect(() => {
+    if (!isConnected) {
+      router.push("/dashboard");
+    }
+  }, [isConnected]);
 
   useEffect(() => {
     if (
