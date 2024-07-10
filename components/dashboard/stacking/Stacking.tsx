@@ -12,6 +12,7 @@ import {
 } from "../../../lib/blockchain-config";
 import { approximateTime } from "../../../lib/utils";
 import { useStakingContractData } from "../../../context/stakingContractData";
+import { useRouter } from "next/router";
 
 const Stacking: React.FC = () => {
   const { stakingContractData, setStakingContractData } =
@@ -38,7 +39,9 @@ const Stacking: React.FC = () => {
   ]);
   const [amount, setAmount] = React.useState(2);
 
-  const { address: currentAddress } = useAccount();
+  const { address: currentAddress, isConnected } = useAccount();
+
+  const router = useRouter();
 
   const { data: myBalance, error: myBalanceError } = useReadContract({
     abi: stakingTokenABI,
@@ -105,6 +108,9 @@ const Stacking: React.FC = () => {
         monthlyIncreasePercentage: monthlyIncreasePercentage as bigint,
         startingSlashingPoint: startingSlashingPoint as bigint,
       });
+      if (!isConnected) {
+        router.push("/dashboard");
+      }
     }
   }, [
     stakingDuration,
@@ -112,6 +118,7 @@ const Stacking: React.FC = () => {
     yieldConstant,
     monthlyIncreasePercentage,
     startingSlashingPoint,
+    isConnected,
   ]);
 
   const infoCards = [
