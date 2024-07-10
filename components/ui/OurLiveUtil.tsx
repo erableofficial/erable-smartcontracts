@@ -65,7 +65,7 @@ const OurLiveUtil: React.FC = () => {
         ) : (
           <Link
             href={link}
-            className="pb-1.5 cursor-pointer my-auto font-medium font-NeueHaas text-base text-neutral-700 border-b-2 border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
+            className="cursor-pointer my-auto font-medium font-NeueHaas text-base text-neutral-700 border-b border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
           >
             {btnText}
           </Link>
