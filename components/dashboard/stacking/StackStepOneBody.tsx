@@ -318,9 +318,9 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         </div>
       </div>
       <button
-        disabled={amount === 0}
+        disabled={amount === 0 || lessBalanceError}
         className={`${
-          amount === 0
+          amount === 0 || lessBalanceError
             ? " border-neutral-300 text-neutral-300 hover:text-neutral-500 hover:border-neutral-500"
             : "primary-button bg-surface-primary "
         }  justify-center self-end px-7 py-4 mt-14 text-lg font-semibold rounded-xl border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-sm:mt-5 max-sm:mx-auto`}
