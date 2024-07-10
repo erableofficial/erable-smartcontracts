@@ -77,9 +77,10 @@ const OurLiveUtil: React.FC = () => {
       <Image
         src={imageUrl}
         alt={`${title} illustration`}
-        className="mt-16 w-full h-full aspect-[1.15] object-fill max-md:mt-10"
-        width={400}
-        height={345}
+        className="mt-16 w-full h-full  object-fill max-md:mt-10"
+        layout="responsive"
+        width={1380}
+        height={1016}
       />
     </div>
   );
