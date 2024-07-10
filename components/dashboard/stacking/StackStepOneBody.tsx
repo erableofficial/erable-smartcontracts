@@ -323,7 +323,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
           amount === 0
             ? " border-neutral-300 text-neutral-300 hover:text-neutral-500 hover:border-neutral-500"
             : "primary-button bg-surface-primary "
-        }  justify-center self-end px-7 py-4 mt-14 text-lg font-semibold text-neutral-700 rounded-xl border-black border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-sm:mt-5 max-sm:mx-auto`}
+        }  justify-center self-end px-7 py-4 mt-14 text-lg font-semibold rounded-xl border-solid border-[3px] max-md:px-5 max-md:mt-10 max-md:mr-2.5 max-sm:mt-5 max-sm:mx-auto`}
         onClick={() => setToggleAuthorizeStackingModal(true)}
       >
         Start Program
