@@ -29,7 +29,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
       onClick={toggleOpen}
     >
       <div className="flex gap-5 justify-between  items-center">
-        <div className="my-auto text-xl font-bold text-primary max-lg:max-w-full max-sm:text-lg">
+        <div className="my-auto text-xl font-semibold text-primary max-lg:max-w-full max-sm:text-lg">
           {question}
         </div>
         <div
