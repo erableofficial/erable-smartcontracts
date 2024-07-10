@@ -202,7 +202,15 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
         setLessBalanceError(false);
       }
     } else {
-      toast.error("Invalid number format");
+      // toast.error("Invalid number format");
+      toast.error(<CustomToast title={"Invalid number format"} />, {
+        // icon: <Info />,
+        // autoClose: 5000000,
+        theme: "colored",
+        icon: (
+          <TriangleAlert width={21} height={21} size={32} color="#B91C1C" />
+        ),
+      });
       console.error("Invalid number format"); // Debugging line
     }
   };
