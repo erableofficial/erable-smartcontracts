@@ -49,16 +49,16 @@ const OurLiveUtil: React.FC = () => {
     <div
       ref={cardRef}
       className={`flex flex-col p-6 ${
-        index === activeIndex ? "bg-surface-500" : "bg-white"
-      } rounded-2xl border border-solid border-stone-300  max-xl:min-w-full min-w-[45%]  max-md:px-5`}
+        index === activeIndex
+          ? "border-2  border-black rounded-[1.25rem]"
+          : "border-[0.8px] border-stone-300 rounded-2xl"
+      }  bg-white  border-solid max-xl:min-w-full min-w-[45%]  max-md:px-5`}
     >
       <div className="flex gap-5 justify-between font-semibold">
         <h3 className="text-2xl text-neutral-700 max-sm:text-xl">{title}</h3>
         {link === "no link" ? (
           <p
-            className={`${
-              index === activeIndex ? "bg-surface-300 font-semibold" : "bg-surface-500"
-            }  py-1.5 px-2.5 font-NeueHaas text-sm font-medium rounded-full text-neutral-700 border-[1.5px] border-black border-solid max-sm:text-base max-sm:border max-sm:font-medium max-sm:p-0.5`}
+            className={`bg-surface-500 py-1.5 px-2.5 font-NeueHaas text-sm font-medium rounded-full text-neutral-700 border-[1.5px] border-black border-solid max-sm:text-base max-sm:border max-sm:font-medium max-sm:p-0.5`}
           >
             Coming soon
           </p>
