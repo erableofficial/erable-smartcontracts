@@ -50,9 +50,9 @@ const OurLiveUtil: React.FC = () => {
       ref={cardRef}
       className={`flex flex-col p-6 ${
         index === activeIndex
-          ? "border-2  border-black rounded-[1.25rem]"
-          : "border-[0.8px] border-stone-300 rounded-2xl"
-      }  bg-white  border-solid max-xl:min-w-full min-w-[45%]  max-md:px-5`}
+          ? "border-2  border-black "
+          : "border border-stone-300"
+      }  bg-white rounded-[1.25rem]  border-solid max-xl:min-w-full min-w-[45%]  max-md:px-5`}
     >
       <div className="flex gap-5 justify-between font-semibold">
         <h3 className="text-2xl text-neutral-700 max-sm:text-xl">{title}</h3>
@@ -77,7 +77,7 @@ const OurLiveUtil: React.FC = () => {
       <Image
         src={imageUrl}
         alt={`${title} illustration`}
-        className="mt-16 w-full h-full  object-fill max-md:mt-10"
+        className="mt-16 w-full h-full aspect-[1.3] object-fill max-md:mt-10"
         layout="responsive"
         width={1380}
         height={1016}
