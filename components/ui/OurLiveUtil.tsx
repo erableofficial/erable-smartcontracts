@@ -71,7 +71,11 @@ const OurLiveUtil: React.FC = () => {
           </Link>
         )}
       </div>
-      <p className="mt-6 text-lg font-medium text-neutral-500 max-sm:mt-5 max-sm:text-base">
+      <p
+        className={`mt-6 text-lg font-medium ${
+          index === activeIndex ? "text-neutral-700" : "text-neutral-500"
+        }  max-sm:mt-5 max-sm:text-base`}
+      >
         {description}
       </p>
       <Image
