@@ -225,9 +225,12 @@ const Dashboard: React.FC<DashboardProps> = () => {
         type: "LP Farming",
         id: index,
         startTime: 0,
-        amount: BigInt(farming.unclaimed),
+        amount:
+          BigInt(farming.unclaimed) > 0
+            ? BigInt(farming.unclaimed)
+            : BigInt(farming.accumulated),
         endTime: 0,
-        action: "Claim",
+        action: BigInt(farming.unclaimed) > 0 ? "Claim" : "Claimed",
         requestUnstakeTime: "",
         unstakeRequested: false,
       };
