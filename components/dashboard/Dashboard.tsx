@@ -310,7 +310,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
         getUserAirdrops();
       }
     }
-    
 
     // claeinning after unmount useEffect
     return () => {
@@ -341,7 +340,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
     return () => {
       setAllItems([]);
-      
     };
   }, [stakingItems, airdropItems]);
 
@@ -513,7 +511,10 @@ const Dashboard: React.FC<DashboardProps> = () => {
                 {selected === "Your Farming" && !tabLoading && (
                   <>
                     {farmingItems?.length === 0 ? (
-                      <NoFarmingUtilities />
+                      <NoFarmingUtilities
+                        myBalance={myBalance}
+                        setToggleBuyEraModal={setToggleBuyEraModal}
+                      />
                     ) : (
                       <TabContent
                         setTransactionSuccess={setTransactionSuccess}

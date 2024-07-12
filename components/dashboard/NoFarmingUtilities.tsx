@@ -1,7 +1,16 @@
 import React from "react";
 import LpFarmingModal from "./LpFarmingModal";
+import { TriangleAlert } from "lucide-react";
 
-const NoFarmingUtilities = () => {
+type NoFarmingUtilitiesProps = {
+  myBalance: BigInt;
+  setToggleBuyEraModal: (value: boolean) => void;
+};
+
+const NoFarmingUtilities: React.FC<NoFarmingUtilitiesProps> = ({
+  myBalance,
+  setToggleBuyEraModal,
+}) => {
   const [toggleLpFarmingModal, setToggleLpFarmingModal] =
     React.useState<boolean>(false);
   return (
@@ -33,14 +42,29 @@ const NoFarmingUtilities = () => {
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="mt-8 p-6 rounded-3xl border border-solid bg-stone-50 border-stone-300 ">
-          <button
-            className="primary-button-sm tracking-wide text-neutral-700 px-6 py-3 text-base font-semibold font-NeueHaas capitalize"
-            onClick={() => setToggleLpFarmingModal(true)}
-          >
-            Start LP Farming
-          </button>
-        </div>
+        {myBalance == BigInt(0) ? (
+          <div className="flex flex-col items-center">
+            <div className="flex gap-1.5 px-2.5 items-center py-1 my-10 text-base font-medium text-neutral-700 bg-danger-200 rounded w-fit">
+              <TriangleAlert width={17} height={17} />
+              <p>You don’t have enough $ERA, buy more on uniswap </p>
+            </div>
+            <button
+              className="primary-button-sm font-semibold w-fit justify-center px-6 py-3 text-base text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid max-md:px-5"
+              onClick={() => setToggleBuyEraModal(true)}
+            >
+              Buy $ERA
+            </button>
+          </div>
+        ) : (
+          <div className="mt-8 p-6 rounded-3xl border border-solid bg-stone-50 border-stone-300 ">
+            <button
+              className="primary-button-sm tracking-wide text-neutral-700 px-6 py-3 text-base font-semibold font-NeueHaas capitalize"
+              onClick={() => setToggleLpFarmingModal(true)}
+            >
+              Start LP Farming
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
