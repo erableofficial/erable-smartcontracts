@@ -41,6 +41,7 @@ import NoFarmingUtilities from "./NoFarmingUtilities";
 import NoAirdropUtilities from "./NoAirdropUtilities";
 import NoStakingUtilities from "./NoStakingUtilities";
 import LpFarmingModal from "./LpFarmingModal";
+import { toast } from "react-toastify";
 
 interface DashboardProps {}
 
@@ -75,6 +76,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
     BigInt(0)
   );
   const [tabLoading, setTabLoading] = useState<boolean>(true);
+  const [isFarmingLoading, setIsFarmingLoading] = useState<boolean>(true);
+  const [isStakingLoading, setIsStakingLoading] = useState<boolean>(true);
+  const [isAirdropLoading, setIsAirdropLoading] = useState<boolean>(true);
+  const [isFarmingFetchingError, setIsFarmingFetchingError] =
+    useState<boolean>(false);
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -175,6 +181,58 @@ const Dashboard: React.FC<DashboardProps> = () => {
     args: [],
   });
 
+  async function getUserFarmings() {
+    const userAddr = process.env.NEXT_PUBLIC_FARMING_USER_TEST_ADDRESS;
+    const rewardTokenAddr = process.env.NEXT_PUBLIC_LCD_TOKEN_ADDRESS;
+    const apiUrl = `${process.env.NEXT_PUBLIC_MERKL_API}/userRewards?user=${userAddr}&chainId=137&rewardToken=${rewardTokenAddr}&proof=true`;
+
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      console.error("Error fetching user farmings from Merkl API");
+      setIsFarmingLoading(false);
+      setIsFarmingFetchingError(true);
+      return;
+    }
+
+    const data = await response.json();
+
+    const { reasons } = data[rewardTokenAddr as string];
+
+    // convert reasons to array
+    const farmings = Object.keys(data[rewardTokenAddr as string].reasons).map(
+      (key) => {
+        return {
+          rewardTokenAddr: rewardTokenAddr,
+          accumulated: data[rewardTokenAddr as string].reasons[key].accumulated,
+          unclaimed: data[rewardTokenAddr as string].reasons[key].unclaimed,
+          reason: key,
+          proof: data[rewardTokenAddr as string].proof,
+        };
+      }
+    );
+
+    const items: TabItem[] = farmings.map((farming, index) => {
+      return {
+        type: "LP Farming",
+        id: index,
+        startTime: 0,
+        amount: BigInt(farming.unclaimed),
+        endTime: 0,
+        action: "Claim",
+        requestUnstakeTime: "",
+        unstakeRequested: false,
+      };
+    });
+
+    console.log("API URL: ", apiUrl);
+    console.log("API Response Data: ", data);
+    console.log("User Farmings: ", reasons);
+    console.log("User Farmings arr: ", farmings);
+    setFarmingItems(items);
+    setIsFarmingLoading(false);
+  }
+
   useEffect(() => {
     if (
       totalStaked &&
@@ -236,7 +294,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       console.log("Staking Items from inside: ", filteredItems);
 
       setTransactionSuccess(false);
-      setTabLoading(false);
+      setIsStakingLoading(false);
     }
     async function updateUserBalnce() {
       const balance = await getUserBalance(currentAddress);
@@ -286,7 +344,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       );
 
       setAirdropItems(items);
-      setTabLoading(false);
+      setIsAirdropLoading(false);
     }
 
     if (currentAddress) {
@@ -296,6 +354,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
         chain: chain,
         connector: connector,
       });
+
+      getUserFarmings();
 
       if (stakingDuration) {
         setTabLoading(true);
@@ -326,22 +386,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
   ]);
 
   useEffect(() => {
-    if (stakingItems.length > 0 && airdropItems.length > 0) {
-      const allItems = [...stakingItems, ...airdropItems];
-      setAllItems(allItems);
-      setTabLoading(false);
-    } else if (stakingItems.length > 0) {
-      setAllItems(stakingItems);
-      setTabLoading(false);
-    } else if (airdropItems.length > 0) {
-      setAllItems(airdropItems);
-      setTabLoading(false);
-    }
+    // update all items
+    setAllItems([...stakingItems, ...farmingItems, ...airdropItems]);
+    setTabLoading(false);
 
     return () => {
       setAllItems([]);
+      setTabLoading(true);
     };
-  }, [stakingItems, airdropItems]);
+  }, [stakingItems, airdropItems, farmingItems]);
 
   // console.log("StakingContractData: ", stakingContractData);
 
@@ -471,71 +524,111 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   </div>
                 </div>
 
-                {tabLoading && (
-                  <div className="flex justify-center items-center py-5">
-                    <Loading />
-                  </div>
-                )}
-
-                {selected === "All" && !tabLoading && (
+                {selected === "All" ? (
                   <>
-                    {allItems?.length === 0 ? (
-                      <NoUtilities
-                        myBalance={myBalance}
-                        setToggleBuyEraModal={setToggleBuyEraModal}
-                      />
+                    {!tabLoading &&
+                    !isFarmingLoading &&
+                    !isStakingLoading &&
+                    !isAirdropLoading ? (
+                      <>
+                        {allItems?.length === 0 ? (
+                          <NoUtilities
+                            myBalance={myBalance}
+                            setToggleBuyEraModal={setToggleBuyEraModal}
+                          />
+                        ) : (
+                          <TabContent
+                            setTransactionSuccess={setTransactionSuccess}
+                            Items={allItems}
+                          />
+                        )}
+                      </>
                     ) : (
-                      <TabContent
-                        setTransactionSuccess={setTransactionSuccess}
-                        Items={allItems}
-                      />
+                      <div className="flex justify-center items-center py-5">
+                        <Loading />
+                      </div>
                     )}
                   </>
-                )}
-                {selected === "Staking" && !tabLoading && (
+                ) : selected === "Staking" ? (
                   <>
-                    {stakingItems?.length === 0 ? (
-                      <NoStakingUtilities
-                        myBalance={myBalance}
-                        setToggleBuyEraModal={setToggleBuyEraModal}
-                      />
+                    {!isStakingLoading ? (
+                      <>
+                        {stakingItems?.length === 0 ? (
+                          <NoStakingUtilities
+                            myBalance={myBalance}
+                            setToggleBuyEraModal={setToggleBuyEraModal}
+                          />
+                        ) : (
+                          <TabContent
+                            setTransactionSuccess={setTransactionSuccess}
+                            Items={stakingItems}
+                          />
+                        )}
+                      </>
                     ) : (
-                      <TabContent
-                        setTransactionSuccess={setTransactionSuccess}
-                        Items={stakingItems}
-                      />
+                      <div className="flex justify-center items-center py-5">
+                        <Loading />
+                      </div>
                     )}
                   </>
-                )}
-
-                {selected === "Your Farming" && !tabLoading && (
+                ) : selected === "Your Farming" ? (
                   <>
-                    {farmingItems?.length === 0 ? (
-                      <NoFarmingUtilities
-                        myBalance={myBalance}
-                        setToggleBuyEraModal={setToggleBuyEraModal}
-                      />
+                    {!isFarmingLoading ? (
+                      <>
+                        {isFarmingFetchingError ? (
+                          <div className="flex flex-col items-center justify-center gap-2 py-5">
+                            <TriangleAlert size={48} color="#F9A825" />
+                            <p className="text-lg font-semibold text-neutral-700">
+                              Error fetching your farmings
+                            </p>
+                            <button
+                              className="primary-button-sm px-5 py-3"
+                              onClick={() => {
+                                setIsFarmingFetchingError(false);
+                                getUserFarmings();
+                              }}
+                            >
+                              Retry
+                            </button>
+                          </div>
+                        ) : farmingItems?.length === 0 ? (
+                          <NoFarmingUtilities
+                            myBalance={myBalance}
+                            setToggleBuyEraModal={setToggleBuyEraModal}
+                          />
+                        ) : (
+                          <TabContent
+                            setTransactionSuccess={setTransactionSuccess}
+                            Items={farmingItems}
+                          />
+                        )}
+                      </>
                     ) : (
-                      <TabContent
-                        setTransactionSuccess={setTransactionSuccess}
-                        Items={farmingItems}
-                      />
+                      <div className="flex justify-center items-center py-5">
+                        <Loading />
+                      </div>
                     )}
                   </>
-                )}
-
-                {selected === "Airdrop" && !tabLoading && (
+                ) : selected === "Airdrop" ? (
                   <>
-                    {airdropItems?.length === 0 ? (
-                      <NoAirdropUtilities />
+                    {!isAirdropLoading ? (
+                      <>
+                        {airdropItems?.length === 0 ? (
+                          <NoAirdropUtilities />
+                        ) : (
+                          <TabContent
+                            setTransactionSuccess={setTransactionSuccess}
+                            Items={airdropItems}
+                          />
+                        )}
+                      </>
                     ) : (
-                      <TabContent
-                        setTransactionSuccess={setTransactionSuccess}
-                        Items={airdropItems}
-                      />
+                      <div className="flex justify-center items-center py-5">
+                        <Loading />
+                      </div>
                     )}
                   </>
-                )}
+                ) : null}
               </section>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { TabItem } from "../../lib/types";
 import StakeItem from "./StakeItem";
 import Tooltip from "./Tooltip";
 import AirdropItem from "./AirdropItem";
+import FarmingItem from "./FarmingItem";
 
 type TabContentProps = {
   Items: TabItem[];
@@ -103,6 +104,17 @@ const TabContent: React.FC<TabContentProps> = ({
               key={index}
               index={index}
               airdrop={item}
+              itemsCounter={Items.length - 1}
+              setTransactionSuccess={setTransactionSuccess}
+            />
+          );
+        }
+        if (item.type === "LP Farming") {
+          return (
+            <FarmingItem
+              key={index}
+              index={index}
+              farming={item}
               itemsCounter={Items.length - 1}
               setTransactionSuccess={setTransactionSuccess}
             />

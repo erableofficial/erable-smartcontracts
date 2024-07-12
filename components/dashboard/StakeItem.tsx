@@ -5,6 +5,7 @@ import {
   useReadContract,
   useWaitForTransactionReceipt,
   useWriteContract,
+  ChainNotConfiguredError
 } from "wagmi";
 import { contractABI, contractAddress } from "../../lib/blockchain-config";
 import { toast } from "react-toastify";
@@ -15,6 +16,7 @@ import Tooltip from "./Tooltip";
 import { calculateTotalWithdraw } from "../../lib/utils";
 import { useStakingContractData } from "../../context/stakingContractData";
 import EndStackingModal from "./EndStackingModal";
+
 
 interface StakeItemProps {
   stake: TabItem;
