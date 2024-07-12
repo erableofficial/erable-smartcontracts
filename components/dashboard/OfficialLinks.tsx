@@ -12,7 +12,10 @@ const LinkSection: React.FC<LinkSectionProps> = ({ title, links }) => (
     <div className="text-lg font-bold tracking-wide leading-7 text-stone-900">
       {title}
     </div>
-    <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
+    <ul
+      style={{ listStyleType: "disc", marginLeft: "20px" }}
+      className="my-6 max-sm:my-5"
+    >
       {links.map((link, index) => (
         <li key={index}>
           <a
@@ -83,7 +86,10 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
     // },
   ];
   return (
-    <div className="max-[1281px]:px-5 w-full flex justify-center">
+    <div
+      className="max-[1281px]:px-5 w-full flex justify-center"
+      id="utilities"
+    >
       <div
         className="flex flex-col cursor-pointer justify-center px-6 py-4 mt-6 w-full bg-white rounded-2xl border border-solid border-stone-300 max-w-[1259px] max-md:px-5 max-md:max-w-full"
         onClick={toggleOpen}

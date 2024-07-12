@@ -120,7 +120,7 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
       onClick={closeModal}
     >
       <div
-        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute"
+        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute max-[839px]:mx-5"
         onClick={stopPropagation}
       >
         <div className="flex justify-end">
@@ -167,10 +167,13 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
         </span>
         <p className="self-stretch mb-4 text-base font-medium text-left text-neutral-600 max-md:max-w-full">
           You are currently in the process of unstaking your tokens. During the
-          <span className=" font-semibold"> {Number(stakingContractData.cooldownPeriod)}-sec cooldown period</span>, your
-          tokens are being prepared for withdrawal. Once this period ends, you
-          can return to the platform to claim your tokens and any associated
-          rewards.
+          <span className=" font-semibold">
+            {" "}
+            {Number(stakingContractData.cooldownPeriod)}-sec cooldown period
+          </span>
+          , your tokens are being prepared for withdrawal. Once this period
+          ends, you can return to the platform to claim your tokens and any
+          associated rewards.
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">

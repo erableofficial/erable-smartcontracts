@@ -100,21 +100,24 @@ export default function Header() {
                 <ChevronDown className="icon-chevron-down" />
               </button>
               <div
-                className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute`}
+                className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute min-w-[200px]`}
               >
                 <Link href="/dashboard?tab=Staking#utilities">
-                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                    Staking
+                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    <span>Staking</span>
+                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
                   </div>
                 </Link>
                 <Link href="/dashboard?tab=Your Farming#utilities">
-                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                    LP Farming
+                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    <span> LP Farming</span>
+                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
                   </div>
                 </Link>
                 <Link href="/dashboard?tab=Airdrop#utilities">
-                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                    Airdrop
+                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    <span> Airdrop</span>
+                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
                   </div>
                 </Link>
               </div>
@@ -127,28 +130,27 @@ export default function Header() {
                 <ChevronDown className="icon-chevron-down" />
               </button>
               <div
-                className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute`}
+                className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute min-w-[200px]`}
               >
                 <Link href="/">
-                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer  ">
-                    How to stake
+                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer  ">
+                    <span> How to stake</span>
+                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
                   </div>
                 </Link>
-                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  How to LP Farm
+                <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                  <span> How to LP Farm</span>
+                  <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
                 </div>
-                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  Whitepaper
+                <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                  <span> Whitepaper</span>
+                  <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
                 </div>
               </div>
             </li>
             <li className="min-w-[94px]">
               <Link
-                className={`text-lg font-medium ${
-                  router.pathname === "/dashboard"
-                    ? "font-semibold"
-                    : "hover:font-semibold"
-                }`}
+                className="text-lg font-medium hover:font-semibold"
                 href="/dashboard"
               >
                 Dashboard

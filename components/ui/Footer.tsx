@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
   const solutionItems = [
     { text: "Staking" },
     { text: "LP Farming", onClick: () => setToggleLpFarmingModal(true) },
-    { text: "Airdrop" },
+    { text: "Engage to Earn" },
     { text: "Governance", soon: true },
   ];
 
@@ -108,13 +108,19 @@ const Footer: React.FC = () => {
               </div>
             </section>
             <section className="flex flex-col ml-5 w-[31%] max-md:ml-0 max-md:w-[50%]">
-              <div className="flex flex-col grow text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10">
+              <div className="flex flex-col w-max grow text-base font-medium tracking-tight leading-5 text-stone-900 max-md:mt-10">
                 <div className="text-xl font-semibold tracking-tight leading-7">
                   Resources
                 </div>
                 {resourceItems.map((item, index) => (
-                  <div key={index} className="mt-4 cursor-pointer">
-                    {item}
+                  <div
+                    key={index}
+                    className="mt-4 flex gap-4 justify-between cursor-pointer"
+                  >
+                    <div> {item} </div>
+                    {item != "Contact us" && (
+                      <ArrowUpRight width={15} height={15} />
+                    )}
                   </div>
                 ))}
               </div>

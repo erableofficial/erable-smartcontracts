@@ -477,7 +477,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
           <OfficialLinks />
 
-          <div className="w-full  flex justify-center" id="utilities">
+          <div className="w-full  flex justify-center">
             <div className=" overflow-x-auto w-full max-[1281px]:px-5 pb-5">
               <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full min-w-[970px] mx-auto">
                 <div className="flex flex-col justify-center mb-6 pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">

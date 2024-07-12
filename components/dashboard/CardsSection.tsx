@@ -15,7 +15,7 @@ const StatBlock: React.FC<{ title: string; value: string }> = ({
   title,
   value,
 }) => (
-  <div className="flex gap-4 justify-between mt-2 text-neutral-700 max-md:mr-1">
+  <div className="flex gap-4 justify-between mt-2 text-neutral-700 max-lg:mr-1">
     <div className="text-base font-medium text-neutral-500">{title}</div>
     <div className=" text-base font-medium ">{value}</div>
   </div>
@@ -32,20 +32,20 @@ const CardsSection: React.FC<CardsSectionProps> = ({
     React.useState(false);
   return (
     <>
-      <div className="flex justify-center self-stretch  mt-14 w-full max-[1281px]:px-5 max-md:max-w-full max-sm:mt-4">
+      <div className="flex justify-center self-stretch  mt-14 w-full max-[1281px]:px-5 max-lg:max-w-full max-sm:mt-4">
         <BridgeProcessModal
           toggleBridgeProcessModal={toggleBridgeProcessModal}
           setToggleBridgeProcessModal={setToggleBridgeProcessModal}
         />
-        <div className="flex gap-6 max-w-[1259px] w-full max-md:flex-col max-md:gap-0">
-          <section className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+        <div className="flex gap-6 max-w-[1259px] w-full max-lg:flex-col max-lg:gap-0">
+          <section className="flex flex-col w-[33%] max-lg:ml-0 max-lg:w-full">
+            <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-lg:px-5 max-lg:mt-6">
               <div className="flex gap-2 justify-between font-semibold">
                 <div className="my-auto text-2xl text-neutral-700">
                   My $ERA Wallet
                 </div>
                 <button
-                  className="primary-button-sm  justify-center px-6 py-3 text-base text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid max-md:px-5"
+                  className="primary-button-sm  justify-center px-6 py-3 text-base text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid max-lg:px-5"
                   onClick={() => setToggleBuyEraModal(true)}
                 >
                   Buy $ERA
@@ -99,8 +99,8 @@ const CardsSection: React.FC<CardsSectionProps> = ({
           {userFarmingBalance == BigInt(0) &&
           userStakingBalance == BigInt(0) ? (
             <>
-              <div className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-                <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+              <div className="flex flex-col ml-5 w-[33%] max-lg:ml-0 max-lg:w-full">
+                <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-lg:px-5 max-lg:mt-6">
                   <div className="flex gap-5 justify-between font-semibold">
                     <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
                       <div className="text-2xl text-neutral-700">
@@ -134,7 +134,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     </span>
                   </div>
 
-                  <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-md:max-w-full" />
+                  <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-lg:max-w-full" />
 
                   <div className="flex gap-1 justify-between ">
                     <div className="text-lg font-semibold text-neutral-700 max-sm:text-base">
@@ -159,8 +159,8 @@ const CardsSection: React.FC<CardsSectionProps> = ({
               </div>
             </>
           ) : (
-            <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+            <section className="flex flex-col ml-5 w-[33%] max-lg:ml-0 max-lg:w-full">
+              <div className="flex flex-col grow justify-between self-stretch p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-lg:px-5 max-lg:mt-6">
                 <div className="flex gap-5 justify-between font-semibold">
                   <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
                     <div className="text-2xl text-neutral-700">
@@ -192,7 +192,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                   </span>
                 </div>
 
-                <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-md:max-w-full" />
+                <div className="shrink-0 my-[14px] h-[0.8px] border border-solid bg-neutral-200  max-lg:max-w-full" />
 
                 <div className="flex gap-1 justify-between ">
                   <div className="text-lg font-semibold text-neutral-700">
@@ -208,8 +208,8 @@ const CardsSection: React.FC<CardsSectionProps> = ({
               </div>
             </section>
           )}
-          <section className="flex flex-col ml-5 w-[33%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col justify-between grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-md:mt-6">
+          <section className="flex flex-col ml-5 w-[33%] max-lg:ml-0 max-lg:w-full">
+            <div className="flex flex-col justify-between grow p-6 mx-auto w-full bg-white rounded-3xl border border-solid border-stone-300 max-lg:px-5 max-lg:mt-6">
               <div className="flex gap-5 justify-between font-semibold">
                 <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
                   <div className="text-2xl text-neutral-700">$ERA stats</div>
