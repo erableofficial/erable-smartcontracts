@@ -225,16 +225,19 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
         <div className=" py-10">
           <WithdrawDetailsBox text="Remember, withdrawing funds before the term ends may result in penalties. This transfer might take a few moments." />
         </div>
-
-        <button
-          className="primary-button justify-center self-center px-7 py-4 text-lg font-semibold text-neutral-700 rounded-xl border-black border-solid border-[3px] max-md:px-5"
-          onClick={() => {
-            setToggleStackingLoadingModal(true);
-            handleSendFund();
-          }}
-        >
-          Send funds
-        </button>
+        <div className="sticky-button-container2">
+          <div className="sticky-button text-center">
+            <button
+              className="primary-button justify-center self-center px-7 py-4 text-lg font-semibold text-neutral-700 rounded-xl border-black border-solid border-[3px] max-md:px-5"
+              onClick={() => {
+                setToggleStackingLoadingModal(true);
+                handleSendFund();
+              }}
+            >
+              Send funds
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
