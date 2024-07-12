@@ -29,7 +29,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
       onClick={toggleOpen}
     >
       <div className="flex gap-5 justify-between  items-center">
-        <div className="my-auto text-xl font-semibold text-primary max-lg:max-w-full max-sm:text-lg">
+        <div className="my-auto text-xl font-semibold text-black max-lg:max-w-full max-sm:text-lg">
           {question}
         </div>
         <div
@@ -51,7 +51,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
           <div className="self-start mt-6 text-lg font-semibold text-neutral-700 ">
             <Link
               href={link}
-              className="mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
+              className="mt-6 text-lg font-semibold font-NeueHaas text-neutral-700 border-b-2 border-black"
             >
               Learn More
             </Link>
@@ -68,7 +68,7 @@ const Faq: React.FC = () => {
       question: "What is erable°?",
       answer: (
         <>
-          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+          <div className="font-medium font-NeueHaas text-primary text-lg">
             <p>
               erable° is an impact{" "}
               <span className="font-semibold">
@@ -95,8 +95,8 @@ const Faq: React.FC = () => {
                   Core Activity: Impact Crowdfunding Platform (Web2 + Web3)
                 </span>
                 Our emphasis is on revenue-based models in Europe. These link
-                repayments to a project&apos;s revenue, aligning investor interests
-                with business success.
+                repayments to a project&apos;s revenue, aligning investor
+                interests with business success.
               </li>
               <li className="mt-5">
                 Other Notable Activities Collaborating with corporations to
@@ -119,7 +119,7 @@ const Faq: React.FC = () => {
       question: "What is the $ERA token?",
       answer: (
         <>
-          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+          <div className="font-medium font-NeueHaas text- bg-primary text-lg">
             <p>
               $ERA is{" "}
               <span className="font-semibold">
@@ -130,8 +130,8 @@ const Faq: React.FC = () => {
             <ul className="list-disc ml-5">
               <li className="mt-7">
                 <span className="font-semibold">Access Services:</span> Hold
-                $ERA to unlock all our products & services, whether you&apos;re an
-                investor, project, or partner.
+                $ERA to unlock all our products & services, whether you&apos;re
+                an investor, project, or partner.
               </li>
               <li className="mt-7">
                 <span className="font-semibold">Earn $ERA:</span> Get rewarded
@@ -157,7 +157,7 @@ const Faq: React.FC = () => {
       question: "Where to get $ERA?",
       answer: (
         <>
-          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+          <div className="font-medium font-NeueHaas text-primary text-lg">
             <p>
               You can acquire $ERA on Uniswap, a leading decentralized exchange
               (DeX) known for its ease of use and robust security features.
@@ -179,7 +179,7 @@ const Faq: React.FC = () => {
       question: "How to bridge as a $CLAP holder?",
       answer: (
         <>
-          <div className="font-medium text-lg">
+          <div className="font-medium font-NeueHaas text-primary text-lg">
             <p>
               The $CLAP token bridge allows holders to bridge their $CLAP tokens
               from the Cardano blockchain to the Polygon blockchain.
@@ -196,8 +196,8 @@ const Faq: React.FC = () => {
                 bridge your $CLAP tokens to Polygon, you must go to the
                 Chainport
               </span>{" "}
-              application and follow the process. To do this, you&apos;ll need your
-              wallets:
+              application and follow the process. To do this, you&apos;ll need
+              your wallets:
             </p>
             <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
               <li className="mt-7">

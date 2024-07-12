@@ -15,7 +15,6 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
     setIsOpen(!isOpen);
   };
 
-  // This useEffect ensures that updates to isOpen appropriately adjust maxHeight
   React.useEffect(() => {
     if (contentRef.current) {
       contentRef.current.style.maxHeight = isOpen
@@ -29,8 +28,8 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
       className="flex flex-col justify-center px-6 py-4 mt-6 bg-white rounded-2xl border border-solid border-stone-300 max-lg:px-5 max-lg:max-w-full cursor-pointer"
       onClick={toggleOpen}
     >
-      <div className="flex gap-5 justify-between ">
-        <div className="my-auto text-xl font-semibold text-primary max-lg:max-w-full">
+      <div className="flex gap-5 justify-between  items-center">
+        <div className="my-auto text-xl font-semibold text-black max-lg:max-w-full max-sm:text-lg">
           {question}
         </div>
         <div
@@ -47,14 +46,14 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
         className="overflow-hidden transition-max-height duration-500 ease-in-out"
         style={{ maxHeight: "0" }}
       >
-        <div className="mt-4 text-sm text-gray-700">{answer}</div>
+        <div className="mt-6 text-sm text-gray-700">{answer}</div>
         {link && (
           <div className="self-start mt-6 text-lg font-semibold text-neutral-700 ">
             <Link
               href={link}
-              className="mt-6 text-lg font-semibold text-neutral-700 border-b-2 border-black"
+              className="mt-6 text-lg font-semibold font-NeueHaas text-neutral-700 border-b-2 border-black"
             >
-              Read more
+              Learn More
             </Link>
           </div>
         )}
@@ -69,7 +68,7 @@ const Faq: React.FC = () => {
       question: "What is erable°?",
       answer: (
         <>
-          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+          <div className="font-medium font-NeueHaas text-primary text-lg">
             <p>
               erable° is an impact{" "}
               <span className="font-semibold">
@@ -96,8 +95,8 @@ const Faq: React.FC = () => {
                   Core Activity: Impact Crowdfunding Platform (Web2 + Web3)
                 </span>
                 Our emphasis is on revenue-based models in Europe. These link
-                repayments to a project&apos;s revenue, aligning investor interests
-                with business success.
+                repayments to a project&apos;s revenue, aligning investor
+                interests with business success.
               </li>
               <li className="mt-5">
                 Other Notable Activities Collaborating with corporations to
@@ -120,7 +119,7 @@ const Faq: React.FC = () => {
       question: "What is the $ERA token?",
       answer: (
         <>
-          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+          <div className="font-medium font-NeueHaas text- bg-primary text-lg">
             <p>
               $ERA is{" "}
               <span className="font-semibold">
@@ -131,8 +130,8 @@ const Faq: React.FC = () => {
             <ul className="list-disc ml-5">
               <li className="mt-7">
                 <span className="font-semibold">Access Services:</span> Hold
-                $ERA to unlock all our products & services, whether you&apos;re an
-                investor, project, or partner.
+                $ERA to unlock all our products & services, whether you&apos;re
+                an investor, project, or partner.
               </li>
               <li className="mt-7">
                 <span className="font-semibold">Earn $ERA:</span> Get rewarded
@@ -158,7 +157,7 @@ const Faq: React.FC = () => {
       question: "Where to get $ERA?",
       answer: (
         <>
-          <div className="font-medium font-NeueHaas text-neutral-700 text-lg">
+          <div className="font-medium font-NeueHaas text-primary text-lg">
             <p>
               You can acquire $ERA on Uniswap, a leading decentralized exchange
               (DeX) known for its ease of use and robust security features.
@@ -180,7 +179,7 @@ const Faq: React.FC = () => {
       question: "How to bridge as a $CLAP holder?",
       answer: (
         <>
-          <div className="font-medium text-lg">
+          <div className="font-medium font-NeueHaas text-primary text-lg">
             <p>
               The $CLAP token bridge allows holders to bridge their $CLAP tokens
               from the Cardano blockchain to the Polygon blockchain.
@@ -197,8 +196,8 @@ const Faq: React.FC = () => {
                 bridge your $CLAP tokens to Polygon, you must go to the
                 Chainport
               </span>{" "}
-              application and follow the process. To do this, you&apos;ll need your
-              wallets:
+              application and follow the process. To do this, you&apos;ll need
+              your wallets:
             </p>
             <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
               <li className="mt-7">
@@ -233,62 +232,60 @@ const Faq: React.FC = () => {
   ];
 
   return (
-    <div className="max-md:px-5 w-full flex bg-neutral-50 justify-center pt-[90px] pb-[210px] max-sm:py-10 max-sm:px-0">
-      <section className="self-stretch    max-w-[1259px] max-lg:px-5 max-md:max-w-full ">
-        <div className="flex gap-5 max-lg:flex-col max-lg:gap-0">
-          <div className="flex flex-col w-6/12 max-lg:ml-0 max-lg:w-full">
-            <div className="flex flex-col px-5 text-5xl font-extrabold text-neutral-700 leading-[3.3rem] max-lg:mt-10 max-lg:text-4xl max-sm:mt-0 max-sm:px-0 max-sm:w-max">
-              <h1 className="max-lg:text-4xl">
-                Frequently
-                <div className="justify-center font-friends w-fit px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-lg:text-4xl max-sm:w-min">
-                  <span className="flex font-friends ">Asked Questions</span>
-                </div>
-              </h1>
-              <div className="flex gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-lg:mt-10 max-lg:hidden justify-start">
-                <Link
-                  href="#"
-                  className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
-                >
-                  Read Whitepaper
-                </Link>
-                <Link
-                  href="#"
-                  className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button "
-                >
-                  Get help
-                </Link>
+    <section className="self-stretch p-[90px] max-lg:px-5 max-sm:py-10 ">
+      <div className="flex gap-5 max-lg:flex-col max-lg:gap-0">
+        <div className="flex flex-col w-6/12 max-lg:ml-0 max-lg:w-full">
+          <div className="flex flex-col px-5 text-5xl font-extrabold text-neutral-700 leading-[3.3rem] max-lg:mt-10 max-lg:text-4xl max-sm:mt-0 max-sm:px-0 max-sm:w-max">
+            <h1 className="max-lg:text-4xl">
+              Frequently
+              <div className="justify-center font-friends w-fit px-2.5 py-2 mt-3 bg-surface-500 rounded-xl max-lg:text-4xl max-sm:w-min">
+                <span className="flex font-friends ">Asked Questions</span>
               </div>
+            </h1>
+            <div className="flex gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-lg:mt-10 max-lg:hidden justify-start">
+              <Link
+                href="#"
+                className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
+              >
+                Read Whitepaper
+              </Link>
+              <Link
+                href="#"
+                className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button "
+              >
+                Get help
+              </Link>
             </div>
-          </div>
-          <div className="flex flex-col ml-5 w-6/12  max-lg:w-[90%] max-lg:mx-auto max-md:w-full max-lg:pb-8 ">
-            <div className="flex flex-col grow max-lg:mt-10 max-lg:max-w-full">
-              {faqItems.map((item, index) => (
-                <FAQItem
-                  key={index}
-                  question={item.question}
-                  answer={item.answer}
-                  link={item.link}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="flex gap-5 justify-center mt-2 text-lg font-semibold tracking-wide leading-5 text-primary  lg:hidden">
-            <Link
-              href="#"
-              className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
-            >
-              Read Whitepaper
-            </Link>
-            <Link
-              href="#"
-              className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button "
-            >
-              Get help
-            </Link>
           </div>
         </div>
-      </section>
-    </div>
+        <div className="flex flex-col ml-5 w-6/12  max-lg:w-[90%] max-lg:mx-auto max-md:w-full max-lg:pb-8 ">
+          <div className="flex flex-col grow max-lg:mt-10 max-lg:max-w-full">
+            {faqItems.map((item, index) => (
+              <FAQItem
+                key={index}
+                question={item.question}
+                answer={item.answer}
+                link={item.link}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="flex gap-5 justify-center mt-2 text-lg font-semibold tracking-wide leading-5 text-primary  lg:hidden">
+          <Link
+            href="#"
+            className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
+          >
+            Read Whitepaper
+          </Link>
+          <Link
+            href="#"
+            className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button "
+          >
+            Get help
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 };
 
