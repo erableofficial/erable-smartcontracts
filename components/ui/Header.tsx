@@ -28,7 +28,7 @@ export default function Header() {
   const utilities = ["Staking", "LP Farming", "Airdrop"];
   const docs = ["How to stake", "How to LP", "White paper"];
   return (
-    <header className="py-4 mt-12 max-sm:mt-1  px-20 max-md:px-5">
+    <header className="sticky top-0 z-50 py-4 mt-12 max-sm:mt-1  px-20 max-md:px-5">
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}
