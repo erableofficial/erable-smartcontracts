@@ -253,3 +253,15 @@ li.hover-effect:hover .icon-chevron-down {
   width: 100%;
   margin: auto;
 }
+
+.header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  /* background-color: transparent; */
+  transition: background-color 0.3s ease;
+}
+
+.header-sticky.scrolled {
+  background-color: transparent;
+}
