@@ -31,7 +31,7 @@ export default function Header() {
   const utilities = ["Staking", "LP Farming", "Airdrop"];
   const docs = ["How to stake", "How to LP", "White paper"];
   return (
-    <header className="pt-10  pb-4 mx-auto  max-sm:mt-1 bg-neutral-50 max-[1281px]:px-5 max-sm:pb-0 max-sm:pt-[14px]">
+    <header className="sticky top-0 z-50 pt-10 pb-4 mx-auto  max-sm:mt-1 bg-neutral-50 max-[1281px]:px-5 max-sm:pb-0 max-sm:pt-[14px]">
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}
