@@ -12,7 +12,10 @@ const LinkSection: React.FC<LinkSectionProps> = ({ title, links }) => (
     <div className="text-lg font-bold tracking-wide leading-7 text-stone-900">
       {title}
     </div>
-    <ul style={{ listStyleType: "disc", marginLeft: "20px" }}>
+    <ul
+      style={{ listStyleType: "disc", marginLeft: "20px" }}
+      className="my-6 max-sm:my-5"
+    >
       {links.map((link, index) => (
         <li key={index}>
           <a
