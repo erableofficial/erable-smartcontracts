@@ -30,7 +30,7 @@ const ClaimAirdropModal: React.FC<ClaimAirdropModalProps> = ({
       onClick={closeModal}
     >
       <div
-        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute"
+        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute max-[849px]:mx-5"
         onClick={stopPropagation}
       >
         <div className="flex justify-end">
