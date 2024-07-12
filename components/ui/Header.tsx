@@ -86,15 +86,21 @@ export default function Header() {
               <div
                 className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute`}
               >
-                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  Staking
-                </div>
-                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  LP Farming
-                </div>
-                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  Airdrop
-                </div>
+                <Link href="/dashboard?tab=Staking#utilities">
+                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    Staking
+                  </div>
+                </Link>
+                <Link href="/dashboard?tab=Your Farming#utilities">
+                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    LP Farming
+                  </div>
+                </Link>
+                <Link href="/dashboard?tab=Airdrop#utilities">
+                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    Airdrop
+                  </div>
+                </Link>
               </div>
             </li>
             <li className="min-w-[70px] hover-effect">
