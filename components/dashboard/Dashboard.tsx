@@ -190,6 +190,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
   });
 
   async function getUserFarmings() {
+    setIsFarmingFetchingError(false);
+
     const userAddr = process.env.NEXT_PUBLIC_FARMING_USER_TEST_ADDRESS;
     const rewardTokenAddr = process.env.NEXT_PUBLIC_LCD_TOKEN_ADDRESS;
     const apiUrl = `${process.env.NEXT_PUBLIC_MERKL_API}/userRewards?user=${userAddr}&chainId=137&rewardToken=${rewardTokenAddr}&proof=true`;
@@ -242,6 +244,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     console.log("User Farmings arr: ", farmings);
     setFarmingItems(items);
     setIsFarmingLoading(false);
+    setIsFarmingFetchingError(false);
   }
 
   useEffect(() => {
@@ -589,7 +592,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   <>
                     {!isFarmingLoading ? (
                       <>
-                        {isFarmingFetchingError ? (
+                        {isFarmingFetchingError && farmingItems?.length === 0 ? (
                           <div className="flex flex-col items-center justify-center gap-2 py-5">
                             <TriangleAlert size={48} color="#F9A825" />
                             <p className="text-lg font-semibold text-neutral-700">
