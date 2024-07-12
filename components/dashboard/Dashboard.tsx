@@ -42,15 +42,18 @@ import NoAirdropUtilities from "./NoAirdropUtilities";
 import NoStakingUtilities from "./NoStakingUtilities";
 import LpFarmingModal from "./LpFarmingModal";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 interface DashboardProps {}
 
 const Dashboard: React.FC<DashboardProps> = () => {
+  const Router = useRouter();
   const { currentUser, setCurrentUser } = useCurrentUser();
   const { stakingContractData, setStakingContractData } =
     useStakingContractData();
   const { airdropCycles, setAirdropCycles } = useAirdropCycles();
-  const [selected, setSelected] = useState<string>("All");
+  const queryTab = Router.query.tab as string;
+  const [selected, setSelected] = useState<string>(queryTab || "All");
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isDropdownOpen2, setIsDropdownOpen2] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -122,6 +125,11 @@ const Dashboard: React.FC<DashboardProps> = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDropdownOpen2]);
+  useEffect(() => {
+    if (Router.query.tab) {
+      setSelected(Router.query.tab as string);
+    }
+  }, [Router.query.tab]);
 
   const {
     isConnected,
@@ -354,6 +362,8 @@ const Dashboard: React.FC<DashboardProps> = () => {
         chain: chain,
         connector: connector,
       });
+      setIsFarmingFetchingError(false);
+      getUserFarmings();
 
       getUserFarmings();
 
@@ -377,6 +387,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
       setFarmingItems([]);
       setStakingItems([]);
       setAirdropItems([]);
+      setTabLoading(true);
     };
   }, [
     currentAddress,
@@ -460,7 +471,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
 
           <OfficialLinks />
 
-          <div className="w-full  flex justify-center">
+          <div className="w-full  flex justify-center" id="utilities">
             <div className=" overflow-x-auto w-full max-[1281px]:px-5 pb-5">
               <section className="flex flex-col p-6 mt-6 w-full bg-white rounded-3xl border border-solid border-stone-300 max-w-[1260px] max-md:px-5 max-md:max-w-full min-w-[970px] mx-auto">
                 <div className="flex flex-col justify-center mb-6 pb-3.5 border-b border-solid border-stone-300 max-md:max-w-full">

@@ -14,6 +14,7 @@ export default function Header() {
   const router = useRouter();
   const [isOpen, setIsOpen] = React.useState(false);
   const contentRef = React.useRef<HTMLDivElement>(null);
+  const headerRef = React.useRef<HTMLDivElement>(null);
   const toggleOpen = () => {
     console.log("isOpen fired");
     setIsOpen(!isOpen);
@@ -28,10 +29,29 @@ export default function Header() {
   React.useEffect(() => {
     console.log("isOpen", isOpen);
   }, [isOpen]);
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (headerRef.current) {
+        if (window.scrollY > 50) {
+          headerRef.current.classList.add("scrolled");
+        } else {
+          headerRef.current.classList.remove("scrolled");
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   const utilities = ["Staking", "LP Farming", "Airdrop"];
   const docs = ["How to stake", "How to LP", "White paper"];
   return (
-    <header className="sticky top-0 z-50 pt-10 pb-4 mx-auto  max-sm:mt-1 bg-neutral-50 max-[1281px]:px-5 max-sm:pb-0 max-sm:pt-[14px]">
+    <header
+      ref={headerRef}
+      className="header-sticky pt-10 pb-4 mx-auto max-sm:mt-1 bg-neutral-50 max-[1281px]:px-5 max-sm:pb-0 max-sm:pt-[14px]"
+    >
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}
@@ -82,15 +102,21 @@ export default function Header() {
               <div
                 className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute`}
               >
-                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  Staking
-                </div>
-                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  LP Farming
-                </div>
-                <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  Airdrop
-                </div>
+                <Link href="/dashboard?tab=Staking#utilities">
+                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    Staking
+                  </div>
+                </Link>
+                <Link href="/dashboard?tab=Your Farming#utilities">
+                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    LP Farming
+                  </div>
+                </Link>
+                <Link href="/dashboard?tab=Airdrop#utilities">
+                  <div className="transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    Airdrop
+                  </div>
+                </Link>
               </div>
             </li>
             <li className="min-w-[70px] hover-effect">

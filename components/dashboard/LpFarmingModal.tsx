@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ArrowUpRight, Info, SlidersVertical, X } from "lucide-react";
+import Link from "next/link";
 
 interface LpFarmingModalProps {
   toggleLpFarmingModal: boolean;
@@ -91,12 +92,16 @@ const LpFarmingModal: React.FC<LpFarmingModalProps> = ({
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
           <button className="secondary-button-sm">Read tutorial</button>
-          <button className="primary-button-sm">
-            <>
-              <span className="my-auto">Start providing liquidity</span>
-              <ArrowUpRight width={24} height={24} size={32} color="#000000" />
-            </>
-          </button>
+          <Link
+            target="_blank"
+            href={
+              "https://app.uniswap.org/add/0xc2132D05D31c914a87C6611C10748AEb04B58e8F/0xc2A45FE7d40bCAc8369371B08419DDAFd3131b4a"
+            }
+            className="primary-button-sm"
+          >
+            <span className="my-auto">Start providing liquidity</span>
+            <ArrowUpRight width={24} height={24} size={32} color="#000000" />
+          </Link>
         </div>
       </div>
     </div>
