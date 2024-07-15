@@ -106,8 +106,9 @@ const HeroSection = () => {
             className="w-full   max-md:max-w-full"
             alt="Dashboard"
             layout="responsive"
-            width={2560}
-            height={1029}
+            width={1920}
+            height={772}
+            quality={100}
           />
         </figure>
       </section>
