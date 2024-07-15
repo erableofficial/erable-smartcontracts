@@ -96,19 +96,20 @@ const HeroSection = () => {
           </div>
         </div>
         <figure
-          className="flex flex-col z-[-1] justify-center px-6 pt-6 mt-10 max-w-full bg-surface-500 rounded-tl-3xl  rounded-tr-3xl w-[68.5%] max-md:w-[100%] max-md:px-5"
+          className="flex flex-col z-[-1] justify-center mt-10 max-w-full  rounded-tl-3xl  rounded-tr-3xl w-[68.5%] max-md:w-[100%]"
           data-sal-delay="400"
           data-sal="slide-up"
           data-sal-duration="1000"
         >
-          <Image
-            src="/images/image 2838.png"
+          <img
+            loading="lazy"
+            src="/images/preview_hero.svg"
             className="w-full   max-md:max-w-full"
             alt="Dashboard"
-            layout="responsive"
-            width={1920}
-            height={772}
-            quality={100}
+            // layout="responsive"
+            // width={1920}
+            // height={772}
+            // quality={100}
           />
         </figure>
       </section>
