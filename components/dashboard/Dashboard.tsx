@@ -592,22 +592,27 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   <>
                     {!isFarmingLoading ? (
                       <>
-                        {isFarmingFetchingError && farmingItems?.length === 0 ? (
-                          <div className="flex flex-col items-center justify-center gap-2 py-5">
-                            <TriangleAlert size={48} color="#F9A825" />
-                            <p className="text-lg font-semibold text-neutral-700">
-                              Error fetching your farmings
-                            </p>
-                            <button
-                              className="primary-button-sm px-5 py-3"
-                              onClick={() => {
-                                setIsFarmingFetchingError(false);
-                                getUserFarmings();
-                              }}
-                            >
-                              Retry
-                            </button>
-                          </div>
+                        {isFarmingFetchingError &&
+                        farmingItems?.length === 0 ? (
+                          // <div className="flex flex-col items-center justify-center gap-2 py-5">
+                          //   <TriangleAlert size={48} color="#F9A825" />
+                          //   <p className="text-lg font-semibold text-neutral-700">
+                          //     Error fetching your farmings
+                          //   </p>
+                          //   <button
+                          //     className="primary-button-sm px-5 py-3"
+                          //     onClick={() => {
+                          //       setIsFarmingFetchingError(false);
+                          //       getUserFarmings();
+                          //     }}
+                          //   >
+                          //     Retry
+                          //   </button>
+                          // </div>
+                          <NoFarmingUtilities
+                            myBalance={myBalance}
+                            setToggleBuyEraModal={setToggleBuyEraModal}
+                          />
                         ) : farmingItems?.length === 0 ? (
                           <NoFarmingUtilities
                             myBalance={myBalance}
