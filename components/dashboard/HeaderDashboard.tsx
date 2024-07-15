@@ -138,7 +138,9 @@ export default function Header() {
             </li>
             <li className="min-w-[94px]">
               <Link
-                className="text-lg font-medium hover:font-semibold"
+                className={`text-lg font-medium hover:font-semibold
+                  ${router.pathname === "/dashboard" ? "font-semibold" : ""}
+                  `}
                 href="/dashboard"
               >
                 Dashboard
