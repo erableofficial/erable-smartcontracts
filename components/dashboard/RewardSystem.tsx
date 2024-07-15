@@ -68,7 +68,7 @@ const RewardSystem: React.FC = () => {
   ];
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center bg-white">
       <div className="flex flex-col items-start self-stretch py-20 max-w-[1260px] bg-white max-md:px-5 max-sm:py-5">
         <div className="mt-2.5 ml-2.5 text-5xl font-extrabold text-black max-md:max-w-full max-md:text-4xl font-friends max-sm:mx-0">
           Discover
@@ -88,9 +88,9 @@ const RewardSystem: React.FC = () => {
             ))}
           </div>
         </section>
-        <button className="primary-button-sm justify-center px-7 py-4 mt-10 ml-2.5 text-lg font-semibold  max-md:px-5">
+        {/* <button className="primary-button-sm justify-center px-7 py-4 mt-10 ml-2.5 text-lg font-semibold  max-md:px-5">
           Learn more
-        </button>
+        </button> */}
       </div>
     </div>
   );

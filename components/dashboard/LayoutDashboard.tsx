@@ -10,13 +10,13 @@ type LayoutDashboardProps = {
 
 const LayoutDashboard = ({ children }: LayoutDashboardProps) => {
   return (
-    <>
+    <div className="bg-neutral-50">
       <HeaderDashboard />
       {children}
       <RewardSystem />
       <FaqDashboard />
       <Footer />
-    </>
+    </div>
   );
 };
 
