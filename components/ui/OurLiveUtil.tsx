@@ -48,7 +48,7 @@ const OurLiveUtil: React.FC = () => {
   }) => (
     <div
       ref={cardRef}
-      className={`flex flex-col p-6 ${
+      className={`flex flex-col justify-around p-6 ${
         index === activeIndex
           ? "border-2  border-black "
           : "border border-stone-300"
@@ -81,10 +81,11 @@ const OurLiveUtil: React.FC = () => {
       <Image
         src={imageUrl}
         alt={`${title} illustration`}
-        className="mt-16 w-full h-full aspect-[1.3] object-fill max-md:mt-10"
+        className="mt-16 w-full h-auto aspect[1380/1016]  object-fill max-md:mt-10"
         layout="responsive"
         width={1380}
         height={1016}
+        quality={100}
       />
     </div>
   );
@@ -93,7 +94,7 @@ const OurLiveUtil: React.FC = () => {
       title: "Staking",
       description:
         "Earn rewards by locking $ERA tokens in a secure contract, showing your commitment to the ecosystem.",
-      imageUrl: "/images/live-utils-staking.png",
+      imageUrl: "/images/live util s.png",
       btnText: "Learn more",
       link: "/",
     },
@@ -101,7 +102,7 @@ const OurLiveUtil: React.FC = () => {
       title: "LP Farming",
       description:
         "Provide liquidity to the $ERA pool on Uniswap and lock it into our farming contract to earn $ERA.",
-      imageUrl: "/images/live-utils-farming.png",
+      imageUrl: "/images/live-utils-farming2.png",
       btnText: "Learn more",
       link: "/",
     },
@@ -163,7 +164,7 @@ const OurLiveUtil: React.FC = () => {
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-between self-stretch max-md:mt-10 max-sm:mt-[18px]">
-              <h1 className="justify-center px-2.5 text-5xl leading-[4.641rem] w-fit font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl max-xl:w-min max-md:w-fit">
+              <h1 className=" util-header justify-center px-2.5 text-5xl leading-[4.641rem] w-fit font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl max-xl:w-min max-md:w-fit">
                 Our Live Utilities
               </h1>
               <p className="mt-10 text-lg font-medium text-neutral-700 max-sm:mt-6 max-sm:text-base">
@@ -176,7 +177,7 @@ const OurLiveUtil: React.FC = () => {
               >
                 Open dashboard
               </Link>
-              <div className="flex gap-5 justify-between mt-52 w-full max-md:mt-10 max-sm:hidden">
+              <div className="flex gap-5 justify-between mt-auto w-full max-md:mt-10 max-sm:hidden">
                 <span className="my-auto text-2xl leading-6 text-neutral-700">
                   {activeCardIndex + 1}/{utilityCardsData.length}
                 </span>
@@ -186,7 +187,7 @@ const OurLiveUtil: React.FC = () => {
                     height={"57px"}
                     padding={"14px"}
                     src="/images/move-left.svg"
-                    alt="Utility 1"
+                    alt="arrow left"
                     onClick={handleMoveLeft}
                   />
                   <IconButton
@@ -194,7 +195,7 @@ const OurLiveUtil: React.FC = () => {
                     height={"57px"}
                     padding={"14px"}
                     src="/images/move-right.svg"
-                    alt="Utility 2"
+                    alt="arrow right"
                     onClick={handleMoveRight}
                   />
                 </div>

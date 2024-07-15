@@ -305,12 +305,12 @@ li.hover-effect:hover .icon-chevron-down {
   }
 }
 
-/* @media screen and (max-width: 767px) {
-  .sticky-button {
-    text-align: center;
-  }
-} */
-
 .sticky-button {
   width: 100%;
+}
+
+@media (min-width: 1279px) and (max-width: 1439px) {
+  .util-header {
+    width: 206px;
+  }
 }

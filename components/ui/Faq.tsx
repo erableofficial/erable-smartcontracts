@@ -119,7 +119,7 @@ const Faq: React.FC = () => {
       question: "What is the $ERA token?",
       answer: (
         <>
-          <div className="font-medium font-NeueHaas text- bg-primary text-lg">
+          <div className="font-medium font-NeueHaas text-primary text-lg">
             <p>
               $ERA is{" "}
               <span className="font-semibold">

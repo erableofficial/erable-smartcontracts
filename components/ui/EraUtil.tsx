@@ -48,7 +48,7 @@ const EraUtil: React.FC = () => {
           participating in and benefiting from the value we create together,
           fostering a collaborative and inclusive financial ecosystem.
         </p>
-        <div className="justify-between self-stretch py-4 mx-2.5 mt-10 max-md:max-w-full max-sm:mt-5 max-sm:py-0">
+        <div className="justify-between self-stretch py-4 mx-2.5 mt-10 max-md:max-w-full max-sm:mt-5 max-sm:py-0 max-sm:mx-0">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <Card
               imageSrc="/images/external-link.svg"

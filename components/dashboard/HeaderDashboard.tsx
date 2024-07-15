@@ -45,8 +45,16 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const utilities = ["Staking", "LP Farming", "Airdrop"];
-  const docs = ["How to stake", "How to LP", "White paper"];
+  const utilities = [
+    { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
+    { text: "LP Farming", link: "/dashboard?tab=Your Farming#utilities" },
+    { text: "Airdrop", link: "/dashboard?tab=Airdrop#utilities" },
+  ];
+  const docs = [
+    { text: "How to stake", link: "/" },
+    { text: "How to LP", link: "/" },
+    { text: "White paper", link: "/" },
+  ];
   return (
     <header
       ref={headerRef}
@@ -191,16 +199,30 @@ export default function Header() {
             <div className="w-full text-lg font-semibold">Utilities:</div>
             <ul>
               {utilities.map((item, index) => (
-                <li className="mt-2.5 w-full" key={index}>
-                  {item}
+                <li
+                  className="mt-2.5 w-full cursor-pointer"
+                  key={index}
+                  onClick={() => {
+                    router.push(item.link);
+                    setIsOpen(false);
+                  }}
+                >
+                  {item.text}
                 </li>
               ))}
             </ul>
             <div className="mt-5 w-full text-lg font-semibold">Docs:</div>
             <ul>
               {docs.map((item, index) => (
-                <li className="mt-2.5 w-full" key={index}>
-                  {item}
+                <li
+                  className="mt-2.5 w-full cursor-pointer"
+                  key={index}
+                  onClick={() => {
+                    router.push(item.link);
+                    setIsOpen(false);
+                  }}
+                >
+                  {item.text}
                 </li>
               ))}
             </ul>

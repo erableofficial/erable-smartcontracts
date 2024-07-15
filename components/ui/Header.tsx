@@ -25,8 +25,16 @@ export default function Header() {
   useEffect(() => {
     console.log("isOpen", isOpen);
   }, [isOpen]);
-  const utilities = ["Staking", "LP Farming", "Airdrop"];
-  const docs = ["How to stake", "How to LP", "White paper"];
+  const utilities = [
+    { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
+    { text: "LP Farming", link: "/dashboard?tab=Your Farming#utilities" },
+    { text: "Airdrop", link: "/dashboard?tab=Airdrop#utilities" },
+  ];
+  const docs = [
+    { text: "How to stake", link: "/" },
+    { text: "How to LP", link: "/" },
+    { text: "White paper", link: "/" },
+  ];
   return (
     <header className="sticky top-0 z-50 py-4 mt-12 max-sm:mt-1  px-20 max-md:px-5">
       <BuySeraModal
@@ -176,7 +184,7 @@ export default function Header() {
             <ul>
               {utilities.map((item, index) => (
                 <li className="mt-2.5 w-full" key={index}>
-                  {item}
+                  <Link href={item.link}>{item.text}</Link>
                 </li>
               ))}
             </ul>
@@ -184,7 +192,7 @@ export default function Header() {
             <ul>
               {docs.map((item, index) => (
                 <li className="mt-2.5 w-full" key={index}>
-                  {item}
+                  <Link href={item.link}>{item.text}</Link>
                 </li>
               ))}
             </ul>

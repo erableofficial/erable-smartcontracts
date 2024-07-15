@@ -3,32 +3,44 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import LpFarmingModal from "../dashboard/LpFarmingModal";
+import { useRouter } from "next/router";
 
 type SolutionItemProps = {
   text: string;
   soon?: boolean;
   onClick?: () => void;
+  link?: string;
 };
 
-const SolutionItem: React.FC<SolutionItemProps> = ({ text, soon, onClick }) => (
-  <div
-    className="flex gap-2.5 mt-4 whitespace-nowrap cursor-pointer"
-    onClick={onClick}
-  >
+const SolutionItem: React.FC<SolutionItemProps> = ({
+  text,
+  soon,
+  onClick,
+  link,
+}) => {
+  const router = useRouter();
+
+  return (
     <div
-      className={`text-base tracking-tight leading-5 text-stone-900 ${
-        soon ? "flex items-center" : ""
-      }`}
+      className="flex gap-2.5 mt-4 whitespace-nowrap cursor-pointer"
+      onClick={onClick}
     >
-      {text}
-    </div>
-    {soon && (
-      <div className="justify-center px-2.5 py-1 text-xs text-black bg-white border border-black border-solid rounded-[38px]">
-        soon
+      <div
+        className={`text-base tracking-tight leading-5 text-stone-900 ${
+          soon ? "flex items-center" : ""
+        }`}
+        onClick={() => link && router.push(link)}
+      >
+        {text}
       </div>
-    )}
-  </div>
-);
+      {soon && (
+        <div className="justify-center px-2.5 py-1 text-xs text-black bg-white border border-black border-solid rounded-[38px]">
+          soon
+        </div>
+      )}
+    </div>
+  );
+};
 
 type SocialMediaItemProps = {
   name: string;
@@ -46,9 +58,9 @@ const Footer: React.FC = () => {
     React.useState<boolean>(false);
 
   const solutionItems = [
-    { text: "Staking" },
+    { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
     { text: "LP Farming", onClick: () => setToggleLpFarmingModal(true) },
-    { text: "Engage to Earn" },
+    { text: "Engage to Earn", link: "/dashboard?tab=Airdrop#utilities" },
     { text: "Governance", soon: true },
   ];
 
@@ -103,6 +115,7 @@ const Footer: React.FC = () => {
                     text={item.text}
                     soon={item.soon}
                     onClick={item.onClick}
+                    link={item.link}
                   />
                 ))}
               </div>

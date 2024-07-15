@@ -9,6 +9,9 @@ interface MemberCardProps {
   description: string;
   bgYellow: boolean;
   bgColor: string;
+  className: string;
+  width: number;
+  height: number;
 }
 
 const MemberCard: React.FC<MemberCardProps> = ({
@@ -19,18 +22,21 @@ const MemberCard: React.FC<MemberCardProps> = ({
   description,
   bgYellow,
   bgColor,
+  className,
+  width,
+  height,
 }) => (
-  <div className="flex flex-col grow mx-auto w-full bg-white rounded-[1.875rem] max-md:mt-6">
+  <div className="flex flex-col grow mx-auto w-full bg-white  max-md:mt-6">
     <div
-      className={`${bgColor} border border-solid border-neutral-400 rounded-2xl w-full h-full flex items-center justify-center max-sm:h-[271px]`}
+      className={`${bgColor} self-stretch shrink-0   border border-solid h-[271px] border-neutral-400 rounded-2xl w-full  flex items-center justify-center max-sm:h-[271px]`}
     >
       <Image
         src={imgSrc}
         alt={imgAlt}
-        className="w-full aspect-[3/2] object-none border-neutral-400 rounded-2xl"
-        layout="intrinsic"
-        width={300}
-        height={300}
+        className={className}
+        // layout="responsive"
+        width={width}
+        height={height}
       />
     </div>
 
@@ -48,7 +54,7 @@ const MemberCard: React.FC<MemberCardProps> = ({
 
 const members = [
   {
-    imgSrc: "/images/erable-logo.png",
+    imgSrc: "/images/erable-logo2.png",
     imgAlt: "Image of Team Member 1",
     title: "erable°",
     tag: "business & product",
@@ -56,9 +62,12 @@ const members = [
       "Erable° is a fintech lab that uses traditional finance and blockchain to support social and environmental progress.",
     bgYellow: true,
     bgColor: "bg-surface-500",
+    className: "w-[158px] h-[40px]",
+    width: 158,
+    height: 40,
   },
   {
-    imgSrc: "/images/darblockchain-logo.png",
+    imgSrc: "/images/dar blockchain logo7.png",
     imgAlt: "Image of Team Member 2",
     title: "Dar Blockchain",
     tag: "tech",
@@ -66,9 +75,12 @@ const members = [
       "Dar Blockchain is an innovative web 3.0 hub that supports actively developing decentralized solutions.",
     bgYellow: false,
     bgColor: "bg-black",
+    className: "w-[159px] h-[63.6px]",
+    width: 159,
+    height: 63.6,
   },
   {
-    imgSrc: "/images/smartchain-logo.png",
+    imgSrc: "/images/smartchain-logo2.png",
     imgAlt: "Image of Team Member 3",
     title: "Smartchain",
     tag: "finance",
@@ -76,6 +88,9 @@ const members = [
       "Smartchain is a 360° web 3.0 expertise cabinet. They have been the historic partner of erable° since its inception.",
     bgYellow: false,
     bgColor: "white",
+    className: "w-[217.4px] h-[40px]",
+    width: 217.4,
+    height: 40,
   },
 ];
 
@@ -99,6 +114,9 @@ const OurTeam: React.FC = () => (
               description={member.description}
               bgYellow={member.bgYellow}
               bgColor={member.bgColor}
+              className={member.className}
+              width={member.width}
+              height={member.height}
             />
           </div>
         ))}
