@@ -2,6 +2,7 @@ import { ArrowUpRight, TriangleAlert } from "lucide-react";
 import React from "react";
 import { formatEther } from "viem";
 import BridgeProcessModal from "../ui/BridgeProcessModal";
+import Link from "next/link";
 
 type CardsSectionProps = {
   myBalance: BigInt;
@@ -166,9 +167,12 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     <div className="text-2xl text-neutral-700">
                       Total Rewards
                     </div>
-                    <div className=" cursor-pointer self-start  text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
-                      View history
-                    </div>
+
+                    <Link href="/dashboard?tab=All#utilities">
+                      <div className=" cursor-pointer self-start  text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
+                        View history
+                      </div>
+                    </Link>
                   </div>
                 </div>
                 <div className="flex gap-1 justify-between mt-6">
