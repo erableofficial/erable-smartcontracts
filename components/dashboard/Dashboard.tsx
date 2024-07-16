@@ -302,7 +302,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           startTime: Number(startTime) * 1000,
           amount: amount,
           endTime: (Number(startTime) + Number(stakingDuration)) * 1000,
-          requestUnstakeTime: requestUnstakeTime.toString(),
+          requestUnstakeTime: (Number(requestUnstakeTime) * 1000).toString(),
           unstakeRequested: unstakeRequested,
           action: unstakeRequested ? "Claim" : "Unstake",
           daysLeft: daysLeft > 0 ? `${daysLeft} secondes left` : null,

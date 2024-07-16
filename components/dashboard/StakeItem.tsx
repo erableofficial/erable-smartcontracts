@@ -202,7 +202,10 @@ const StakeItem: React.FC<StakeItemProps> = ({
           {Number(formatEther(currentRewards)).toFixed(6)}
         </div>
         <div className="flex-1 justify-center items-start self-stretch p-2.5 my-auto text-lg font-medium text-neutral-700 max-md:pr-5 max-w-[171px]">
-          {new Date(stake.endTime).toLocaleDateString()}
+          {/* {new Date(stake.endTime).toLocaleDateString()} */}
+          {stake.action === "Claim"
+            ? new Date(Number(stake.requestUnstakeTime)).toLocaleDateString()
+            : new Date(stake.endTime).toLocaleDateString()}
         </div>
         <div className="flex flex-col self-stretch px-2.5 min-w-[150px]">
           {stake.daysLeft && (

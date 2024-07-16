@@ -103,7 +103,13 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
               />
               <StakingInfo
                 label="End Date"
-                value={new Date(stake.endTime).toLocaleDateString()}
+                value={
+                  stake.action === "Claim"
+                    ? new Date(
+                        Number(stake.requestUnstakeTime)
+                      ).toLocaleDateString()
+                    : new Date(stake.endTime).toLocaleDateString()
+                }
               />
             </div>
           </div>
