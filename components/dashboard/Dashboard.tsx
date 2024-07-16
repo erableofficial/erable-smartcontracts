@@ -31,7 +31,7 @@ import {
 import CardsSection from "./CardsSection";
 import { useStakingContractData } from "../../context/stakingContractData";
 import EndStackingModal from "./EndStackingModal";
-import { parseEther } from "viem";
+import { formatEther, parseEther } from "viem";
 import { useCurrentUser } from "../../context/currentUser";
 import { useAirdropCycles } from "../../context/airdropCycles";
 import { readContract } from "@wagmi/core";
@@ -84,6 +84,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const [isAirdropLoading, setIsAirdropLoading] = useState<boolean>(true);
   const [isFarmingFetchingError, setIsFarmingFetchingError] =
     useState<boolean>(false);
+  const [stakingAPR, setStakingAPR] = useState<number>(0);
 
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -188,6 +189,13 @@ const Dashboard: React.FC<DashboardProps> = () => {
     functionName: "cooldownPeriod",
     args: [],
   });
+
+  const { data: totalPendingRewards, error: totalPendingRewardsError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "totalPendingRewards",
+    });
 
   async function getUserFarmings() {
     setIsFarmingFetchingError(false);
@@ -294,7 +302,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
           startTime: Number(startTime) * 1000,
           amount: amount,
           endTime: (Number(startTime) + Number(stakingDuration)) * 1000,
-          requestUnstakeTime: requestUnstakeTime.toString(),
+          requestUnstakeTime: (Number(requestUnstakeTime) * 1000).toString(),
           unstakeRequested: unstakeRequested,
           action: unstakeRequested ? "Claim" : "Unstake",
           daysLeft: daysLeft > 0 ? `${daysLeft} secondes left` : null,
@@ -412,6 +420,21 @@ const Dashboard: React.FC<DashboardProps> = () => {
       setTabLoading(true);
     };
   }, [stakingItems, airdropItems, farmingItems]);
+
+  useEffect(() => {
+    if (totalPendingRewards && totalStaked) {
+      const totalPend = formatEther(totalPendingRewards as bigint);
+      console.log("totalPend : ", totalPend);
+
+      const totalStak = formatEther(totalStaked as bigint);
+      console.log("totalStak : ", totalStak);
+
+      const result = (Number(totalPend) / Number(totalStak)) * 100;
+
+      console.log("result of estima : ", result);
+      setStakingAPR(result);
+    }
+  }, [totalPendingRewards, totalStaked]);
 
   // console.log("StakingContractData: ", stakingContractData);
 
@@ -557,6 +580,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                           <TabContent
                             setTransactionSuccess={setTransactionSuccess}
                             Items={allItems}
+                            stakingAPR={stakingAPR}
                           />
                         )}
                       </>
@@ -579,6 +603,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                           <TabContent
                             setTransactionSuccess={setTransactionSuccess}
                             Items={stakingItems}
+                            stakingAPR={stakingAPR}
                           />
                         )}
                       </>
@@ -622,6 +647,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                           <TabContent
                             setTransactionSuccess={setTransactionSuccess}
                             Items={farmingItems}
+                            stakingAPR={stakingAPR}
                           />
                         )}
                       </>
@@ -641,6 +667,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                           <TabContent
                             setTransactionSuccess={setTransactionSuccess}
                             Items={airdropItems}
+                            stakingAPR={stakingAPR}
                           />
                         )}
                       </>
