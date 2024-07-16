@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
 import BuySeraModal from "./BuySeraModal";
+import BridgeProcessModal from "./BridgeProcessModal";
 
 type Step = {
   stepNumber: number;
@@ -62,11 +63,17 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
 
 const HowItWorks = () => {
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
+  const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
+    React.useState(false);
   return (
     <section className="self-stretch p-20 bg-neutral-50 max-md:px-5 max-sm:pt-10">
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}
+      />
+      <BridgeProcessModal
+        toggleBridgeProcessModal={toggleBridgeProcessModal}
+        setToggleBridgeProcessModal={setToggleBridgeProcessModal}
       />
       <div className="flex gap-5 max-md:flex-col max-md:gap-0">
         <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
@@ -76,12 +83,12 @@ const HowItWorks = () => {
                 How it Works
               </h1>
               <div className="flex flex-col justify-center px-0.5 py-2 my-auto text-lg font-semibold tracking-wide leading-5 text-primary max-sm:w-fit max-sm:ml-auto">
-                <Link
-                  href={"/"}
-                  className="justify-center py-1 border-b-2 border-solid border-primary"
+                <div
+                  className="justify-center py-1 border-b-2 border-solid border-primary cursor-pointer"
+                  onClick={() => setToggleBridgeProcessModal(true)}
                 >
                   I’m a CLAP investor
-                </Link>
+                </div>
               </div>
             </div>
             {steps.map((step) => (
