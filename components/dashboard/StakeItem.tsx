@@ -5,7 +5,7 @@ import {
   useReadContract,
   useWaitForTransactionReceipt,
   useWriteContract,
-  ChainNotConfiguredError
+  ChainNotConfiguredError,
 } from "wagmi";
 import { contractABI, contractAddress } from "../../lib/blockchain-config";
 import { toast } from "react-toastify";
@@ -17,12 +17,12 @@ import { calculateTotalWithdraw } from "../../lib/utils";
 import { useStakingContractData } from "../../context/stakingContractData";
 import EndStackingModal from "./EndStackingModal";
 
-
 interface StakeItemProps {
   stake: TabItem;
   index: number;
   itemsCounter: number;
   setTransactionSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+  stakingAPR: number;
 }
 
 const StakeItem: React.FC<StakeItemProps> = ({
@@ -30,6 +30,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
   index,
   itemsCounter,
   setTransactionSuccess,
+  stakingAPR,
 }) => {
   const [toggleWithdrawTokenCdModalModal, setToggleWithdrawTokenCdModalModal] =
     React.useState(false);
@@ -183,6 +184,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
         stakeId={itemId}
         handleClaim={handleClaim}
         stake={stake}
+        stakingAPR={stakingAPR}
       />
       <div className="flex gap-0 items-center mt-5 max-md:flex-wrap max-md:max-w-full max-sm:mt-4">
         <div className="flex flex-col flex-1 justify-center items-start self-stretch p-2.5 my-auto text-base font-medium text-black whitespace-nowrap max-md:pr-5">

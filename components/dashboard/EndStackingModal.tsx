@@ -11,6 +11,7 @@ type EndStackingModalProps = {
   stakeId: number;
   handleClaim: (stakeId: number) => void;
   stake: TabItem;
+  stakingAPR: number;
 };
 
 type StakingInfoProps = {
@@ -31,6 +32,7 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
   stakeId,
   handleClaim,
   stake,
+  stakingAPR,
 }) => {
   const { stakingContractData } = useStakingContractData();
   if (!toggleEndStackingModal) return null;
@@ -88,7 +90,7 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
                 <div>Initial Staking</div>
                 <div>{formatEther(stake.amount)} $ERA</div>
               </div>
-              <StakingInfo label="Total APR" value={"00"} />
+              <StakingInfo label="Total APR" value={stakingAPR.toFixed(2)} />
               <StakingInfo
                 label="Duration"
                 value={approximateTime(

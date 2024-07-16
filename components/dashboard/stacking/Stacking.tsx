@@ -13,10 +13,12 @@ import {
 import { approximateTime } from "../../../lib/utils";
 import { useStakingContractData } from "../../../context/stakingContractData";
 import { useRouter } from "next/router";
+import { formatEther } from "viem";
 
 const Stacking: React.FC = () => {
   const { stakingContractData, setStakingContractData } =
     useStakingContractData();
+  const [stakingAPR, setStakingAPR] = React.useState<number>(0);
   const [steps, setSteps] = React.useState([
     {
       number: "1",
@@ -91,6 +93,19 @@ const Stacking: React.FC = () => {
     args: [],
   });
 
+  const { data: totalPendingRewards, error: totalPendingRewardsError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "totalPendingRewards",
+    });
+
+  const { data: totalStaked, error: totalStakedError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "totalStaked",
+  });
+
   useEffect(() => {
     if (
       stakingDuration &&
@@ -120,12 +135,27 @@ const Stacking: React.FC = () => {
     isConnected,
   ]);
 
+  useEffect(() => {
+    if (totalPendingRewards && totalStaked) {
+      const totalPend = formatEther(totalPendingRewards as bigint);
+      console.log("totalPend : ", totalPend);
+
+      const totalStak = formatEther(totalStaked as bigint);
+      console.log("totalStak : ", totalStak);
+
+      const result = (Number(totalPend) / Number(totalStak)) * 100;
+
+      console.log("result of estima : ", result);
+      setStakingAPR(result);
+    }
+  }, [totalPendingRewards, totalStaked]);
+
   const infoCards = [
     {
       title: "Reward Rate (APR)*",
       description:
         "The annual percentage rate currently being earned in the staking program.",
-      value: "xx",
+      value: stakingAPR.toFixed(2) || "00",
     },
     {
       title: "Staking Duration*",

@@ -9,11 +9,13 @@ import FarmingItem from "./FarmingItem";
 type TabContentProps = {
   Items: TabItem[];
   setTransactionSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+  stakingAPR: number;
 };
 
 const TabContent: React.FC<TabContentProps> = ({
   Items,
   setTransactionSuccess,
+  stakingAPR, 
 }) => {
   return (
     <div className="min-w-[920px] flex flex-col self-stretch p-6 bg-white rounded-3xl border border-solid border-stone-300 max-md:px-5 max-sm:py-[10px]">
@@ -95,6 +97,7 @@ const TabContent: React.FC<TabContentProps> = ({
               stake={item}
               itemsCounter={Items.length - 1}
               setTransactionSuccess={setTransactionSuccess}
+              stakingAPR={stakingAPR}
             />
           );
         }

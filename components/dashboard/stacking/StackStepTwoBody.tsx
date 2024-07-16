@@ -62,7 +62,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
     React.useState(false);
 
   const items = [
-    { label: "Total APR", value: "00" },
+    { label: "Total APR", value: infoCards[0].value },
     { label: "Duration", value: infoCards[1].value },
     { label: "Start date", value: infoCards[2].value },
     { label: "End date", value: infoCards[3].value },
