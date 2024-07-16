@@ -31,7 +31,7 @@ export default function Header() {
   const utilities = [
     { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
     { text: "LP Farming", link: "/dashboard?tab=Your Farming#utilities" },
-    { text: "Airdrop", link: "/dashboard?tab=Airdrop#utilities" },
+    { text: "Engage to Earn", link: "/dashboard?tab=Airdrop#utilities" },
   ];
   const docs = [
     { text: "How to stake", link: "/" },
@@ -91,21 +91,18 @@ export default function Header() {
                 className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute min-w-[200px]`}
               >
                 <Link href="/dashboard?tab=Staking#utilities">
-                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                    <span>Staking</span>
-                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
+                  <div className="flex gap-4  transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    Staking
                   </div>
                 </Link>
                 <Link href="/dashboard?tab=Your Farming#utilities">
-                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                    <span> LP Farming</span>
-                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
+                  <div className="flex gap-4 transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    LP Farming
                   </div>
                 </Link>
                 <Link href="/dashboard?tab=Airdrop#utilities">
-                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                    <span> Airdrop</span>
-                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
+                  <div className="flex gap-4  transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    Engage to Earn
                   </div>
                 </Link>
               </div>
