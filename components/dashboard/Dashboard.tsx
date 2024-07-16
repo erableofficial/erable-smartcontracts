@@ -441,7 +441,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
   const buttons = [
     { name: "All", qt: allItems?.length },
     { name: "Staking", qt: stakingItems?.length },
-    { name: "Your Farming", qt: farmingItems?.length },
+    { name: "Farming", qt: farmingItems?.length },
     { name: "Airdrop", qt: airdropItems?.length },
   ];
 
@@ -613,7 +613,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       </div>
                     )}
                   </>
-                ) : selected === "Your Farming" ? (
+                ) : selected === "Farming" ? (
                   <>
                     {!isFarmingLoading ? (
                       <>
