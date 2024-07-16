@@ -47,7 +47,7 @@ const AuthorizeStackingModal: React.FC<SignLoadingModalProps> = ({
       onClick={closeModal}
     >
       <div
-        className="mt-14 mx-auto  flex flex-col items-center p-10 text-lg font-semibold text-neutral-700 bg-white rounded-3xl border border-solid border-stone-300 max-w-[650px] max-md:px-5"
+        className="mt-14 mx-auto  flex flex-col items-center p-10 text-lg font-semibold text-neutral-700 bg-white rounded-3xl border border-solid border-stone-300 max-w-[650px] max-md:px-5 max-[849px]:mx-5"
         onClick={stopPropagation}
       >
         {isConfirming && (
