@@ -4,12 +4,14 @@ type RewardOptionProps = {
   title: string;
   description: string;
   steps: string[];
+  link: string;
 };
 
 const RewardOption: React.FC<RewardOptionProps> = ({
   title,
   description,
   steps,
+  link,
 }) => (
   <div className="flex flex-col grow p-6 w-full text-lg font-semibold text-black bg-white rounded-3xl border border-gray-200 border-solid max-md:px-5 max-md:mt-8">
     <h3 className="text-2xl text-black max-sm:text-xl">{title}</h3>
@@ -29,7 +31,8 @@ const RewardOption: React.FC<RewardOptionProps> = ({
       </ul>
     </div>
     <a
-      href="#"
+      href={link}
+      target="_blank"
       className="self-start mt-10 text-black border-b-2 border-black border-solid max-sm:mt-[22px]"
     >
       View tuto
@@ -44,6 +47,7 @@ const RewardSystem: React.FC = () => {
       description:
         "Show your commitment to our ecosystem by staking $ERA tokens and earn rewards.",
       steps: ["Hold $ERA", "Lock your $ERA in the contract", "Earn rewards"],
+      link: "https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af",
     },
     {
       title: "Engage to Earn",
@@ -54,6 +58,7 @@ const RewardSystem: React.FC = () => {
         "Engage within the community",
         "Earn rewards",
       ],
+      link: "https://medium.com/@erableofficial/engage-2-earn-everything-you-need-to-know-f7afa27b6e64",
     },
     {
       title: "LP Farming",
@@ -64,6 +69,7 @@ const RewardSystem: React.FC = () => {
         "Lock your liquidity in the contract",
         "Earn rewards",
       ],
+      link: "https://medium.com/@erableofficial/lp-farming-program-everything-you-need-to-know-079d1162f8ac",
     },
   ];
 

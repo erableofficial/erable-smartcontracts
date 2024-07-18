@@ -44,13 +44,16 @@ const SolutionItem: React.FC<SolutionItemProps> = ({
 
 type SocialMediaItemProps = {
   name: string;
+  link?: string;
 };
 
-const SocialMediaItem: React.FC<SocialMediaItemProps> = ({ name }) => (
-  <div className="flex gap-4 justify-between mt-4 whitespace-nowrap cursor-pointer">
-    <div>{name}</div>
-    <ArrowUpRight width={15} height={15} />
-  </div>
+const SocialMediaItem: React.FC<SocialMediaItemProps> = ({ name, link }) => (
+  <Link href={link || ""} target="_blank" rel="noopener noreferrer">
+    <div className="flex gap-4 justify-between mt-4 whitespace-nowrap cursor-pointer">
+      <div>{name}</div>
+      <ArrowUpRight width={15} height={15} />
+    </div>
+  </Link>
 );
 
 const Footer: React.FC = () => {
@@ -65,18 +68,30 @@ const Footer: React.FC = () => {
   ];
 
   const resourceItems = [
-    "How to stake",
-    "How to LP Farm",
-    "Whitepaper",
-    "Contact us",
+    {
+      text: "How to stake",
+      link: "https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af",
+    },
+    {
+      text: "How to LP Farm",
+      link: "https://medium.com/@erableofficial/lp-farming-program-everything-you-need-to-know-079d1162f8ac",
+    },
+    {
+      text: "Whitepaper",
+      link: "https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf",
+    },
+    { text: "Contact us", link: "mailto:token@erable.com" },
   ];
 
   const socialMediaItems = [
-    "Discord",
-    "Twitter",
-    "Medium",
-    "Youtube",
-    "Newsletter",
+    {
+      text: "Discord",
+      link: "https://discord.gg/erabledeg-897392916081831966",
+    },
+    { text: "Twitter", link: "https://x.com/erableofficial" },
+    { text: "Medium", link: "https://erableofficial.medium.com/" },
+    { text: "Youtube", link: "https://www.youtube.com/@erableofficial" },
+    { text: "Newsletter", link: "https://urlz.fr/o1BO" },
   ];
 
   return (
@@ -126,15 +141,21 @@ const Footer: React.FC = () => {
                   Resources
                 </div>
                 {resourceItems.map((item, index) => (
-                  <div
-                    key={index}
-                    className="mt-4 flex gap-4 justify-between cursor-pointer"
+                  <Link
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <div> {item} </div>
-                    {item != "Contact us" && (
-                      <ArrowUpRight width={15} height={15} />
-                    )}
-                  </div>
+                    <div
+                      key={index}
+                      className="mt-4 flex gap-4 justify-between cursor-pointer"
+                    >
+                      <div> {item.text} </div>
+                      {item.text != "Contact us" && (
+                        <ArrowUpRight width={15} height={15} />
+                      )}
+                    </div>
+                  </Link>
                 ))}
               </div>
             </section>
@@ -145,7 +166,11 @@ const Footer: React.FC = () => {
                 </div>
                 <div className="flex flex-col max-sm:flex-row max-sm:justify-between max-sm:flex-wrap">
                   {socialMediaItems.map((item, index) => (
-                    <SocialMediaItem key={index} name={item} />
+                    <SocialMediaItem
+                      key={index}
+                      name={item.text}
+                      link={item.link}
+                    />
                   ))}
                 </div>
               </div>
