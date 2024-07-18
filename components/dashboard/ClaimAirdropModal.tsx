@@ -77,7 +77,17 @@ const ClaimAirdropModal: React.FC<ClaimAirdropModalProps> = ({
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
-          <button className="secondary-button-sm">Read tutorial</button>
+          <button
+            className="secondary-button-sm"
+            onClick={() =>
+              window.open(
+                "https://medium.com/@erableofficial/engage-2-earn-everything-you-need-to-know-f7afa27b6e64",
+                "_blank"
+              )
+            }
+          >
+            Read tutorial
+          </button>
           <button onClick={handleClaimAirdrop} className="primary-button-sm">
             Claim my airdrop
           </button>
