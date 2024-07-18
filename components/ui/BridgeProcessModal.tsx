@@ -79,7 +79,17 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
-          <button className="secondary-button-sm">Read tutorial</button>
+          <button
+            className="secondary-button-sm"
+            onClick={() =>
+              window.open(
+                "https://medium.com/@erableofficial/bridge-your-clap-on-cardano-to-era-on-polygon-everything-you-need-to-know-9a51be37fcb2",
+                "_blank"
+              )
+            }
+          >
+            Read tutorial
+          </button>
           <button className="primary-button-sm">
             <>
               <span className="my-auto">Bridge my $CLAP</span>
