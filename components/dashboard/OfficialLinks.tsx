@@ -53,13 +53,20 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
       title: "Main links",
       links: [
         { label: "Website", url: "https://www.erable.com/" },
-        { label: "Whitepaper", url: "NO LINK" },
-        { label: "Github", url: "NO LINK" },
+        {
+          label: "Whitepaper",
+          url: "https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf",
+        },
+        { label: "Github", url: "https://github.com/erableofficial" },
       ],
     },
     {
       title: "$ERA Infos",
       links: [
+        {
+          label: "Token Contract on Ethereum",
+          url: "https://etherscan.io/token/0x9f18B4BE19919755Bb86bCAF6DE9F735BF13754b?a=0x31c632bc70Df604f882B0839EE535498d00b5050",
+        },
         { label: "ERC20 contract on PolygonScan", url: "NO LINK" },
         { label: "$ERA on CoinMarketCap", url: "NO LINK" },
         { label: "$ERA on CoinGecko", url: "NO LINK" },

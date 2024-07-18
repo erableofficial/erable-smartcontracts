@@ -10,6 +10,8 @@ interface UtilityCardProps {
   activeIndex: number;
   btnText: string;
   link: string;
+  width: number;
+  height: number;
 }
 
 const IconButton: React.FC<{
@@ -45,6 +47,8 @@ const OurLiveUtil: React.FC = () => {
     activeIndex,
     btnText,
     link,
+    width,
+    height,
   }) => (
     <div
       ref={cardRef}
@@ -81,10 +85,10 @@ const OurLiveUtil: React.FC = () => {
       <Image
         src={imageUrl}
         alt={`${title} illustration`}
-        className="mt-16 w-full h-auto aspect[1380/1016]  object-fill max-md:mt-10"
+        className="mt-16 w-full h-auto  object-fill max-md:mt-10"
         layout="responsive"
-        width={1380}
-        height={1016}
+        width={width}
+        height={height}
         quality={100}
       />
     </div>
@@ -94,33 +98,41 @@ const OurLiveUtil: React.FC = () => {
       title: "Staking",
       description:
         "Earn rewards by locking $ERA tokens in a secure contract, showing your commitment to the ecosystem.",
-      imageUrl: "/images/live util s.png",
+      imageUrl: "/images/live_utilities_staking-min.png",
       btnText: "Learn more",
-      link: "/",
+      link: "https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af",
+      width: 1410,
+      height: 1180,
     },
     {
       title: "LP Farming",
       description:
         "Provide liquidity to the $ERA pool on Uniswap and lock it into our farming contract to earn $ERA.",
-      imageUrl: "/images/live-utils-farming2.png",
+      imageUrl: "/images/live_utilities_lpfarming-min.png",
       btnText: "Learn more",
-      link: "/",
+      link: "https://medium.com/@erableofficial/lp-farming-program-everything-you-need-to-know-079d1162f8ac",
+      width: 1410,
+      height: 1179,
     },
     {
       title: "Engage to Earn",
       description:
         "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
-      imageUrl: "/images/live-utils-earn.png",
+      imageUrl: "/images/live_utilities_earn-min.png",
       btnText: "How to stake LP",
-      link: "/",
+      link: "https://medium.com/@erableofficial/engage-2-earn-everything-you-need-to-know-f7afa27b6e64",
+      width: 1410,
+      height: 1180,
     },
     {
       title: "Governance",
       description:
         "Hold $ERA tokens and vote on key decisions including project funding, strategic directions, and community proposals. ",
-      imageUrl: "/images/live-utils-governance.png",
+      imageUrl: "/images/live_utilities_governance-min.png",
       btnText: "Coming soon",
       link: "no link",
+      width: 1410,
+      height: 1178,
     },
   ];
 
@@ -213,6 +225,8 @@ const OurLiveUtil: React.FC = () => {
                   {...card}
                   index={index}
                   activeIndex={activeCardIndex}
+                  height={card.height}
+                  width={card.width}
                 />
               ))}
             </div>

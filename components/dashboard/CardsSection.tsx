@@ -218,7 +218,13 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                 <div className="flex w-full gap-5 justify-between self-stretch font-semibold">
                   <div className="text-2xl text-neutral-700">$ERA stats</div>
                   <div className=" cursor-pointer self-start text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
-                    Whitepaper
+                    <Link
+                      href="https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Whitepaper
+                    </Link>
                   </div>
                 </div>
               </div>

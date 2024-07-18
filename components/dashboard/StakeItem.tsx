@@ -90,10 +90,8 @@ const StakeItem: React.FC<StakeItemProps> = ({
     if (isConfirmed) {
       toast.success(
         <CustomToast
-          title="Transaction confirmed."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Confirming Staking Transaction."
+          message="Staking claim successful!"
         />,
         {
           theme: "colored",
@@ -136,10 +134,8 @@ const StakeItem: React.FC<StakeItemProps> = ({
       console.info("Transaction Hash: ", hash);
       toast.info(
         <CustomToast
-          title="Waiting for confirmation..."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Waiting for Staking Transaction."
+          message="Processing staking claim transaction..."
         />,
         {
           // icon: <Info />,

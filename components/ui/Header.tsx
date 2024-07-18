@@ -31,9 +31,18 @@ export default function Header() {
     { text: "Engage to Earn", link: "/dashboard?tab=Airdrop#utilities" },
   ];
   const docs = [
-    { text: "How to stake", link: "/" },
-    { text: "How to LP", link: "/" },
-    { text: "White paper", link: "/" },
+    {
+      text: "How to stake",
+      link: "https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af",
+    },
+    {
+      text: "How to LP",
+      link: "https://medium.com/@erableofficial/lp-farming-program-everything-you-need-to-know-079d1162f8ac",
+    },
+    {
+      text: "White paper",
+      link: "https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf",
+    },
   ];
   return (
     <header className="sticky top-0 z-50 py-4 mt-12 max-sm:mt-1  px-20 max-md:px-5">
@@ -121,20 +130,36 @@ export default function Header() {
               <div
                 className={`dropdown-content border-solid z-20 border-[1px] border-neutral-200 p-3 w-max bg-white shadow-md rounded-lg mt-3 top-4 absolute min-w-[200px]`}
               >
-                <Link href="/">
+                <Link
+                  href="https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer  ">
                     <span> How to stake</span>
                     <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
                   </div>
                 </Link>
-                <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  <span> How to LP Farm</span>
-                  <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
-                </div>
-                <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
-                  <span> Whitepaper</span>
-                  <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
-                </div>
+                <Link
+                  href="https://medium.com/@erableofficial/lp-farming-program-everything-you-need-to-know-079d1162f8ac"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    <span> How to LP Farm</span>
+                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
+                  </div>
+                </Link>
+                <Link
+                  href="https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="flex gap-4 justify-between transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
+                    <span> Whitepaper</span>
+                    <ArrowUpRight width={24} height={24} strokeWidth={1.5} />
+                  </div>
+                </Link>
               </div>
             </li>
             <li className="min-w-[94px]">
@@ -189,7 +214,13 @@ export default function Header() {
             <ul>
               {docs.map((item, index) => (
                 <li className="mt-2.5 w-full" key={index}>
-                  <Link href={item.link}>{item.text}</Link>
+                  <Link
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {item.text}
+                  </Link>
                 </li>
               ))}
             </ul>
