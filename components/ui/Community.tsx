@@ -102,7 +102,15 @@ const Community: React.FC = () => {
           </div>
         </div>
         <div className="flex gap-5 justify-center self-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
-          <button className="primary-button max-sm:p-3 ">
+          <button
+            className="primary-button max-sm:p-3 "
+            onClick={() =>
+              window.open(
+                "https://discord.gg/erabledeg-897392916081831966",
+                "_blank"
+              )
+            }
+          >
             Join Us on Discord
           </button>
           {/* <button className="secondary-button">Our Community Manifesto</button> */}
