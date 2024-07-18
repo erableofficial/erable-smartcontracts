@@ -5,10 +5,9 @@ import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { parseEther } from "viem";
 import CustomToast from "../CustomToast";
 import { Check, Info, TriangleAlert } from "lucide-react";
-import InfoText from "../../ui/InfoText";
-import { InfoBox } from "../AuthorizeStackingModal";
 import StackingLoadingModal from "../StackingLoadingModal";
 import ErrorBox from "../../ui/ErrorBox";
+import errorMessages from "../toastErrors";
 
 type InfoCardProps = {
   title: string;
@@ -79,10 +78,8 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
       setToggleStackingLoadingModal(false);
       toast.success(
         <CustomToast
-          title="Transaction confirmed."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Confirming Staking."
+          message="Tokens staked successfully!"
         />,
         {
           theme: "colored",
@@ -116,10 +113,14 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   React.useEffect(() => {
     if (error) {
       setToggleStackingLoadingModal(false);
+      const errorMessage =
+        errorMessages.find((e) => e.name === error.name)?.message ||
+        "Something went wrong";
       toast.error(
         <CustomToast
           title={error.name || "Something went wrong"}
-          message={error.message}
+          message={errorMessage}
+          error={true}
         />,
         {
           theme: "colored",
@@ -139,10 +140,8 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
       console.info("Transaction Hash: ", hash);
       toast.info(
         <CustomToast
-          title="Waiting for confirmation..."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Waiting for Staking."
+          message="Staking tokens in progress..."
         />,
         {
           // icon: <Info />,

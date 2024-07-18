@@ -1,12 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAccount, useReadContract } from "wagmi";
 import ConnectWalletModal from "./ConnectWalletModal";
-import {
-  ArrowUpRight,
-  ChevronDown,
-  ChevronUp,
-  TriangleAlert,
-} from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import BuySeraModal from "../ui/BuySeraModal";
 import OfficialLinks from "./OfficialLinks";
 import TabContent from "./TabContent";
@@ -16,10 +11,8 @@ import {
   airdropContractAddress,
   contractABI,
   contractAddress,
-  stakingTokenABI,
-  stakingTokenAddress,
 } from "../../lib/blockchain-config";
-import { IRedisAirdop, StakeInfo, TabItem } from "../../lib/types";
+import { IRedisAirdop, TabItem } from "../../lib/types";
 import NoUtilities from "./NoStakingUtilities";
 import {
   getTotalStaked,
@@ -30,18 +23,14 @@ import {
 } from "../../lib/utils";
 import CardsSection from "./CardsSection";
 import { useStakingContractData } from "../../context/stakingContractData";
-import EndStackingModal from "./EndStackingModal";
-import { formatEther, parseEther } from "viem";
+import { formatEther } from "viem";
 import { useCurrentUser } from "../../context/currentUser";
 import { useAirdropCycles } from "../../context/airdropCycles";
-import { readContract } from "@wagmi/core";
-import { config } from "../../lib/wagmi/config";
 import Loading from "../ui/loading";
 import NoFarmingUtilities from "./NoFarmingUtilities";
 import NoAirdropUtilities from "./NoAirdropUtilities";
 import NoStakingUtilities from "./NoStakingUtilities";
 import LpFarmingModal from "./LpFarmingModal";
-import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
 interface DashboardProps {}
@@ -245,11 +234,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
         unstakeRequested: false,
       };
     });
-
-    console.log("API URL: ", apiUrl);
-    console.log("API Response Data: ", data);
-    console.log("User Farmings: ", reasons);
-    console.log("User Farmings arr: ", farmings);
     setFarmingItems(items);
     setIsFarmingLoading(false);
     setIsFarmingFetchingError(false);
@@ -286,7 +270,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
   useEffect(() => {
     async function updateUserStakes() {
       const stakes = await getUserStakes(currentAddress);
-      console.log("All Stakes  : ", stakes);
       const items: TabItem[] = stakes?.map((stake, index) => {
         const { amount, startTime, requestUnstakeTime, unstakeRequested } =
           stake;
@@ -309,12 +292,9 @@ const Dashboard: React.FC<DashboardProps> = () => {
         };
       });
 
-      // remove stakes that has amount === 0
       const filteredItems = items.filter((item) => item.amount !== BigInt(0));
 
       setStakingItems(filteredItems);
-      console.log("Staking Items from inside: ", filteredItems);
-
       setTransactionSuccess(false);
       setIsStakingLoading(false);
     }
@@ -336,7 +316,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
       const airdrops = await fetch("/api/airdrop/getAll");
 
       const airdropsData = await airdrops.json();
-      console.log("Airdrops Data : ", airdropsData);
 
       setAirdropCycles(airdropsData.data);
 
@@ -424,19 +403,14 @@ const Dashboard: React.FC<DashboardProps> = () => {
   useEffect(() => {
     if (totalPendingRewards && totalStaked) {
       const totalPend = formatEther(totalPendingRewards as bigint);
-      console.log("totalPend : ", totalPend);
 
       const totalStak = formatEther(totalStaked as bigint);
-      console.log("totalStak : ", totalStak);
 
       const result = (Number(totalPend) / Number(totalStak)) * 100;
 
-      console.log("result of estima : ", result);
       setStakingAPR(result);
     }
   }, [totalPendingRewards, totalStaked]);
-
-  // console.log("StakingContractData: ", stakingContractData);
 
   const buttons = [
     { name: "All", qt: allItems?.length },
@@ -512,7 +486,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
                           className={getButtonClass(label.name)}
                           onClick={() => {
                             handleTabClick(label.name);
-                            console.log("selected", label.name);
                           }}
                         >
                           {label.name} ({label.qt})

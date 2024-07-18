@@ -16,6 +16,7 @@ import Tooltip from "./Tooltip";
 import { calculateTotalWithdraw } from "../../lib/utils";
 import { useStakingContractData } from "../../context/stakingContractData";
 import EndStackingModal from "./EndStackingModal";
+import errorMessages from "./toastErrors";
 
 interface StakeItemProps {
   stake: TabItem;
@@ -107,10 +108,14 @@ const StakeItem: React.FC<StakeItemProps> = ({
   // error
   useEffect(() => {
     if (writeError) {
+      const errorMessage =
+        errorMessages.find((e) => e.name === writeError.name)?.message ||
+        "Something went wrong";
       toast.error(
         <CustomToast
           title={writeError.name || "Something went wrong"}
-          message={writeError.message}
+          message={errorMessage}
+          error={true}
         />,
         {
           // icon: <Info />,

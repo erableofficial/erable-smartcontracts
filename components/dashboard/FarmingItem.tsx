@@ -17,6 +17,7 @@ import CustomToast from "./CustomToast";
 import { formatEther, parseEther } from "viem";
 
 import { useCurrentUser } from "../../context/currentUser";
+import errorMessages from "./toastErrors";
 
 interface FarmingItemProps {
   farming: TabItem;
@@ -66,10 +67,14 @@ const FarmingItem: React.FC<FarmingItemProps> = ({
   // error
   useEffect(() => {
     if (writeError) {
+      const errorMessage =
+        errorMessages.find((e) => e.name === writeError.name)?.message ||
+        "Something went wrong";
       toast.error(
         <CustomToast
           title={writeError.name || "Something went wrong"}
-          message={writeError.message}
+          message={errorMessage}
+          error={true}
         />,
         {
           // icon: <Info />,
