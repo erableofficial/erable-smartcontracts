@@ -142,14 +142,12 @@ const Footer: React.FC = () => {
                 </div>
                 {resourceItems.map((item, index) => (
                   <Link
+                    key={index}
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div
-                      key={index}
-                      className="mt-4 flex gap-4 justify-between cursor-pointer"
-                    >
+                    <div className="mt-4 flex gap-4 justify-between cursor-pointer">
                       <div> {item.text} </div>
                       {item.text != "Contact us" && (
                         <ArrowUpRight width={15} height={15} />
