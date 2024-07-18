@@ -69,6 +69,8 @@ const OurLiveUtil: React.FC = () => {
         ) : (
           <Link
             href={link}
+            target="_blank"
+            rel="noopener noreferrer"
             className="cursor-pointer my-auto font-medium font-NeueHaas text-base text-neutral-700 border-b border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
           >
             {btnText}
