@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 type step = {
@@ -50,7 +51,13 @@ const StackingStepsHeader: React.FC<StackingStepsHeaderProps> = ({ steps }) => {
           {steps.filter((step) => step.isActive)[0].title}
           <div className="flex items-center justify-between cursor-pointer   ">
             <div className=" my-auto text-lg text-neutral-700 border-b-2 border-black border-solid font-semibold">
-              View tuto
+              <Link
+                href="https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View tuto
+              </Link>
             </div>
           </div>
         </div>
