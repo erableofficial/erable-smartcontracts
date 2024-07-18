@@ -50,7 +50,12 @@ const StepItem: React.FC<Step> = ({ stepNumber, title, description }) => (
         <p className="mt-1 text-sm font-medium max-md:max-w-full max-sm:mt-2">
           {description}
           {stepNumber === 1 && (
-            <Link href={"/"} className="text-primary underline">
+            <Link
+              href="https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline"
+            >
               See Whitepaper
             </Link>
           )}
