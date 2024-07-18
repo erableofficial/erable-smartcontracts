@@ -117,11 +117,11 @@ const HowItWorks = () => {
         </div>
         <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
           <Image
-            src="/images/placeholder.png"
+            src="/images/how_it_works_1200x1600.png"
             alt=""
             className="self-stretch mt-2.5 w-full aspect-[0.84] max-md:mt-10 max-md:max-w-full"
-            width={300}
-            height={253}
+            width={661}
+            height={786}
           />
         </div>
       </div>

@@ -18,6 +18,7 @@ import Tooltip from "../Tooltip";
 import AuthorizeStackingModal from "../AuthorizeStackingModal";
 import EstimatedWithdrawTokens from "./EstimatedWithdrawTokens";
 import ErrorBox from "../../ui/ErrorBox";
+import errorMessages from "../toastErrors";
 
 type InfoCardProps = {
   title: string;
@@ -83,10 +84,8 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
     if (isConfirmed) {
       toast.success(
         <CustomToast
-          title="Transaction confirmed."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Confirming Staking Approval."
+          message="Approval confirmed! Proceeding to stake tokens..."
         />,
         {
           theme: "colored",
@@ -119,10 +118,14 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   // error
   React.useEffect(() => {
     if (error) {
+      const errorMessage =
+        errorMessages.find((e) => e.name === error.name)?.message ||
+        "Something went wrong";
       toast.error(
         <CustomToast
           title={error.name || "Something went wrong"}
-          message={error.message}
+          message={errorMessage}
+          error={true}
         />,
         {
           // icon: <Info />,
@@ -144,10 +147,8 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
       console.info("Transaction Hash: ", hash);
       toast.info(
         <CustomToast
-          title="Waiting for confirmation..."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Waiting for Staking Approval."
+          message="Awaiting approval to stake tokens..."
         />,
         {
           // icon: <Info />,

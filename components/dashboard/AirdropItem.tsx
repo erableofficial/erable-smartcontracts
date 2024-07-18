@@ -1,29 +1,19 @@
 import React, { useEffect } from "react";
 import { TabItem } from "../../lib/types";
 import { Check, Info, TriangleAlert } from "lucide-react";
-import {
-  useReadContract,
-  useWaitForTransactionReceipt,
-  useWriteContract,
-} from "wagmi";
+import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import {
   airdropContractABI,
   airdropContractAddress,
-  contractABI,
-  contractAddress,
 } from "../../lib/blockchain-config";
 import { toast } from "react-toastify";
 import CustomToast from "./CustomToast";
-import { encodePacked, formatEther, keccak256, parseEther } from "viem";
-import WithdrawTokenCdModal from "./WithdrawTokenCdModal";
-import Tooltip from "./Tooltip";
-import { calculateTotalWithdraw } from "../../lib/utils";
-import { useStakingContractData } from "../../context/stakingContractData";
-import EndStackingModal from "./EndStackingModal";
+import { encodePacked, keccak256, parseEther } from "viem";
 import ClaimAirdropModal from "./ClaimAirdropModal";
 import MerkleTree from "merkletreejs";
 import { useAirdropCycles } from "../../context/airdropCycles";
 import { useCurrentUser } from "../../context/currentUser";
+import errorMessages from "./toastErrors";
 
 interface AirdropItemProps {
   airdrop: TabItem;
@@ -42,15 +32,6 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
   const { airdropCycles, setAirdropCycles } = useAirdropCycles();
   const [toggleClaimAirdropModal, setToggleClaimAirdropModal] =
     React.useState<boolean>(false);
-  const [itemId, setItemId] = React.useState<number>(0);
-  const [currentRewards, setCurrentRewards] = React.useState<bigint>(BigInt(0));
-  const { stakingContractData } = useStakingContractData();
-  const {
-    yieldConstant,
-    monthlyIncreasePercentage,
-    startingSlashingPoint,
-    stakingDuration,
-  } = stakingContractData;
 
   const {
     writeContract,
@@ -68,10 +49,8 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
     if (isConfirmed) {
       toast.success(
         <CustomToast
-          title="Transaction confirmed."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Confirming Airdrop Transaction."
+          message="Airdrop claimed successfully!"
         />,
         {
           theme: "colored",
@@ -86,10 +65,14 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
   // error
   useEffect(() => {
     if (writeError) {
+      const errorMessage =
+        errorMessages.find((e) => e.name === writeError.name)?.message ||
+        "Something went wrong";
       toast.error(
         <CustomToast
           title={writeError.name || "Something went wrong"}
-          message={writeError.message}
+          message={errorMessage}
+          error={true}
         />,
         {
           // icon: <Info />,
@@ -110,10 +93,8 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       console.info("Transaction Hash: ", hash);
       toast.info(
         <CustomToast
-          title="Waiting for confirmation..."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Waiting for Airdrop Transaction."
+          message="Processing airdrop transaction..."
         />,
         {
           // icon: <Info />,
@@ -133,8 +114,7 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
 
     if (!airdrop.amount || typeof airdrop.airdropCycleIndex === undefined) {
       toast.error("Invalid airdrop data.");
-      console.error("Invalid airdrop data.");
-      console.log("Airdrop: ", airdrop);
+
       return;
     }
 

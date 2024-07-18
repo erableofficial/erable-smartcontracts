@@ -6,6 +6,7 @@ import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { contractABI, contractAddress } from "../../lib/blockchain-config";
 import { TabItem } from "../../lib/types";
 import { useStakingContractData } from "../../context/stakingContractData";
+import errorMessages from "./toastErrors";
 
 interface WithdrawTokenCdModalModal {
   toggleWithdrawTokenCdModalModal: boolean;
@@ -37,10 +38,8 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
     if (isConfirmed) {
       toast.success(
         <CustomToast
-          title="Transaction confirmed."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Confirming Unstaking."
+          message="Tokens unstaked successfully!"
         />,
         {
           theme: "colored",
@@ -56,10 +55,14 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
   // error
   React.useEffect(() => {
     if (writeError) {
+      const errorMessage =
+        errorMessages.find((e) => e.name === writeError.name)?.message ||
+        "Something went wrong";
       toast.error(
         <CustomToast
           title={writeError.name || "Something went wrong"}
-          message={writeError.message}
+          message={errorMessage}
+          error={true}
         />,
         {
           // icon: <Info />,
@@ -81,10 +84,8 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
       console.info("Transaction Hash: ", hash);
       toast.info(
         <CustomToast
-          title="Waiting for confirmation..."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Waiting for Unstaking."
+          message="Awaiting approval to unstake tokens..."
         />,
         {
           // icon: <Info />,
