@@ -127,7 +127,8 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     No rewards available
                     <span>
                       <a
-                        href="#"
+                        href="https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af"
+                        target="_blank"
                         className="flex gap-1 font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
                       >
                         Discover
@@ -149,7 +150,8 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     No rewards available
                     <span>
                       <a
-                        href="#"
+                        href="https://medium.com/@erableofficial/lp-farming-program-everything-you-need-to-know-079d1162f8ac"
+                        target="_blank"
                         className="flex gap-1  font-medium text-neutral-700 whitespace-nowrap border-b-[1px] border-black border-solid"
                       >
                         Discover

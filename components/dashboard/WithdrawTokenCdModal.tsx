@@ -178,7 +178,17 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
-          <button className="secondary-button-sm">Read tutorial</button>
+          <button
+            className="secondary-button-sm"
+            onClick={() =>
+              window.open(
+                "https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af",
+                "_blank"
+              )
+            }
+          >
+            Read tutorial
+          </button>
           <button onClick={handleUnstack} className="primary-button-sm">
             <span className="my-auto">Withdraw my tokens</span>
           </button>
