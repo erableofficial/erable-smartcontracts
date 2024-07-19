@@ -94,7 +94,11 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
               <StakingInfo
                 label="Duration"
                 value={approximateTime(
-                  Number(stakingContractData.stakingDuration)
+                  stake.unstakeRequested
+                    ? (new Date(Number(stake.requestUnstakeTime)).getTime() -
+                        stake.startTime) /
+                        1000
+                    : (stake.endTime - stake.startTime) / 1000
                 )}
               />
               <StakingInfo
