@@ -46,15 +46,14 @@ export async function getUserStakes(
 
 export async function calculateTotalWithdraw(
   amount: bigint,
-  startTime: bigint,
+  startTime: number,
   yieldConstant: bigint,
   monthlyIncreasePercentage: bigint,
   startingSlashingPoint: bigint,
   stakingDuration: bigint
 ): Promise<bigint> {
-  const currentTime = BigInt(new Date().getTime());
-  const timePassed = currentTime - startTime;
-  const timePassedInSeconds = timePassed / BigInt(1000);
+  const currentTime = BigInt(Math.floor(new Date().getTime() / 1000));
+  const timePassed = currentTime - BigInt(startTime / 1000);
 
   const result = await readContract(config, {
     abi: contractABI,
@@ -62,7 +61,7 @@ export async function calculateTotalWithdraw(
     functionName: "calculateTotalWithdraw",
     args: [
       amount,
-      timePassedInSeconds,
+      timePassed,
       yieldConstant,
       monthlyIncreasePercentage,
       startingSlashingPoint,

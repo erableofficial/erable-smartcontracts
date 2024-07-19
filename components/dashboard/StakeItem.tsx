@@ -51,7 +51,7 @@ const StakeItem: React.FC<StakeItemProps> = ({
     async function getCurrentRewards() {
       const rewardAmount = await calculateTotalWithdraw(
         stake.amount,
-        BigInt(stake.startTime),
+        stake.startTime,
         yieldConstant as bigint,
         monthlyIncreasePercentage as bigint,
         startingSlashingPoint as bigint,

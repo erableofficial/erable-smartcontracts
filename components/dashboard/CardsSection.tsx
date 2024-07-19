@@ -58,7 +58,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     <div className="text-4xl font-semibold">
                       {myBalance
                         ? Number(
-                            formatEther(BigInt(myBalance.toString()))
+                            formatEther(myBalance as bigint)
                           ).toLocaleString()
                         : "0"}
                     </div>
