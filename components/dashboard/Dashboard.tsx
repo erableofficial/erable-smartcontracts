@@ -400,18 +400,6 @@ const Dashboard: React.FC<DashboardProps> = () => {
     };
   }, [stakingItems, airdropItems, farmingItems]);
 
-  useEffect(() => {
-    if (totalPendingRewards && totalStaked) {
-      const totalPend = formatEther(totalPendingRewards as bigint);
-
-      const totalStak = formatEther(totalStaked as bigint);
-
-      const result = (Number(totalPend) / Number(totalStak)) * 100;
-
-      setStakingAPR(result);
-    }
-  }, [totalPendingRewards, totalStaked]);
-
   const buttons = [
     { name: "All", qt: allItems?.length },
     { name: "Staking", qt: stakingItems?.length },

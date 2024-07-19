@@ -1,15 +1,17 @@
 import { useReadContract } from "wagmi";
 import { contractABI, contractAddress } from "../../../lib/blockchain-config";
 import { formatEther, parseEther } from "viem";
-import React from "react";
+import React, { useEffect } from "react";
 import { useStakingContractData } from "../../../context/stakingContractData";
 
 interface EstimatedWithdrawTokensProps {
   amount: number;
+  setStakingAPR: (apr: number) => void;
 }
 
 const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
   amount,
+  setStakingAPR,
 }) => {
   const [withdrawEstimetedAmount, setWithdrawEstimetedAmount] =
     React.useState<number>(amount);
@@ -39,6 +41,18 @@ const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
       stakingDuration,
     ],
   });
+
+  useEffect(() => {
+    if (totalEstimatedWithdraw) {
+      const estimNumber = Number(formatEther(totalEstimatedWithdraw as bigint));
+      console.log("Estim Number : ", estimNumber);
+      console.log("Amount : ", amount);
+      const aprT = Number(((estimNumber - amount) / amount) * 100);
+      console.log("APR TEST : ", aprT.toFixed(2));
+
+      setStakingAPR(aprT);
+    }
+  }, [totalEstimatedWithdraw]);
 
   return (
     <div className="flex gap-1.5">

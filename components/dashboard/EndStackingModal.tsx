@@ -35,11 +35,26 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
   stakingAPR,
 }) => {
   const { stakingContractData } = useStakingContractData();
+
   if (!toggleEndStackingModal) return null;
   const closeModal = () => setToggleEndStackingModal(false);
+  const [apr, setApr] = React.useState<number>(0);
   const stopPropagation = (event: React.MouseEvent) => {
     event.stopPropagation();
   };
+
+  React.useEffect(() => {
+    if (stake.amount) {
+      console.log("stake : ", stake);
+      const estimNumber = Number(formatEther(stake.currentRewards as bigint));
+      const amount = Number(formatEther(stake.amount as bigint));
+      console.log("APR curr reward num : ", estimNumber);
+      console.log("APR amount num : ", amount);
+      const aprRes = (estimNumber / amount) * 100;
+      setApr(aprRes);
+      console.log("APR : ", aprRes);
+    }
+  }, [stake.amount]);
 
   return (
     <div
@@ -92,7 +107,7 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
                 <div>Initial Staking</div>
                 <div>{formatEther(stake.amount)} $ERA</div>
               </div>
-              <StakingInfo label="Total APR" value={stakingAPR.toFixed(2)} />
+              <StakingInfo label="Total APR" value={apr.toFixed(2) || "00"} />
               <StakingInfo
                 label="Duration"
                 value={approximateTime(

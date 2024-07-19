@@ -42,6 +42,7 @@ type StackStepOneBodyProps = {
   setAmount: React.Dispatch<React.SetStateAction<number>>;
   myBalance: bigint;
   stakingDuration: bigint;
+  setStakingAPR: (apr: number) => void;
 };
 
 const InfoCard: React.FC<InfoCardProps> = ({ title, description, value }) => (
@@ -70,6 +71,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   setAmount,
   myBalance,
   stakingDuration,
+  setStakingAPR,
 }) => {
   const { writeContract, data: hash, error, isPending } = useWriteContract();
   const { isLoading: isConfirming, isSuccess: isConfirmed } =
@@ -273,7 +275,10 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
             <div className="flex items-center max-sm:w-[18px]">
               <ArrowLeftRight width={32} height={32} color="#1F1F1F" />
             </div>
-            <EstimatedWithdrawTokens amount={amount} />
+            <EstimatedWithdrawTokens
+              setStakingAPR={setStakingAPR}
+              amount={amount}
+            />
           </div>
           <div className="flex gap-5 justify-between text-base font-medium whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:max-w-full">
             <div>=$250.000</div>

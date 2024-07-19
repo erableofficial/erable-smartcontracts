@@ -135,21 +135,6 @@ const Stacking: React.FC = () => {
     isConnected,
   ]);
 
-  useEffect(() => {
-    if (totalPendingRewards && totalStaked) {
-      const totalPend = formatEther(totalPendingRewards as bigint);
-      console.log("totalPend : ", totalPend);
-
-      const totalStak = formatEther(totalStaked as bigint);
-      console.log("totalStak : ", totalStak);
-
-      const result = (Number(totalPend) / Number(totalStak)) * 100;
-
-      console.log("result of estima : ", result);
-      setStakingAPR(result);
-    }
-  }, [totalPendingRewards, totalStaked]);
-
   const infoCards = [
     {
       title: "Reward Rate (APR)*",
@@ -191,6 +176,7 @@ const Stacking: React.FC = () => {
             setAmount={setAmount}
             myBalance={myBalance as bigint}
             stakingDuration={stakingDuration as bigint}
+            setStakingAPR={setStakingAPR}
           />
         )}
         {steps[1].isActive && (
