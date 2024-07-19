@@ -74,8 +74,10 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
           </div>
           <p className="self-start  text-[32px] font-semibold text-black">
             {stake.currentRewards
-              ? formatEther(stake.currentRewards + stake.amount)
-              : formatEther(stake.amount)}{" "}
+              ? Number(
+                  formatEther(stake.currentRewards + stake.amount)
+                ).toFixed(6)
+              : Number(formatEther(stake.amount)).toFixed(6)}{" "}
             $ERA
           </p>
         </div>
