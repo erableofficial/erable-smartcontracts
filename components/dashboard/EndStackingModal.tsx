@@ -43,11 +43,9 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
     event.stopPropagation();
   };
 
-  console.log("stake : ", stake);
+
   const estimNumber = Number(formatEther(stake.currentRewards as bigint));
   const amount = Number(formatEther(stake.amount as bigint));
-  console.log("APR curr reward num : ", estimNumber);
-  console.log("APR amount num : ", amount);
   const apr = (estimNumber / amount) * 100;
   console.log("APR : ", apr);
 
@@ -102,7 +100,7 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
                 <div>Initial Staking</div>
                 <div>{formatEther(stake.amount)} $ERA</div>
               </div>
-              <StakingInfo label="Total APR" value={apr.toFixed(2) || "00"} />
+              <StakingInfo label="Total APR" value={apr.toFixed(3) || "0.0"} />
               <StakingInfo
                 label="Duration"
                 value={approximateTime(
