@@ -220,11 +220,11 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     LP Farming
                   </div>
                   <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-                    200,870 $ERA
+                    0 $ERA
                   </span>
                 </div>
                 <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
-                  Total liquidity provided <span>200,870 $ERA</span>
+                  Total liquidity provided <span>0 $ERA</span>
                 </div>
               </div>
             </section>
