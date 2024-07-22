@@ -68,8 +68,8 @@ const OfficialLinks: React.FC<OfficialLinksProps> = ({}) => {
           url: "https://etherscan.io/token/0x9f18B4BE19919755Bb86bCAF6DE9F735BF13754b?a=0x31c632bc70Df604f882B0839EE535498d00b5050",
         },
         { label: "ERC20 contract on PolygonScan", url: "NO LINK" },
-        { label: "$ERA on CoinMarketCap", url: "NO LINK" },
-        { label: "$ERA on CoinGecko", url: "NO LINK" },
+        { label: "[ SOON ] $ERA on CoinMarketCap", url: "NO LINK" },
+        { label: "[ SOON ] $ERA on CoinGecko", url: "NO LINK" },
       ],
     },
     {

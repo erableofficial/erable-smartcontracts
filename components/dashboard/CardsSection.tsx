@@ -63,12 +63,15 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                         : "0"}
                     </div>
                     <div className="flex items-center text-lg font-medium max-sm:text-sm">
-                      $ERA = $1.50
+                      $ERA =$
+                      {(
+                        Number(formatEther(myBalance as bigint)) * 0.001
+                      ).toFixed(2)}
                     </div>
                   </div>
                   <div className="flex items-center ml-1">
                     <div className="justify-center w-fit self-start px-2.5 py-[6px] text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px] mt-1">
-                      1 $ERA = price
+                      1 $ERA = $0.001
                     </div>
                   </div>
                 </div>
@@ -237,7 +240,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                 <StatBlock title="Total supply" value="1,000,000,000" />
                 <StatBlock
                   title="Fully diluted market cap"
-                  value="$6,951,110"
+                  value={`$ ${1000000000 * 0.001}`}
                 />
               </div>
             </div>
