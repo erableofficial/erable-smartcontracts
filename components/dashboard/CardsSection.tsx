@@ -252,7 +252,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     totalSupply
                       ? `$ ${(
                           Number(formatEther(totalSupply as bigint)) * 0.001
-                        ).toFixed(6)}`
+                        ).toFixed(3)}`
                       : "$ 0"
                   }
                 />
@@ -261,14 +261,16 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                   title="Circulating supply"
                   value={
                     totalSupply
-                      ? Number(formatEther(totalSupply as bigint)).toFixed(6)
+                      ? Number(formatEther(totalSupply as bigint)).toFixed(3)
                       : "0"
                   }
                 />
                 <StatBlock title="Total supply" value="1,000,000,000" />
                 <StatBlock
                   title="Fully diluted market cap"
-                  value={`$ ${1000000000 * 0.001}`}
+                  value={`$ ${new Intl.NumberFormat("en-US").format(
+                    1000000000 * 0.001
+                  )}`}
                 />
               </div>
             </div>
