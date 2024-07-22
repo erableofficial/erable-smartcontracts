@@ -70,7 +70,7 @@ const NoStakingUtilities: React.FC<NoStakingUtilitiesProps> = ({
                 </span>
               </div>
               <div className="flex gap-2 justify-between mt-2 text-base font-medium text-black">
-                <p>APR: xx</p>
+                <p>APR: 11.52%</p>
                 <p>
                   Program duration:{" "}
                   {stakingContractData?.stakingDuration
