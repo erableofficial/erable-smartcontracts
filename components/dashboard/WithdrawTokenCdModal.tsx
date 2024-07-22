@@ -5,6 +5,8 @@ import CustomToast from "./CustomToast";
 import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { contractABI, contractAddress } from "../../lib/blockchain-config";
 import { TabItem } from "../../lib/types";
+import { useStakingContractData } from "../../context/stakingContractData";
+import errorMessages from "./toastErrors";
 
 interface WithdrawTokenCdModalModal {
   toggleWithdrawTokenCdModalModal: boolean;
@@ -19,6 +21,7 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
   stake,
   setTransactionSuccess,
 }) => {
+  const { stakingContractData } = useStakingContractData();
   const {
     writeContract,
     data: hash,
@@ -35,10 +38,8 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
     if (isConfirmed) {
       toast.success(
         <CustomToast
-          title="Transaction confirmed."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Confirming Unstaking."
+          message="Tokens unstaked successfully!"
         />,
         {
           theme: "colored",
@@ -54,10 +55,14 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
   // error
   React.useEffect(() => {
     if (writeError) {
+      const errorMessage =
+        errorMessages.find((e) => e.name === writeError.name)?.message ||
+        "Something went wrong";
       toast.error(
         <CustomToast
           title={writeError.name || "Something went wrong"}
-          message={writeError.message}
+          message={errorMessage}
+          error={true}
         />,
         {
           // icon: <Info />,
@@ -79,10 +84,8 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
       console.info("Transaction Hash: ", hash);
       toast.info(
         <CustomToast
-          title="Waiting for confirmation..."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Waiting for Unstaking."
+          message="Awaiting approval to unstake tokens..."
         />,
         {
           // icon: <Info />,
@@ -118,7 +121,7 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
       onClick={closeModal}
     >
       <div
-        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute"
+        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute max-[839px]:mx-5"
         onClick={stopPropagation}
       >
         <div className="flex justify-end">
@@ -139,7 +142,7 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
             Withdraw your tokens and rewards
           </div>
           <span className="justify-center flex items-center text-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-            7 Days cooldown
+            {Number(stakingContractData.cooldownPeriod)} secs cooldown
           </span>
         </div>
         <div className="flex flex-row self-stretch p-5 mb-6 bg-white rounded-xl border-2 border-solid border-warning-200 max-w-[720px]">
@@ -161,18 +164,31 @@ const WithdrawTokenCdModal: React.FC<WithdrawTokenCdModalModal> = ({
         </div>
         <span className=" font-semibold text-lg mb-3">
           {" "}
-          7-day cooldown period:
+          {Number(stakingContractData.cooldownPeriod)}-sec cooldown period:
         </span>
         <p className="self-stretch mb-4 text-base font-medium text-left text-neutral-600 max-md:max-w-full">
           You are currently in the process of unstaking your tokens. During the
-          <span className=" font-semibold"> 7-day cooldown period</span>, your
-          tokens are being prepared for withdrawal. Once this period ends, you
-          can return to the platform to claim your tokens and any associated
-          rewards.
+          <span className=" font-semibold">
+            {" "}
+            {Number(stakingContractData.cooldownPeriod)}-sec cooldown period
+          </span>
+          , your tokens are being prepared for withdrawal. Once this period
+          ends, you can return to the platform to claim your tokens and any
+          associated rewards.
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
-          <button className="secondary-button-sm">Read tutorial</button>
+          <button
+            className="secondary-button-sm"
+            onClick={() =>
+              window.open(
+                "https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af",
+                "_blank"
+              )
+            }
+          >
+            Read tutorial
+          </button>
           <button onClick={handleUnstack} className="primary-button-sm">
             <span className="my-auto">Withdraw my tokens</span>
           </button>

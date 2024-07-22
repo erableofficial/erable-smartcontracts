@@ -5,10 +5,9 @@ import { useWaitForTransactionReceipt, useWriteContract } from "wagmi";
 import { parseEther } from "viem";
 import CustomToast from "../CustomToast";
 import { Check, Info, TriangleAlert } from "lucide-react";
-import InfoText from "../../ui/InfoText";
-import { InfoBox } from "../AuthorizeStackingModal";
 import StackingLoadingModal from "../StackingLoadingModal";
 import ErrorBox from "../../ui/ErrorBox";
+import errorMessages from "../toastErrors";
 
 type InfoCardProps = {
   title: string;
@@ -30,6 +29,29 @@ type StackStepTwoBodyProps = {
   amount: number;
 };
 
+interface WithdrawDetailsBoxProps {
+  text: string;
+}
+
+const WithdrawDetailsBox: React.FC<WithdrawDetailsBoxProps> = ({ text }) => (
+  <div
+    className={`p-5 rounded-xl font-NeueHaas border-[1.5px] border-solid border-[#BDBDBD]`}
+  >
+    <div className="flex gap-4 items-start">
+      <div className="bg-surface-500 p-2 rounded-full ">
+        <Info width={17} height={17} color="#000000" />
+      </div>
+      <div className="flex flex-col">
+        <h4 className="text-xl font-NeueHaas font-semibold leading-6 text-neutral-700 max-sm:text-lg">
+          Withdrawing details
+        </h4>
+
+        <p className="font-medium text-neutral-700">{text}</p>
+      </div>
+    </div>
+  </div>
+);
+
 const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   setSteps,
   infoCards,
@@ -39,10 +61,10 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
     React.useState(false);
 
   const items = [
-    { label: "Total APR:", value: "00" },
-    { label: "Duration:", value: infoCards[1].value },
-    { label: "Start date:", value: infoCards[2].value },
-    { label: "End date:", value: infoCards[3].value },
+    { label: "Total APR", value: infoCards[0].value },
+    { label: "Duration", value: infoCards[1].value },
+    { label: "Start date", value: infoCards[2].value },
+    { label: "End date", value: infoCards[3].value },
   ];
   const { writeContract, data: hash, error, isPending } = useWriteContract();
 
@@ -56,10 +78,8 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
       setToggleStackingLoadingModal(false);
       toast.success(
         <CustomToast
-          title="Transaction confirmed."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Confirming Staking."
+          message="Tokens staked successfully!"
         />,
         {
           theme: "colored",
@@ -69,19 +89,19 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
       setSteps([
         {
           number: "1",
-          title: "Stake your token : Informations",
-          text: "Staking Informations",
+          title: "Start Your Staking",
+          text: "Set Up Staking",
           isActive: false,
         },
         {
           number: "2",
-          title: "Send funds",
-          text: "Send funds",
+          title: "Transfer Funds",
+          text: "Transfer Funds",
           isActive: false,
         },
         {
           number: "3",
-          title: "You staked sucessfully",
+          title: "Staking Successful",
           text: "Confirmation",
           isActive: true,
         },
@@ -93,10 +113,14 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
   React.useEffect(() => {
     if (error) {
       setToggleStackingLoadingModal(false);
+      const errorMessage =
+        errorMessages.find((e) => e.name === error.name)?.message ||
+        "Something went wrong";
       toast.error(
         <CustomToast
           title={error.name || "Something went wrong"}
-          message={error.message}
+          message={errorMessage}
+          error={true}
         />,
         {
           theme: "colored",
@@ -116,10 +140,8 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
       console.info("Transaction Hash: ", hash);
       toast.info(
         <CustomToast
-          title="Waiting for confirmation..."
-          message="When you do something noble and beautiful and nobody noticed, do not be
-        sad. For the sun every morning is a beautiful spectacle and yet most of
-        the audience still sleeps."
+          title="Waiting for Staking."
+          message="Staking tokens in progress..."
         />,
         {
           // icon: <Info />,
@@ -147,20 +169,32 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
         <StackingLoadingModal
           toggleStackingLoadingModal={toggleStackingLoadingModal}
         />
-        <div className="text-3xl mb-3 font-semibold text-neutral-700 max-md:max-w-full">
+        <div className="text-3xl mb-3 font-NeueHaas font-semibold text-neutral-700 max-md:max-w-full max-sm:text-2xl">
           Confirm Fund Transfer
         </div>
 
-        <InfoBox
-          text="Now, let’s secure your rewards! Please confirm the transfer of your tokens into the staking contract. This action will lock your tokens for one year, starting your earnings."
-          bgColor="bg-surface-500"
-        />
+        {error && (
+          <div className="flex max-w-fit py-4">
+            <ErrorBox
+              text="Transaction faliled, try again !"
+              bgColor="bg-[#FFD4D4]"
+            />
+          </div>
+        )}
 
-        <div className="mt-10 text-xl font-bold text-neutral-700 max-md:max-w-full">
-          Your staking:
+        <p className="flex flex-col mt-3 text-neutral-700 font-NeueHaas font-semibold text-lg leading-[1.35rem] max-sm:text-base">
+          Please confirm the transfer of your tokens into the staking contract.
+          <span className="font-medium max-sm:text-base">
+            This action will lock your tokens for one year, starting your
+            earnings.
+          </span>
+        </p>
+
+        <div className="mt-10 text-xl font-semibold text-neutral-700 max-md:max-w-full max-sm:text-lg">
+          Your staking
         </div>
         <section className="flex gap-5 justify-between mt-2.5 max-md:flex-wrap max-md:max-w-full">
-          <div className="text-3xl font-semibold text-neutral-700">
+          <div className="text-3xl font-semibold text-neutral-700 max-sm:text-2xl">
             {amount} $ERA
           </div>
           <div className="my-auto text-base font-medium text-neutral-500">
@@ -168,18 +202,18 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
           </div>
         </section>
         <hr className="shrink-0 mt-6 h-px border border-solid bg-neutral-300 border-neutral-300 max-md:max-w-full" />
-        <div className="mt-6 text-xl font-bold text-neutral-700 max-md:max-w-full">
-          Staking key informations:
+        <div className="mt-6 text-xl font-semibold text-neutral-700 max-md:max-w-full max-sm:text-lg">
+          Staking key informations
         </div>
         <section className="flex gap-5 justify-between mt-6 text-lg font-medium text-neutral-700 max-md:flex-wrap max-md:max-w-full">
-          <div className="flex flex-col">
+          <div className="flex flex-col max-sm:text-base">
             {items.map((item, index) => (
               <div key={index} className={index > 0 ? "mt-5" : ""}>
                 {item.label}
               </div>
             ))}
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col max-sm:text-base">
             {items.map((item, index) => (
               <div key={index} className={index > 0 ? "mt-5" : ""}>
                 {item.value}
@@ -188,28 +222,21 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
           </div>
         </section>
         <div className=" py-10">
-          <InfoBox
-            text="Remember, withdrawing funds before the term ends may result in penalties. This transfer might take a few moments."
-            bgColor="bg-warning-200"
-          />
+          <WithdrawDetailsBox text="Remember, withdrawing funds before the term ends may result in penalties. This transfer might take a few moments." />
         </div>
-        {error && (
-          <div className="flex justify-center items-center pb-4">
-            <ErrorBox
-              text="Transaction faliled, try again !"
-              bgColor="bg-[#FFD4D4]"
-            />
+        <div className="sticky-button-container2">
+          <div className="sticky-button text-center">
+            <button
+              className="primary-button justify-center self-center px-7 py-4 text-lg font-semibold text-neutral-700 rounded-xl border-black border-solid border-[3px] max-md:px-5"
+              onClick={() => {
+                setToggleStackingLoadingModal(true);
+                handleSendFund();
+              }}
+            >
+              Send funds
+            </button>
           </div>
-        )}
-        <button
-          className="primary-button justify-center self-center px-7 py-4 text-lg font-semibold text-neutral-700 rounded-xl border-black border-solid border-[3px] max-md:px-5"
-          onClick={() => {
-            setToggleStackingLoadingModal(true);
-            handleSendFund();
-          }}
-        >
-          Send funds
-        </button>
+        </div>
       </div>
     </div>
   );

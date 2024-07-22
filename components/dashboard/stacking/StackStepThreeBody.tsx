@@ -12,18 +12,18 @@ const StackStepThreeBody: React.FC<StackStepThreeBodyProps> = ({ amount }) => {
       <div className="flex justify-center items-center px-3 bg-yellow-200 h-[45px] rounded-[37.5px] w-[45px]">
         <Sparkles width={24} height={24} color="#000000" />
       </div>
-      <h1 className="mt-6 text-5xl font-semibold text-neutral-700">
+      <div className="mt-6 text-5xl font-semibold text-neutral-700 max-sm:text-2xl">
         {amount} $ERA staked
-      </h1>
+      </div>
       <p className="mt-6 text-lg font-medium text-center text-neutral-700 max-w-[572px] max-md:max-w-full">
         Congratulations! You have successfully staked. Your tokens are now
         earning rewards, which will accumulate over the staking period. Thank
         you for participating in our staking program.
       </p>
 
-      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold text-neutral-700">
+      <div className="flex gap-5 justify-center mt-10 text-lg font-semibold text-neutral-700 max-sm:flex-col max-sm:items-center max-sm:gap-2">
         <button className="secondary-button">Join our community</button>
-        <Link className="primary-button" href={"/dashboard"}>
+        <Link className="primary-button max-sm:w-fit" href={"/dashboard"}>
           View my staking
         </Link>
       </div>

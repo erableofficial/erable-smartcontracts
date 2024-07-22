@@ -18,12 +18,12 @@ const SectionContent: React.FC<SectionContentProps> = ({
   profilePics,
 }) => {
   return (
-    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-[20px] cursor-pointer border border-solid border-primary flex flex-col justify-between">
+    <section className="col-span-12 sm:col-span-6 lg:col-span-4 p-6 bg-white rounded-[20px] cursor-pointer border border-solid border-neutral-200 flex flex-col justify-between lg:max-w-[330px] lg:min-h-[330px]">
       <div className="flex gap-0 justify-between">
         {/* <div> */}
-        <h2 className="flex-1 text-3xl font-semibold text-neutral-700">
+        <div className="flex-1 text-3xl font-semibold text-neutral-700 max-sm:text-xl">
           {title}
-        </h2>
+        </div>
 
         <div className="flex flex-row justify-center items-center">
           {profilePics.map((pic, index) => (
@@ -40,7 +40,7 @@ const SectionContent: React.FC<SectionContentProps> = ({
           ))}
         </div>
       </div>
-      <p className="text-lg font-medium text-neutral-700 mt-16">
+      <p className="text-lg font-medium text-neutral-700 mt-16 max-sm:text-base max-sm:mt-5">
         {description}
       </p>
       {/* </div> */}
@@ -50,16 +50,16 @@ const SectionContent: React.FC<SectionContentProps> = ({
 
 const Community: React.FC = () => {
   return (
-    <section className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5">
+    <section className="flex justify-center items-center px-16 py-20 bg-white max-md:px-5 max-sm:py-10">
       <div className="flex flex-col mt-2.5 w-full max-w-[1038px] max-md:max-w-full">
-        <h1 className="flex justify-center self-center px-2.5 text-5xl font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:max-w-full max-md:text-4xl leading-[4.641rem]">
+        <h1 className="flex justify-center self-center px-2.5 text-5xl font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:max-w-full max-md:text-4xl leading-[4.641rem] max-sm:mr-auto max-sm:w-min w">
           Join Our Community
         </h1>
         <div className="mt-14 flex flex-col max-md:mt-10 max-md:max-w-full">
           <div className="grid grid-cols-12 gap-5 w-full">
-            <div className="col-span-12 sm:col-span-6 lg:col-span-4">
-              <div className="p-6 bg-surface-500 rounded-[20px] cursor-pointer border border-solid border-zinc-300">
-                <p className="text-lg font-medium text-neutral-700">
+            <div className="col-span-12 sm:col-span-6 lg:col-span-4 lg:max-w-[330px] lg:min-h-[330px]">
+              <div className="p-6 bg-surface-500 rounded-[20px] h-full cursor-pointer border border-solid border-zinc-300">
+                <p className="text-lg font-medium text-neutral-700 flex h-full items-center max-sm:text-base">
                   erable° is redefining sustainability and impact investing by
                   leveraging blockchain technology to build a comprehensive
                   ecosystem of contributors and investors aimed at systemic
@@ -82,7 +82,7 @@ const Community: React.FC = () => {
             />
             {/* </div>
         </div>
-        <div className="mt-6 bg-stone-50 flex flex-col max-md:max-w-full">
+        <div className="mt-6 bg-neutral-50 flex flex-col max-md:max-w-full">
           <div className="grid grid-cols-12 gap-5 w-full"> */}
             <SectionContent
               title="Impact Partners"
@@ -102,7 +102,17 @@ const Community: React.FC = () => {
           </div>
         </div>
         <div className="flex gap-5 justify-center self-center mt-14 text-lg font-semibold tracking-wide leading-5 text-stone-900 max-md:mt-10">
-          <button className="primary-button ">Join Us on Discord</button>
+          <button
+            className="primary-button max-sm:p-3 "
+            onClick={() =>
+              window.open(
+                "https://discord.gg/erabledeg-897392916081831966",
+                "_blank"
+              )
+            }
+          >
+            Join Us on Discord
+          </button>
           {/* <button className="secondary-button">Our Community Manifesto</button> */}
         </div>
       </div>

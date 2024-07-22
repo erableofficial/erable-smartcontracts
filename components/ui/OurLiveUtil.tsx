@@ -10,16 +10,22 @@ interface UtilityCardProps {
   activeIndex: number;
   btnText: string;
   link: string;
+  width: number;
+  height: number;
 }
 
 const IconButton: React.FC<{
   src: string;
   alt: string;
+  width: string;
+  height: string;
+  padding?: string;
   onClick: () => void;
-}> = ({ src, alt, onClick }) => (
+}> = ({ src, alt, onClick, width, height, padding }) => (
   <button
     onClick={onClick}
-    className={`flex justify-center items-center p-3.5 hover:bg-surface-500 bg-zinc-100  h-[57px] rounded-[47.25px] w-[57px]  `}
+    className={`flex justify-center items-center  hover:bg-surface-500 bg-zinc-100   rounded-[47.25px]`}
+    style={{ width: width, height: height, padding: padding }}
   >
     <Image
       src={src}
@@ -41,29 +47,51 @@ const OurLiveUtil: React.FC = () => {
     activeIndex,
     btnText,
     link,
+    width,
+    height,
   }) => (
     <div
       ref={cardRef}
-      className={`flex flex-col p-6 ${
-        index === activeIndex ? "bg-surface-500" : "bg-white"
-      } rounded-2xl border border-solid border-stone-300  max-xl:min-w-full min-w-[45%]  max-md:px-5`}
+      className={`flex flex-col justify-around p-6 ${
+        index === activeIndex
+          ? "border-2  border-black "
+          : "border border-stone-300"
+      }  bg-white rounded-[1.25rem]  border-solid max-xl:min-w-full min-w-[45%]  max-md:px-5`}
     >
       <div className="flex gap-5 justify-between font-semibold">
-        <h3 className="text-2xl text-neutral-700">{title}</h3>
-        <Link
-          href={link}
-          className="pb-1.5 cursor-pointer my-auto text-base text-neutral-700 border-b-2 border-black border-solid"
-        >
-          {btnText}
-        </Link>
+        <h3 className="text-2xl text-neutral-700 max-sm:text-xl">{title}</h3>
+        {link === "no link" ? (
+          <p
+            className={`bg-surface-500 py-1.5 px-2.5 font-NeueHaas text-sm font-medium rounded-full text-neutral-700 border-[1.5px] border-black border-solid max-sm:text-base max-sm:border max-sm:font-medium max-sm:p-0.5`}
+          >
+            Coming soon
+          </p>
+        ) : (
+          <Link
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cursor-pointer my-auto font-medium font-NeueHaas text-base text-neutral-700 border-b border-black border-solid max-sm:text-base max-sm:border-b-[1px] max-sm:font-medium max-sm:pb-0"
+          >
+            {btnText}
+          </Link>
+        )}
       </div>
-      <p className="mt-6 text-lg font-medium text-neutral-500">{description}</p>
+      <p
+        className={`mt-6 text-lg font-medium ${
+          index === activeIndex ? "text-neutral-700" : "text-neutral-500"
+        }  max-sm:mt-5 max-sm:text-base`}
+      >
+        {description}
+      </p>
       <Image
         src={imageUrl}
         alt={`${title} illustration`}
-        className="mt-16 w-full aspect-[1.15] max-md:mt-10"
-        width={300}
-        height={345}
+        className="mt-16 w-full h-auto  object-fill max-md:mt-10"
+        layout="responsive"
+        width={width}
+        height={height}
+        quality={100}
       />
     </div>
   );
@@ -72,33 +100,41 @@ const OurLiveUtil: React.FC = () => {
       title: "Staking",
       description:
         "Earn rewards by locking $ERA tokens in a secure contract, showing your commitment to the ecosystem.",
-      imageUrl: "/images/placeholder.png",
+      imageUrl: "/images/live_utilities_staking-min.png",
       btnText: "Learn more",
-      link: "/",
+      link: "https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af",
+      width: 1410,
+      height: 1180,
     },
     {
       title: "LP Farming",
       description:
         "Provide liquidity to the $ERA pool on Uniswap and lock it into our farming contract to earn $ERA.",
-      imageUrl: "/images/placeholder.png",
+      imageUrl: "/images/live_utilities_lpfarming-min.png",
       btnText: "Learn more",
-      link: "/",
+      link: "https://medium.com/@erableofficial/lp-farming-program-everything-you-need-to-know-079d1162f8ac",
+      width: 1410,
+      height: 1179,
     },
     {
       title: "Engage to Earn",
       description:
         "Contribute actively in our growing community to earn $ERA tokens. Your contributions are valued and recognized.",
-      imageUrl: "/images/placeholder.png",
-      btnText: "Learn more",
-      link: "/",
+      imageUrl: "/images/live_utilities_earn-min.png",
+      btnText: "How to stake LP",
+      link: "https://medium.com/@erableofficial/engage-2-earn-everything-you-need-to-know-f7afa27b6e64",
+      width: 1410,
+      height: 1180,
     },
     {
       title: "Governance",
       description:
         "Hold $ERA tokens and vote on key decisions including project funding, strategic directions, and community proposals. ",
-      imageUrl: "/images/placeholder.png",
+      imageUrl: "/images/live_utilities_governance-min.png",
       btnText: "Coming soon",
-      link: "/",
+      link: "no link",
+      width: 1410,
+      height: 1178,
     },
   ];
 
@@ -137,37 +173,43 @@ const OurLiveUtil: React.FC = () => {
   }, [activeCardIndex]);
 
   return (
-    <section className="overflow-hidden flex justify-center items-center px-16 py-20 bg-white max-md:p-3">
+    <section className="overflow-hidden flex justify-center items-center px-16 py-20 bg-white max-md:p-3 max-sm:pb-10">
       <div className="mt-2.5 w-full max-w-[98%] max-md:max-w-full">
         <div className="flex gap-5 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-[32%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow justify-between self-stretch max-md:mt-10">
-              <h1 className="justify-center px-2.5 text-5xl leading-[4.641rem] w-fit font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl max-xl:w-min max-md:w-fit">
+            <div className="flex flex-col grow justify-between self-stretch max-md:mt-10 max-sm:mt-[18px]">
+              <h1 className=" util-header justify-center px-2.5 text-5xl leading-[4.641rem] w-fit font-extrabold text-neutral-700 bg-surface-500 rounded-xl max-md:text-4xl max-xl:w-min max-md:w-fit">
                 Our Live Utilities
               </h1>
-              <p className="mt-10 text-lg font-medium text-neutral-700">
+              <p className="mt-10 text-lg font-medium text-neutral-700 max-sm:mt-6 max-sm:text-base">
                 Explore our live utilities and engage with our token to unlock
                 the full experience.
               </p>
               <Link
                 href={"/dashboard"}
-                className="justify-center self-start px-7 py-4 mt-10 text-lg font-semibold tracking-wide leading-5 bg-surface-primary rounded-xl border-solid border-[3px] border-primary text-primary max-md:px-5 primary-button"
+                className="justify-center self-start px-7 py-4 mt-10 text-lg font-semibold tracking-wide leading-5 bg-surface-primary rounded-xl border-solid border-[3px] border-primary text-primary max-md:px-5 primary-button max-sm:p-3 max-sm:mt-6"
               >
                 Open dashboard
               </Link>
-              <div className="flex gap-5 justify-between mt-52 w-full max-md:mt-10">
+              <div className="flex gap-5 justify-between mt-auto w-full max-md:mt-10 max-sm:hidden">
                 <span className="my-auto text-2xl leading-6 text-neutral-700">
                   {activeCardIndex + 1}/{utilityCardsData.length}
                 </span>
                 <div className="flex gap-2.5">
                   <IconButton
+                    width={"57px"}
+                    height={"57px"}
+                    padding={"14px"}
                     src="/images/move-left.svg"
-                    alt="Utility 1"
+                    alt="arrow left"
                     onClick={handleMoveLeft}
                   />
                   <IconButton
+                    width={"57px"}
+                    height={"57px"}
+                    padding={"14px"}
                     src="/images/move-right.svg"
-                    alt="Utility 2"
+                    alt="arrow right"
                     onClick={handleMoveRight}
                   />
                 </div>
@@ -176,7 +218,7 @@ const OurLiveUtil: React.FC = () => {
           </div>
           <div
             ref={scrollContainerRef}
-            className="hide-scrollbar overflow-auto max-sm:p-1 flex flex-col ml-5 w-[69%] max-md:ml-0 max-md:w-full"
+            className="hide-scrollbar overflow-auto max-sm:p-1 flex flex-col ml-5 w-[69%] max-md:ml-0 max-md:w-full max-sm:flex-col-reverse"
           >
             <div className="flex grow gap-5 justify-between  max-md:mt-10 max-md:max-w-full ">
               {utilityCardsData.map((card, index) => (
@@ -185,8 +227,33 @@ const OurLiveUtil: React.FC = () => {
                   {...card}
                   index={index}
                   activeIndex={activeCardIndex}
+                  height={card.height}
+                  width={card.width}
                 />
               ))}
+            </div>
+          </div>
+          <div className="flex gap-5 justify-between mt-52 w-full max-md:mt-10 sm:hidden max-sm:mt-6">
+            <span className="my-auto text-2xl leading-6 text-neutral-700 max-sm:text-base">
+              {activeCardIndex + 1}/{utilityCardsData.length}
+            </span>
+            <div className="flex gap-2.5">
+              <IconButton
+                width={"34px"}
+                height={"34px"}
+                padding={"8px"}
+                src="/images/move-left.svg"
+                alt="Utility 1"
+                onClick={handleMoveLeft}
+              />
+              <IconButton
+                width={"34px"}
+                height={"34px"}
+                padding={"8px"}
+                src="/images/move-right.svg"
+                alt="Utility 2"
+                onClick={handleMoveRight}
+              />
             </div>
           </div>
         </div>

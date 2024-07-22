@@ -51,9 +51,21 @@ const ConnectWalletButton: React.FC<ButtonProps> = ({ text, className }) => {
 
               if (chain.unsupported) {
                 return (
-                  <button onClick={openChainModal} type="button">
-                    Wrong network
-                  </button>
+                  <div className="flex gap-4">
+                    <button
+                      className="flex items-center"
+                      onClick={openChainModal}
+                      type="button"
+                    >
+                      <div className="font-friends text-danger-300">Wrong chain</div>
+                    </button>
+                    <button onClick={openAccountModal} type="button">
+                      {account.displayName}
+                      {account.displayBalance
+                        ? ` (${account.displayBalance})`
+                        : ""}
+                    </button>
+                  </div>
                 );
               }
 

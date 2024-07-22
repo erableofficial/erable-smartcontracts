@@ -10,7 +10,7 @@ const HeroSection = () => {
 
   return (
     <>
-      <section className="flex flex-col items-center mt-20 px-20 max-md:px-5 max-md:mt-5">
+      <section className="flex flex-col items-center mt-20 px-20 max-md:px-0 max-md:mt-5">
         <BuySeraModal
           toggleBuyEraModal={toggleBuyEraModal}
           setToggleBuyEraModal={setToggleBuyEraModal}
@@ -19,9 +19,9 @@ const HeroSection = () => {
           toggleBridgeProcessModal={toggleBridgeProcessModal}
           setToggleBridgeProcessModal={setToggleBridgeProcessModal}
         />
-        <div className="text-8xl font-extrabold tracking-tighter text-center text-neutral-700 leading-[6.938rem] max-md:max-w-full max-md:text-4xl max-md:leading-[3.438rem]">
+        <div className="text-8xl font-extrabold tracking-tighter text-center text-neutral-700 leading-[6.938rem] max-md:max-w-full max-md:text-[40px] max-md:leading-none">
           <span
-            className="font-bold leading-[6.938rem] "
+            className="font-bold  "
             data-sal-delay="100"
             data-sal="slide-up"
             data-sal-duration="1000"
@@ -29,7 +29,7 @@ const HeroSection = () => {
             &lt;
           </span>
           <span
-            className="leading-[6.938rem] font-friends tracking-[-1.8px]"
+            className=" font-friends tracking-[-1.8px]"
             data-sal-delay="100"
             data-sal="slide-up"
             data-sal-duration="1000"
@@ -38,7 +38,7 @@ const HeroSection = () => {
             Onchain
           </span>
           <span
-            className="font-bold leading-[6.938rem]"
+            className="font-bold"
             data-sal-delay="100"
             data-sal="slide-up"
             data-sal-duration="1000"
@@ -48,7 +48,7 @@ const HeroSection = () => {
           </span>
         </div>
         <h1
-          className="justify-center px-5 mt-5 text-[5.625rem] font-extrabold tracking-[-1.8px] text-center text-neutral-700 bg-surface-500 rounded-2xl leading-[6.75rem] max-md:max-w-full max-md:text-4xl font-friends "
+          className="justify-center px-5 mt-5 text-[5.625rem] font-extrabold tracking-[-1.8px] text-center text-neutral-700 bg-surface-500 rounded-2xl leading-[6.75rem] max-md:max-w-full max-md:text-[40px] max-md:leading-none font-friends "
           data-sal-delay="200"
           data-sal="slide-up"
           data-sal-duration="1000"
@@ -96,17 +96,20 @@ const HeroSection = () => {
           </div>
         </div>
         <figure
-          className="flex flex-col z-[-1] justify-center px-6 pt-6 mt-10 max-w-full bg-surface-500 rounded-tl-3xl  rounded-tr-3xl w-[68.5%] max-md:px-5"
+          className="flex flex-col z-[-1] justify-center mt-10 max-w-full  rounded-tl-3xl  rounded-tr-3xl w-[68.5%] max-md:w-[100%]"
           data-sal-delay="400"
           data-sal="slide-up"
           data-sal-duration="1000"
         >
-          <Image
-            src="/images/image 2838.png"
-            className="w-full  aspect-[2.5] max-md:max-w-full"
-            alt="Descriptive text about the image"
-            width={2560}
-            height={1029}
+          <img
+            loading="lazy"
+            src="/images/preview_hero.svg"
+            className="w-full   max-md:max-w-full"
+            alt="Dashboard"
+            // layout="responsive"
+            // width={1920}
+            // height={772}
+            // quality={100}
           />
         </figure>
       </section>

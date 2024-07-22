@@ -45,16 +45,25 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
     /// @notice Indicates if whitelisting is enabled
     bool public whitelistEnabled;
 
+    /// @notice Total amount of tokens staked in the contract
+    uint256 public totalStaked;
+
+    /// @notice Total amount of tokens in the reward pool
+    uint256 public rewardPool;
+
+    /// @notice Total amount of pending rewards
+    uint256 public totalPendingRewards;
+
     /// @notice Structure representing a stake
     struct Stake {
         uint256 amount;
         uint32 startTime;
+        uint32 stakingDuration;
         uint32 requestUnstakeTime;
         bool unstakeRequested;
         uint256 yieldConstant;
         uint256 monthlyIncreasePercentage;
         uint256 startingSlashingPoint;
-        uint32 stakingDuration;
     }
 
     /// @notice Mapping of user addresses to their stakes
@@ -65,15 +74,6 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
 
     /// @notice Mapping of whitelisted addresses
     mapping(address => bool) public whitelistedAddresses;
-
-    /// @notice Total amount of tokens staked in the contract
-    uint256 private _totalStaked;
-
-    /// @notice Total amount of tokens in the reward pool
-    uint256 private _rewardPool;
-
-    /// @notice Total amount of pending rewards
-    uint256 private _totalPendingRewards;
 
     /// @notice Emitted when a user stakes tokens
     event Staked(address indexed user, uint256 amount);
@@ -120,6 +120,7 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
      * @notice Initializes the staking contract with the given parameters
      * @param _owner The address of the contract owner
      * @param _stakingToken The address of the ERC20 token used for staking
+     * @param _whitelistEnabled Indicates if whitelisting is enabled
      * @param _stakingDuration The duration for which tokens need to be staked to avoid slashing tax
      * @param _yieldConstant The constant used to calculate yield
      * @param _cooldownPeriod The cooldown period after unstake request
@@ -127,19 +128,18 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
      * @param _monthlyIncreasePercentage The monthly increase percentage for slashing tax
      * @param _minCap The minimum amount of tokens that can be staked
      * @param _maxCap The maximum amount of tokens that can be staked
-     * @param _whitelistEnabled Indicates if whitelisting is enabled
      */
     function initialize(
         address _owner,
         address _stakingToken,
+        bool _whitelistEnabled,
         uint32 _stakingDuration,
         uint256 _yieldConstant,
         uint256 _cooldownPeriod,
         uint256 _startingSlashingPoint,
         uint256 _monthlyIncreasePercentage,
         uint256 _minCap,
-        uint256 _maxCap,
-        bool _whitelistEnabled
+        uint256 _maxCap
     ) public initializer {
         __Ownable_init(msg.sender);
         __Pausable_init();
@@ -147,6 +147,7 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         transferOwnership(_owner);
 
         stakingToken = IERC20(_stakingToken);
+        whitelistEnabled = _whitelistEnabled;
         stakingDuration = _stakingDuration;
         yieldConstant = _yieldConstant;
         cooldownPeriod = _cooldownPeriod;
@@ -155,7 +156,6 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         monthlyIncreasePercentage = _monthlyIncreasePercentage;
         minCap = _minCap;
         maxCap = _maxCap;
-        whitelistEnabled = _whitelistEnabled;
     }
 
     /**
@@ -182,16 +182,16 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         userStakes[msg.sender][stakeId] = Stake(
             _amount,
             uint32(block.timestamp),
+            uint32(stakingDuration),
             0,
             false,
             yieldConstant,
             monthlyIncreasePercentage,
-            startingSlashingPoint,
-            uint32(stakingDuration)
+            startingSlashingPoint
         );
-        userStakeCounter[msg.sender]++;
-        _totalStaked += _amount;
-        _totalPendingRewards += (_amount * calculateYield(stakingDuration, yieldConstant, stakingDuration)) / 1e18;
+        ++userStakeCounter[msg.sender];
+        totalStaked += _amount;
+        totalPendingRewards += (_amount * calculateYield(stakingDuration, yieldConstant, stakingDuration)) / 1e18;
 
         stakingToken.safeTransferFrom(msg.sender, address(this), _amount);
         emit Staked(msg.sender, _amount);
@@ -255,9 +255,9 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
 
         uint256 rewardAmount = totalAmount - _amount;
 
-        _totalStaked -= _amount;
-        _rewardPool -= rewardAmount;
-        _totalPendingRewards -= rewardAmount;
+        totalStaked -= _amount;
+        rewardPool -= rewardAmount;
+        totalPendingRewards -= rewardAmount;
         delete userStakes[user][stakeId];
         stakingToken.safeTransfer(user, totalAmount);
         emit Withdrawn(user, totalAmount);
@@ -296,34 +296,20 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         uint256 reward = (_amount * Y) / 1e18;
         uint256 slashingTax = (reward * T) / 1e18;
 
-        uint256 totalWithdrawAmount = _amount + reward - slashingTax;
+        return _amount + reward - slashingTax;
 
-        return totalWithdrawAmount;
     }
 
-    /**
-     * @notice Returns the total amount of tokens staked in the contract
-     * @return The total staked amount
-     */
-    function totalStaked() external view returns (uint256) {
-        return _totalStaked;
-    }
 
     /**
      * @notice Returns the total amount of pending rewards in the contract
      * @return The total pending rewards
      */
     function pendingRewards() external view returns (uint256) {
-        return _totalPendingRewards;
+        return totalPendingRewards;
     }
 
-    /**
-     * @notice Returns the total amount of tokens in the reward pool
-     * @return The total reward pool amount
-     */
-    function rewardPool() external view returns (uint256) {
-        return _rewardPool;
-    }
+   
 
     /**
      * @notice Pauses the staking contract
@@ -480,7 +466,7 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         if (_amount == 0) {
             revert CannotDepositZero();
         }
-        _rewardPool += _amount;
+        rewardPool += _amount;
         stakingToken.safeTransferFrom(msg.sender, address(this), _amount);
         emit Deposit(msg.sender, _amount);
     }
@@ -493,10 +479,10 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
         if (_amount == 0) {
             revert ZeroAmount();
         }
-        if (_rewardPool - _totalPendingRewards < _amount) {
+        if (rewardPool - totalPendingRewards < _amount) {
             revert InsufficientRewardPool();
         }
-        _rewardPool -= _amount;
+        rewardPool -= _amount;
         stakingToken.safeTransfer(msg.sender, _amount);
         emit Withdraw(msg.sender, _amount);
     }
@@ -507,7 +493,7 @@ contract Staking is Initializable, OwnableUpgradeable, PausableUpgradeable, Reen
      * @return The total staked amount
      */
     function getTotalStakedForUser(address user) public view returns (uint256) {
-        uint256 totalStakedTokens = 0;
+        uint256 totalStakedTokens;
         uint256 stakeCount = userStakeCounter[user];
         mapping(uint256 => Stake) storage stakes = userStakes[user];
 

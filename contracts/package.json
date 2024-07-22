@@ -34,6 +34,13 @@
     "@openzeppelin/contracts": "^5.0.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
     "dotenv": "^16.4.5",
+<<<<<<< HEAD
     "ethers": "^6.12.1"
+=======
+    "ethers": "^6.12.1",
+    "keccak256": "^1.0.6",
+    "merkletreejs": "^0.3.11",
+    "solidity-coverage": "^0.8.12"
+>>>>>>> 502854f4fd6d5ea68b96a3743835204f8fbf7d63
   }
 }

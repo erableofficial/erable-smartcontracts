@@ -25,7 +25,7 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
       onClick={closeModal}
     >
       <div
-        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute"
+        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute max-[841px]:mx-5"
         onClick={stopPropagation}
       >
         <div className="flex justify-end">
@@ -67,8 +67,8 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
             </div>
             <div className="self-start text-base font-medium text-neutral-700 max-md:max-w-full">
               To bridge your $CLAP tokens, you’ll need to follow the
-              instructions provided by Chainport, our bridge partner.
-              <br /> Click &quot;Bridge my $CLAP&quot; to start the process.
+              instructions provided by Chainport, our bridge partner. Click
+              &quot;Bridge my $CLAP&quot; to start the process.
             </div>
           </div>
         </div>
@@ -79,7 +79,17 @@ const BridgeProcessModal: React.FC<BridgeProcessModal> = ({
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
-          <button className="secondary-button-sm">Read tutorial</button>
+          <button
+            className="secondary-button-sm"
+            onClick={() =>
+              window.open(
+                "https://medium.com/@erableofficial/bridge-your-clap-on-cardano-to-era-on-polygon-everything-you-need-to-know-9a51be37fcb2",
+                "_blank"
+              )
+            }
+          >
+            Read tutorial
+          </button>
           <button className="primary-button-sm">
             <>
               <span className="my-auto">Bridge my $CLAP</span>

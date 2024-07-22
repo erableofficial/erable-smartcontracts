@@ -17,7 +17,7 @@ const PartnerLogo: React.FC<PartnerLogoProps> = ({ src, alt }) => (
   //   />
   // </div>
   <div
-    className="flex justify-center items-center px-4 mx-auto bg-white border border-solid border-zinc-300 rounded-full max-lg:mt-7"
+    className="flex justify-center items-center px-4 mx-auto bg-white border border-solid border-zinc-300 rounded-full max-lg:mt-7 max-sm:mt-0"
     style={{
       width: "20vw",
       height: "20vw",
@@ -49,49 +49,49 @@ const PartnerLogosRow: React.FC<{ logos: PartnerLogoProps[] }> = ({
 const OurPartners: React.FC = () => {
   const logos1 = [
     {
-      src: "/images/partner-logo.png",
+      src: "/images/fipto.png",
       alt: "Partner Logo 1",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/mintero.png",
       alt: "Partner Logo 2",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/inatba.png",
       alt: "Partner Logo 3",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/trusted-seed.png",
       alt: "Partner Logo 4",
     },
   ];
 
   const logos2 = [
     {
-      src: "/images/partner-logo.png",
+      src: "/images/orange-dao.png",
       alt: "Partner Logo 5",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/chainport.png",
       alt: "Partner Logo 6",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/landx.png",
       alt: "Partner Logo 7",
     },
   ];
 
   const logos3 = [
     {
-      src: "/images/partner-logo.png",
+      src: "/images/dieldfisher.png",
       alt: "Partner Logo 8",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/keenest.png",
       alt: "Partner Logo 9",
     },
     {
-      src: "/images/partner-logo.png",
+      src: "/images/d&a-partners.png",
       alt: "Partner Logo 10",
     },
     {
@@ -100,24 +100,24 @@ const OurPartners: React.FC = () => {
     },
   ];
 
-  const logos4 = [
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 12",
-    },
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 13",
-    },
-    {
-      src: "/images/partner-logo.png",
-      alt: "Partner Logo 14",
-    },
-  ];
+  // const logos4 = [
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 12",
+  //   },
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 13",
+  //   },
+  //   {
+  //     src: "/images/partner-logo.png",
+  //     alt: "Partner Logo 14",
+  //   },
+  // ];
 
   return (
-    <section className="flex gap-5 justify-between pr-20 bg-stone-50 max-lg:flex-wrap max-lg:pr-0 max-lg:pb-9">
-      <div className="flex flex-col justify-center px-20 py-20 bg-surface-500 max-lg:px-5 max-lg:w-full">
+    <section className="flex gap-5 justify-between pr-20 bg-neutral-50 max-lg:flex-col-reverse max-lg:pr-0">
+      <div className="flex flex-col justify-center px-20 py-20 bg-surface-500 max-lg:px-5 max-lg:w-full max-sm:py-8 max-sm:px-3 max-sm:gap-2">
         <div
           className="mx-2.5 max-lg:max-w-full"
           data-sal-delay="100"
@@ -144,7 +144,7 @@ const OurPartners: React.FC = () => {
         >
           <PartnerLogosRow logos={logos3} />
         </div>
-        <div
+        {/* <div
           className="flex gap-5 justify-between self-center mt-3.5 max-lg:w-[70%] max-sm:w-[80%]"
           data-sal-delay="400"
           data-sal="slide-up"
@@ -153,18 +153,20 @@ const OurPartners: React.FC = () => {
           {logos4.map((logo, index) => (
             <PartnerLogo key={index} {...logo} />
           ))}
-        </div>
+        </div> */}
       </div>
       <div
-        className="flex flex-col my-auto text-neutral-700"
+        className="flex flex-col my-auto text-neutral-700 max-lg:pt-10 max-lg:pb-5 max-lg:px-[15.5px]"
         data-sal-delay="100"
         data-sal="slide-up"
         data-sal-duration="1000"
       >
-        <div className="justify-center self-end px-2.5 text-5xl font-extrabold bg-surface-500 rounded-xl max-lg:text-4xl leading-[4.641rem]">
-          Our Partners
+        <div className="flex max-lg:w-full max-lg:items-start lg:justify-end ">
+          <div className=" w-fit justify-center self-end px-2.5 text-5xl font-friends font-extrabold bg-surface-500 rounded-xl max-lg:text-4xl leading-[4.641rem] ">
+            Our Partners
+          </div>
         </div>
-        <p className="mt-6 self-end justify-center text-lg font-medium w-[55%]">
+        <p className="mt-6 self-end justify-center text-lg font-medium w-[55%] max-lg:w-full max-sm:text-base">
           Meet our amazing partners who help us drive toward financial
           innovations and sustainability.
         </p>

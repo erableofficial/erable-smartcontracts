@@ -13,6 +13,7 @@ import HowItWorks from "../components/ui/HowItWorks";
 import { useEffect } from "react";
 import sal, { Options } from "sal.js";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -27,6 +28,21 @@ const Home: NextPage = () => {
   }, []);
   return (
     <>
+      <Head>
+        <title>ERA Token - Impact Investing with erable°</title>
+        <meta
+          name="title"
+          content="ERA Token - Impact Investing with erable°"
+        />
+        <meta
+          name="description"
+          content="Transform finance for positive impact with Erable°. Participate in a sustainable financial ecosystem by holding and using the $ERA token. Earn rewards, access services, and have a say in governance."
+        />
+        <meta
+          name="keywords"
+          content="ERA token, erable°, impact investing, blockchain, Web2, Web3, sustainable finance, $ERA, CLAP investors, staking, farming, DAO, governance, decentralized finance, ecosystem growth"
+        />
+      </Head>
       <Header />
       <HeroSection />
       <EraUtil />

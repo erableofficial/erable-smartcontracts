@@ -1,70 +1,103 @@
-import * as React from "react";
+import React from "react";
 
 type RewardOptionProps = {
   title: string;
   description: string;
+  steps: string[];
+  link: string;
 };
 
-const RewardOption: React.FC<RewardOptionProps> = ({ title, description }) => (
-  <section className="flex flex-col grow p-6 mx-auto w-full font-semibold bg-white rounded-3xl border border-solid border-zinc-300 max-md:px-5 max-md:mt-8">
-    <h2 className="flex gap-3.5 text-2xl text-neutral-700">
-      {title}
-      <a
-        href="#"
-        className="self-start pb-1.5 mt-1 text-base text-neutral-700 border-b-2 border-black border-solid"
+const RewardOption: React.FC<RewardOptionProps> = ({
+  title,
+  description,
+  steps,
+  link,
+}) => (
+  <div className="flex flex-col grow p-6 w-full text-lg font-semibold text-black bg-white rounded-3xl border border-gray-200 border-solid max-md:px-5 max-md:mt-8">
+    <h3 className="text-2xl text-black max-sm:text-xl">{title}</h3>
+    <div className="flex flex-col h-full justify-between">
+      <p className="mt-10 font-medium max-sm:mt-5 max-sm:text-base">
+        {description}
+      </p>
+      <ul
+        className="mt-6 max-sm:text-base"
+        style={{ listStyleType: "disc", marginLeft: "15px" }}
       >
-        En savoir plus
-      </a>
-    </h2>
-    <p className="mt-8 text-lg font-medium text-neutral-700">{description}</p>
+        {steps.map((step, index) => (
+          <li key={index} className={index > 0 ? "mt-1.5" : ""}>
+            {step}
+          </li>
+        ))}
+      </ul>
+    </div>
     <a
-      href="#"
-      className="justify-center self-start px-6 py-3 mt-8 text-base text-neutral-700 bg-surface-primary rounded-lg border-2 border-black border-solid max-md:px-5"
+      href={link}
+      target="_blank"
+      className="self-start mt-10 text-black border-b-2 border-black border-solid max-sm:mt-[22px]"
     >
-      En savoir plus
+      View tuto
     </a>
-  </section>
+  </div>
 );
 
 const RewardSystem: React.FC = () => {
-  const rewardOptions = [
+  const rewardSystems: RewardOptionProps[] = [
     {
       title: "Staking",
       description:
-        "Holding $ERA tokens offers a stake in erable's growth, with their value poised to increase through strategic buybacks and burns as the ecosystem expands.",
+        "Show your commitment to our ecosystem by staking $ERA tokens and earn rewards.",
+      steps: ["Hold $ERA", "Lock your $ERA in the contract", "Earn rewards"],
+      link: "https://medium.com/@erableofficial/staking-program-everything-you-need-to-know-a821e2a7e2af",
     },
     {
-      title: "Airdrop",
+      title: "Engage to Earn",
       description:
-        "Holding $ERA tokens offers a stake in erable's growth, with their value poised to increase through strategic buybacks and burns as the ecosystem expands.",
+        "Contribute to our community and get rewarded with $ERA tokens. Your active participation is highly valued.",
+      steps: [
+        "Join our Discord",
+        "Engage within the community",
+        "Earn rewards",
+      ],
+      link: "https://medium.com/@erableofficial/engage-2-earn-everything-you-need-to-know-f7afa27b6e64",
     },
     {
       title: "LP Farming",
       description:
-        "Holding $ERA tokens offers a stake in erable's growth, with their value poised to increase through strategic buybacks and burns as the ecosystem expands.",
+        "Earn $ERA by providing liquidity to our $ERA pool on Uniswap and locking it into our farming contract.",
+      steps: [
+        "Provide liquidity on Uniswap",
+        "Lock your liquidity in the contract",
+        "Earn rewards",
+      ],
+      link: "https://medium.com/@erableofficial/lp-farming-program-everything-you-need-to-know-079d1162f8ac",
     },
   ];
 
   return (
-    <div className="flex flex-col items-start self-stretch p-20 bg-white max-md:px-5">
-      <h1 className="mt-2.5 ml-2.5 text-5xl font-semibold text-neutral-700 max-md:max-w-full max-md:text-4xl">
-        Discover Our Reward Systems
-      </h1>
-      <h2 className="mt-2.5 ml-2.5 text-lg font-medium text-neutral-700 max-md:max-w-full">
-        Choose one option and get rewards
-      </h2>
-
-      <main className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full">
-        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          {rewardOptions.map((option) => (
-            <RewardOption
-              key={option.title}
-              title={option.title}
-              description={option.description}
-            />
-          ))}
+    <div className="flex justify-center bg-white">
+      <div className="flex flex-col items-start self-stretch py-20 max-w-[1260px] bg-white max-md:px-5 max-sm:py-5">
+        <div className="mt-2.5 ml-2.5 text-5xl font-extrabold text-black max-md:max-w-full max-md:text-4xl font-friends max-sm:mx-0">
+          Discover
         </div>
-      </main>
+        <span className="justify-center px-2.5 mt-3 ml-2.5 text-5xl font-extrabold text-black bg-surface-500 rounded-md max-md:max-w-full max-md:text-4xl font-friends max-sm:mx-0 max-[423px]:w-[223px]">
+          Our Reward Systems
+        </span>
+        <section className="justify-between self-stretch mx-2.5 mt-10 max-md:max-w-full max-sm:mt-0 max-sm:mx-0">
+          <div className="flex gap-5 max-lg:flex-col max-md:gap-0">
+            {rewardSystems.map((system, index) => (
+              <div
+                key={index}
+                className="flex flex-col w-[33%] max-md:ml-0 max-lg:w-full"
+              >
+                <RewardOption {...system} />
+              </div>
+            ))}
+          </div>
+        </section>
+        {/* <button className="primary-button-sm justify-center px-7 py-4 mt-10 ml-2.5 text-lg font-semibold  max-md:px-5">
+          Learn more
+        </button> */}
+      </div>
     </div>
   );
 };

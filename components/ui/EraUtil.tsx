@@ -10,7 +10,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
   <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
-    <div className="flex flex-col grow p-6 w-full bg-white rounded-3xl border border-solid border-zinc-300 max-md:px-5 max-md:mt-10">
+    <div className="flex flex-col grow p-6 w-full bg-white rounded-3xl border border-solid border-zinc-300 max-md:px-5 max-md:mt-10 max-sm:mt-5">
       <div className="flex justify-center items-center px-3 bg-surface-500 h-[2.813rem] rounded-[2rem] w-[2.813rem]">
         <Image
           src={imageSrc}
@@ -20,10 +20,12 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
           height={45}
         />
       </div>
-      <h3 className="mt-3.5 text-2xl font-semibold text-neutral-700">
+      <div className="mt-3.5 text-2xl font-semibold text-neutral-700 max-sm:text-xl max-sm:mt-3">
         {title}
-      </h3>
-      <p className="mt-8 text-lg font-medium text-neutral-700">{description}</p>
+      </div>
+      <p className="mt-8 text-lg font-medium text-neutral-700 max-sm:mt-6 max-sm:text-base">
+        {description}
+      </p>
     </div>
   </div>
 );
@@ -31,7 +33,7 @@ const Card: React.FC<CardProps> = ({ imageSrc, title, description }) => (
 const EraUtil: React.FC = () => {
   const [toggleBuyEraModal, setToggleBuyEraModal] = React.useState(false);
   return (
-    <section className="flex flex-col justify-center py-20 bg-stone-50">
+    <section className="flex flex-col justify-center py-20 bg-neutral-50 max-sm:py-10">
       <BuySeraModal
         toggleBuyEraModal={toggleBuyEraModal}
         setToggleBuyEraModal={setToggleBuyEraModal}
@@ -46,7 +48,7 @@ const EraUtil: React.FC = () => {
           participating in and benefiting from the value we create together,
           fostering a collaborative and inclusive financial ecosystem.
         </p>
-        <div className="justify-between self-stretch py-4 mx-2.5 mt-10 max-md:max-w-full">
+        <div className="justify-between self-stretch py-4 mx-2.5 mt-10 max-md:max-w-full max-sm:mt-5 max-sm:py-0 max-sm:mx-0">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <Card
               imageSrc="/images/external-link.svg"
@@ -67,12 +69,20 @@ const EraUtil: React.FC = () => {
         </div>
         <div className="flex gap-5 justify-center mt-10 text-lg font-semibold tracking-wide leading-5 text-primary">
           <button
-            className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
+            className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button max-sm:p-3"
             onClick={() => setToggleBuyEraModal(true)}
           >
             Buy $ERA
           </button>
-          <button className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button">
+          <button
+            className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button max-sm:p-3"
+            onClick={() =>
+              window.open(
+                "https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf",
+                "_blank"
+              )
+            }
+          >
             Read the Whitepaper
           </button>
         </div>

@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import StackingStepsHeader from "./StackingStepsHeader";
 import StackStepOneBody from "./StackStepOneBody";
 import StackStepTwoBody from "./StackStepTwoBody";
-import StackingLoadingModal from "../StackingLoadingModal";
 import StackStepThreeBody from "./StackStepThreeBody";
 import { useAccount, useReadContract } from "wagmi";
 import {
@@ -12,32 +11,38 @@ import {
   stakingTokenAddress,
 } from "../../../lib/blockchain-config";
 import { approximateTime } from "../../../lib/utils";
+import { useStakingContractData } from "../../../context/stakingContractData";
+import { useRouter } from "next/router";
+import { formatEther } from "viem";
 
 const Stacking: React.FC = () => {
+  const { stakingContractData, setStakingContractData } =
+    useStakingContractData();
+  const [stakingAPR, setStakingAPR] = React.useState<number>(0);
   const [steps, setSteps] = React.useState([
     {
       number: "1",
-      title: "Staking Process",
+      title: "Start Your Staking",
       text: "Set Up Staking",
       isActive: true,
     },
     {
       number: "2",
-      title: "Staking Process",
+      title: "Transfer Funds",
       text: "Transfer Funds",
       isActive: false,
     },
     {
       number: "3",
-      title: "Staking Process",
-      text: "Start Earning",
+      title: "Staking Successful",
+      text: "Confirmation",
       isActive: false,
     },
   ]);
-  const [showStackingModal, setShowStackingModal] = React.useState(false);
   const [amount, setAmount] = React.useState(2);
 
-  const { address: currentAddress } = useAccount();
+  const { address: currentAddress, isConnected } = useAccount();
+  const router = useRouter();
 
   const { data: myBalance, error: myBalanceError } = useReadContract({
     abi: stakingTokenABI,
@@ -46,26 +51,101 @@ const Stacking: React.FC = () => {
     args: [currentAddress],
   });
 
-  const { data: stakedDuration, error: stakedDurationError } = useReadContract({
+  const { data: stakingDuration, error: stakingDurationError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "stakingDuration",
+      args: [],
+    });
+
+  const {
+    data: yieldConstant,
+    error: yieldConstantError,
+    isLoading: yieldConstantLoading,
+  } = useReadContract({
     abi: contractABI,
     address: contractAddress,
-    functionName: "stakingDuration",
+    functionName: "yieldConstant",
+  });
+
+  const {
+    data: monthlyIncreasePercentage,
+    error: monthlyIncreasePercentageError,
+    isLoading: monthlyIncreasePercentageLoading,
+  } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthlyIncreasePercentage",
+  });
+
+  // startingSlashingPoint
+  const { data: startingSlashingPoint } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "startingSlashingPoint",
+  });
+
+  const { data: coolDownPeriod, error: coolDownPeriodError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "cooldownPeriod",
     args: [],
   });
 
-  console.log("stakedDuration", stakedDuration);
+  const { data: totalPendingRewards, error: totalPendingRewardsError } =
+    useReadContract({
+      abi: contractABI,
+      address: contractAddress,
+      functionName: "totalPendingRewards",
+    });
+
+  const { data: totalStaked, error: totalStakedError } = useReadContract({
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "totalStaked",
+  });
+
+  useEffect(() => {
+    if (
+      stakingDuration &&
+      coolDownPeriod &&
+      yieldConstant &&
+      monthlyIncreasePercentage &&
+      startingSlashingPoint
+    ) {
+      setStakingContractData({
+        ...stakingContractData,
+        stakingDuration: stakingDuration as bigint,
+        cooldownPeriod: coolDownPeriod as bigint,
+        yieldConstant: yieldConstant as bigint,
+        monthlyIncreasePercentage: monthlyIncreasePercentage as bigint,
+        startingSlashingPoint: startingSlashingPoint as bigint,
+      });
+      if (!isConnected) {
+        router.push("/dashboard");
+      }
+    }
+  }, [
+    stakingDuration,
+    coolDownPeriod,
+    yieldConstant,
+    monthlyIncreasePercentage,
+    startingSlashingPoint,
+    isConnected,
+  ]);
 
   const infoCards = [
     {
-      title: "Reward Rate (APR)",
+      title: "Reward Rate (APR)*",
       description:
         "The annual percentage rate currently being earned in the staking program.",
-      value: "xx",
+      value: stakingAPR.toFixed(2) || "00",
     },
     {
-      title: "Staking Duration",
+      title: "Staking Duration*",
       description: "The total length of time the staking program will run.",
-      value: approximateTime(Number(stakedDuration)) || "xx",
+      value: approximateTime(Number(stakingDuration)) || "xx",
     },
 
     {
@@ -78,34 +158,37 @@ const Stacking: React.FC = () => {
       description: "The date when the staking program concludes.",
       value:
         new Date(
-          new Date().getTime() + Number(stakedDuration) * 1000
+          new Date().getTime() + Number(stakingDuration) * 1000
         ).toLocaleDateString() || "xx",
     },
   ];
 
   return (
-    <div className=" relative flex pb-20 pt-20 bg-neutral-50 flex-col px-20 max-md:px-5 max-md:pt-7">
-      <StackingStepsHeader steps={steps} />
+    <div className="flex w-full justify-center bg-neutral-50 max-[1281px]:px-5">
+      <div className=" relative flex pb-20 pt-20  flex-col max-w-[1260px] max-lg:px-5 max-md:pt-10 w-full max-sm:px-0">
+        <StackingStepsHeader steps={steps} />
 
-      {steps[0].isActive && (
-        <StackStepOneBody
-          infoCards={infoCards}
-          setSteps={setSteps}
-          amount={amount}
-          setAmount={setAmount}
-          myBalance={myBalance as bigint}
-          stakingDuration={stakedDuration as bigint}
-        />
-      )}
-      {steps[1].isActive && (
-        <StackStepTwoBody
-          setSteps={setSteps}
-          infoCards={infoCards}
-          amount={amount}
-        />
-      )}
+        {steps[0].isActive && (
+          <StackStepOneBody
+            infoCards={infoCards}
+            setSteps={setSteps}
+            amount={amount}
+            setAmount={setAmount}
+            myBalance={myBalance as bigint}
+            stakingDuration={stakingDuration as bigint}
+            setStakingAPR={setStakingAPR}
+          />
+        )}
+        {steps[1].isActive && (
+          <StackStepTwoBody
+            setSteps={setSteps}
+            infoCards={infoCards}
+            amount={amount}
+          />
+        )}
 
-      {steps[2].isActive && <StackStepThreeBody amount={amount} />}
+        {steps[2].isActive && <StackStepThreeBody amount={amount} />}
+      </div>
     </div>
   );
 };

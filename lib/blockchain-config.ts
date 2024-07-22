@@ -2,6 +2,48 @@ import { Address } from "viem";
 
 const contractABI = [
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "target",
+        type: "address",
+      },
+    ],
+    name: "AddressEmptyCode",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "AddressInsufficientBalance",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AmountBelowMinCap",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AmountExceedsMaxCap",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "CannotDepositZero",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "CooldownPeriodNotOver",
+    type: "error",
+  },
+  {
     inputs: [],
     name: "EnforcedPause",
     type: "error",
@@ -13,12 +55,32 @@ const contractABI = [
   },
   {
     inputs: [],
+    name: "FailedInnerCall",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InsufficientRewardPool",
+    type: "error",
+  },
+  {
+    inputs: [],
     name: "InvalidInitialization",
     type: "error",
   },
   {
     inputs: [],
+    name: "NoStakedAmount",
+    type: "error",
+  },
+  {
+    inputs: [],
     name: "NotInitializing",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "NotWhitelisted",
     type: "error",
   },
   {
@@ -46,6 +108,32 @@ const contractABI = [
   {
     inputs: [],
     name: "ReentrancyGuardReentrantCall",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+    ],
+    name: "SafeERC20FailedOperation",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UnstakeAlreadyRequested",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UnstakeNotRequested",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ZeroAmount",
     type: "error",
   },
   {
@@ -259,6 +347,21 @@ const contractABI = [
         name: "timeStaked",
         type: "uint256",
       },
+      {
+        internalType: "uint256",
+        name: "_monthlyIncreasePercentage",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_startingSlashingPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_stakingDuration",
+        type: "uint256",
+      },
     ],
     name: "calculateTax",
     outputs: [
@@ -268,7 +371,7 @@ const contractABI = [
         type: "uint256",
       },
     ],
-    stateMutability: "view",
+    stateMutability: "pure",
     type: "function",
   },
   {
@@ -281,6 +384,26 @@ const contractABI = [
       {
         internalType: "uint256",
         name: "timeStaked",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_yieldConstant",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_monthlyIncreasePercentage",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_startingSlashingPoint",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_stakingDuration",
         type: "uint256",
       },
     ],
@@ -300,6 +423,16 @@ const contractABI = [
       {
         internalType: "uint256",
         name: "timeStaked",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_yieldConstant",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_stakingDuration",
         type: "uint256",
       },
     ],
@@ -404,19 +537,39 @@ const contractABI = [
             type: "uint256",
           },
           {
-            internalType: "uint256",
+            internalType: "uint32",
             name: "startTime",
-            type: "uint256",
+            type: "uint32",
           },
           {
-            internalType: "uint256",
+            internalType: "uint32",
+            name: "stakingDuration",
+            type: "uint32",
+          },
+          {
+            internalType: "uint32",
             name: "requestUnstakeTime",
-            type: "uint256",
+            type: "uint32",
           },
           {
             internalType: "bool",
             name: "unstakeRequested",
             type: "bool",
+          },
+          {
+            internalType: "uint256",
+            name: "yieldConstant",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "monthlyIncreasePercentage",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "startingSlashingPoint",
+            type: "uint256",
           },
         ],
         internalType: "struct Staking.Stake[]",
@@ -431,13 +584,23 @@ const contractABI = [
     inputs: [
       {
         internalType: "address",
+        name: "_owner",
+        type: "address",
+      },
+      {
+        internalType: "address",
         name: "_stakingToken",
         type: "address",
       },
       {
-        internalType: "uint256",
+        internalType: "bool",
+        name: "_whitelistEnabled",
+        type: "bool",
+      },
+      {
+        internalType: "uint32",
         name: "_stakingDuration",
-        type: "uint256",
+        type: "uint32",
       },
       {
         internalType: "uint256",
@@ -457,6 +620,16 @@ const contractABI = [
       {
         internalType: "uint256",
         name: "_monthlyIncreasePercentage",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_minCap",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_maxCap",
         type: "uint256",
       },
     ],
@@ -650,6 +823,19 @@ const contractABI = [
   },
   {
     inputs: [],
+    name: "totalPendingRewards",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "totalStaked",
     outputs: [
       {
@@ -825,19 +1011,39 @@ const contractABI = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
+        internalType: "uint32",
         name: "startTime",
-        type: "uint256",
+        type: "uint32",
       },
       {
-        internalType: "uint256",
+        internalType: "uint32",
+        name: "stakingDuration",
+        type: "uint32",
+      },
+      {
+        internalType: "uint32",
         name: "requestUnstakeTime",
-        type: "uint256",
+        type: "uint32",
       },
       {
         internalType: "bool",
         name: "unstakeRequested",
         type: "bool",
+      },
+      {
+        internalType: "uint256",
+        name: "yieldConstant",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "monthlyIncreasePercentage",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "startingSlashingPoint",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -1225,10 +1431,522 @@ const stakingTokenABI = [
   },
 ];
 
+const airdropContractABI = [
+  {
+    inputs: [
+      {
+        internalType: "contract IERC20",
+        name: "_token",
+        type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "target",
+        type: "address",
+      },
+    ],
+    name: "AddressEmptyCode",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "AddressInsufficientBalance",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AirdropAlreadyClaimed",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "AirdropNotActive",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "CannotDepositZero",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "FailedInnerCall",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidCycleIndex",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "InvalidMerkleProof",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+    ],
+    name: "OwnableInvalidOwner",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "OwnableUnauthorizedAccount",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+    ],
+    name: "SafeERC20FailedOperation",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "TokenTransferFailed",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "cycleIndex",
+        type: "uint256",
+      },
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "merkleRoot",
+        type: "bytes32",
+      },
+    ],
+    name: "AirdropCycleCreated",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "cycleIndex",
+        type: "uint256",
+      },
+    ],
+    name: "AirdropCycleDisabled",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "leaf",
+        type: "bytes32",
+      },
+    ],
+    name: "LogLeaf",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "root",
+        type: "bytes32",
+      },
+    ],
+    name: "LogMerkleRoot",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "previousOwner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "OwnershipTransferred",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "claimant",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "TokensClaimed",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "TokensDeposited",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "airdropCycles",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "merkleRoot",
+        type: "bytes32",
+      },
+      {
+        internalType: "bool",
+        name: "isActive",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "cycleIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "wallet",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes32[]",
+        name: "proof",
+        type: "bytes32[]",
+      },
+    ],
+    name: "checkClaimable",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "cycleIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes32[]",
+        name: "proof",
+        type: "bytes32[]",
+      },
+    ],
+    name: "claimTokens",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "_merkleRoot",
+        type: "bytes32",
+      },
+    ],
+    name: "createAirdropCycle",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "depositTokens",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "cycleIndex",
+        type: "uint256",
+      },
+    ],
+    name: "disableAirdropCycle",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "cycleIndex",
+        type: "uint256",
+      },
+    ],
+    name: "getAirdropCycle",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAirdropCycleCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllAirdropCycles",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "bytes32",
+            name: "merkleRoot",
+            type: "bytes32",
+          },
+          {
+            internalType: "bool",
+            name: "isActive",
+            type: "bool",
+          },
+        ],
+        internalType: "struct MerkleAirdrop.AirdropCycle[]",
+        name: "",
+        type: "tuple[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "hasClaimed",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "cycleIndex",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "user",
+        type: "address",
+      },
+    ],
+    name: "hasUserClaimed",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "token",
+    outputs: [
+      {
+        internalType: "contract IERC20",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "newOwner",
+        type: "address",
+      },
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "withdrawTokens",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+];
+
 const stakingTokenAddress: Address = process.env
   .NEXT_PUBLIC_TOKEN_ADDRESS as Address;
 
 const contractAddress: Address = process.env
   .NEXT_PUBLIC_CONTRACT_ADDRESS as Address;
 
-export { contractABI, contractAddress, stakingTokenABI, stakingTokenAddress };
+const airdropContractAddress: Address = process.env
+  .NEXT_PUBLIC_AIRDROP_CONTRACT_ADDRESS as Address;
+
+export {
+  contractABI,
+  contractAddress,
+  stakingTokenABI,
+  stakingTokenAddress,
+  airdropContractABI,
+  airdropContractAddress,
+};

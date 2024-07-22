@@ -27,6 +27,13 @@
   font-weight: 500;
   font-style: normal;
 }
+@font-face {
+  font-family: "NeueHaasGroteskDisplayPro";
+  src: url("/fonts/neue-haas-grotesk-display-pro/NeueHaasDisplayMedium.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
 
 @font-face {
   font-family: "NeueHaasGroteskDisplayPro";

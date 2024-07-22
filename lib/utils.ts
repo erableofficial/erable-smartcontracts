@@ -2,6 +2,8 @@ import { readContract } from "@wagmi/core";
 import { Address } from "viem";
 import { config } from "./wagmi/config";
 import {
+  airdropContractABI,
+  airdropContractAddress,
   contractABI,
   contractAddress,
   stakingTokenABI,
@@ -24,7 +26,7 @@ export function approximateTime(seconds: number): string {
   } else if (seconds < year) {
     return `${Math.round(seconds / day)} days`;
   } else {
-    return `${Math.round(seconds / year)} years`;
+    return `${Math.round(seconds / year)} year`;
   }
 }
 
@@ -44,17 +46,27 @@ export async function getUserStakes(
 
 export async function calculateTotalWithdraw(
   amount: bigint,
-  startTime: bigint
+  startTime: number,
+  yieldConstant: bigint,
+  monthlyIncreasePercentage: bigint,
+  startingSlashingPoint: bigint,
+  stakingDuration: bigint
 ): Promise<bigint> {
-  const currentTime = BigInt(new Date().getTime());
-  const timePassed = currentTime - startTime;
-  const timePassedInSeconds = timePassed / BigInt(1000);
+  const currentTime = BigInt(Math.floor(new Date().getTime() / 1000));
+  const timePassed = currentTime - BigInt(startTime / 1000);
 
   const result = await readContract(config, {
     abi: contractABI,
     address: contractAddress,
     functionName: "calculateTotalWithdraw",
-    args: [amount, timePassedInSeconds],
+    args: [
+      amount,
+      timePassed,
+      yieldConstant,
+      monthlyIncreasePercentage,
+      startingSlashingPoint,
+      stakingDuration,
+    ],
   });
 
   console.log("Result From calculateTotalWithdraw: ", result);
@@ -97,4 +109,125 @@ export async function getTotalStakedForUser(
 
   console.log("Result From getTotalStakedForUser: ", result);
   return result as bigint;
+}
+
+export async function getStakingDuration(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "stakingDuration",
+    args: [],
+  });
+
+  console.log("Result From getStakingDuration: ", result);
+  return result as bigint;
+}
+
+export async function getCooldownPeriod(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "cooldownPeriod",
+    args: [],
+  });
+
+  console.log("Result From getCooldownPeriod: ", result);
+  return result as bigint;
+}
+
+export async function getMonthlyIncreasePercentage(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthlyIncreasePercentage",
+    args: [],
+  });
+
+  console.log("Result From getMonthlyIncreasePercentage: ", result);
+  return result as bigint;
+}
+
+export async function getMonthsInStakingPeriod(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "monthsInStakingPeriod",
+    args: [],
+  });
+
+  console.log("Result From getMonthsInStakingPeriod: ", result);
+  return result as bigint;
+}
+
+export async function getStartingSlashingPoint(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "startingSlashingPoint",
+    args: [],
+  });
+
+  console.log("Result From getStartingSlashingPoint: ", result);
+  return result as bigint;
+}
+
+export async function getMaxCap(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "maxCap",
+    args: [],
+  });
+
+  console.log("Result From getMaxCap: ", result);
+  return result as bigint;
+}
+
+export async function getMinCap(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "minCap",
+    args: [],
+  });
+
+  console.log("Result From getMinCap: ", result);
+  return result as bigint;
+}
+
+export async function getYieldConstant(): Promise<bigint> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "yieldConstant",
+    args: [],
+  });
+
+  console.log("Result From getYieldConstant: ", result);
+  return result as bigint;
+}
+
+export async function getWhiteListEnabled(): Promise<boolean> {
+  const result = await readContract(config, {
+    abi: contractABI,
+    address: contractAddress,
+    functionName: "whitelistEnabled",
+    args: [],
+  });
+
+  console.log("Result From getWhiteListEnabled: ", result);
+  return result as boolean;
+}
+
+export async function getUserHasClaimedAirdrop(
+  cycleIndex: string,
+  address: Address | undefined
+): Promise<boolean> {
+  const result = await readContract(config, {
+    abi: airdropContractABI,
+    address: airdropContractAddress,
+    functionName: "hasUserClaimed",
+    args: [BigInt(cycleIndex), address],
+  });
+  return result as boolean;
 }

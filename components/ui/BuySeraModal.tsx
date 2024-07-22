@@ -25,7 +25,7 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
       onClick={closeModal}
     >
       <div
-        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute"
+        className="flex flex-col items-left px-10 pt-10 pb-10 bg-white rounded-[20px] border border-solid border-stone-300 max-w-[800px] max-md:px-5 absolute max-[663px]:mx-5"
         onClick={stopPropagation}
       >
         <div className="flex justify-end">
@@ -68,7 +68,17 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
         </p>
 
         <div className="flex gap-2.5 justify-left mt-10 text-base font-semibold text-neutral-700">
-          <button className="secondary-button-sm">Read tutorial</button>
+          <button
+            className="secondary-button-sm"
+            onClick={() =>
+              window.open(
+                "https://medium.com/@erableofficial/buy-era-on-uniswap-everything-you-need-to-know-0e73f335edbe",
+                "_blank"
+              )
+            }
+          >
+            Read tutorial
+          </button>
           <button className="primary-button-sm">
             <>
               <span className="my-auto">Buy $ERA on uniswap</span>
