@@ -40,6 +40,12 @@
       box-shadow: 2px 3px 0px #000000;
     }
   }
+  .disabled-btn {
+    @apply cursor-not-allowed flex gap-1 px-5 py-3  rounded-lg border-2 border-solid;
+    background-color: transparent;
+    border-color: #7c7c7c;
+    color: #7c7c7c;
+  }
 }
 
 html,
