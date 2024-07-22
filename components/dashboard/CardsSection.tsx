@@ -220,11 +220,11 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     LP Farming
                   </div>
                   <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-                    200,870 $ERA
+                    0 $ERA
                   </span>
                 </div>
                 <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
-                  Total liquidity provided <span>200,870 $ERA</span>
+                  Total liquidity provided <span>0 $ERA</span>
                 </div>
               </div>
             </section>
@@ -252,7 +252,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     totalSupply
                       ? `$ ${(
                           Number(formatEther(totalSupply as bigint)) * 0.001
-                        ).toFixed(6)}`
+                        ).toFixed(3)}`
                       : "$ 0"
                   }
                 />
@@ -261,14 +261,16 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                   title="Circulating supply"
                   value={
                     totalSupply
-                      ? Number(formatEther(totalSupply as bigint)).toFixed(6)
+                      ? Number(formatEther(totalSupply as bigint)).toFixed(3)
                       : "0"
                   }
                 />
                 <StatBlock title="Total supply" value="1,000,000,000" />
                 <StatBlock
                   title="Fully diluted market cap"
-                  value={`$ ${1000000000 * 0.001}`}
+                  value={`$ ${new Intl.NumberFormat("en-US").format(
+                    1000000000 * 0.001
+                  )}`}
                 />
               </div>
             </div>

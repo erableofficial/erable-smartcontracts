@@ -7,11 +7,13 @@ import { useStakingContractData } from "../../../context/stakingContractData";
 interface EstimatedWithdrawTokensProps {
   amount: number;
   setStakingAPR: (apr: number) => void;
+  setEstimatedValue: (value: number) => void;
 }
 
 const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
   amount,
   setStakingAPR,
+  setEstimatedValue,
 }) => {
   const [withdrawEstimetedAmount, setWithdrawEstimetedAmount] =
     React.useState<number>(amount);
@@ -44,6 +46,7 @@ const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
 
   useEffect(() => {
     if (totalEstimatedWithdraw) {
+      setEstimatedValue(Number(formatEther(totalEstimatedWithdraw as bigint)));
       const estimNumber = Number(formatEther(totalEstimatedWithdraw as bigint));
       const aprT = Number(((estimNumber - amount) / amount) * 100);
 

@@ -198,7 +198,7 @@ const StackStepTwoBody: React.FC<StackStepTwoBodyProps> = ({
             {amount} $ERA
           </div>
           <div className="my-auto text-base font-medium text-neutral-500">
-            =$250.000
+            =${amount * 0.001}
           </div>
         </section>
         <hr className="shrink-0 mt-6 h-px border border-solid bg-neutral-300 border-neutral-300 max-md:max-w-full" />
