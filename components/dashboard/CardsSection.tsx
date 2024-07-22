@@ -221,7 +221,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                   <div className="text-2xl text-neutral-700">$ERA stats</div>
                   <div className=" cursor-pointer self-start text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
                     <Link
-                      href="https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf"
+                      href="https://www.erable.com/ressources/whitepaper"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

@@ -244,7 +244,7 @@ const Faq: React.FC = () => {
             </h1>
             <div className="flex gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-lg:mt-10 max-lg:hidden justify-start">
               <Link
-                href="https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf"
+                href="https://www.erable.com/ressources/whitepaper"
                 target="_blank"
                 rel="noreferrer"
                 className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
