@@ -81,6 +81,10 @@ const Footer: React.FC = () => {
       link: "https://www.erable.com/ressources/whitepaper",
     },
     { text: "Contact us", link: "mailto:token@erable.com" },
+    {
+      text: "Terms & Conditions",
+      link: "https://www.erable.com/ressources/terms-and-conditions",
+    },
   ];
 
   const socialMediaItems = [
