@@ -3,6 +3,11 @@ import React from "react";
 import { formatEther } from "viem";
 import BridgeProcessModal from "../ui/BridgeProcessModal";
 import Link from "next/link";
+import { useReadContract } from "wagmi";
+import {
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../lib/blockchain-config";
 
 type CardsSectionProps = {
   myBalance: BigInt;
@@ -31,6 +36,13 @@ const CardsSection: React.FC<CardsSectionProps> = ({
 }) => {
   const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
     React.useState(false);
+
+  const { data: totalSupply, error: totalSupplyError } = useReadContract({
+    abi: stakingTokenABI,
+    address: stakingTokenAddress,
+    functionName: "totalSupply",
+  });
+
   return (
     <>
       <div className="flex justify-center self-stretch  mt-14 w-full max-[1281px]:px-5 max-lg:max-w-full max-sm:mt-4">
@@ -234,9 +246,25 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                 </div>
               </div>
               <div className="flex flex-col h-full mt-6 justify-between max-sm:mt-5 ">
-                <StatBlock title="Marketcap" value="$1,451,188" />
+                <StatBlock
+                  title="Marketcap"
+                  value={
+                    totalSupply
+                      ? `$ ${(
+                          Number(formatEther(totalSupply as bigint)) * 0.001
+                        ).toFixed(6)}`
+                      : "$ 0"
+                  }
+                />
                 {/* <StatBlock title="Volume" value="xx" /> */}
-                <StatBlock title="Circulating supply" value="217,000,000" />
+                <StatBlock
+                  title="Circulating supply"
+                  value={
+                    totalSupply
+                      ? Number(formatEther(totalSupply as bigint)).toFixed(6)
+                      : "0"
+                  }
+                />
                 <StatBlock title="Total supply" value="1,000,000,000" />
                 <StatBlock
                   title="Fully diluted market cap"
