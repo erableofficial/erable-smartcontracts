@@ -481,7 +481,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       ))}
                     </nav>
                     <div className="flex gap-4 pl-20 text-base font-semibold text-neutral-700 max-md:flex-wrap max-lg:hidden">
-                      <button className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
+                      <button
+                        className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid"
+                        onClick={() =>
+                          window.open(
+                            "https://discord.gg/erabledeg-897392916081831966",
+                            "_blank"
+                          )
+                        }
+                      >
                         Help ?
                       </button>
                       <div>

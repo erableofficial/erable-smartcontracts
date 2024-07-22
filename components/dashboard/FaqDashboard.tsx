@@ -51,6 +51,8 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
           <div className="self-start mt-6 text-lg font-semibold text-neutral-700 ">
             <Link
               href={link}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-6 text-lg font-semibold font-NeueHaas text-neutral-700 border-b-2 border-black"
             >
               Learn More
@@ -113,7 +115,7 @@ const Faq: React.FC = () => {
           </div>
         </>
       ),
-      link: "#",
+      link: "https://www.erable.com/",
     },
     {
       question: "What is the $ERA token?",
@@ -151,7 +153,7 @@ const Faq: React.FC = () => {
           </div>
         </>
       ),
-      link: "#",
+      link: "https://www.erable.com/ressources/whitepaper",
     },
     {
       question: "Where to get $ERA?",
@@ -173,7 +175,7 @@ const Faq: React.FC = () => {
           </div>
         </>
       ),
-      link: "#",
+      link: "https://medium.com/@erableofficial/buy-era-on-uniswap-everything-you-need-to-know-0e73f335edbe",
     },
     {
       question: "How to bridge as a $CLAP holder?",
@@ -227,7 +229,7 @@ const Faq: React.FC = () => {
           </div>
         </>
       ),
-      link: "#",
+      link: "https://medium.com/@erableofficial/bridge-your-clap-on-cardano-to-era-on-polygon-everything-you-need-to-know-9a51be37fcb2",
     },
   ];
 
@@ -244,7 +246,7 @@ const Faq: React.FC = () => {
             </h1>
             <div className="flex gap-5 mt-14 text-lg font-semibold tracking-wide leading-5 text-primary max-lg:mt-10 max-lg:hidden justify-start">
               <Link
-                href="https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf"
+                href="https://www.erable.com/ressources/whitepaper"
                 target="_blank"
                 rel="noreferrer"
                 className="justify-center px-7 py-4 bg-surface-primary rounded-xl border-solid border-[3px] border-primary max-md:px-5 primary-button"
@@ -252,7 +254,9 @@ const Faq: React.FC = () => {
                 Read Whitepaper
               </Link>
               <Link
-                href="#"
+                href="https://discord.gg/erabledeg-897392916081831966"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button "
               >
                 Get help

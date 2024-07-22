@@ -257,7 +257,7 @@ const Roadmap: React.FC = () => {
             className="primary-button"
             onClick={() =>
               window.open(
-                "https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf",
+                "https://www.erable.com/ressources/whitepaper",
                 "_blank"
               )
             }

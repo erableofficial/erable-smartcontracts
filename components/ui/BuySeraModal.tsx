@@ -79,10 +79,16 @@ const BuySeraModal: React.FC<BuySeraModalProps> = ({
           >
             Read tutorial
           </button>
-          <button className="primary-button-sm">
+          {/* <button className="primary-button-sm">
             <>
               <span className="my-auto">Buy $ERA on uniswap</span>
               <ArrowUpRight width={24} height={24} size={32} color="#000000" />
+            </>
+          </button> */}
+          <button className="disabled-btn">
+            <>
+              <span className="my-auto">Buy $ERA on uniswap</span>
+              <ArrowUpRight width={24} height={24} size={32} color="#7c7c7c" />
             </>
           </button>
         </div>
