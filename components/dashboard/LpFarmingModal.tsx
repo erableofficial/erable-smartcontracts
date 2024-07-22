@@ -94,9 +94,7 @@ const LpFarmingModal: React.FC<LpFarmingModalProps> = ({
           <button className="secondary-button-sm">Read tutorial</button>
           {/* <Link
             target="_blank"
-            href={
-              "https://app.uniswap.org/add/0xc2132D05D31c914a87C6611C10748AEb04B58e8F/0xc2A45FE7d40bCAc8369371B08419DDAFd3131b4a"
-            }
+            href=""
             className="primary-button-sm"
           >
             <span className="my-auto">Start providing liquidity</span>
