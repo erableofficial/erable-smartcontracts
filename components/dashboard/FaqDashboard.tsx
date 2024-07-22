@@ -51,6 +51,8 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer, link }) => {
           <div className="self-start mt-6 text-lg font-semibold text-neutral-700 ">
             <Link
               href={link}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-6 text-lg font-semibold font-NeueHaas text-neutral-700 border-b-2 border-black"
             >
               Learn More
@@ -113,7 +115,7 @@ const Faq: React.FC = () => {
           </div>
         </>
       ),
-      link: "#",
+      link: "https://www.erable.com/",
     },
     {
       question: "What is the $ERA token?",
@@ -151,7 +153,7 @@ const Faq: React.FC = () => {
           </div>
         </>
       ),
-      link: "#",
+      link: "https://www.erable.com/ressources/whitepaper",
     },
     {
       question: "Where to get $ERA?",
@@ -173,7 +175,7 @@ const Faq: React.FC = () => {
           </div>
         </>
       ),
-      link: "#",
+      link: "https://medium.com/@erableofficial/buy-era-on-uniswap-everything-you-need-to-know-0e73f335edbe",
     },
     {
       question: "How to bridge as a $CLAP holder?",
@@ -227,7 +229,7 @@ const Faq: React.FC = () => {
           </div>
         </>
       ),
-      link: "#",
+      link: "https://medium.com/@erableofficial/bridge-your-clap-on-cardano-to-era-on-polygon-everything-you-need-to-know-9a51be37fcb2",
     },
   ];
 
