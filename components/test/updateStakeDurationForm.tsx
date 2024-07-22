@@ -56,14 +56,14 @@ export default function UpdateStakeDurationForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Handle form submission here
-    console.log("Updating staking duration....");
+   
     writeContract({
       address: contractAddress,
       abi: contractABI,
       functionName: "updateStakingDuration",
       args: [stakeDuration.toString()],
     });
-    console.log("Stake duration updated:", stakeDuration);
+  
   };
 
   return (

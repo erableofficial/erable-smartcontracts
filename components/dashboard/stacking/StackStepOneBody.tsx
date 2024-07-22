@@ -188,12 +188,11 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   };
 
   const handleAmountChange = (amount: string) => {
-    console.log("Amount getting changed by conditable element : ", amount);
-
+   
     // Clean up the input by removing non-numeric characters except for dot (.)
     let cleanedAmount = amount.replace(/[^0-9.]/g, "");
 
-    console.log("Cleaned Amount:", cleanedAmount);
+   
 
     const amountVal = Number(amount);
 

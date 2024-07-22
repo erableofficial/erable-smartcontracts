@@ -62,7 +62,6 @@ export default function UnstackButton({ stakeId }: { stakeId: number }) {
         disabled={isPending}
         onClick={() => {
           handleUnstack(stakeId);
-          console.log("Unstaking");
         }}
         className="primary-button"
       >

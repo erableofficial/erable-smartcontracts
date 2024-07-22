@@ -83,24 +83,20 @@ export default function CreateAirdropCycle() {
 
   const handleCreateAirdropCycle = async () => {
     // create airdrop cycle
-    console.log("Creating Airdrop Cycle...");
+   
     if (merkleTreeElements.length === 0) {
       toast.error("No addresses to airdrop.");
-      console.log("No addresses to airdrop.");
+     
       return;
     }
-    console.log("Merkle Tree Elements:", merkleTreeElements);
     const leaves = merkleTreeElements.map((element) =>
       keccak256(
         encodePacked(["address", "uint256"], [element.address, element.amount])
       )
     );
-    console.log("Leaves:", leaves);
 
     const merkleTree = new MerkleTree(leaves, keccak256, { sortPairs: true });
     const root = merkleTree.getHexRoot();
-    console.log("Merkle Tree :", merkleTree);
-    console.log("Merkle Tree Root:", root);
 
     writeContract({
       abi: airdropContractABI,

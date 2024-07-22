@@ -22,9 +22,7 @@ export default function Header() {
         : "0";
     }
   }, [isOpen]);
-  useEffect(() => {
-    console.log("isOpen", isOpen);
-  }, [isOpen]);
+
   const utilities = [
     { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
     { text: "LP Farming", link: "/dashboard?tab=Farming#utilities" },

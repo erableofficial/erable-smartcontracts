@@ -45,10 +45,7 @@ const EstimatedWithdrawTokens: React.FC<EstimatedWithdrawTokensProps> = ({
   useEffect(() => {
     if (totalEstimatedWithdraw) {
       const estimNumber = Number(formatEther(totalEstimatedWithdraw as bigint));
-      console.log("Estim Number : ", estimNumber);
-      console.log("Amount : ", amount);
       const aprT = Number(((estimNumber - amount) / amount) * 100);
-      console.log("APR TEST : ", aprT.toFixed(2));
 
       setStakingAPR(aprT);
     }

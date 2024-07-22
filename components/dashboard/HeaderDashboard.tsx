@@ -15,7 +15,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = React.useState(false);
   const contentRef = React.useRef<HTMLDivElement>(null);
   const toggleOpen = () => {
-    console.log("isOpen fired");
+
     setIsOpen(!isOpen);
   };
   React.useEffect(() => {
@@ -26,7 +26,7 @@ export default function Header() {
     }
   }, [isOpen]);
   React.useEffect(() => {
-    console.log("isOpen", isOpen);
+    
   }, [isOpen]);
   const utilities = [
     { text: "Staking", link: "/dashboard?tab=Staking#utilities" },

@@ -89,7 +89,7 @@ export default function ClaimButton({
           disabled={isPending}
           onClick={() => {
             handleClaim(stakeId);
-            console.log("Claiming");
+         
           }}
           className="primary-button"
         >

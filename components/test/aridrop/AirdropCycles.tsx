@@ -17,8 +17,6 @@ export default function AirdropCycles() {
 
   const airdropCycles = data as IAirdropCycleInfo[];
 
-  console.log("Airdrop Cycles: ", airdropCycles);
-
   return (
     <div>
       <h2 className="mt-8 text-3xl text-center">All Airdrop Cycles </h2>
