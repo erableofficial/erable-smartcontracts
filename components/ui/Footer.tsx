@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
   const solutionItems = [
     { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
     { text: "LP Farming", onClick: () => setToggleLpFarmingModal(true) },
-    { text: "Engage to Earn", link: "/dashboard?tab=Airdrop#utilities" },
+    { text: "Engage to Earn", link: "/dashboard?tab=Engage to Earn#utilities" },
     { text: "Governance", soon: true },
   ];
 

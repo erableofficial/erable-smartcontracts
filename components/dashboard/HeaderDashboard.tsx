@@ -31,7 +31,7 @@ export default function Header() {
   const utilities = [
     { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
     { text: "LP Farming", link: "/dashboard?tab=Farming#utilities" },
-    { text: "Engage to Earn", link: "/dashboard?tab=Airdrop#utilities" },
+    { text: "Engage to Earn", link: "/dashboard?tab=Engage to Earn#utilities" },
   ];
   const docs = [
     {
@@ -109,7 +109,7 @@ export default function Header() {
                     LP Farming
                   </div>
                 </Link>
-                <Link href="/dashboard?tab=Airdrop#utilities">
+                <Link href="/dashboard?tab=Engage to Earn#utilities">
                   <div className="flex gap-4  transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
                     Engage to Earn
                   </div>

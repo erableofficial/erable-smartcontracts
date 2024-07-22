@@ -119,7 +119,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     if (Router.query.tab) {
       setSelected(Router.query.tab as string);
     }
-  }, [Router.query.tab]);
+  }, [Router.query]);
 
   const {
     isConnected,
@@ -404,7 +404,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     { name: "All", qt: allItems?.length },
     { name: "Staking", qt: stakingItems?.length },
     { name: "Farming", qt: farmingItems?.length },
-    { name: "Airdrop", qt: airdropItems?.length },
+    { name: "Engage to Earn", qt: airdropItems?.length },
   ];
 
   const handleTabClick = (label: string) => {
@@ -626,7 +626,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       </div>
                     )}
                   </>
-                ) : selected === "Airdrop" ? (
+                ) : selected === "Engage to Earn" ? (
                   <>
                     {!isAirdropLoading ? (
                       <>
