@@ -515,7 +515,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                             className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
                           >
                             {/* Dropdown items here */}
-                            <Link href="/dashboard/stacking">
+                            <Link href="/dashboard/staking">
                               <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
                                 Staking
                               </div>
@@ -675,7 +675,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
                 >
                   {/* Dropdown items here */}
-                  <Link href="/dashboard/stacking">
+                  <Link href="/dashboard/staking">
                     <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
                       Staking
                     </div>
