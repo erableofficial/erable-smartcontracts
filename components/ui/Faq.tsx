@@ -252,7 +252,9 @@ const Faq: React.FC = () => {
                 Read Whitepaper
               </Link>
               <Link
-                href="#"
+                href="https://discord.gg/erabledeg-897392916081831966"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button "
               >
                 Get help
