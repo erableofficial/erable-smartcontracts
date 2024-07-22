@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
-contract MerkleAirdrop is Ownable {
+contract MerkleAirdrop  {
     IERC20 public token;
 
     struct AirdropCycle {
         bytes32 merkleRoot;
         bool isActive;
     }
+    address _owner;
 
     AirdropCycle[] public airdropCycles;
     mapping(uint256 => mapping(address => bool)) public hasClaimed;
@@ -19,11 +19,14 @@ contract MerkleAirdrop is Ownable {
     event AirdropCycleCreated(uint256 cycleIndex, bytes32 merkleRoot);
     event TokensClaimed(address indexed claimant, uint256 amount);
     event TokensDeposited(uint256 amount);
-
     constructor(IERC20 _token) {
         token = _token;
+        _owner = msg.sender;
     }
-
+    modifier onlyOwner() {
+        require(_owner == msg.sender, "Ownable: caller is not the owner");
+        _;
+    }
     function createAirdropCycle(bytes32 _merkleRoot) external onlyOwner {
         airdropCycles.push(AirdropCycle({
             merkleRoot: _merkleRoot,

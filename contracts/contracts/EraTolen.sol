@@ -9,9 +9,9 @@ Les spécifications :
 •⁠  ⁠Supply: 1,000,000,000 $ERA
 •⁠  ⁠Decimals: 18*/
 
-contract TamkinToken is ERC20 {
-    constructor(uint256 initialSupply) ERC20("$ERA token", "$ERA") {
-        _mint(msg.sender, initialSupply);
+contract erableToken is ERC20 {
+    constructor(uint256 initialSupply, address sigWallet) ERC20("$ERA token", "$ERA") {
+        _mint(sigWallet, initialSupply);
     }
 
     function burn(uint256 amount) public {
