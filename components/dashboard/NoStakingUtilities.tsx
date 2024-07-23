@@ -70,17 +70,19 @@ const NoStakingUtilities: React.FC<NoStakingUtilitiesProps> = ({
                 </span>
               </div>
               <div className="flex gap-2 justify-between mt-2 text-base font-medium text-black">
-                <p>APR: xx</p>
+                <p>APR: 11.52%</p>
                 <p>
                   Program duration:{" "}
                   {stakingContractData?.stakingDuration
-                    ? approximateTime(Number(stakingContractData?.stakingDuration))
+                    ? approximateTime(
+                        Number(stakingContractData?.stakingDuration)
+                      )
                     : "0 year"}
                 </p>
               </div>
             </section>
             <Link
-              href="/dashboard/stacking"
+              href="/dashboard/staking"
               className="primary-button-sm justify-center self-start px-5 py-3 mt-6 text-base font-semibold   "
             >
               Start staking

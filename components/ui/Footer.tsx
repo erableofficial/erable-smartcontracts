@@ -63,7 +63,7 @@ const Footer: React.FC = () => {
   const solutionItems = [
     { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
     { text: "LP Farming", onClick: () => setToggleLpFarmingModal(true) },
-    { text: "Engage to Earn", link: "/dashboard?tab=Airdrop#utilities" },
+    { text: "Engage to Earn", link: "/dashboard?tab=Engage to Earn#utilities" },
     { text: "Governance", soon: true },
   ];
 
@@ -78,9 +78,13 @@ const Footer: React.FC = () => {
     },
     {
       text: "Whitepaper",
-      link: "https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf",
+      link: "https://www.erable.com/ressources/whitepaper",
     },
     { text: "Contact us", link: "mailto:token@erable.com" },
+    {
+      text: "Terms & Conditions",
+      link: "https://www.erable.com/ressources/terms-and-conditions",
+    },
   ];
 
   const socialMediaItems = [

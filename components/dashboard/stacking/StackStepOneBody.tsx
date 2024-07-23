@@ -81,6 +81,7 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   const [toggleAuthorizeStackingModal, setToggleAuthorizeStackingModal] =
     React.useState(false);
   const [lessBalanceError, setLessBalanceError] = React.useState(false);
+  const [estimatedValue, setEstimatedValue] = React.useState(0);
 
   React.useEffect(() => {
     if (isConfirmed) {
@@ -188,12 +189,8 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
   };
 
   const handleAmountChange = (amount: string) => {
-    console.log("Amount getting changed by conditable element : ", amount);
-
     // Clean up the input by removing non-numeric characters except for dot (.)
     let cleanedAmount = amount.replace(/[^0-9.]/g, "");
-
-    console.log("Cleaned Amount:", cleanedAmount);
 
     const amountVal = Number(amount);
 
@@ -278,11 +275,14 @@ const StackStepOneBody: React.FC<StackStepOneBodyProps> = ({
             <EstimatedWithdrawTokens
               setStakingAPR={setStakingAPR}
               amount={amount}
+              setEstimatedValue={setEstimatedValue}
             />
           </div>
           <div className="flex gap-5 justify-between text-base font-medium whitespace-nowrap text-neutral-500 max-md:flex-wrap max-md:max-w-full">
-            <div>=$250.000</div>
-            <div>=$250.000</div>
+            <div>=$ {amount === 0 ? 0 : amount * 0.001} </div>
+            <div>
+              =${estimatedValue === 0 ? 0 : (estimatedValue * 0.001).toFixed(6)}
+            </div>
           </div>
           {lessBalanceError && (
             <div className="pt-6 max-w-fit ">

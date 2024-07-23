@@ -119,7 +119,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     if (Router.query.tab) {
       setSelected(Router.query.tab as string);
     }
-  }, [Router.query.tab]);
+  }, [Router.query]);
 
   const {
     isConnected,
@@ -404,7 +404,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
     { name: "All", qt: allItems?.length },
     { name: "Staking", qt: stakingItems?.length },
     { name: "Farming", qt: farmingItems?.length },
-    { name: "Airdrop", qt: airdropItems?.length },
+    { name: "Engage to Earn", qt: airdropItems?.length },
   ];
 
   const handleTabClick = (label: string) => {
@@ -481,7 +481,15 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       ))}
                     </nav>
                     <div className="flex gap-4 pl-20 text-base font-semibold text-neutral-700 max-md:flex-wrap max-lg:hidden">
-                      <button className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid">
+                      <button
+                        className=" secondary-button-sm  justify-center px-5 py-3 bg-white rounded-lg border-2 border-black border-solid"
+                        onClick={() =>
+                          window.open(
+                            "https://discord.gg/erabledeg-897392916081831966",
+                            "_blank"
+                          )
+                        }
+                      >
                         Help ?
                       </button>
                       <div>
@@ -507,7 +515,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                             className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
                           >
                             {/* Dropdown items here */}
-                            <Link href="/dashboard/stacking">
+                            <Link href="/dashboard/staking">
                               <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
                                 Staking
                               </div>
@@ -618,7 +626,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                       </div>
                     )}
                   </>
-                ) : selected === "Airdrop" ? (
+                ) : selected === "Engage to Earn" ? (
                   <>
                     {!isAirdropLoading ? (
                       <>
@@ -667,7 +675,7 @@ const Dashboard: React.FC<DashboardProps> = () => {
                   className={`dropdown-content border-solid z-20 border-2 border-neutral-200 p-3 w-[214px] bg-white shadow-md rounded-lg mt-3 absolute font-medium`}
                 >
                   {/* Dropdown items here */}
-                  <Link href="/dashboard/stacking">
+                  <Link href="/dashboard/staking">
                     <div className="transition duration-300 ease-in-out hover:bg-success-200 rounded-lg py-3 px-[10px] cursor-pointer  ">
                       Staking
                     </div>

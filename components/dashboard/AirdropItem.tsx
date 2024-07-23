@@ -118,15 +118,14 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       return;
     }
 
-    // console.log("Airdrop from blockchain : ", airdropCyclesFromBlockchain);
+   
 
     // get all airdrops from context that cycle === airdrop.airdropCycleIndex and remove cycle fiedl from them then create a merkle tree
     const airdrops = airdropCycles.filter(
       (airCycle: any) => Number(airCycle.cycle) === airdrop.airdropCycleIndex
     );
 
-    console.log("airdrops: ", airdrops);
-    // console.log("airdrops from blockchain: ", airdropCyclesFromBlockchain);
+  
 
     const sortedAirdrops = airdrops.sort((a, b) => {
       if (a.address < b.address) return -1;
@@ -134,7 +133,7 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       return 0;
     });
 
-    console.log("sorted airdrops: ", sortedAirdrops);
+   
 
     const leaves = sortedAirdrops.map((aird) => {
       const amountWei = parseEther(Number(aird.amount).toString());
@@ -144,12 +143,12 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       );
     });
 
-    console.log("leaves: ", leaves);
+  
 
     const merkleTree = new MerkleTree(leaves, keccak256, { sortPairs: true });
 
     const root = merkleTree.getHexRoot();
-    console.log("root: ", root);
+   
 
     const amountWei = parseEther(Number(airdrop.amount).toString());
 
@@ -159,7 +158,7 @@ const AirdropItem: React.FC<AirdropItemProps> = ({
       )
     );
 
-    console.log("proof: ", proof);
+   
 
     writeContract({
       abi: airdropContractABI,

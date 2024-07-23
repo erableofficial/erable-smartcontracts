@@ -33,7 +33,7 @@ export default function StakeInfo({
     functionName: "userStakes",
     args: [account.address, stakeId],
   });
-  console.log(result);
+
 
   if (result.isLoading) {
     return <Loading className="mb-5" />;
@@ -60,12 +60,6 @@ export default function StakeInfo({
   const [amount, startTime, requestUnstakeTime, unstakeRequested] =
     result.data as any[];
 
-  console.log(result.data);
-
-  console.log("Amount : ", amount);
-  console.log("startTime : ", startTime);
-  console.log("requestUnstakeTime : ", requestUnstakeTime.toString());
-  console.log("unstakeRequested : ", unstakeRequested);
 
   return (
     <div

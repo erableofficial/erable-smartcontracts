@@ -3,6 +3,11 @@ import React from "react";
 import { formatEther } from "viem";
 import BridgeProcessModal from "../ui/BridgeProcessModal";
 import Link from "next/link";
+import { useReadContract } from "wagmi";
+import {
+  stakingTokenABI,
+  stakingTokenAddress,
+} from "../../lib/blockchain-config";
 
 type CardsSectionProps = {
   myBalance: BigInt;
@@ -31,6 +36,13 @@ const CardsSection: React.FC<CardsSectionProps> = ({
 }) => {
   const [toggleBridgeProcessModal, setToggleBridgeProcessModal] =
     React.useState(false);
+
+  const { data: totalSupply, error: totalSupplyError } = useReadContract({
+    abi: stakingTokenABI,
+    address: stakingTokenAddress,
+    functionName: "totalSupply",
+  });
+
   return (
     <>
       <div className="flex justify-center self-stretch  mt-14 w-full max-[1281px]:px-5 max-lg:max-w-full max-sm:mt-4">
@@ -63,12 +75,15 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                         : "0"}
                     </div>
                     <div className="flex items-center text-lg font-medium max-sm:text-sm">
-                      $ERA = $1.50
+                      $ERA =$
+                      {(
+                        Number(formatEther(myBalance as bigint)) * 0.001
+                      ).toFixed(2)}
                     </div>
                   </div>
                   <div className="flex items-center ml-1">
                     <div className="justify-center w-fit self-start px-2.5 py-[6px] text-sm font-medium text-neutral-700 bg-surface-500 border-[1.5px] border-black border-solid rounded-[38px] mt-1">
-                      1 $ERA = price
+                      1 $ERA = $0.001
                     </div>
                   </div>
                 </div>
@@ -205,11 +220,11 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                     LP Farming
                   </div>
                   <span className="justify-center px-2.5 py-1.5 text-sm font-medium text-neutral-700 bg-surface-500 border-2 border-black border-solid rounded-[38px]">
-                    200,870 $ERA
+                    0 $ERA
                   </span>
                 </div>
                 <div className=" text-base mt-1 flex justify-between font-medium text-neutral-500">
-                  Total liquidity provided <span>200,870 $ERA</span>
+                  Total liquidity provided <span>0 $ERA</span>
                 </div>
               </div>
             </section>
@@ -221,7 +236,7 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                   <div className="text-2xl text-neutral-700">$ERA stats</div>
                   <div className=" cursor-pointer self-start text-lg text-neutral-700 whitespace-nowrap border-b-2 border-black border-solid max-sm:text-base">
                     <Link
-                      href="https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf"
+                      href="https://www.erable.com/ressources/whitepaper"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -231,13 +246,31 @@ const CardsSection: React.FC<CardsSectionProps> = ({
                 </div>
               </div>
               <div className="flex flex-col h-full mt-6 justify-between max-sm:mt-5 ">
-                <StatBlock title="Marketcap" value="$1,451,188" />
+                <StatBlock
+                  title="Marketcap"
+                  value={
+                    totalSupply
+                      ? `$ ${(
+                          Number(formatEther(totalSupply as bigint)) * 0.001
+                        ).toFixed(3)}`
+                      : "$ 0"
+                  }
+                />
                 {/* <StatBlock title="Volume" value="xx" /> */}
-                <StatBlock title="Circulating supply" value="217,000,000" />
+                <StatBlock
+                  title="Circulating supply"
+                  value={
+                    totalSupply
+                      ? Number(formatEther(totalSupply as bigint)).toFixed(3)
+                      : "0"
+                  }
+                />
                 <StatBlock title="Total supply" value="1,000,000,000" />
                 <StatBlock
                   title="Fully diluted market cap"
-                  value="$6,951,110"
+                  value={`$ ${new Intl.NumberFormat("en-US").format(
+                    1000000000 * 0.001
+                  )}`}
                 />
               </div>
             </div>

@@ -15,7 +15,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = React.useState(false);
   const contentRef = React.useRef<HTMLDivElement>(null);
   const toggleOpen = () => {
-    console.log("isOpen fired");
+
     setIsOpen(!isOpen);
   };
   React.useEffect(() => {
@@ -26,12 +26,12 @@ export default function Header() {
     }
   }, [isOpen]);
   React.useEffect(() => {
-    console.log("isOpen", isOpen);
+    
   }, [isOpen]);
   const utilities = [
     { text: "Staking", link: "/dashboard?tab=Staking#utilities" },
     { text: "LP Farming", link: "/dashboard?tab=Farming#utilities" },
-    { text: "Engage to Earn", link: "/dashboard?tab=Airdrop#utilities" },
+    { text: "Engage to Earn", link: "/dashboard?tab=Engage to Earn#utilities" },
   ];
   const docs = [
     {
@@ -44,7 +44,7 @@ export default function Header() {
     },
     {
       text: "White paper",
-      link: "https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf",
+      link: "https://www.erable.com/ressources/whitepaper",
     },
   ];
   return (
@@ -109,7 +109,7 @@ export default function Header() {
                     LP Farming
                   </div>
                 </Link>
-                <Link href="/dashboard?tab=Airdrop#utilities">
+                <Link href="/dashboard?tab=Engage to Earn#utilities">
                   <div className="flex gap-4  transition duration-300 ease-in-out hover:bg-surface-500 rounded-lg py-3 px-[10px] cursor-pointer ">
                     Engage to Earn
                   </div>
@@ -147,7 +147,7 @@ export default function Header() {
                   </div>
                 </Link>
                 <Link
-                  href="https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf"
+                  href="https://www.erable.com/ressources/whitepaper"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

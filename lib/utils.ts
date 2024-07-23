@@ -40,7 +40,6 @@ export async function getUserStakes(
     args: [userAddress],
   });
 
-  console.log("Result From getUserStakes: ", result);
   return result as StakeInfo[];
 }
 
@@ -69,7 +68,6 @@ export async function calculateTotalWithdraw(
     ],
   });
 
-  console.log("Result From calculateTotalWithdraw: ", result);
   return result as bigint;
 }
 
@@ -81,7 +79,6 @@ export async function getUserBalance(address: Address | undefined) {
     args: [address],
   });
 
-  console.log("Result From getUserBalance: ", result);
   return result as bigint;
 }
 
@@ -93,7 +90,6 @@ export async function getTotalStaked(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getTotalStaked: ", result);
   return result as bigint;
 }
 
@@ -107,7 +103,6 @@ export async function getTotalStakedForUser(
     args: [address],
   });
 
-  console.log("Result From getTotalStakedForUser: ", result);
   return result as bigint;
 }
 
@@ -119,7 +114,6 @@ export async function getStakingDuration(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getStakingDuration: ", result);
   return result as bigint;
 }
 
@@ -131,7 +125,6 @@ export async function getCooldownPeriod(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getCooldownPeriod: ", result);
   return result as bigint;
 }
 
@@ -143,7 +136,6 @@ export async function getMonthlyIncreasePercentage(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getMonthlyIncreasePercentage: ", result);
   return result as bigint;
 }
 
@@ -155,7 +147,6 @@ export async function getMonthsInStakingPeriod(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getMonthsInStakingPeriod: ", result);
   return result as bigint;
 }
 
@@ -167,7 +158,6 @@ export async function getStartingSlashingPoint(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getStartingSlashingPoint: ", result);
   return result as bigint;
 }
 
@@ -179,7 +169,6 @@ export async function getMaxCap(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getMaxCap: ", result);
   return result as bigint;
 }
 
@@ -191,7 +180,6 @@ export async function getMinCap(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getMinCap: ", result);
   return result as bigint;
 }
 
@@ -203,7 +191,6 @@ export async function getYieldConstant(): Promise<bigint> {
     args: [],
   });
 
-  console.log("Result From getYieldConstant: ", result);
   return result as bigint;
 }
 
@@ -215,7 +202,6 @@ export async function getWhiteListEnabled(): Promise<boolean> {
     args: [],
   });
 
-  console.log("Result From getWhiteListEnabled: ", result);
   return result as boolean;
 }
 

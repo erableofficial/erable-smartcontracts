@@ -140,7 +140,7 @@ const Stacking: React.FC = () => {
       title: "Reward Rate (APR)*",
       description:
         "The annual percentage rate currently being earned in the staking program.",
-      value: stakingAPR.toFixed(2) || "00",
+      value: stakingAPR.toFixed(2) + "%" || "00",
     },
     {
       title: "Staking Duration*",

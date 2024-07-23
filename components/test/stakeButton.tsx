@@ -31,7 +31,7 @@ export default function StakeButton() {
     });
   };
 
-  console.log(writeError)
+
 
   return (
     <div>

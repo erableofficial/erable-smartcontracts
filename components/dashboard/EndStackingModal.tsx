@@ -47,7 +47,7 @@ const EndStackingModal: React.FC<EndStackingModalProps> = ({
   const estimNumber = Number(formatEther(stake.currentRewards as bigint));
   const amount = Number(formatEther(stake.amount as bigint));
   const apr = (estimNumber / amount) * 100;
-  console.log("APR : ", apr);
+
 
   return (
     <div

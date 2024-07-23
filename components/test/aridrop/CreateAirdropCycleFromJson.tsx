@@ -147,14 +147,10 @@ export default function CreateAirdropCycleFromJson() {
     reader.readAsText(file);
   };
 
-  console.log("AirdopCycle : ", Number(airdropCycleCount as bigint));
 
   const handleCreateAirdropCycle = async () => {
-    // create airdrop cycle
-    console.log("Creating Airdrop Cycle...");
     if (merkleTreeElements.length === 0) {
       toast.error("No addresses to airdrop.");
-      console.log("No addresses to airdrop.");
       return;
     }
 
@@ -165,19 +161,15 @@ export default function CreateAirdropCycleFromJson() {
       return 0;
     });
 
-    console.log("Sorted Merkle Tree Elements:", sortedMerkleTreeElements);
 
     const leaves = sortedMerkleTreeElements.map((element) =>
       keccak256(
         encodePacked(["address", "uint256"], [element.address, element.amount])
       )
     );
-    console.log("Leaves:", leaves);
 
     const merkleTree = new MerkleTree(leaves, keccak256, { sortPairs: true });
     const root = merkleTree.getHexRoot();
-    console.log("Merkle Tree :", merkleTree);
-    console.log("Merkle Tree Root:", root);
 
     // convert merkleTreeElements.amount to number ans store them int new variable elements
     const elements = merkleTreeElements.map((element) => ({
@@ -186,7 +178,6 @@ export default function CreateAirdropCycleFromJson() {
       amount: formatEther(element.amount),
     }));
 
-    console.log("Elements:", elements);
 
     const loadingToast = toast.loading("Saving Airdrop Cycle To Redis...");
 

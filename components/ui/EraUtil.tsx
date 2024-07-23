@@ -78,7 +78,7 @@ const EraUtil: React.FC = () => {
             className="justify-center px-7 py-4 rounded-xl border-solid bg-surface-primary bg-opacity-0 border-[3px] border-primary max-md:px-5 secondary-button max-sm:p-3"
             onClick={() =>
               window.open(
-                "https://uploads-ssl.webflow.com/65169eb6a44aa82a08547c89/669675e95bf23d046b0d2995_erable%C2%B0_whitepaper_v2.0_July24.pdf",
+                "https://www.erable.com/ressources/whitepaper",
                 "_blank"
               )
             }
